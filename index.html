@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1EZM399KT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-Q1EZM399KT');
+    </script>
+    <!-- End Google Analytics -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Visa & Journeys | Get the Visa Right, Enjoy Your Flight.</title>
+    <meta name="description" content="Expert UK & Schengen visa strategy for high-risk applicants. Forensic document audits and travel logistics.">
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117; /* Deep Navy/Black Background */
+            color: #e5e7eb;
+        }
+        .text-gold {
+            color: #d4af37; /* Gold/Bronze Accent */
+        }
+        .bg-navy {
+            background-color: #1a232e;
+        }
+        .btn-gold {
+            background-color: #d4af37;
+            color: #1a232e;
+            transition: background-color 0.3s;
+            font-weight: 700;
+        }
+        .btn-gold:hover {
+            background-color: #ffcc66;
+        }
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: white;
+            transition: background-color 0.3s;
+            font-weight: 700;
+        }
+        .btn-whatsapp:hover {
+            background-color: #128C7E;
+        }
+        .logo-text {
+            font-size: 1.75rem;
+            font-weight: 900;
+        }
+        /* Modal Backdrop */
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 50;
+        }
+        /* FAQ Accordion Transition */
+        .faq-content {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .faq-active .faq-content {
+            max-height: 500px; /* Arbitrary large height */
+            opacity: 1;
+        }
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+        .faq-active .faq-icon {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col relative">
+    
+    <!-- COOKIE BANNER -->
+    <div id="cookie-banner" class="hidden fixed bottom-0 left-0 w-full bg-gray-900 border-t border-gold p-4 z-50 shadow-2xl flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="text-sm text-gray-300 text-center sm:text-left max-w-3xl">
+            <p><strong>We value your privacy.</strong> We use cookies to ensure the security of your submissions and to analyze traffic. By clicking "Accept", you consent to our use of cookies.</p>
+        </div>
+        <div class="flex space-x-3">
+            <button onclick="acceptCookies()" class="btn-gold py-2 px-6 rounded-lg text-sm">Accept</button>
+            <button onclick="rejectCookies()" class="border border-gray-500 text-gray-300 hover:bg-gray-800 py-2 px-6 rounded-lg text-sm">Decline</button>
+        </div>
+    </div>
+
+    <!-- Main Application Container -->
+    <div id="app" class="max-w-6xl mx-auto p-0 w-full flex-grow">
+        
+        <!-- Navigation Bar -->
+        <nav class="sticky top-0 bg-navy shadow-lg z-40 w-full">
+            <div class="flex items-center justify-between p-4 max-w-7xl mx-auto">
+                <!-- Logo Section -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="navigate('home')">
+                    <div class="relative w-12 h-12 flex-shrink-0">
+                         <!-- Ensure logo.png is in the same folder as index.html -->
+                         <img src="./Global Visa & Journeys Logo.jpeg" 
+                              alt="Global Visa & Journeys Logo" 
+                              class="w-full h-full object-contain" 
+                              onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block';">
+                         
+                         <!-- Fallback SVG Logo -->
+                         <svg id="fallback-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-full h-full" style="display: none;">
+                            <path d="M60 20 A 35 35 0 1 0 60 90 L 60 65 A 10 10 0 1 1 60 45 L 80 45" fill="none" stroke="#d4af37" stroke-width="8" stroke-linecap="round" />
+                            <path d="M55 35 L 75 25 L 70 45 L 85 50 L 70 55 L 65 75 L 55 65 L 55 35" fill="#d4af37"/>
+                         </svg>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="logo-text text-gold leading-none hidden sm:block">GLOBAL VISA</span>
+                        <span class="logo-text text-white leading-none hidden sm:block">& JOURNEYS</span>
+                        <span class="logo-text text-gold sm:hidden">GV&J</span>
+                    </div>
+                </div>
+
+                <!-- Menu -->
+                <div class="flex space-x-4 items-center">
+                    <button onclick="navigate('home')" class="text-white hover:text-gold transition duration-200 text-sm sm:text-base font-semibold">Home</button>
+                    <button onclick="navigate('services')" class="text-white hover:text-gold transition duration-200 text-sm sm:text-base font-semibold">Services</button>
+                    <button onclick="navigate('legal')" class="text-white hover:text-gold transition duration-200 text-sm sm:text-base font-semibold">Legal</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Loading & Status Messages -->
+        <div id="message-box" class="hidden fixed top-20 left-1/2 -translate-x-1/2 w-11/12 max-w-md p-4 rounded-lg text-center z-50 shadow-2xl" role="alert"></div>
+
+
+        <!-- PAGE VIEWS -->
+
+        <!-- 1. Home View -->
+        <main id="view-home" class="view p-4 sm:p-8">
+            <!-- Hero Section -->
+            <section class="text-center py-12 sm:py-20 mb-12 bg-navy rounded-xl shadow-2xl border-b-4 border-gold relative overflow-hidden">
+                <div class="relative z-10">
+                    <h1 class="text-4xl sm:text-6xl font-extrabold text-white leading-tight mb-6">
+                        Get the Visa <span class="text-gold">Right</span>,<br>Enjoy Your Flight.
+                    </h1>
+                    <p class="mt-6 text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto px-4">
+                        We eliminate the **Fatal Flaws** that lead to visa refusals for UK & Schengen applicants.
+                    </p>
+                    <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+                        <!-- UPDATED PRICE: £39.99 for QuickScan -->
+                        <button onclick="document.getElementById('quickscan-section').scrollIntoView({behavior: 'smooth'})" class="btn-gold py-3 px-8 rounded-full text-lg shadow-lg">Start Audit (£39.99)</button>
+                        <button onclick="navigate('services')" class="border border-gold text-gold hover:bg-gold hover:text-navy py-3 px-8 rounded-full text-lg transition duration-300 font-semibold">View All Services</button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Testimonials -->
+            <section class="mb-16">
+                <h2 class="text-2xl sm:text-3xl font-bold text-white text-center mb-8">Trusted by Clients Facing Complex Hurdles</h2>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="p-6 bg-gray-800 rounded-xl border border-gray-700 shadow-lg">
+                        <p class="text-gold text-xl mb-3">★★★★★</p>
+                        <p class="italic text-gray-300 text-sm">"After two refusals, the QuickScan immediately pointed out the 'funds parking' issue I missed. The Full Access Strategy secured my UK Standard Visa in time!"</p>
+                        <p class="mt-4 font-semibold text-white text-sm">- Sarah K., Lagos</p>
+                    </div>
+                    <div class="p-6 bg-gray-800 rounded-xl border border-gray-700 shadow-lg">
+                        <p class="text-gold text-xl mb-3">★★★★★</p>
+                        <p class="italic text-gray-300 text-sm">"GV&J handled everything from the Schengen narrative to booking my flights. Flawless process, immediate approval. Highly recommend."</p>
+                        <p class="mt-4 font-semibold text-white text-sm">- James A., Abuja</p>
+                    </div>
+                    <div class="p-6 bg-gray-800 rounded-xl border border-gray-700 shadow-lg">
+                        <p class="text-gold text-xl mb-3">★★★★★</p>
+                        <p class="italic text-gray-300 text-sm">"The engagement letter and T&Cs were clear and professional. Great service and transparent about what they can and can't guarantee."</p>
+                        <p class="mt-4 font-semibold text-white text-sm">- Nnena O., London</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Why Choose Us Section -->
+            <section id="why-choose-us" class="mb-16 text-center">
+                <h2 class="text-3xl font-bold text-gold mb-10">Why Choose Global Visa & Journeys?</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Reason 1 -->
+                    <div class="p-6 bg-gray-900 rounded-xl shadow-lg border-t-4 border-white">
+                        <span class="text-6xl text-gold mb-3 block">✓</span>
+                        <h3 class="text-xl font-semibold text-white mb-2">Fatal Flaw Expertise</h3>
+                        <p class="text-gray-400 text-sm">Our consultants apply embassy-level scrutiny, specializing in identifying and correcting the specific, common errors that trigger mandatory refusals for high-risk applicants.</p>
+                    </div>
+                    <!-- Reason 2 -->
+                    <div class="p-6 bg-gray-900 rounded-xl shadow-lg border-t-4 border-white">
+                        <span class="text-6xl text-gold mb-3 block">✈️</span>
+                        <h3 class="text-xl font-semibold text-white mb-2">Integrated Travel Logistics</h3>
+                        <p class="text-gray-400 text-sm">We don't just fix your documents—we handle compliant flight bookings, hotel reservations, and travel insurance, ensuring your paperwork is seamless.</p>
+                    </div>
+                    <!-- Reason 3 -->
+                    <div class="p-6 bg-gray-900 rounded-xl shadow-lg border-t-4 border-white">
+                        <span class="text-6xl text-gold mb-3 block">🔒</span>
+                        <h3 class="text-xl font-semibold text-white mb-2">Strategy-First Approach</h3>
+                        <p class="text-gray-400 text-sm">We sell strategy, not promises. Every service begins with a concrete audit, allowing you to pay for targeted solutions that maximize your probability of success.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- QuickScan Audit Form Section -->
+            <section id="quickscan-section" class="grid lg:grid-cols-2 gap-12 items-center mb-16">
+                <div class="p-8 bg-navy rounded-xl shadow-2xl border-t-4 border-gold h-full flex flex-col justify-center">
+                    <!-- UPDATED PRICE: £39.99 -->
+                    <h2 class="text-3xl font-extrabold text-gold mb-4">The £39.99 QuickScan Audit</h2>
+                    <p class="text-gray-400 mb-6">This is your application insurance. We provide a **Forensic Document Review** using Embassy standards—**before** you pay visa fees.</p>
+                    <ul class="space-y-4 text-gray-300">
+                        <li class="flex items-start"><span class="text-gold mr-3 font-bold">✓</span> <span>**Fatal Flaw Identification**</span></li>
+                        <li class="flex items-start"><span class="text-gold mr-3 font-bold">✓</span> <span>**Financial Scrutiny Report**</span></li>
+                        <li class="flex items-start"><span class="text-gold mr-3 font-bold">✓</span> <span>**48-Hour Delivery**</span></li>
+                    </ul>
+                </div>
+
+                <div class="p-8 bg-gray-900 rounded-xl shadow-2xl border border-gray-800">
+                    <h3 class="text-2xl font-bold text-white mb-6 text-center">Start Your Security Check</h3>
+                    <form id="quickscan-form" class="space-y-5">
+                        <div>
+                            <label class="text-xs text-gray-400 uppercase font-bold">Full Name</label>
+                            <input type="text" id="client-name" placeholder="John Doe" required class="mt-1 block w-full rounded-md bg-gray-800 text-white border border-gray-700 focus:border-gold focus:ring-1 focus:ring-gold p-3 transition">
+                        </div>
+                        <div>
+                            <label class="text-xs text-gray-400 uppercase font-bold">Email Address</label>
+                            <input type="email" id="client-email" placeholder="email@example.com" required class="mt-1 block w-full rounded-md bg-gray-800 text-white border border-gray-700 focus:border-gold focus:ring-1 focus:ring-gold p-3 transition">
+                        </div>
+                        <div class="p-4 bg-navy rounded-lg text-center border border-gray-700">
+                            <p class="text-sm text-gray-400">Consultation Fee</p>
+                            <!-- UPDATED PRICE: £39.99 -->
+                            <p class="text-2xl font-bold text-gold">£39.99</p>
+                        </div>
+                        <button type="submit" id="submit-button" class="btn-gold w-full py-4 rounded-xl text-lg shadow-lg hover:shadow-gold/50 flex items-center justify-center transition-all transform hover:-translate-y-1">
+                            <span id="submit-text">Secure Your Audit Now</span>
+                            <!-- Loading spinner SVG -->
+                            <svg id="loading-spinner" class="animate-spin -ml-1 mr-3 h-5 w-5 text-navy hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </button>
+                    </form>
+                    <p class="text-xs text-gray-500 mt-4 text-center">
+                        Secure SSL Payment. By initiating, you agree to our <button onclick="openModal('T&Cs')" class="text-gold underline hover:text-white">Terms & Conditions</button>.
+                    </p>
+                </div>
+            </section>
+        </main>
+        
+        <!-- 2. Services View -->
+        <main id="view-services" class="view p-4 sm:p-8 hidden">
+            <h1 class="text-4xl font-extrabold text-gold mb-10 border-b border-gray-700 pb-3">Our Core Services</h1>
+            
+            <div class="space-y-12">
+                
+                <!-- Service 1: QuickScan -->
+                <div class="p-8 bg-navy rounded-xl shadow-2xl border-l-8 border-gold transform transition hover:scale-[1.01]">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2">1. QuickScan Audit (Pre-Application Check)</h2>
+                    <!-- UPDATED PRICE: £39.99 -->
+                    <p class="text-gold text-2xl font-semibold mb-4">£39.99</p>
+                    <p class="text-gray-300 mb-6">Our mandatory entry service. We identify specific refusal reasons before you apply.</p>
+                    <button onclick="navigate('home')" class="btn-gold py-2 px-6 rounded-lg text-sm font-bold">Start QuickScan</button>
+                </div>
+
+                <!-- Service 2: DIY Successful Kit -->
+                <div class="p-8 bg-gray-900 rounded-xl shadow-2xl border-l-8 border-blue-500 transform transition hover:scale-[1.01]">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white">DIY Successful Kit</h2>
+                        <span class="mt-2 sm:mt-0 bg-blue-900 text-blue-200 text-xs font-bold px-3 py-1 rounded border border-blue-500">DIGITAL DOWNLOAD</span>
+                    </div>
+                    <p class="text-gold text-2xl font-semibold mb-4">£79.99</p>
+                    <p class="text-gray-300 mb-4">
+                        **The Complete Toolkit for Any High-Stakes Application.** Comprehensive templates and guides suitable for UK, Schengen, USA, and Canada visa applications.
+                    </p>
+                    <ul class="grid sm:grid-cols-2 gap-3 text-gray-400 mb-6 text-sm">
+                         <li class="flex items-start"><i class="fas fa-file-contract text-blue-500 mr-2 mt-1"></i> <span><strong>Strategic Templates:</strong> Universal "Source of Funds" and "Proof of Return" letters adaptable for any embassy.</span></li>
+                         <li class="flex items-start"><i class="fas fa-book text-blue-500 mr-2 mt-1"></i> <span><strong>Process Guides:</strong> Master guides on avoiding common refusal traps globally.</span></li>
+                    </ul>
+                    <button onclick="openPaymentModal('DIY Successful Kit')" class="bg-blue-600 hover:bg-blue-500 text-white py-3 px-6 rounded-lg text-sm font-bold shadow-lg transition-all w-full sm:w-auto">Buy & Download Kit</button>
+                </div>
+
+                 <!-- Service 3: UK Interactive Checklist -->
+                 <div class="p-8 bg-navy rounded-xl shadow-2xl border-l-8 border-green-500 transform transition hover:scale-[1.01]">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white">UK Interactive Checklist</h2>
+                        <span class="mt-2 sm:mt-0 bg-green-900 text-green-200 text-xs font-bold px-3 py-1 rounded border border-green-500">AUTOMATED TOOL</span>
+                    </div>
+                    <p class="text-gold text-2xl font-semibold mb-4">£49.99</p>
+                    <p class="text-gray-300 mb-4">
+                        **The "Brain" of your UK/Schengen application.** A specialized Google Sheets tool that manages your compliance.
+                    </p>
+                    <ul class="grid sm:grid-cols-2 gap-3 text-gray-400 mb-6 text-sm">
+                        <li class="flex items-start"><i class="fas fa-traffic-light text-green-500 mr-2 mt-1"></i> <span><strong>Automated Status Logic:</strong> A "Traffic Light" system (Red/Green) that tells you exactly when your file is ready.</span></li>
+                        <li class="flex items-start"><i class="fas fa-tasks text-green-500 mr-2 mt-1"></i> <span><strong>Tracking Dashboard:</strong> Organize every document by format and responsibility specifically for UKVI rules.</span></li>
+                    </ul>
+                    <button onclick="openPaymentModal('UK Interactive Checklist')" class="bg-green-600 hover:bg-green-500 text-white py-3 px-6 rounded-lg text-sm font-bold shadow-lg transition-all w-full sm:w-auto">Buy Checklist Tool</button>
+                </div>
+
+                <!-- Service 4: Full Access Strategy -->
+                <div class="p-8 bg-gray-900 rounded-xl shadow-2xl border-l-8 border-white transform transition hover:scale-[1.01]">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2">4. Full Access Strategy (Visa + Logistics)</h2>
+                    <!-- UPDATED PRICE: £700 -->
+                    <p class="text-gold text-2xl font-semibold mb-4">£700.00</p>
+                    <p class="text-gray-300 mb-4">The dedicated solution for high-risk applicants. We build the narrative and provide bulletproof documentation.</p>
+                    <p class="text-sm text-red-400 mt-2 font-semibold">*Requires completion of £39.99 QuickScan Audit first.*</p>
+                    <button onclick="openPaymentModal('Full Access Strategy')" class="btn-gold py-3 px-6 rounded-lg text-sm font-bold shadow-lg transition-all w-full sm:w-auto">Start Full Access</button>
+                </div>
+
+                <!-- Service 5: The "Quick Fix" -->
+                <div class="p-8 bg-navy rounded-xl shadow-2xl border-l-8 border-red-500 transform transition hover:scale-[1.01]">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white">5. The "Quick Fix" Call</h2>
+                        <span class="mt-2 sm:mt-0 bg-red-900 text-red-200 text-xs font-bold px-3 py-1 rounded border border-red-500">EMERGENCY</span>
+                    </div>
+                    <p class="text-gold text-2xl font-semibold mb-4">£15.00 <span class="text-sm text-gray-400 font-normal">/ 30 Minutes</span></p>
+                    <p class="text-gray-300 mb-6">**Emergency Zoom Consultation.** Solve a single, critical issue fast.</p>
+                    <button onclick="openPaymentModal('Quick Fix Call')" class="bg-red-600 hover:bg-red-500 text-white py-3 px-6 rounded-lg text-sm font-bold shadow-lg transition-all w-full sm:w-auto">Book Emergency Call</button>
+                </div>
+                
+                <!-- Service 6: Flight Reservations -->
+                <div class="p-8 bg-navy rounded-xl shadow-2xl border-l-8 border-gold transform transition hover:scale-[1.01]">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2">6. Visa Flight Reservation</h2>
+                    <p class="text-white text-2xl font-semibold mb-4">£50.00</p>
+                    <p class="text-gray-300 mb-6">We reserve a verifiable flight itinerary for your visa application **without** you buying the full ticket. Protects your money.</p>
+                    
+                    <button onclick="openPaymentModal('Visa Flight Reservation')" class="btn-whatsapp py-3 px-6 rounded-lg text-sm font-bold shadow-lg inline-flex items-center w-full sm:w-auto justify-center">
+                        <i class="fas fa-ticket-alt mr-2 text-xl"></i> Pay & Reserve
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Contact Us Section -->
+            <section class="mt-16 pt-8 border-t border-gray-700">
+                <h2 class="text-3xl font-extrabold text-white mb-6">Have a Question? Contact Us.</h2>
+                <div class="p-6 bg-navy rounded-xl shadow-xl max-w-lg">
+                    <form id="contact-form" action="mailto:globalvisaandjourneys@gmail.com" method="post" enctype="text/plain" class="space-y-4">
+                        <input type="text" name="name" placeholder="Your Name" required class="mt-1 block w-full rounded-md bg-gray-700 text-white border-transparent focus:border-gold focus:ring-gold p-3">
+                        <input type="email" name="email" placeholder="Your Email" required class="mt-1 block w-full rounded-md bg-gray-700 text-white border-transparent focus:border-gold focus:ring-gold p-3">
+                        <textarea name="body" placeholder="Your Message" required rows="4" class="mt-1 block w-full rounded-md bg-gray-700 text-white border-transparent focus:border-gold focus:ring-gold p-3"></textarea>
+                        <button type="submit" class="btn-gold w-full py-3 rounded-xl text-lg shadow-lg hover:shadow-gold/50 transition-all">Send Inquiry</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <!-- 3. Legal View -->
+        <main id="view-legal" class="view p-4 sm:p-8 hidden">
+            <h1 class="text-4xl font-extrabold text-gold mb-10 border-b border-gray-700 pb-3">Legal & Transparency</h1>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-navy p-6 rounded-xl border-t-4 border-gold">
+                    <h2 class="text-2xl font-bold mb-4">Engagement Letter (Sample)</h2>
+                    <p class="text-gray-400 mb-4">The formal agreement defining the service scope, fee, and liability protections for you and the Consultant.</p>
+                    <button onclick="openModal('Engagement')" class="btn-gold py-2 px-4 rounded-lg text-sm">View Document</button>
+                </div>
+
+                <div class="bg-navy p-6 rounded-xl border-t-4 border-gold">
+                    <h2 class="text-2xl font-bold mb-4">Terms & Conditions (T&Cs)</h2>
+                    <p class="text-gray-400 mb-4">The rulebook governing website use, payment handling, and general service policies.</p>
+                    <button onclick="openModal('T&Cs')" class="btn-gold py-2 px-4 rounded-lg text-sm">View Document</button>
+                </div>
+            </div>
+        </main>
+
+
+        <!-- Modal Logic and Content -->
+        <div id="legal-modal" class="hidden fixed inset-0 modal-backdrop flex items-center justify-center p-4">
+            <div class="bg-gray-800 p-6 rounded-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl">
+                <div class="flex justify-between items-center border-b border-gray-700 pb-3 mb-4 sticky top-0 bg-gray-800">
+                    <h2 id="modal-title" class="text-2xl font-bold text-gold"></h2>
+                    <button onclick="closeModal('legal-modal')" class="text-white hover:text-red-500 font-bold text-2xl">&times;</button>
+                </div>
+                <div id="modal-content" class="text-sm text-gray-300 whitespace-pre-wrap"></div>
+            </div>
+        </div>
+
+        <!-- Payment Modal (Hidden - Logic Bypassed for Direct Links) -->
+        <div id="payment-modal" class="hidden fixed inset-0 modal-backdrop flex items-center justify-center p-4"></div>
+        
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-navy border-t border-gray-800 mt-auto p-8 w-full mb-16 sm:mb-0">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 text-gray-400">
+            <div>
+                <h3 class="logo-text text-gold mb-3">G V & J</h3>
+                <p class="text-sm">Visa Strategy & Travel Logistics.</p>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold text-white mb-4">Quick Contact</h4>
+                <p class="flex items-center space-x-2"><span class="text-gold">📧</span> <a href="mailto:globalvisaandjourneys@gmail.com" class="hover:text-gold">globalvisaandjourneys@gmail.com</a></p>
+                <p class="flex items-center space-x-2 mt-2"><span class="text-gold">📞</span> <a href="tel:+447511219482" class="hover:text-gold">+44 7511219482</a></p>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold text-white mb-4">Service Details</h4>
+                <p class="text-sm">Office Hours: Mon-Fri, 9:00 - 17:00 GMT</p>
+                <p class="text-sm">Location: Essex, United Kingdom</p>
+            </div>
+        </div>
+        <div class="text-center text-gray-600 text-xs mt-8 pt-4 border-t border-gray-800">
+            &copy; 2025 Global Visa & Journeys. Not a regulated immigration advisory firm.
+        </div>
+    </footer>
+
+    <!-- Javascript Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, addDoc, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCcoyBXRITTblrH0XcaLGMjftUttXYLtj4",
+            authDomain: "global-visa-journeys.firebaseapp.com",
+            projectId: "global-visa-journeys",
+            storageBucket: "global-visa-journeys.firebasestorage.app",
+            messagingSenderId: "381217766164",
+            appId: "1:381217766164:web:1cb70fbc26332f5a8d6001"
+        };
+
+        // --- UTILITIES ---
+        function showMessage(message, type) {
+            const box = document.getElementById('message-box');
+            box.textContent = message;
+            box.className = `fixed top-20 left-1/2 -translate-x-1/2 w-11/12 max-w-md p-4 rounded-lg text-center z-50 shadow-2xl ${type === 'error' ? 'bg-red-900 text-red-200 border border-red-500' : 'bg-green-900 text-green-200 border border-green-500'}`;
+            box.classList.remove('hidden');
+            setTimeout(() => box.classList.add('hidden'), 4000);
+        }
+
+        // --- NAVIGATION ---
+        function navigate(viewId) {
+            document.querySelectorAll('.view').forEach(view => view.classList.add('hidden'));
+            document.getElementById(`view-${viewId}`).classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+        window.navigate = navigate;
+
+        function toggleFaq(element) { element.parentElement.classList.toggle('faq-active'); }
+        window.toggleFaq = toggleFaq;
+
+        function checkCookies() {
+            if (!localStorage.getItem('cookiesAccepted')) {
+                document.getElementById('cookie-banner').classList.remove('hidden');
+                document.getElementById('cookie-banner').classList.add('flex');
+            }
+        }
+        function acceptCookies() {
+            localStorage.setItem('cookiesAccepted', 'true');
+            document.getElementById('cookie-banner').classList.add('hidden');
+        }
+        function rejectCookies() {
+            document.getElementById('cookie-banner').classList.add('hidden');
+        }
+        window.acceptCookies = acceptCookies;
+        window.rejectCookies = rejectCookies;
+
+        // --- LEGAL MODALS ---
+        const legalDocs = {
+            'Engagement': `
+🛡️ GLOBAL VISA & JOURNEYS: ENGAGEMENT LETTER & SCOPE OF SERVICE
+
+This Agreement ("Letter") outlines the professional services provided by Global Visa & Journeys (the "Consultant") to the Client [Client Name] (the "Client") concerning the UK/Schengen Visitor Visa Application.
+
+1. Scope of Engagement: Full Access Strategy (£700 Fee)
+The Consultant agrees to provide the following high-value services, defined by the "Get the Visa Right, Enjoy Your Flight" model.
+
+1.1 Visa Strategy and Document Compliance (GET THE VISA RIGHT)
+• Document Review & Organization: Forensic review of all supporting documents (financial statements, employment letters, sponsor documents) to ensure 100% compliance with current UKVI/Schengen guidelines for the specific application type (e.g., Standard Visitor, VFR).
+• Narrative Construction: Drafting expert template letters and chronological statements (e.g., Source of Funds/Proof of Return letters) to address high-risk factors identified in the Quick Scan Audit (especially for Nigerian/Gambian applications).
+• Application Form Management: Guided completion of the official online Visa Application Form (VAF), ensuring data consistency with all supporting documents.
+• Logistical Booking Support: Advice and management of the mandatory itinerary requirements necessary for the visa (e.g., flight itineraries, accommodation bookings, travel insurance quotes).
+
+1.2 Travel Logistics Management (ENJOY YOUR FLIGHT)
+• Booking Management: Facilitating the booking of flights, hotels, and travel insurance using established supplier networks, based on the Client’s approved itinerary. Note: The Consultant will receive commissions from third-party suppliers, which do not affect the Client’s final travel cost.
+• Biometric Appointment: Management and scheduling of the mandatory Visa Application Centre (VAC) appointment.
+
+2. Exclusions to Service (What We DO NOT Do)
+The Consultant is NOT a solicitor, Barrister, or regulated immigration advisor, and does not provide legal representation. This service is limited to administrative, strategic, and logistical preparation.
+This Agreement explicitly excludes:
+• Legal Representation: Attending appeals, hearings, or providing legal advice under the UK immigration law.
+• Interview Coaching: Providing specific advice for the interview process beyond general preparation.
+• Document Authentication: The Consultant does not verify the authenticity of documents provided by the Client (e.g., bank statements, letters of employment).
+• Post-Submission Correspondence: Handling official government queries unless explicitly agreed upon for an additional fee.
+
+3. Client Responsibilities (Liability Transfer)
+The Client is solely responsible for the truthfulness, accuracy, and genuineness of all documents and information submitted. The Consultant relies entirely on the Client for these materials.
+The Client hereby agrees and warrants that:
+1. Truthfulness: All information provided to the Consultant is truthful, genuine, and not fabricated in any way.
+2. Financial Resources: The Client possesses the necessary funds and assets to cover the cost of the trip and agrees not to engage in "funds parking" (borrowing funds solely for the application) without full, documented disclosure.
+3. Consequences: The Client accepts full responsibility for any negative consequence (refusal, ban, legal action) resulting from the submission of fraudulent or misleading information.
+
+4. Fee Agreement and Non-Refund Policy (The No Guarantee Clause)
+4.1 Fee Structure: The total fee for the Full Access Strategy is £700 (Seven Hundred Pounds Sterling).
+4.2 CRITICAL: NON-REFUND POLICY
+The Client acknowledges and agrees that the fee is for the professional preparation, strategy, and logistics services rendered, NOT for the outcome of the visa application. The final decision to grant or refuse the visa rests solely with the government authority (UKVI, Schengen Member State). The Consultant offers NO guarantee or warranty of visa approval.
+• In the event of a visa refusal, the fee is non-refundable.
+• The Consultant’s obligation under this Agreement is considered fulfilled upon the preparation and submission of the final, compliant application package and booking of travel logistics.
+
+5. Acceptance and Signature
+By signing below, the Client acknowledges that they have read, understood, and accept the terms of this Engagement Letter, specifically the non-refund policy and the limitations of the Consultant's role.
+            `,
+            'T&Cs': `
+📜 TERMS AND CONDITIONS OF SERVICE
+GLOBAL VISA & JOURNEYS
+1st November 2025
+
+1. Definitions and Acceptance
+1.1. The Consultant: Refers to Global Visa & Journeys, Essex United Kingdom.
+1.2. The Client: Refers to the individual purchasing or using services from the Consultant.
+1.3. The Service: Refers collectively to the Full Access Strategy, the Proof of Return Package, the Quick Scan Audit, and all associated travel logistics.
+1.4. Acceptance: By proceeding with payment for any Service, you’ve agreed to be bound by these Terms and Conditions and the separate, mandatory Engagement Letter.
+
+2. Fees and Payments
+2.1. Consulting Fee: The fees for the Visa Strategy and Consulting Services (e.g., £700 Full Access Strategy) are due in full upon signing the Engagement Letter and prior to the commencement of work.
+2.2. Currency: All fees are payable in Great British Pounds (£) unless otherwise agreed in writing.
+2.3. Non-Refundable Consulting Fee: The Consulting Fee is non-refundable. This fee compensates the Consultant for the expertise, time, and intellectual property deployed in preparing the strategic application narrative and documents. The fee is earned once the work begins, regardless of the visa outcome.
+2.4. Travel Costs: Costs for flights, accommodation, insurance, and visa application fees are separate from the Consulting Fee and are paid directly by the Client or paid by the Consultant on behalf of the Client using Client funds.
+
+3. Service Scope and Limitations
+3.1. Visa Outcome: The Consultant provides strategic assistance and document preparation only. The Consultant does not guarantee the success of any visa application. The final decision rests with the government authority (UKVI or Schengen Consulate).
+3.2. Reliance on Client: The Consultant relies entirely on the accuracy and truthfulness of all documents and information provided by the Client. Any liability arising from false, misleading, or fraudulent documentation rests solely with the Client.
+3.3. Legal Status: The Consultant is not a law firm or regulated immigration advisor. The service provided is administrative and strategic, not legal representation.
+
+4. Cancellation and Refunds (Travel & Logistics)
+4.1. Consulting Service Cancellation: As per Clause 2.3, the Consulting Fee is non-refundable once the Engagement Letter is signed and work has commenced.
+4.2. Travel Cancellation: Refunds for flights, hotels, and insurance are governed by the specific terms and conditions of the third-party providers (e.g., airlines, insurance carriers). The Consultant will facilitate the cancellation process but is not responsible for refund timelines or amounts dictated by third parties.
+4.3. Refund Processing Fee: The Consultant reserves the right to charge an administrative fee of £50 for processing any travel or logistics refund initiated by the Client.
+
+5. Limitation of Liability
+5.1. Maximum Liability: In the event of an established error or negligence by the Consultant (e.g., an error in booking or data entry that causes direct financial loss, but NOT visa refusal), the Consultant’s total liability shall be strictly limited to the total amount of the Consulting Fee (£700) paid by the Client.
+5.2. Consequential Damages: The Consultant shall not be liable for any indirect, consequential, or economic loss, including but not limited to loss of income, wasted time, or emotional distress caused by visa refusal, travel delay, or third-party cancellation.
+
+6. Intellectual Property (IP)
+6.1. Ownership: All strategy documents, templates, Cover Letter narratives, and procedural checklists provided by the Consultant remain the sole intellectual property of Global Visa & Journeys.
+6.2. Usage: The Client may not share, sell, or distribute these documents to any third party.
+
+7. Governing Law and Dispute Resolution
+7.1. Governing Law: These Terms and Conditions shall be governed by and construed in accordance with the laws of England and Wales.
+7.2. Jurisdiction: Any dispute arising out of or in connection with these Terms shall be subject to the exclusive jurisdiction of the courts of England and Wales.
+            `
+        };
+
+        function openModal(docType) {
+            document.getElementById('modal-title').textContent = docType;
+            document.getElementById('modal-content').textContent = legalDocs[docType];
+            document.getElementById('legal-modal').classList.remove('hidden');
+        }
+        window.openModal = openModal;
+
+        function openPaymentModal(name) {
+            const link = stripeLinks[name];
+            if(link) {
+                window.location.href = link;
+            } else {
+                alert("Payment link not configured for: " + name);
+            }
+        }
+        window.openPaymentModal = openPaymentModal;
+
+        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+        window.closeModal = closeModal;
+
+        // --- PAYMENT LINK MAPPING ---
+        const stripeLinks = {
+            'QuickScan Audit': 'https://buy.stripe.com/14AfZhgehbKQ9QrcCC1ck01', 
+            'DIY Successful Kit': 'https://buy.stripe.com/4gMcN50fj2ag8MnfOO1ck05',
+            'UK Interactive Checklist': 'https://buy.stripe.com/3cIeVd0fjg16d2D4661ck00',
+            'Full Access Strategy': 'https://buy.stripe.com/3cI3cv4vzbKQ9QrdGG1ck03',
+            'Quick Fix Call': 'https://book.stripe.com/dRmbJ10fj2ag0fR9qq1ck04',
+            'Visa Flight Reservation': 'https://buy.stripe.com/aFa28r0fj9CI6Ef1XY1ck02' 
+        };
+
+        // --- FIREBASE LOGIC ---
+        let db, auth, userId;
+        let isAuthReady = false;
+
+        async function initFirebase() {
+            try {
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                await signInAnonymously(auth);
+                
+                auth.onAuthStateChanged((user) => {
+                    if (user) {
+                        userId = user.uid;
+                        isAuthReady = true;
+                        document.getElementById('auth-status').textContent = `System: READY`;
+                        // Enable the button now that we are connected
+                        const btn = document.getElementById('submit-button');
+                        if(btn) btn.disabled = false;
+                    }
+                });
+            } catch (e) {
+                console.error("Firebase Init Failed:", e);
+                showMessage("Database unavailable. Please refresh.", 'error');
+            }
+        }
+
+        // --- THE FIXED SUBMISSION HANDLER ---
+        async function handleQuickScanSubmit(event) {
+            event.preventDefault(); // Stop page reload
+            
+            const btn = document.getElementById('submit-button');
+            const originalText = document.getElementById('submit-text').textContent;
+            
+            // 1. Check if Firebase is ready
+            if (!isAuthReady) {
+                showMessage("System initializing... please wait 3 seconds.", 'error');
+                return;
+            }
+
+            // 2. Lock Button
+            btn.disabled = true;
+            document.getElementById('submit-text').textContent = "Saving...";
+            document.getElementById('loading-spinner').classList.remove('hidden');
+
+            // 3. Collect Data
+            const name = document.getElementById('client-name').value;
+            const email = document.getElementById('client-email').value;
+
+            try {
+                // 4. Write to Firebase
+                await addDoc(collection(db, "quickscan_audits"), {
+                    name: name,
+                    email: email,
+                    userId: userId,
+                    status: "Initiated Payment",
+                    timestamp: new Date().toISOString()
+                });
+
+                // 5. Success! Now Redirect
+                document.getElementById('submit-text').textContent = "Redirecting...";
+                // Short delay to ensure user sees status
+                setTimeout(() => {
+                    window.location.href = stripeLinks['QuickScan Audit'];
+                }, 1000);
+
+            } catch (error) {
+                console.error("Database Error:", error);
+                showMessage("Connection error. Redirecting to payment anyway...", 'error');
+                // Fallback: If DB fails, still take their money
+                setTimeout(() => {
+                    window.location.href = stripeLinks['QuickScan Audit'];
+                }, 2000);
+            }
+        }
+
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            initFirebase();
+            checkCookies();
+            
+            // Attach the NEW handler
+            const form = document.getElementById('quickscan-form');
+            if (form) {
+                form.addEventListener('submit', handleQuickScanSubmit);
+            }
+        });
+
+    </script>
+</body>
+</html>
