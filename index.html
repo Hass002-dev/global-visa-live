@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1EZM399KT"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-Q1EZM399KT');
-    </script>
-    <!-- End Google Analytics -->
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Global Visa & Journeys | Get the Visa Right, Enjoy Your Flight.</title>
     <meta name="description" content="Expert UK & Schengen visa strategy for high-risk applicants. Forensic document audits and travel logistics.">
+    <!-- FAVICON (Browser Tab Icon) -->
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Load Inter Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Analytics -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1EZM399KT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-Q1EZM399KT');
+    </script>
+
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -102,8 +104,8 @@
                 <!-- Logo Section -->
                 <div class="flex items-center space-x-3 cursor-pointer" onclick="navigate('home')">
                     <div class="relative w-12 h-12 flex-shrink-0">
-                         <!-- Ensure logo.png is in the same folder as index.html -->
-                         <img src="./Global Visa & Journeys Logo.jpeg" 
+                         <!-- Ensure logo.png is in the same folder -->
+                         <img src="./logo.png" 
                               alt="Global Visa & Journeys Logo" 
                               class="w-full h-full object-contain" 
                               onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block';">
@@ -148,13 +150,34 @@
                         We eliminate the **Fatal Flaws** that lead to visa refusals for UK & Schengen applicants.
                     </p>
                     <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
-                        <!-- UPDATED PRICE: £39.99 for QuickScan -->
+                        <!-- QuickScan Button -->
                         <button onclick="document.getElementById('quickscan-section').scrollIntoView({behavior: 'smooth'})" class="btn-gold py-3 px-8 rounded-full text-lg shadow-lg">Start Audit (£39.99)</button>
                         <button onclick="navigate('services')" class="border border-gold text-gold hover:bg-gold hover:text-navy py-3 px-8 rounded-full text-lg transition duration-300 font-semibold">View All Services</button>
                     </div>
                 </div>
             </section>
             
+            <!-- NEW: Our Mission Section -->
+            <section class="mb-16 bg-gray-900/50 p-8 rounded-xl border border-gray-700">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h2 class="text-gold text-sm font-bold tracking-widest uppercase mb-2">Who We Are</h2>
+                    <h3 class="text-3xl font-extrabold text-white mb-6">"Get the Visa Right, Enjoy Your Flight."</h3>
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Global Visa & Journeys was founded to solve a specific problem: the complexity maze that high-risk applicants face when traveling to the UK and Europe.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-8 text-left mt-8">
+                        <div>
+                            <h4 class="text-gold font-bold text-lg mb-2">Our Mission</h4>
+                            <p class="text-gray-400 text-sm">To eliminate the anxiety of international travel by providing expert, honest visa strategy and flawless logistical planning, ensuring our clients travel with confidence and dignity.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-gold font-bold text-lg mb-2">Our Vision</h4>
+                            <p class="text-gray-400 text-sm">To become the trusted authority for complex entry strategies, known for a client-first approach to risk management that bridges the gap between bureaucracy and adventure.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Testimonials -->
             <section class="mb-16">
                 <h2 class="text-2xl sm:text-3xl font-bold text-white text-center mb-8">Trusted by Clients Facing Complex Hurdles</h2>
@@ -205,9 +228,8 @@
             <!-- QuickScan Audit Form Section -->
             <section id="quickscan-section" class="grid lg:grid-cols-2 gap-12 items-center mb-16">
                 <div class="p-8 bg-navy rounded-xl shadow-2xl border-t-4 border-gold h-full flex flex-col justify-center">
-                    <!-- UPDATED PRICE: £39.99 -->
                     <h2 class="text-3xl font-extrabold text-gold mb-4">The £39.99 QuickScan Audit</h2>
-                    <p class="text-gray-400 mb-6">This is your application insurance. We provide a **Forensic Document Review** using Embassy standards—**before** you pay visa fees.</p>
+                    <p class="text-gray-400 mb-6">This is your application insurance. We provide a Forensic Document Review using Embassy standards before you pay visa fees.</p>
                     <ul class="space-y-4 text-gray-300">
                         <li class="flex items-start"><span class="text-gold mr-3 font-bold">✓</span> <span>**Fatal Flaw Identification**</span></li>
                         <li class="flex items-start"><span class="text-gold mr-3 font-bold">✓</span> <span>**Financial Scrutiny Report**</span></li>
@@ -228,12 +250,10 @@
                         </div>
                         <div class="p-4 bg-navy rounded-lg text-center border border-gray-700">
                             <p class="text-sm text-gray-400">Consultation Fee</p>
-                            <!-- UPDATED PRICE: £39.99 -->
                             <p class="text-2xl font-bold text-gold">£39.99</p>
                         </div>
                         <button type="submit" id="submit-button" class="btn-gold w-full py-4 rounded-xl text-lg shadow-lg hover:shadow-gold/50 flex items-center justify-center transition-all transform hover:-translate-y-1">
                             <span id="submit-text">Secure Your Audit Now</span>
-                            <!-- Loading spinner SVG -->
                             <svg id="loading-spinner" class="animate-spin -ml-1 mr-3 h-5 w-5 text-navy hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -256,7 +276,6 @@
                 <!-- Service 1: QuickScan -->
                 <div class="p-8 bg-navy rounded-xl shadow-2xl border-l-8 border-gold transform transition hover:scale-[1.01]">
                     <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2">1. QuickScan Audit (Pre-Application Check)</h2>
-                    <!-- UPDATED PRICE: £39.99 -->
                     <p class="text-gold text-2xl font-semibold mb-4">£39.99</p>
                     <p class="text-gray-300 mb-6">Our mandatory entry service. We identify specific refusal reasons before you apply.</p>
                     <button onclick="navigate('home')" class="btn-gold py-2 px-6 rounded-lg text-sm font-bold">Start QuickScan</button>
@@ -270,7 +289,7 @@
                     </div>
                     <p class="text-gold text-2xl font-semibold mb-4">£79.99</p>
                     <p class="text-gray-300 mb-4">
-                        **The Complete Toolkit for Any High-Stakes Application.** Comprehensive templates and guides suitable for UK, Schengen, USA, and Canada visa applications.
+                        The Complete Toolkit for Any High-Stakes Application. Comprehensive templates and guides suitable for UK, Schengen, USA, and Canada visa applications.
                     </p>
                     <ul class="grid sm:grid-cols-2 gap-3 text-gray-400 mb-6 text-sm">
                          <li class="flex items-start"><i class="fas fa-file-contract text-blue-500 mr-2 mt-1"></i> <span><strong>Strategic Templates:</strong> Universal "Source of Funds" and "Proof of Return" letters adaptable for any embassy.</span></li>
@@ -287,7 +306,7 @@
                     </div>
                     <p class="text-gold text-2xl font-semibold mb-4">£49.99</p>
                     <p class="text-gray-300 mb-4">
-                        **The "Brain" of your UK/Schengen application.** A specialized Google Sheets tool that manages your compliance.
+                        The "Brain" of your UK/Schengen application. A specialized Google Sheets tool that manages your compliance.
                     </p>
                     <ul class="grid sm:grid-cols-2 gap-3 text-gray-400 mb-6 text-sm">
                         <li class="flex items-start"><i class="fas fa-traffic-light text-green-500 mr-2 mt-1"></i> <span><strong>Automated Status Logic:</strong> A "Traffic Light" system (Red/Green) that tells you exactly when your file is ready.</span></li>
@@ -299,7 +318,6 @@
                 <!-- Service 4: Full Access Strategy -->
                 <div class="p-8 bg-gray-900 rounded-xl shadow-2xl border-l-8 border-white transform transition hover:scale-[1.01]">
                     <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2">4. Full Access Strategy (Visa + Logistics)</h2>
-                    <!-- UPDATED PRICE: £700 -->
                     <p class="text-gold text-2xl font-semibold mb-4">£700.00</p>
                     <p class="text-gray-300 mb-4">The dedicated solution for high-risk applicants. We build the narrative and provide bulletproof documentation.</p>
                     <p class="text-sm text-red-400 mt-2 font-semibold">*Requires completion of £39.99 QuickScan Audit first.*</p>
@@ -313,7 +331,7 @@
                         <span class="mt-2 sm:mt-0 bg-red-900 text-red-200 text-xs font-bold px-3 py-1 rounded border border-red-500">EMERGENCY</span>
                     </div>
                     <p class="text-gold text-2xl font-semibold mb-4">£15.00 <span class="text-sm text-gray-400 font-normal">/ 30 Minutes</span></p>
-                    <p class="text-gray-300 mb-6">**Emergency Zoom Consultation.** Solve a single, critical issue fast.</p>
+                    <p class="text-gray-300 mb-6">Emergency Zoom Consultation. Solve a single, critical issue fast.</p>
                     <button onclick="openPaymentModal('Quick Fix Call')" class="bg-red-600 hover:bg-red-500 text-white py-3 px-6 rounded-lg text-sm font-bold shadow-lg transition-all w-full sm:w-auto">Book Emergency Call</button>
                 </div>
                 
@@ -349,7 +367,7 @@
             <h1 class="text-4xl font-extrabold text-gold mb-10 border-b border-gray-700 pb-3">Legal & Transparency</h1>
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="bg-navy p-6 rounded-xl border-t-4 border-gold">
-                    <h2 class="text-2xl font-bold mb-4">Engagement Letter (Sample)</h2>
+                    <h2 class="text-2xl font-bold mb-4">Engagement Letter</h2>
                     <p class="text-gray-400 mb-4">The formal agreement defining the service scope, fee, and liability protections for you and the Consultant.</p>
                     <button onclick="openModal('Engagement')" class="btn-gold py-2 px-4 rounded-lg text-sm">View Document</button>
                 </div>
@@ -374,8 +392,19 @@
             </div>
         </div>
 
-        <!-- Payment Modal (Hidden - Logic Bypassed for Direct Links) -->
-        <div id="payment-modal" class="hidden fixed inset-0 modal-backdrop flex items-center justify-center p-4"></div>
+        <!-- Payment Modal -->
+        <div id="payment-modal" class="hidden fixed inset-0 modal-backdrop flex items-center justify-center p-4">
+            <div class="bg-white p-8 rounded-xl w-full max-w-md text-center shadow-2xl relative">
+                <button onclick="closeModal('payment-modal')" class="absolute top-2 right-4 text-gray-500 hover:text-red-500 font-bold text-2xl">&times;</button>
+                <div class="mb-4 text-5xl text-green-500"><i class="fas fa-lock"></i></div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">Secure Payment</h2>
+                <p class="text-gray-600 mb-6">You are purchasing: <br><span id="payment-item-name" class="font-bold text-navy"></span></p>
+                <div class="bg-gray-100 p-4 rounded-lg mb-6">
+                    <p class="text-3xl font-bold text-navy">£<span id="payment-item-price"></span></p>
+                </div>
+                <button onclick="simulatePayment()" class="w-full bg-navy text-white py-3 rounded-lg font-bold hover:bg-gray-800 transition">Pay Securely</button>
+            </div>
+        </div>
         
     </div>
 
@@ -385,6 +414,12 @@
             <div>
                 <h3 class="logo-text text-gold mb-3">G V & J</h3>
                 <p class="text-sm">Visa Strategy & Travel Logistics.</p>
+                <div class="flex items-center space-x-3 mt-4">
+                    <div class="relative w-10 h-10 flex-shrink-0">
+                         <img src="./logo.png" alt="Global Visa & Journeys Logo" class="w-full h-full object-contain" onerror="this.style.display='none';">
+                    </div>
+                    <span class="text-sm font-bold text-white">Get the Visa Right.</span>
+                </div>
             </div>
             <div>
                 <h4 class="text-lg font-semibold text-white mb-4">Quick Contact</h4>
@@ -393,12 +428,15 @@
             </div>
             <div>
                 <h4 class="text-lg font-semibold text-white mb-4">Service Details</h4>
-                <p class="text-sm">Office Hours: Mon-Fri, 9:00 - 17:00 GMT</p>
+                <p class="text-sm">Office Hours: Mon-Fri, 9:00 - 18:00 GMT</p>
                 <p class="text-sm">Location: Essex, United Kingdom</p>
             </div>
         </div>
         <div class="text-center text-gray-600 text-xs mt-8 pt-4 border-t border-gray-800">
-            &copy; 2025 Global Visa & Journeys. Not a regulated immigration advisory firm.
+            &copy; 2025 Global Visa & Journeys Ltd. All Rights Reserved. <br>
+            Registered in England & Wales. <br>
+            Not a regulated immigration advisory firm. <br>
+            <strong>Global Visa & Journeys Ltd is a travel consultancy, not a Tour Operator. We do not sell flight-inclusive packages and are not ATOL holders. All travel bookings are made directly between the Client and the Supplier.</strong>
         </div>
     </footer>
 
@@ -408,6 +446,7 @@
         import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, addDoc, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
+        // Your Real Firebase Config
         const firebaseConfig = {
             apiKey: "AIzaSyCcoyBXRITTblrH0XcaLGMjftUttXYLtj4",
             authDomain: "global-visa-journeys.firebaseapp.com",
@@ -519,6 +558,7 @@ GLOBAL VISA & JOURNEYS
 3.1. Visa Outcome: The Consultant provides strategic assistance and document preparation only. The Consultant does not guarantee the success of any visa application. The final decision rests with the government authority (UKVI or Schengen Consulate).
 3.2. Reliance on Client: The Consultant relies entirely on the accuracy and truthfulness of all documents and information provided by the Client. Any liability arising from false, misleading, or fraudulent documentation rests solely with the Client.
 3.3. Legal Status: The Consultant is not a law firm or regulated immigration advisor. The service provided is administrative and strategic, not legal representation.
+3.4. ATOL Disclaimer: Global Visa & Journeys Ltd is a travel consultancy, not a Tour Operator. We do not sell flight-inclusive packages and are not ATOL holders. All travel bookings are made directly between the Client and the Supplier.
 
 4. Cancellation and Refunds (Travel & Logistics)
 4.1. Consulting Service Cancellation: As per Clause 2.3, the Consulting Fee is non-refundable once the Engagement Letter is signed and work has commenced.
@@ -546,7 +586,7 @@ GLOBAL VISA & JOURNEYS
         }
         window.openModal = openModal;
 
-        function openPaymentModal(name) {
+        function openPaymentModal(name, price) {
             const link = stripeLinks[name];
             if(link) {
                 window.location.href = link;
@@ -559,7 +599,7 @@ GLOBAL VISA & JOURNEYS
         function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
         window.closeModal = closeModal;
 
-        // --- PAYMENT LINK MAPPING ---
+        // --- PAYMENT LINK MAPPING (Direct Redirects) ---
         const stripeLinks = {
             'QuickScan Audit': 'https://buy.stripe.com/14AfZhgehbKQ9QrcCC1ck01', 
             'DIY Successful Kit': 'https://buy.stripe.com/4gMcN50fj2ag8MnfOO1ck05',
@@ -586,7 +626,6 @@ GLOBAL VISA & JOURNEYS
                         userId = user.uid;
                         isAuthReady = true;
                         document.getElementById('auth-status').textContent = `System: READY`;
-                        // Enable the button now that we are connected
                         const btn = document.getElementById('submit-button');
                         if(btn) btn.disabled = false;
                     }
@@ -597,30 +636,24 @@ GLOBAL VISA & JOURNEYS
             }
         }
 
-        // --- THE FIXED SUBMISSION HANDLER ---
         async function handleQuickScanSubmit(event) {
-            event.preventDefault(); // Stop page reload
+            event.preventDefault();
             
             const btn = document.getElementById('submit-button');
-            const originalText = document.getElementById('submit-text').textContent;
             
-            // 1. Check if Firebase is ready
             if (!isAuthReady) {
                 showMessage("System initializing... please wait 3 seconds.", 'error');
                 return;
             }
 
-            // 2. Lock Button
             btn.disabled = true;
             document.getElementById('submit-text').textContent = "Saving...";
             document.getElementById('loading-spinner').classList.remove('hidden');
 
-            // 3. Collect Data
             const name = document.getElementById('client-name').value;
             const email = document.getElementById('client-email').value;
 
             try {
-                // 4. Write to Firebase
                 await addDoc(collection(db, "quickscan_audits"), {
                     name: name,
                     email: email,
@@ -629,9 +662,7 @@ GLOBAL VISA & JOURNEYS
                     timestamp: new Date().toISOString()
                 });
 
-                // 5. Success! Now Redirect
                 document.getElementById('submit-text').textContent = "Redirecting...";
-                // Short delay to ensure user sees status
                 setTimeout(() => {
                     window.location.href = stripeLinks['QuickScan Audit'];
                 }, 1000);
@@ -639,19 +670,15 @@ GLOBAL VISA & JOURNEYS
             } catch (error) {
                 console.error("Database Error:", error);
                 showMessage("Connection error. Redirecting to payment anyway...", 'error');
-                // Fallback: If DB fails, still take their money
                 setTimeout(() => {
                     window.location.href = stripeLinks['QuickScan Audit'];
                 }, 2000);
             }
         }
 
-        // --- INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', () => {
             initFirebase();
             checkCookies();
-            
-            // Attach the NEW handler
             const form = document.getElementById('quickscan-form');
             if (form) {
                 form.addEventListener('submit', handleQuickScanSubmit);
