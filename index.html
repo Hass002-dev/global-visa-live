@@ -107,22 +107,20 @@
         <!-- Navigation Bar -->
         <nav class="sticky top-0 bg-navy shadow-lg z-40 w-full">
             <div class="flex items-center justify-between p-4 max-w-7xl mx-auto">
-                <!-- Logo Section -->
-                <div class="flex items-center space-x-3 cursor-pointer" onclick="navigate('home')">
-                    <div class="relative w-12 h-12 flex-shrink-0">
-                         <img src=".//Global Visa & Journeys Logo.jpeg" 
-                              alt="Global Visa & Journeys Logo" 
-                              class="w-full h-full object-contain" 
-                              onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block';">
-                         <svg id="fallback-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-full h-full" style="display: none;">
-                            <path d="M60 20 A 35 35 0 1 0 60 90 L 60 65 A 10 10 0 1 1 60 45 L 80 45" fill="none" stroke="#d4af37" stroke-width="8" stroke-linecap="round" />
-                            <path d="M55 35 L 75 25 L 70 45 L 85 50 L 70 55 L 65 75 L 55 65 L 55 35" fill="#d4af37"/>
-                         </svg>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="logo-text text-gold leading-none hidden sm:block">GLOBAL VISA</span>
-                        <span class="logo-text text-white leading-none hidden sm:block">& JOURNEYS</span>
-                        <span class="logo-text text-gold sm:hidden">GV&J</span>
+                <!-- Logo Section (Fixed Layout) -->
+                <div class="flex items-center cursor-pointer" onclick="navigate('home')">
+                    <div class="relative h-12 w-auto">
+                         <!-- Ensure logo.png is in the same folder -->
+                         <img src="./Global Visa & Journeys Logo.jpeg" 
+                              alt="Global Visa & Journeys" 
+                              class="h-full w-auto object-contain" 
+                              onerror="this.style.display='none'; document.getElementById('fallback-text').style.display='block';">
+                         
+                         <!-- Fallback Text if Image Fails -->
+                         <div id="fallback-text" style="display:none;" class="flex flex-col justify-center h-full">
+                            <span class="text-gold font-black leading-none text-xl">GLOBAL VISA</span>
+                            <span class="text-white font-black leading-none text-sm">& JOURNEYS</span>
+                         </div>
                     </div>
                 </div>
 
@@ -150,10 +148,10 @@
                         Get the Visa <span class="text-gold">Right</span>,<br>Enjoy Your Flight.
                     </h1>
                     <p class="mt-6 text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto px-4">
-                        We eliminate the <span class="font-bold text-white">Fatal Flaws</span> that lead to visa refusals for UK & Schengen applicants.
+                        We eliminate the <span class="text-gold font-bold">Fatal Flaws</span> that lead to visa refusals for UK & Schengen applicants.
                     </p>
                     
-                    <!-- THE REQUESTED 3-BUTTON LAYOUT -->
+                    <!-- 3-Button Layout -->
                     <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4 px-4">
                         <button onclick="document.getElementById('quickscan-section').scrollIntoView({behavior: 'smooth'})" class="btn-gold py-3 px-8 rounded-full text-lg shadow-lg transform hover:scale-105 transition">
                             Start Audit (£39.99)
@@ -168,28 +166,64 @@
                 </div>
             </section>
 
-            <!-- NEW: West Africa Hub Links (RESIZED SMALLER) -->
-            <section class="mb-16 bg-gray-900/50 p-8 rounded-xl border border-gray-700 text-center">
-                 <h2 class="text-2xl font-bold text-white mb-6">Applying from West Africa? Select Your Country:</h2>
-                 <div class="flex flex-wrap justify-center gap-4">
-                    <a href="nigeria.html" class="block w-full sm:w-56 p-4 bg-gray-800 rounded-xl border border-gray-700 hover:border-green-500 hover:bg-gray-700 transition transform hover:-translate-y-1">
-                        <span class="text-3xl block mb-2">🇳🇬</span>
-                        <span class="text-white font-bold text-base">Nigeria</span>
-                        <p class="text-xs text-gray-400 mt-1">Funds Parking Strategy</p>
-                    </a>
-                    <a href="gambia.html" class="block w-full sm:w-56 p-4 bg-gray-800 rounded-xl border border-gray-700 hover:border-blue-500 hover:bg-gray-700 transition transform hover:-translate-y-1">
-                        <span class="text-3xl block mb-2">🇬🇲</span>
-                        <span class="text-white font-bold text-base">The Gambia</span>
-                        <p class="text-xs text-gray-400 mt-1">Strong Ties Strategy</p>
-                    </a>
-                    <a href="sierra leone.html" class="block w-full sm:w-56 p-4 bg-gray-800 rounded-xl border border-gray-700 hover:border-white hover:bg-gray-700 transition transform hover:-translate-y-1">
-                        <span class="text-3xl block mb-2">🇸🇱</span>
-                        <span class="text-white font-bold text-base">Sierra Leone</span>
-                        <p class="text-xs text-gray-400 mt-1">Document Verification</p>
+             <!-- FREE TOOL LINK SECTION -->
+             <section class="mb-16">
+                <div class="max-w-4xl mx-auto bg-gray-900 border border-gold p-8 rounded-xl flex flex-col md:flex-row items-center justify-between shadow-2xl">
+                    <div class="mb-6 md:mb-0 md:mr-8 text-center md:text-left">
+                        <h2 class="text-2xl font-bold text-white mb-2">Unsure if you qualify?</h2>
+                        <p class="text-gray-400 text-sm">
+                            Use our <strong>Free Visa Readiness Calculator</strong> to check your financial eligibility and passport validity in 30 seconds. No cost.
+                        </p>
+                    </div>
+                    <a href="calculator.html" class="btn-gold py-3 px-8 rounded-full font-bold whitespace-nowrap shadow-lg hover:shadow-gold/50 transition">
+                        Launch Free Calculator
                     </a>
                 </div>
             </section>
             
+            <!-- West Africa Hub Links -->
+            <section class="mb-16 bg-gray-900/50 p-8 rounded-xl border border-gray-700 text-center">
+                 <h2 class="text-2xl font-bold text-white mb-6">Applying from West Africa? Select Your Country:</h2>
+                 <div class="flex flex-wrap justify-center gap-6">
+                    <a href="nigeria.html" class="block w-full sm:w-64 p-6 bg-gray-800 rounded-xl border border-gray-700 hover:border-green-500 hover:bg-gray-700 transition transform hover:-translate-y-1">
+                        <span class="text-5xl block mb-3">🇳🇬</span>
+                        <span class="text-white font-bold text-lg">Nigeria</span>
+                        <p class="text-xs text-gray-400 mt-2">Funds Parking Strategy</p>
+                    </a>
+                    <a href="gambia.html" class="block w-full sm:w-64 p-6 bg-gray-800 rounded-xl border border-gray-700 hover:border-blue-500 hover:bg-gray-700 transition transform hover:-translate-y-1">
+                        <span class="text-5xl block mb-3">🇬🇲</span>
+                        <span class="text-white font-bold text-lg">The Gambia</span>
+                        <p class="text-xs text-gray-400 mt-2">Strong Ties Strategy</p>
+                    </a>
+                    <a href="sierra leone.html" class="block w-full sm:w-64 p-6 bg-gray-800 rounded-xl border border-gray-700 hover:border-white hover:bg-gray-700 transition transform hover:-translate-y-1">
+                        <span class="text-5xl block mb-3">🇸🇱</span>
+                        <span class="text-white font-bold text-lg">Sierra Leone</span>
+                        <p class="text-xs text-gray-400 mt-2">Document Verification</p>
+                    </a>
+                </div>
+            </section>
+            
+            <!-- Our Mission Section -->
+            <section class="mb-16 bg-gray-900/50 p-8 rounded-xl border border-gray-700">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h2 class="text-gold text-sm font-bold tracking-widest uppercase mb-2">Who We Are</h2>
+                    <h3 class="text-3xl font-extrabold text-white mb-6">"Get the Visa Right, Enjoy Your Flight."</h3>
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Global Visa & Journeys was founded to solve a specific problem: the complexity maze that high-risk applicants face when traveling to the UK and Europe.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-8 text-left mt-8">
+                        <div>
+                            <h4 class="text-gold font-bold text-lg mb-2">Our Mission</h4>
+                            <p class="text-gray-400 text-sm">To eliminate the anxiety of international travel by providing expert, honest visa strategy and flawless logistical planning, ensuring our clients travel with confidence and dignity.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-gold font-bold text-lg mb-2">Our Vision</h4>
+                            <p class="text-gray-400 text-sm">To become the trusted authority for complex entry strategies, known for a client-first approach to risk management that bridges the gap between bureaucracy and adventure.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Testimonials -->
             <section class="mb-16">
                 <h2 class="text-2xl sm:text-3xl font-bold text-white text-center mb-8">Trusted by Clients Facing Complex Hurdles</h2>
@@ -211,65 +245,25 @@
                     </div>
                 </div>
             </section>
-
-            <!-- ADDED BACK: Why Choose Us Section -->
+            
+            <!-- Why Choose Us Section -->
             <section id="why-choose-us" class="mb-16 text-center">
                 <h2 class="text-3xl font-bold text-gold mb-10">Why Choose Global Visa & Journeys?</h2>
                 <div class="grid md:grid-cols-3 gap-8">
-                    <!-- Reason 1 -->
                     <div class="p-6 bg-gray-900 rounded-xl shadow-lg border-t-4 border-white">
                         <span class="text-6xl text-gold mb-3 block">✓</span>
                         <h3 class="text-xl font-semibold text-white mb-2">Fatal Flaw Expertise</h3>
                         <p class="text-gray-400 text-sm">Our consultants apply embassy-level scrutiny, specializing in identifying and correcting the specific, common errors that trigger mandatory refusals for high-risk applicants.</p>
                     </div>
-                    <!-- Reason 2 -->
                     <div class="p-6 bg-gray-900 rounded-xl shadow-lg border-t-4 border-white">
                         <span class="text-6xl text-gold mb-3 block">✈️</span>
                         <h3 class="text-xl font-semibold text-white mb-2">Integrated Travel Logistics</h3>
                         <p class="text-gray-400 text-sm">We don't just fix your documents—we handle compliant flight bookings, hotel reservations, and travel insurance, ensuring your paperwork is seamless.</p>
                     </div>
-                    <!-- Reason 3 -->
                     <div class="p-6 bg-gray-900 rounded-xl shadow-lg border-t-4 border-white">
                         <span class="text-6xl text-gold mb-3 block">🔒</span>
                         <h3 class="text-xl font-semibold text-white mb-2">Strategy-First Approach</h3>
                         <p class="text-gray-400 text-sm">We sell strategy, not promises. Every service begins with a concrete audit, allowing you to pay for targeted solutions that maximize your probability of success.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- FAQ Section -->
-            <section class="mb-16 max-w-4xl mx-auto">
-                <h2 class="text-3xl font-bold text-white text-center mb-8">Frequently Asked Questions</h2>
-                <div class="space-y-4">
-                    <!-- FAQ Item 1 -->
-                    <div class="bg-navy rounded-lg border border-gray-700 overflow-hidden">
-                        <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
-                            <span class="font-semibold text-white">Do you guarantee that I will get the visa?</span>
-                            <span class="faq-icon text-gold text-xl">+</span>
-                        </button>
-                        <div class="faq-content bg-gray-800 px-6">
-                            <p class="py-4 text-gray-300 text-sm">No. No honest agent can guarantee a visa, as the decision rests solely with the Embassy. We guarantee that your application strategy will be 100% compliant and error-free, eliminating the most common reasons for refusal (bureaucratic mistakes).</p>
-                        </div>
-                    </div>
-                    <!-- FAQ Item 2 -->
-                    <div class="bg-navy rounded-lg border border-gray-700 overflow-hidden">
-                        <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
-                            <span class="font-semibold text-white">What happens if my visa is refused?</span>
-                            <span class="faq-icon text-gold text-xl">+</span>
-                        </button>
-                        <div class="faq-content bg-gray-800 px-6">
-                            <p class="py-4 text-gray-300 text-sm">Our consulting fees are non-refundable because they cover our time and expertise. However, if you used our Flight Reservation service, you will not lose money on a full plane ticket, as we only reserve the itinerary for the application.</p>
-                        </div>
-                    </div>
-                    <!-- FAQ Item 3 -->
-                    <div class="bg-navy rounded-lg border border-gray-700 overflow-hidden">
-                        <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
-                            <span class="font-semibold text-white">Why do I need a QuickScan before the Full Package?</span>
-                            <span class="faq-icon text-gold text-xl">+</span>
-                        </button>
-                        <div class="faq-content bg-gray-800 px-6">
-                            <p class="py-4 text-gray-300 text-sm">The QuickScan is a diagnostic tool. We cannot fix your application until we know exactly what is wrong with it. It saves you money by confirming if you even qualify for the Full Strategy before paying the higher fee.</p>
-                        </div>
                     </div>
                 </div>
             </section>
@@ -303,7 +297,6 @@
                         </div>
                         <button type="submit" id="submit-button" class="btn-gold w-full py-4 rounded-xl text-lg shadow-lg hover:shadow-gold/50 flex items-center justify-center transition-all transform hover:-translate-y-1">
                             <span id="submit-text">Secure Your Audit Now</span>
-                            <!-- Loading spinner SVG -->
                             <svg id="loading-spinner" class="animate-spin -ml-1 mr-3 h-5 w-5 text-navy hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -381,7 +374,7 @@
                         <span class="mt-2 sm:mt-0 bg-red-900 text-red-200 text-xs font-bold px-3 py-1 rounded border border-red-500">EMERGENCY</span>
                     </div>
                     <p class="text-gold text-2xl font-semibold mb-4">£15.00 <span class="text-sm text-gray-400 font-normal">/ 30 Minutes</span></p>
-                    <p class="text-gray-300 mb-6"><strong>Emergency Zoom Consultation.</strong> Solve a single, critical issue fast.</p>
+                    <p class="text-gray-300 mb-6">Emergency Zoom Consultation. Solve a single, critical issue fast.</p>
                     <button onclick="openPaymentModal('Quick Fix Call')" class="bg-red-600 hover:bg-red-500 text-white py-3 px-6 rounded-lg text-sm font-bold shadow-lg transition-all w-full sm:w-auto">Book Emergency Call</button>
                 </div>
                 
@@ -389,7 +382,7 @@
                 <div class="p-8 bg-navy rounded-xl shadow-2xl border-l-8 border-gold transform transition hover:scale-[1.01]">
                     <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2">6. Visa Flight Reservation</h2>
                     <p class="text-white text-2xl font-semibold mb-4">£50.00</p>
-                    <p class="text-gray-300 mb-6">We reserve a verifiable flight itinerary for your visa application <strong>without</strong> you buying the full ticket. Protects your money.</p>
+                    <p class="text-gray-300 mb-6">We reserve a verifiable flight itinerary for your visa application without you buying the full ticket. Protects your money.</p>
                     
                     <button onclick="openPaymentModal('Visa Flight Reservation')" class="btn-whatsapp py-3 px-6 rounded-lg text-sm font-bold shadow-lg inline-flex items-center w-full sm:w-auto justify-center">
                         <i class="fas fa-ticket-alt mr-2 text-xl"></i> Pay & Reserve
@@ -402,6 +395,9 @@
             <section class="mt-16 pt-8 border-t border-gray-700">
                 <h2 class="text-3xl font-extrabold text-white mb-6">Have a Question? Contact Us.</h2>
                 <div class="p-6 bg-navy rounded-xl shadow-xl max-w-lg">
+                    <!-- 
+                        🚨 HOSTING CHANGE: Email Updated
+                    -->
                     <form id="contact-form" action="mailto:globalvisaandjourneys@gmail.com" method="post" enctype="text/plain" class="space-y-4">
                         <input type="text" name="name" placeholder="Your Name" required class="mt-1 block w-full rounded-md bg-gray-700 text-white border-transparent focus:border-gold focus:ring-gold p-3">
                         <input type="email" name="email" placeholder="Your Email" required class="mt-1 block w-full rounded-md bg-gray-700 text-white border-transparent focus:border-gold focus:ring-gold p-3">
@@ -464,9 +460,32 @@
             <div>
                 <h3 class="logo-text text-gold mb-3">G V & J</h3>
                 <p class="text-sm">Visa Strategy & Travel Logistics.</p>
+                <div class="flex items-center space-x-3 mt-4">
+                    <div class="relative w-10 h-10 flex-shrink-0">
+                         <!-- Ensure logo.png is in the same folder -->
+                         <img src="./logo.png" 
+                              alt="Global Visa & Journeys Logo" 
+                              class="w-full h-full object-contain" 
+                              onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block';">
+                         
+                         <!-- Fallback SVG Logo -->
+                         <svg id="fallback-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-full h-full" style="display: none;">
+                            <path d="M60 20 A 35 35 0 1 0 60 90 L 60 65 A 10 10 0 1 1 60 45 L 80 45" fill="none" stroke="#d4af37" stroke-width="8" stroke-linecap="round" />
+                            <path d="M55 35 L 75 25 L 70 45 L 85 50 L 70 55 L 65 75 L 55 65 L 55 35" fill="#d4af37"/>
+                         </svg>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="logo-text text-gold leading-none hidden sm:block">GLOBAL VISA</span>
+                        <span class="logo-text text-white leading-none hidden sm:block">& JOURNEYS</span>
+                        <span class="logo-text text-gold sm:hidden">GV&J</span>
+                    </div>
+                </div>
             </div>
             <div>
                 <h4 class="text-lg font-semibold text-white mb-4">Quick Contact</h4>
+                <!-- 
+                    🚨 HOSTING CHANGE: Footer Contact Info Updated
+                -->
                 <p class="flex items-center space-x-2"><span class="text-gold">📧</span> <a href="mailto:globalvisaandjourneys@gmail.com" class="hover:text-gold">globalvisaandjourneys@gmail.com</a></p>
                 <p class="flex items-center space-x-2 mt-2"><span class="text-gold">📞</span> <a href="tel:+447511219482" class="hover:text-gold">+44 7511219482</a></p>
             </div>
@@ -587,7 +606,7 @@ GLOBAL VISA & JOURNEYS
 1st November 2025
 
 1. Definitions and Acceptance
-1.1. The Consultant: Refers to Global Visa & Journeys, Essex United Kingdom.
+1.1. The Consultant: Refers to Global Visa & Journeys Ltd, a private limited company registered in England and Wales.
 1.2. The Client: Refers to the individual purchasing or using services from the Consultant.
 1.3. The Service: Refers collectively to the Full Access Strategy, the Proof of Return Package, the Quick Scan Audit, and all associated travel logistics.
 1.4. Acceptance: By proceeding with payment for any Service, you’ve agreed to be bound by these Terms and Conditions and the separate, mandatory Engagement Letter.
@@ -602,6 +621,7 @@ GLOBAL VISA & JOURNEYS
 3.1. Visa Outcome: The Consultant provides strategic assistance and document preparation only. The Consultant does not guarantee the success of any visa application. The final decision rests with the government authority (UKVI or Schengen Consulate).
 3.2. Reliance on Client: The Consultant relies entirely on the accuracy and truthfulness of all documents and information provided by the Client. Any liability arising from false, misleading, or fraudulent documentation rests solely with the Client.
 3.3. Legal Status: The Consultant is not a law firm or regulated immigration advisor. The service provided is administrative and strategic, not legal representation.
+3.4. ATOL Disclaimer: Global Visa & Journeys Ltd is a travel consultancy, not a Tour Operator. We do not sell flight-inclusive packages and are not ATOL holders. All travel bookings are made directly between the Client and the Supplier.
 
 4. Cancellation and Refunds (Travel & Logistics)
 4.1. Consulting Service Cancellation: As per Clause 2.3, the Consulting Fee is non-refundable once the Engagement Letter is signed and work has commenced.
@@ -668,8 +688,7 @@ GLOBAL VISA & JOURNEYS
                     if (user) {
                         userId = user.uid;
                         isAuthReady = true;
-                        document.getElementById('auth-status').textContent = `System: READY`;
-                        // Enable the button now that we are connected
+                        // document.getElementById('auth-status').textContent = `System: READY`;
                         const btn = document.getElementById('submit-button');
                         if(btn) btn.disabled = false;
                     }
