@@ -4,16 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free Visa Risk Calculator | Global Visa & Journeys</title>
-    <!-- FAVICON -->
     <link rel="icon" type="image/x-icon" href="./favicon.ico">
-    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Inter Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1EZM399KT"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -35,12 +30,11 @@
 </head>
 <body class="min-h-screen flex flex-col relative">
 
-    <!-- Navigation -->
     <nav class="sticky top-0 bg-navy shadow-lg z-40 w-full">
         <div class="flex items-center justify-between p-4 max-w-7xl mx-auto">
             <a href="index.html" class="flex items-center space-x-3 cursor-pointer">
                 <div class="relative w-12 h-12 flex-shrink-0">
-                     <img src="./logo.png" alt="Logo" class="w-full h-full object-contain" onerror="this.style.display='none';">
+                     <img src="./Global Visa & Journeys Logo.jpeg" alt="Logo" class="w-full h-full object-contain" onerror="this.style.display='none';">
                 </div>
                 <div class="flex flex-col">
                     <span class="logo-text text-gold leading-none hidden sm:block">GLOBAL VISA</span>
@@ -54,7 +48,6 @@
         </div>
     </nav>
 
-    <!-- Calculator Section -->
     <main class="flex-grow flex items-center justify-center p-4">
         <div class="max-w-2xl w-full bg-gray-900 border border-gold rounded-xl p-8 shadow-2xl">
             <div class="text-center mb-8">
@@ -63,7 +56,6 @@
             </div>
             
             <form id="calc-form" onsubmit="event.preventDefault(); showEmailGate();">
-                <!-- Dates -->
                 <div class="grid md:grid-cols-2 gap-6 mb-6">
                     <div>
                         <label class="block text-xs text-gold font-bold uppercase mb-2">Trip Start Date</label>
@@ -75,7 +67,6 @@
                     </div>
                 </div>
 
-                <!-- Financials -->
                 <div class="grid md:grid-cols-2 gap-6 mb-6">
                     <div>
                         <label class="block text-xs text-gold font-bold uppercase mb-2">Current Bank Balance (£)</label>
@@ -88,10 +79,9 @@
                     </div>
                 </div>
 
-                <!-- BRP & Risk -->
                 <div class="mb-8 space-y-4">
                     <div>
-                        <label class="block text-xs text-gold font-bold uppercase mb-2">BRP / Visa Expiry Date</label>
+                        <label class="block text-xs text-gold font-bold uppercase mb-2">Passport / Visa Expiry Date</label>
                         <input type="date" id="calc-brp-date" required class="w-full bg-navy border border-gray-700 rounded p-3 text-white focus:border-gold outline-none">
                     </div>
                     <label class="flex items-center space-x-3 cursor-pointer p-3 bg-navy rounded border border-gray-700">
@@ -100,12 +90,11 @@
                     </label>
                 </div>
 
-                <button type="submit" class="w-full bg-white text-navy font-bold py-4 rounded-xl hover:bg-gray-200 transition text-lg shadow-lg">
+                <button type="submit" class="w-full btn-gold py-4 rounded-xl shadow-lg transform active:scale-95 transition text-lg">
                     CALCULATE RISK LEVEL
                 </button>
             </form>
 
-            <!-- EMAIL GATE (Hidden Initially) -->
             <div id="email-gate" class="hidden text-center mt-8 pt-8 border-t border-gray-700">
                 <div class="mb-6">
                     <i class="fas fa-lock text-4xl text-gold mb-4"></i>
@@ -114,12 +103,13 @@
                 </div>
                 <div class="max-w-md mx-auto">
                     <input type="email" id="user-email" placeholder="Enter your email address" required class="w-full bg-navy border border-gray-700 rounded p-3 text-white focus:border-gold outline-none mb-4">
-                    <button onclick="revealResult()" class="w-full btn-gold py-3 rounded-lg font-bold">Unlock Report</button>
+                    <button id="unlock-btn" onclick="revealResult()" class="w-full btn-gold py-3 rounded-lg font-bold shadow-md hover:shadow-gold/50 transition">
+                        Unlock Report
+                    </button>
                 </div>
                 <p class="text-xs text-gray-600 mt-4">We respect your privacy. No spam.</p>
             </div>
 
-            <!-- RESULT AREA (Hidden Initially) -->
             <div id="calc-result" class="hidden mt-8">
                 <div id="result-box" class="p-6 rounded-xl border-2 text-center mb-6">
                     <h3 id="calc-status-title" class="text-2xl font-black uppercase mb-2"></h3>
@@ -144,7 +134,7 @@
                     </ul>
                 </div>
 
-                <button onclick="window.location.href='https://buy.stripe.com/14AfZhgehbKQ9QrcCC1ck01'" class="mt-6 w-full btn-gold py-4 rounded-xl font-bold shadow-lg animate-pulse">
+                <button onclick="window.location.href='index.html#quickscan-section'" class="mt-6 w-full btn-gold py-4 rounded-xl font-bold shadow-lg animate-pulse">
                     Fix This Risk: Get Full QuickScan (£39.99)
                 </button>
             </div>
@@ -152,18 +142,20 @@
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-navy border-t border-gray-800 py-6 text-center text-xs text-gray-600">
-        &copy; 2025 Global Visa & Journeys Ltd.
+    <footer class="bg-navy border-t border-gray-800 py-8 px-4 text-center text-gray-400 text-xs">
+        <div class="max-w-4xl mx-auto space-y-2">
+            <p class="font-bold text-white">Global Visa & Journeys Ltd</p>
+            <p>71-75 Shelton Street, Covent Garden, London, WC2H 9JQ</p>
+            <p>UK Office: 0204 628 1692 | Email: office@globalvisajourneys.com</p>
+            <p class="pt-2 border-t border-gray-800">&copy; 2025 Global Visa & Journeys Ltd. Registered in England & Wales. Company No: 16959031.</p>
+        </div>
     </footer>
 
-    <!-- Firebase Imports and Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, addDoc, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Firebase Config (Paste your REAL keys here)
         const firebaseConfig = {
             apiKey: "AIzaSyCcoyBXRITTblrH0XcaLGMjftUttXYLtj4",
             authDomain: "global-visa-journeys.firebaseapp.com",
@@ -173,21 +165,31 @@
             appId: "1:381217766164:web:1cb70fbc26332f5a8d6001"
         };
 
-        // Initialize
         let db, auth, userId;
-        try {
-            const app = initializeApp(firebaseConfig);
-            db = getFirestore(app);
-            auth = getAuth(app);
-            signInAnonymously(auth).then((userCredential) => {
-                userId = userCredential.user.uid;
-            });
-        } catch(e) { console.error("Firebase Error", e); }
+        let isAuthReady = false;
 
-        // --- CALCULATOR LOGIC ---
+        async function initFirebase() {
+             try {
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                await signInAnonymously(auth);
+                auth.onAuthStateChanged((user) => {
+                    if (user) {
+                        userId = user.uid;
+                        isAuthReady = true;
+                        console.log("System Ready: User ID", userId);
+                    }
+                });
+            } catch (e) {
+                console.error("Firebase Init Failed:", e);
+            }
+        }
         
+        // Start init immediately
+        initFirebase();
+
         window.showEmailGate = function() {
-            // Validate inputs first
             const start = document.getElementById('calc-start-date').value;
             const end = document.getElementById('calc-return-date').value;
             const brp = document.getElementById('calc-brp-date').value;
@@ -197,91 +199,99 @@
                 alert("Please fill in all fields.");
                 return;
             }
-
-            // Hide form, show gate
             document.getElementById('calc-form').classList.add('hidden');
             document.getElementById('email-gate').classList.remove('hidden');
         }
 
         window.revealResult = async function() {
-            const email = document.getElementById('user-email').value;
+            const emailInput = document.getElementById('user-email');
+            const unlockBtn = document.getElementById('unlock-btn');
+            const email = emailInput.value;
+
             if(!email.includes('@')) {
-                alert("Please enter a valid email.");
+                alert("Please enter a valid email address.");
                 return;
             }
 
-            // 1. Capture Lead to Firebase
-            try {
-                if(db) {
-                    await addDoc(collection(db, "calculator_leads"), {
-                        email: email,
-                        timestamp: new Date().toISOString(),
-                        userId: userId || 'anonymous'
-                    });
-                }
-            } catch(e) { console.log("Lead capture error (safe to ignore for user):", e); }
+            // Lock Button
+            unlockBtn.disabled = true;
+            unlockBtn.textContent = "Verifying...";
 
-            // 2. Perform Calculation
-            const startDate = new Date(document.getElementById('calc-start-date').value);
-            const returnDate = new Date(document.getElementById('calc-return-date').value);
-            const brpDate = new Date(document.getElementById('calc-brp-date').value);
+            // 1. PERFORM ALL MATH & LOGIC *BEFORE* SAVING
             const balance = parseFloat(document.getElementById('calc-balance').value);
             const cost = parseFloat(document.getElementById('calc-cost').value);
             const lumpSum = document.getElementById('calc-lump-sum').checked;
+            const startDate = new Date(document.getElementById('calc-start-date').value);
+            const returnDate = new Date(document.getElementById('calc-return-date').value);
+            const brpDate = new Date(document.getElementById('calc-brp-date').value);
 
-            // Logic: Calculate Duration & Subsistence
+            const threeMonthsMs = 90 * 24 * 60 * 60 * 1000;
             const durationMs = returnDate - startDate;
             const durationDays = Math.ceil(durationMs / (1000 * 60 * 60 * 24));
-            
-            // Logic: £80 per day required for subsistence (Food, Transport)
-            // Plus the cost of the trip (Flight/Hotel) if not already paid, but we assume "Cost" input covers big ticket items.
-            // Let's assume Cost is Flight+Hotel. We need EXTRA for subsistence.
-            const subsistenceTotal = durationDays * 80; 
+            const subsistenceTotal = durationDays * 80;
             const totalRequired = cost + subsistenceTotal;
             const disposable = balance - totalRequired;
-
-            // Logic: BRP 3 Month Rule
-            const threeMonthsMs = 90 * 24 * 60 * 60 * 1000;
             const brpBuffer = brpDate - returnDate;
 
-            // Determine Result
-            let title, desc, colorClass, riskText;
+            // Determine Risk Tags (The Intelligence)
+            let title, desc, colorClass, riskTag;
 
             if (brpBuffer < threeMonthsMs) {
                 title = "🔴 CRITICAL FAIL: Visa Validity";
                 desc = "Your BRP/Visa expires less than 3 months after your return. This is an automatic refusal.";
                 colorClass = "bg-red-900/20 border-red-500 text-red-500";
-                riskText = "BRP Expiry";
+                riskTag = "BRP Expiry";
             } 
-            else if (disposable < 500) { // Buffer zone
+            else if (disposable < 500) { 
                 title = "🔴 HIGH RISK: Insufficient Funds";
                 desc = `You have £${balance}. After trip costs (£${cost}) and required daily subsistence (£${subsistenceTotal} for ${durationDays} days), you are left with £${disposable.toFixed(2)}. This is dangerously low.`;
                 colorClass = "bg-red-900/20 border-red-500 text-red-500";
-                riskText = "Financial Shortfall";
+                riskTag = "Financial Shortfall";
             }
             else if (lumpSum) {
                 title = "⚠️ WARNING: Funds Parking";
                 desc = "Your math works, BUT the large deposit is a refusal trigger. You must explain the source legally.";
                 colorClass = "bg-yellow-900/20 border-yellow-500 text-yellow-500";
-                riskText = "Unverified Source of Funds";
+                riskTag = "Funds Parking";
             }
             else {
                 title = "🟢 GOOD STANDING";
                 desc = `You have a healthy buffer of £${disposable.toFixed(2)} after all costs. Your basic eligibility is strong.`;
                 colorClass = "bg-green-900/20 border-green-500 text-green-500";
-                riskText = "Low Risk";
+                riskTag = "Low Risk";
             }
 
-            // Update UI
+            // 2. SAVE INTELLIGENCE TO FIREBASE (Flattened for Zapier)
+            try {
+                if(db) {
+                    await addDoc(collection(db, "calculator_leads"), {
+                        email: email,
+                        timestamp: new Date().toISOString(),
+                        userId: userId || 'anonymous',
+                        // KEY INTELLIGENCE FIELDS
+                        riskTag: riskTag,             // The main tag for Zapier
+                        calculatedDisposable: disposable, // The math
+                        tripCost: cost,
+                        durationDays: durationDays,
+                        refusalReason: desc
+                    });
+                    console.log("Lead Saved to Firebase");
+                } else {
+                    console.error("Database connection missing - Result shown locally only.");
+                }
+            } catch(e) { 
+                console.error("Lead capture error (safe to ignore for user):", e); 
+            }
+
+            // 3. UPDATE UI
             document.getElementById('calc-status-title').textContent = title;
             document.getElementById('calc-status-desc').textContent = desc;
             document.getElementById('result-box').className = `p-6 rounded-xl border-2 text-center mb-6 ${colorClass}`;
             
             document.getElementById('res-disposable').textContent = `£${disposable.toFixed(2)}`;
             document.getElementById('res-daily').textContent = `£${subsistenceTotal} (${durationDays} days)`;
-            document.getElementById('res-risk').textContent = riskText;
+            document.getElementById('res-risk').textContent = riskTag;
 
-            // Show Result
             document.getElementById('email-gate').classList.add('hidden');
             document.getElementById('calc-result').classList.remove('hidden');
         }
