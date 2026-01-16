@@ -6,17 +6,12 @@
     <title>Global Visa & Journeys | Get the Visa Right, Enjoy Your Flight.</title>
     <meta name="description" content="Expert UK & Schengen visa strategy for high-risk applicants. Forensic document audits and travel logistics.">
     
-    <!-- FAVICON -->
     <link rel="icon" type="image/x-icon" href="./favicon.ico">
 
-    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Inter Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1EZM399KT"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -111,7 +106,6 @@
 </head>
 <body class="min-h-screen flex flex-col relative">
     
-    <!-- COOKIE BANNER -->
     <div id="cookie-banner" class="hidden fixed bottom-0 left-0 w-full bg-gray-900 border-t border-gold p-4 z-50 shadow-2xl flex-col sm:flex-row items-center justify-between gap-4">
         <div class="text-sm text-gray-300 text-center sm:text-left max-w-3xl">
             <p><strong>We value your privacy.</strong> We use cookies to ensure the security of your submissions and to analyze traffic. By clicking "Accept", you consent to our use of cookies.</p>
@@ -122,26 +116,21 @@
         </div>
     </div>
 
-    <!-- Main Application Container -->
     <div id="app" class="max-w-6xl mx-auto p-0 w-full flex-grow">
         
-        <!-- Navigation Bar -->
         <nav class="sticky top-0 bg-navy shadow-lg z-40 w-full">
             <div class="flex items-center justify-between p-4 max-w-7xl mx-auto">
-                <!-- Logo Section -->
                 <div class="flex items-center space-x-3 cursor-pointer" onclick="navigate('home')">
                     <div class="relative w-12 h-12 flex-shrink-0">
-                         <!-- Ensure logo.png is in the same folder -->
-                         <img src="./Global Visa & Journeys Logo.jpeg" 
-                              alt="Global Visa & Journeys Logo" 
-                              class="w-full h-full object-contain" 
-                              onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block';">
-                         
-                         <!-- Fallback SVG Logo -->
-                         <svg id="fallback-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-full h-full" style="display: none;">
-                            <path d="M60 20 A 35 35 0 1 0 60 90 L 60 65 A 10 10 0 1 1 60 45 L 80 45" fill="none" stroke="#d4af37" stroke-width="8" stroke-linecap="round" />
-                            <path d="M55 35 L 75 25 L 70 45 L 85 50 L 70 55 L 65 75 L 55 65 L 55 35" fill="#d4af37"/>
-                         </svg>
+                          <img src="./Global Visa & Journeys Logo.jpeg" 
+                               alt="Global Visa & Journeys Logo" 
+                               class="w-full h-full object-contain" 
+                               onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block';">
+                          
+                          <svg id="fallback-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-full h-full" style="display: none;">
+                             <path d="M60 20 A 35 35 0 1 0 60 90 L 60 65 A 10 10 0 1 1 60 45 L 80 45" fill="none" stroke="#d4af37" stroke-width="8" stroke-linecap="round" />
+                             <path d="M55 35 L 75 25 L 70 45 L 85 50 L 70 55 L 65 75 L 55 65 L 55 35" fill="#d4af37"/>
+                          </svg>
                     </div>
                     <div class="flex flex-col">
                         <span class="logo-text text-gold leading-none hidden sm:block">GLOBAL VISA</span>
@@ -150,7 +139,6 @@
                     </div>
                 </div>
 
-                <!-- Menu -->
                 <div class="flex space-x-4 items-center">
                     <button onclick="navigate('home')" class="text-white hover:text-gold transition duration-200 text-sm sm:text-base font-semibold">Home</button>
                     <button onclick="navigate('services')" class="text-white hover:text-gold transition duration-200 text-sm sm:text-base font-semibold">Services</button>
@@ -159,15 +147,10 @@
             </div>
         </nav>
 
-        <!-- Loading & Status Messages -->
         <div id="message-box" class="hidden fixed top-20 left-1/2 -translate-x-1/2 w-11/12 max-w-md p-4 rounded-lg text-center z-50 shadow-2xl" role="alert"></div>
 
 
-        <!-- PAGE VIEWS -->
-
-        <!-- 1. Home View -->
         <main id="view-home" class="view p-4 sm:p-8">
-            <!-- Hero Section -->
             <section class="text-center py-12 sm:py-20 mb-12 bg-navy rounded-xl shadow-2xl border-b-4 border-gold relative overflow-hidden">
                 <div class="relative z-10">
                     <h1 class="text-4xl sm:text-6xl font-extrabold text-white leading-tight mb-6">
@@ -177,7 +160,6 @@
                         We eliminate the <span class="font-bold text-white">Fatal Flaws</span> that lead to visa refusals for UK & Schengen applicants.
                     </p>
                     
-                    <!-- THE RESTORED 3-BUTTON LAYOUT -->
                     <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4 px-4">
                         <button onclick="document.getElementById('quickscan-section').scrollIntoView({behavior: 'smooth'})" class="btn-gold py-3 px-8 rounded-full text-lg shadow-lg transform hover:scale-105 transition">
                             Start Audit (£39.99)
@@ -192,7 +174,6 @@
                 </div>
             </section>
             
-            <!-- RESTORED: Free Tool Link Section -->
             <section class="mb-16">
                  <div class="max-w-4xl mx-auto bg-gray-900 border border-gold p-8 rounded-xl flex flex-col md:flex-row items-center justify-between shadow-2xl">
                      <div class="mb-6 md:mb-0 md:mr-8 text-center md:text-left">
@@ -207,7 +188,6 @@
                  </div>
             </section>
 
-            <!-- West Africa Hub Links -->
             <section class="mb-16 bg-gray-900/50 p-8 rounded-xl border border-gray-700 text-center">
                  <h2 class="text-2xl font-bold text-white mb-6">Applying from West Africa? Select Your Country:</h2>
                  <div class="flex flex-wrap justify-center gap-6">
@@ -229,13 +209,11 @@
                 </div>
             </section>
             
-            <!-- NEW CAROUSEL: Testimonials -->
             <section class="mb-16 max-w-4xl mx-auto">
                 <h2 class="text-2xl sm:text-3xl font-bold text-white text-center mb-8">Trusted by Clients Facing Complex Hurdles</h2>
                 
                 <div class="relative carousel-container bg-gray-800 rounded-xl border border-gray-700 shadow-lg">
                     <div id="carousel-track" class="carousel-track">
-                        <!-- Slide 1 -->
                         <div class="carousel-slide">
                             <div class="p-8 text-center h-full flex flex-col justify-center">
                                 <p class="text-gold text-3xl mb-4">★★★★★</p>
@@ -243,7 +221,6 @@
                                 <p class="font-semibold text-white text-base">- Sarah K., Lagos</p>
                             </div>
                         </div>
-                        <!-- Slide 2 -->
                         <div class="carousel-slide">
                             <div class="p-8 text-center h-full flex flex-col justify-center">
                                 <p class="text-gold text-3xl mb-4">★★★★★</p>
@@ -251,7 +228,6 @@
                                 <p class="font-semibold text-white text-base">- James A., Abuja</p>
                             </div>
                         </div>
-                        <!-- Slide 3 -->
                         <div class="carousel-slide">
                             <div class="p-8 text-center h-full flex flex-col justify-center">
                                 <p class="text-gold text-3xl mb-4">★★★★★</p>
@@ -261,7 +237,6 @@
                         </div>
                     </div>
 
-                    <!-- Carousel Controls -->
                     <button onclick="prevSlide()" class="absolute left-0 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-gold text-white hover:text-navy p-3 rounded-r-lg transition">
                         <i class="fas fa-chevron-left"></i>
                     </button>
@@ -270,7 +245,6 @@
                     </button>
                 </div>
 
-                <!-- Carousel Indicators -->
                 <div class="flex justify-center space-x-3 mt-4">
                     <div onclick="goToSlide(0)" class="carousel-indicator active" id="indicator-0"></div>
                     <div onclick="goToSlide(1)" class="carousel-indicator" id="indicator-1"></div>
@@ -278,11 +252,9 @@
                 </div>
             </section>
 
-            <!-- FAQ Section -->
             <section class="mb-16 max-w-4xl mx-auto">
                 <h2 class="text-3xl font-bold text-white text-center mb-8">Frequently Asked Questions</h2>
                 <div class="space-y-4">
-                    <!-- FAQ Items (Unchanged) -->
                     <div class="bg-navy rounded-lg border border-gray-700 overflow-hidden">
                         <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
                             <span class="font-semibold text-white">Do you guarantee that I will get the visa?</span>
@@ -304,7 +276,6 @@
                 </div>
             </section>
 
-            <!-- QuickScan Audit Form Section -->
             <section id="quickscan-section" class="grid lg:grid-cols-2 gap-12 items-center mb-16">
                 <div class="p-8 bg-navy rounded-xl shadow-2xl border-t-4 border-gold h-full flex flex-col justify-center">
                     <h2 class="text-3xl font-extrabold text-gold mb-4">The £39.99 QuickScan Audit</h2>
@@ -316,7 +287,7 @@
                     </ul>
                 </div>
 
-                <div class="p-8 bg-gray-900 rounded-xl shadow-2xl border border-gray-800">
+                <div class="p-6 sm:p-8 bg-gray-900 rounded-xl shadow-2xl border border-gray-800">
                     <h3 class="text-2xl font-bold text-white mb-6 text-center">Start Your Security Check</h3>
                     <form id="quickscan-form" class="space-y-5">
                         <div>
@@ -331,7 +302,6 @@
                             <p class="text-sm text-gray-400">Consultation Fee</p>
                             <p class="text-2xl font-bold text-gold">£39.99</p>
                         </div>
-                        <!-- Button simulates submission. Update logic in script for real Stripe redirect -->
                         <button type="submit" id="submit-button" class="btn-gold w-full py-4 rounded-xl text-lg shadow-lg hover:shadow-gold/50 flex items-center justify-center transition-all transform hover:-translate-y-1">
                             <span id="submit-text">Secure Your Audit Now</span>
                             <svg id="loading-spinner" class="animate-spin -ml-1 mr-3 h-5 w-5 text-navy hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -347,14 +317,12 @@
             </section>
         </main>
         
-        <!-- 2. Services View -->
         <main id="view-services" class="view p-4 sm:p-8 hidden">
             <h1 class="text-4xl font-extrabold text-gold mb-10 border-b border-gray-700 pb-3">Our Core Services</h1>
             
             <div class="space-y-12">
                 
-                <!-- Service 1: QuickScan -->
-                  <div class="p-8 bg-navy rounded-xl shadow-2xl border-l-8 border-gold transform transition hover:scale-[1.01]">
+                <div class="p-8 bg-navy rounded-xl shadow-2xl border-l-8 border-gold transform transition hover:scale-[1.01]">
 
                     <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2">1. QuickScan Audit(Pre-Application Check)</h2>
 
@@ -368,15 +336,13 @@
 </div>
 
 
-                <!-- Service 2: Do It Yourself (DIY) Successful Kit (UPDATED NARRATIVE) -->
                 <div class="p-8 bg-gray-900 rounded-xl shadow-2xl border-l-8 border-blue-500 transform transition hover:scale-[1.01]">
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
-                        <h2 class="text-2xl sm:text-3xl font-bold text-white">DIY Successful Kit</h2>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white">2. DIY Successful Kit</h2>
                         <span class="mt-2 sm:mt-0 bg-blue-900 text-blue-200 text-xs font-bold px-3 py-1 rounded border border-blue-500">DIGITAL DOWNLOAD</span>
                     </div>
                     <p class="text-gold text-2xl font-semibold mb-4">£79.99</p>
                     
-                    <!-- NEW PERSUASIVE DESCRIPTION -->
                     <div class="mb-6 space-y-4 text-gray-300">
                          <p>
                              <strong>Are you planning to apply yourself but terrified of making a mistake?</strong> 
@@ -397,10 +363,9 @@
                     <button onclick="openPaymentModal('DIY Successful Kit')" class="bg-blue-600 hover:bg-blue-500 text-white py-3 px-6 rounded-lg text-sm font-bold shadow-lg transition-all w-full sm:w-auto">Buy & Download Kit</button>
                 </div>
 
-                 <!-- Service 3: UK Interactive Checklist -->
                  <div class="p-8 bg-navy rounded-xl shadow-2xl border-l-8 border-green-500 transform transition hover:scale-[1.01]">
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
-                        <h2 class="text-2xl sm:text-3xl font-bold text-white">UK Interactive Checklist</h2>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white">3. UK Interactive Checklist</h2>
                         <span class="mt-2 sm:mt-0 bg-green-900 text-green-200 text-xs font-bold px-3 py-1 rounded border border-green-500">AUTOMATED TOOL</span>
                     </div>
                     <p class="text-gold text-2xl font-semibold mb-4">£49.99</p>
@@ -414,7 +379,6 @@
                     <button onclick="openPaymentModal('UK Interactive Checklist')" class="bg-green-600 hover:bg-green-500 text-white py-3 px-6 rounded-lg text-sm font-bold shadow-lg transition-all w-full sm:w-auto">Buy Checklist Tool</button>
                 </div>
 
-                <!-- Service 4: Full Access Strategy -->
                 <div class="p-8 bg-gray-900 rounded-xl shadow-2xl border-l-8 border-white transform transition hover:scale-[1.01]">
                     <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2">4. Full Access Strategy (Visa + Logistics)</h2>
                     <p class="text-gold text-2xl font-semibold mb-4">£700.00</p>
@@ -423,7 +387,6 @@
                     <button onclick="openPaymentModal('Full Access Strategy')" class="btn-gold py-3 px-6 rounded-lg text-sm font-bold shadow-lg transition-all w-full sm:w-auto">Start Full Access</button>
                 </div>
 
-                <!-- Service 5: The "Quick Fix" -->
                 <div class="p-8 bg-navy rounded-xl shadow-2xl border-l-8 border-red-500 transform transition hover:scale-[1.01]">
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
                         <h2 class="text-2xl sm:text-3xl font-bold text-white">5. The "Quick Fix" Call</h2>
@@ -434,7 +397,6 @@
                     <button onclick="openPaymentModal('Quick Fix Call')" class="bg-red-600 hover:bg-red-500 text-white py-3 px-6 rounded-lg text-sm font-bold shadow-lg transition-all w-full sm:w-auto">Book Emergency Call</button>
                 </div>
                 
-                <!-- Service 6: Flight Reservations -->
                 <div class="p-8 bg-navy rounded-xl shadow-2xl border-l-8 border-gold transform transition hover:scale-[1.01]">
                     <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2">6. Visa Flight Reservation</h2>
                     <p class="text-white text-2xl font-semibold mb-4">£50.00</p>
@@ -447,11 +409,9 @@
 
             </div>
 
-            <!-- Contact Us Section -->
             <section class="mt-16 pt-8 border-t border-gray-700">
                 <h2 class="text-3xl font-extrabold text-white mb-6">Have a Question? Contact Us.</h2>
                 <div class="p-6 bg-navy rounded-xl shadow-xl max-w-lg">
-                    <!-- EMAIL UPDATED -->
                     <form id="contact-form" action="mailto:office@globalvisajourneys.com" method="post" enctype="text/plain" class="space-y-4">
                         <input type="text" name="name" placeholder="Your Name" required class="mt-1 block w-full rounded-md bg-gray-700 text-white border-transparent focus:border-gold focus:ring-gold p-3">
                         <input type="email" name="email" placeholder="Your Email" required class="mt-1 block w-full rounded-md bg-gray-700 text-white border-transparent focus:border-gold focus:ring-gold p-3">
@@ -462,10 +422,8 @@
             </section>
         </main>
 
-        <!-- 3. Legal View (Unchanged - Keeping content collapsed for length) -->
         <main id="view-legal" class="view p-4 sm:p-8 hidden">
-            <!-- (Same content as previous version) -->
-             <h1 class="text-4xl font-extrabold text-gold mb-10 border-b border-gray-700 pb-3">Legal & Transparency</h1>
+            <h1 class="text-4xl font-extrabold text-gold mb-10 border-b border-gray-700 pb-3">Legal & Transparency</h1>
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="bg-navy p-6 rounded-xl border-t-4 border-gold">
                     <h2 class="text-2xl font-bold mb-4">Engagement Letter</h2>
@@ -481,8 +439,6 @@
             </div>
         </main>
 
-        <!-- Legal Modals, Payment Modal (Unchanged) -->
-        <!-- ... (Keeping existing modal structure) ... -->
         <div id="legal-modal" class="hidden fixed inset-0 modal-backdrop flex items-center justify-center p-4">
              <div class="bg-gray-800 p-6 rounded-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl">
                 <div class="flex justify-between items-center border-b border-gray-700 pb-3 mb-4 sticky top-0 bg-gray-800">
@@ -508,7 +464,6 @@
         
     </div>
 
-    <!-- Footer -->
     <footer class="bg-navy border-t border-gray-800 mt-auto p-8 w-full mb-16 sm:mb-0">
         <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 text-gray-400">
             <div>
@@ -517,7 +472,6 @@
             </div>
             <div>
                 <h4 class="text-lg font-semibold text-white mb-4">Quick Contact</h4>
-                <!-- UPDATED CONTACT INFO -->
                 <p class="flex items-center space-x-2"><span class="text-gold">📧</span> <a href="mailto:office@globalvisajourneys.com" class="hover:text-gold">office@globalvisajourneys.com</a></p>
                 <p class="flex items-center space-x-2 mt-2"><span class="text-gold">📞</span> <a href="tel:+442046281692" class="hover:text-gold">0204 628 1692 (UK Office)</a></p>
                 <p class="flex items-center space-x-2 mt-2"><span class="text-gold">📍</span> <span>71-75 Shelton Street, Covent Garden, London, WC2H 9JQ</span></p>
@@ -529,14 +483,12 @@
             </div>
         </div>
         <div class="text-center text-gray-600 text-xs mt-8 pt-4 border-t border-gray-800">
-            <!-- ADDED COMPANY NUMBER -->
             &copy; 2025 Global Visa & Journeys Ltd. Registered in England & Wales. Company No: 16959031. <br>
             Not a regulated immigration advisory firm. <br>
             <strong>Global Visa & Journeys Ltd is a travel consultancy, not a Tour Operator. We do not sell flight-inclusive packages and are not ATOL holders. All travel bookings are made directly between the Client and the Supplier.</strong>
         </div>
     </footer>
 
-    <!-- Javascript Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -669,7 +621,7 @@ The Client acknowledges and agrees that the fee is for the professional preparat
 5. Acceptance and Signature
 By signing below, the Client acknowledges that they have read, understood, and accept the terms of this Engagement Letter, specifically the non-refund policy and the limitations of the Consultant's role.
             
-client Name: ___________________________        Date: ___________________________
+Client Name: ___________________________        Date: ___________________________
 Consultant Name: ________________________        Date: ___________________________  
 
             `,
@@ -715,14 +667,10 @@ GLOBAL VISA & JOURNEYS
             
             `
         };
-        // NOTE: I am abbreviating here to keep the chat short, but the file you copy should use the FULL TEXT from my previous response or your own records if you customized it. 
-        // For the purpose of this output, assume the variable contains the full text.
+        
 
         function openModal(docType) {
             document.getElementById('modal-title').textContent = docType;
-            // Ensure you paste the full legal text inside the 'legalDocs' object in your actual file!
-            // I've kept the full text in the previous 'legalDocs' block in my last response. 
-            // Please use that block.
             document.getElementById('modal-content').textContent = legalDocs[docType];
             document.getElementById('legal-modal').classList.remove('hidden');
         }
@@ -756,7 +704,6 @@ GLOBAL VISA & JOURNEYS
         let isAuthReady = false;
 
         async function initFirebase() {
-             // ... existing init logic ...
              try {
                 const app = initializeApp(firebaseConfig);
                 db = getFirestore(app);
@@ -778,32 +725,52 @@ GLOBAL VISA & JOURNEYS
         }
 
         async function handleQuickScanSubmit(event) {
-    event.preventDefault(); 
-    
-    const btn = document.getElementById('submit-button');
-    const name = document.getElementById('client-name').value;
-    const email = document.getElementById('client-email').value;
+            event.preventDefault(); 
+            
+            const btn = document.getElementById('submit-button');
+            const name = document.getElementById('client-name').value;
+            const email = document.getElementById('client-email').value;
 
-    // 1. Visual Feedback
-    btn.disabled = true;
-    btn.textContent = "Saving...";
+            // 1. Check Auth Status
+            if (!isAuthReady) {
+                showMessage("System initializing... please wait 3 seconds.", 'error');
+                return;
+            }
 
-    try {
-        // 2. Save to Firebase (Optional but good for leads)
-        if (db) {
-            await addDoc(collection(db, "quickscan_audits"), {
-                name: name,
-                email: email,
-                timestamp: new Date().toISOString()
-            });
+            // 2. Lock UI
+            btn.disabled = true;
+            document.getElementById('submit-text').textContent = "Saving...";
+            document.getElementById('loading-spinner').classList.remove('hidden');
+
+            try {
+                // 3. Save to Firebase
+                if (db) {
+                    await addDoc(collection(db, "quickscan_audits"), {
+                        name: name,
+                        email: email,
+                        userId: userId,
+                        status: "Initiated Payment",
+                        timestamp: new Date().toISOString()
+                    });
+                }
+
+                // 4. SUCCESS - Redirect
+                document.getElementById('submit-text').textContent = "Redirecting...";
+                setTimeout(() => {
+                    window.location.href = stripeLinks['QuickScan Audit'];
+                }, 1000);
+
+            } catch (error) {
+                console.error("Database Error:", error);
+                
+                // 5. FAIL - DO NOT REDIRECT (Prevent Ghost Payment)
+                btn.disabled = false;
+                document.getElementById('submit-text').textContent = "Retry / Contact Us";
+                document.getElementById('loading-spinner').classList.add('hidden');
+                
+                showMessage("Connection Error! Please screenshot this screen and WhatsApp us (+44 7511 219482) to secure your slot manually.", 'error');
+            }
         }
-    } catch (error) {
-        console.error("Database error:", error);
-    }
-
-    // 3. THE REDIRECT (Hard-coded to prevent blank page)
-    window.location.href = 'https://buy.stripe.com/14AfZhgehbKQ9QrcCC1ck01';
-}
 
         document.addEventListener('DOMContentLoaded', () => {
             initFirebase();
