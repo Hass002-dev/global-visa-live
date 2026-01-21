@@ -168,19 +168,20 @@
         <!-- 1. Home View -->
         <main id="view-home" class="view p-4 sm:p-8">
             <!-- Hero Section -->
-            <section class="text-center py-12 sm:py-20 mb-12 bg-navy rounded-xl shadow-2xl border-b-4 border-gold relative overflow-hidden">
+            <section class="text-center py-12 sm:py-20 mb-12 bg-navy rounded-xl shadow-2xl border-b-4 border-gold relative overflow-hidden" 
+                     style="background-image: linear-gradient(rgba(10, 14, 23, 0.85), rgba(10, 14, 23, 0.9)), url('./images/hero-bg.jpg'); background-size: cover; background-position: center;">
                 <div class="relative z-10">
                     <h1 class="text-4xl sm:text-6xl font-extrabold text-white leading-tight mb-6">
                         Get the Visa <span class="text-gold">Right</span>,<br>Enjoy Your Flight.
                     </h1>
                     <p class="mt-6 text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto px-4">
-                        We eliminate the <span class="font-bold text-white">Fatal Flaws</span> that lead to visa refusals for UK & Schengen applicants.
+                        Specialist Visa Strategy for UK & West African Residents. We Fix Refusal Triggers Before You Apply.
                     </p>
                     
                     <!-- THE RESTORED 3-BUTTON LAYOUT -->
                     <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4 px-4">
                         <button onclick="document.getElementById('quickscan-section').scrollIntoView({behavior: 'smooth'})" class="btn-gold py-3 px-8 rounded-full text-lg shadow-lg transform hover:scale-105 transition">
-                            Start Audit (£39.99)
+                            Start Strategy Review (£39.99)
                         </button>
                         <button onclick="navigate('services')" class="border border-gray-400 text-white hover:border-white py-3 px-8 rounded-full text-lg font-semibold transition">
                             View All Services
@@ -307,11 +308,11 @@
             <!-- QuickScan Audit Form Section -->
             <section id="quickscan-section" class="grid lg:grid-cols-2 gap-12 items-center mb-16">
                 <div class="p-8 bg-navy rounded-xl shadow-2xl border-t-4 border-gold h-full flex flex-col justify-center">
-                    <h2 class="text-3xl font-extrabold text-gold mb-4">The £39.99 QuickScan Audit</h2>
+                    <h2 class="text-3xl font-extrabold text-gold mb-4">The £39.99 QuickScan Strategy Review</h2>
                     <p class="text-gray-400 mb-6">This is your application insurance. We provide a Forensic Document Review using Embassy standards before you pay visa fees.</p>
                     <ul class="space-y-4 text-gray-300">
                         <li class="flex items-start"><span class="text-gold mr-3 font-bold">✓</span> <span>Fatal Flaw Identification</span></li>
-                        <li class="flex items-start"><span class="text-gold mr-3 font-bold">✓</span> <span>Financial Scrutiny Report</span></li>
+                        <li class="flex items-start"><span class="text-gold mr-3 font-bold">✓</span> <span>Financial Strategy Check</span></li>
                         <li class="flex items-start"><span class="text-gold mr-3 font-bold">✓</span> <span>48-Hour Delivery</span></li>
                     </ul>
                 </div>
@@ -356,11 +357,11 @@
                 <!-- Service 1: QuickScan -->
                   <div class="p-8 bg-navy rounded-xl shadow-2xl border-l-8 border-gold transform transition hover:scale-[1.01]">
 
-                    <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2">1. QuickScan Audit(Pre-Application Check)</h2>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2">1. QuickScan Strategy Review</h2>
 
                     <p class="text-gold text-2xl font-semibold mb-4">£39.99</p>
 
-                    <p class="text-gray-300 mb-6">Our mandatory entry service. This audit is our mandatory diagnostic entry service designed to identify specific refusal triggers before you pay expensive embassy fees. We perform a complete review of your financial statements and supporting documents against strict Entry Clearance Officer standards, providing a detailed report on 'Fatal Flaws' within 48 hours so you can correct errors and submit your application with absolute confidence.</p>
+                    <p class="text-gray-300 mb-6">Our mandatory entry service. This review is our mandatory diagnostic entry service designed to identify specific refusal triggers before you pay expensive embassy fees. We perform a complete review of your financial statements and supporting documents against strict Entry Clearance Officer standards, providing a detailed report on 'Fatal Flaws' within 48 hours so you can correct errors and submit your application with absolute confidence.</p>
 
                     <button onclick="window.location.href='https://book.stripe.com/28E4gygLremKd0Ogx50sU00'" class="btn-gold py-2 px-6 rounded-lg text-sm font-bold uppercase">
     Start QuickScan
@@ -419,7 +420,7 @@
                     <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2">4. Full Access Strategy (Visa + Logistics)</h2>
                     <p class="text-gold text-2xl font-semibold mb-4">£700.00</p>
                     <p class="text-gray-300 mb-4">Our premium, end-to-end solution for high-risk profiles. We build your forensic narrative from scratch, audit every single financial document for 'Fatal Flaws,' and handle your travel logistics (flights/hotels) to ensure a bulletproof application that stands up to Embassy scrutiny</p>
-                    <p class="text-sm text-red-400 mt-2 font-semibold">*Requires completion of £39.99 QuickScan Audit first.*</p>
+                    <p class="text-sm text-red-400 mt-2 font-semibold">*Requires completion of £39.99 QuickScan Strategy Review first.*</p>
                     <button onclick="openPaymentModal('Full Access Strategy')" class="btn-gold py-3 px-6 rounded-lg text-sm font-bold shadow-lg transition-all w-full sm:w-auto">Start Full Access</button>
                 </div>
 
@@ -442,6 +443,20 @@
                     
                     <button onclick="openPaymentModal('Visa Flight Reservation')" class="btn-whatsapp py-3 px-6 rounded-lg text-sm font-bold shadow-lg inline-flex items-center w-full sm:w-auto justify-center">
                         <i class="fas fa-ticket-alt mr-2 text-xl"></i> Pay & Reserve
+                    </button>
+                </div>
+
+                <!-- Service 7: UK Resident Schengen (NEW) -->
+                <div class="p-8 bg-gray-900 rounded-xl shadow-2xl border-l-8 border-blue-400 transform transition hover:scale-[1.01]">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white">7. UK Resident Schengen Strategy</h2>
+                        <span class="mt-2 sm:mt-0 bg-blue-900 text-blue-200 text-xs font-bold px-3 py-1 rounded border border-blue-400">UK RESIDENTS ONLY</span>
+                    </div>
+                    <p class="text-gold text-2xl font-semibold mb-4">£200.00</p>
+                    <p class="text-gray-300 mb-6">Designed exclusively for UK Residents (Skilled Worker, Student, or Spouse Visa holders) applying for Schengen visas. We manage the entire appointment strategy and application form to secure the longest possible visa validity (6 months to 2 years). Includes 'Golden Hour' appointment hunting and document structure review. *Note: Does not include complex financial narratives.*</p>
+                    
+                    <button onclick="openPaymentModal('UK Resident Schengen Strategy')" class="bg-blue-500 hover:bg-blue-400 text-white py-3 px-6 rounded-lg text-sm font-bold shadow-lg transition-all w-full sm:w-auto">
+                        Start Schengen Process
                     </button>
                 </div>
 
@@ -506,6 +521,10 @@
             </div>
         </div>
         
+        <!-- ZAPIER CHATBOT EMBED -->
+        <script async type='module' src='https://interfaces.zapier.com/assets/web-components/zapier-interfaces/zapier-interfaces.esm.js'></script>
+        <zapier-interfaces-chatbot-embed is-popup='true' chatbot-id='cmko2k2yr004rdz9ob53pthpc'></zapier-interfaces-chatbot-embed>
+        
     </div>
 
     <!-- Footer -->
@@ -531,7 +550,7 @@
         <div class="text-center text-gray-600 text-xs mt-8 pt-4 border-t border-gray-800">
             <!-- ADDED COMPANY NUMBER -->
             &copy; 2025 Global Visa & Journeys Ltd. Registered in England & Wales. Company No: 16959031. <br>
-            Not a regulated immigration advisory firm. <br>
+            ICO Registered (Data Protection). Not a regulated immigration advisory firm. <br>
             <strong>Global Visa & Journeys Ltd is a travel consultancy, not a Tour Operator. We do not sell flight-inclusive packages and are not ATOL holders. All travel bookings are made directly between the Client and the Supplier.</strong>
         </div>
     </footer>
@@ -744,7 +763,8 @@ GLOBAL VISA & JOURNEYS
             'UK Interactive Checklist': 'https://buy.stripe.com/dRmcN4dzf0vU8Ky6Wv0sU02',
             'Full Access Strategy': 'https://buy.stripe.com/3cIfZggLr2E2d0O4On0sU03',
             'Quick Fix Call': 'https://book.stripe.com/00waEW7aR3I64uieoX0sU04',
-            'Visa Flight Reservation': 'https://buy.stripe.com/cNieVc3YFemK6Cq80z0sU05' 
+            'Visa Flight Reservation': 'https://buy.stripe.com/cNieVc3YFemK6Cq80z0sU05',
+            'UK Resident Schengen Strategy': 'https://buy.stripe.com/bJe3cubr70vUgd00y70sU06'
         };
 
         // --- FIREBASE LOGIC ---
