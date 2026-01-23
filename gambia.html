@@ -32,7 +32,8 @@
         .btn-whatsapp { background-color: #25D366; color: white; transition: 0.3s; font-weight: 700; }
         .btn-whatsapp:hover { background-color: #128C7E; }
         .logo-text { font-size: 1.75rem; font-weight: 900; }
-        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background-color: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.5); z-index: 1000; }
+        /* FIXED: WhatsApp button moved to LEFT to avoid Chatbot overlap */
+        .whatsapp-float { position: fixed; bottom: 20px; left: 20px; background-color: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.5); z-index: 1000; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col relative">
@@ -42,7 +43,7 @@
         <div class="flex items-center justify-between p-4 max-w-7xl mx-auto">
             <a href="index.html" class="flex items-center space-x-3 cursor-pointer">
                 <div class="relative w-12 h-12 flex-shrink-0">
-                     <img src="./Global Visa & Journeys Logo.jpeg" alt="Logo" class="w-full h-full object-contain" onerror="this.style.display='none';">
+                     <img src="./images/logo.png" alt="Logo" class="w-full h-full object-contain" onerror="this.style.display='none';">
                 </div>
                 <div class="flex flex-col">
                     <span class="logo-text text-gold leading-none hidden sm:block">GLOBAL VISA</span>
@@ -72,7 +73,6 @@
             
             <!-- 3 Buttons Layout -->
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <!-- UPDATED LINK: QuickScan -->
                 <a href="https://book.stripe.com/28E4gygLremKd0Ogx50sU00" class="btn-gold py-3 px-8 rounded-full text-lg shadow-lg transform hover:scale-105 transition text-center">
                     Start Strategy Review (£39.99)
                 </a>
@@ -111,7 +111,7 @@
         </div>
     </section>
 
-    <!-- The Solution: QuickScan -->
+    <!-- The Solution: Strategy Review -->
     <section id="audit" class="py-16 px-4 bg-navy border-y border-gray-800">
         <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-12">
             <div class="md:w-1/2">
@@ -122,9 +122,8 @@
                     <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i> "Proof of Return" Assessment</li>
                     <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i> Sponsor Letter Verification</li>
                 </ul>
-                <!-- UPDATED LINK: QuickScan -->
                 <a href="https://book.stripe.com/28E4gygLremKd0Ogx50sU00" class="btn-gold py-3 px-8 rounded-lg font-bold inline-block w-full md:w-auto text-center">
-                    Start Strategy Review (£39.99)
+                    Get Strategy Review (£39.99)
                 </a>
             </div>
             <div class="md:w-1/2 bg-gray-900 p-6 rounded-xl border border-gold/30">
@@ -145,25 +144,24 @@
     <section class="py-16 px-4 max-w-6xl mx-auto">
         <h2 class="text-2xl font-bold text-center text-white mb-10">Other Tools for Gambian Applicants</h2>
         <div class="grid md:grid-cols-3 gap-6">
-            <!-- DIY Kit -->
+            
+            <!-- Travel Logistics (Real Flights) -->
             <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 hover:border-gold transition">
                 <div class="flex justify-between items-start mb-4">
-                    <h3 class="text-lg font-bold text-white">Do It Yourself (DIY) Visa Kit</h3>
-                    <span class="text-gold font-bold">£79.99</span>
+                    <h3 class="text-lg font-bold text-white">Travel Logistics Desk</h3>
+                    <span class="text-green-500 font-bold text-xs uppercase">Real Flights</span>
                 </div>
-                <p class="text-sm text-gray-400 mb-6">Complete template pack including the <strong>"Proof of Return Letter"</strong> for land owners.</p>
-                <!-- UPDATED LINK: DIY Kit -->
-                <a href="https://buy.stripe.com/7sYcN49iZfqOgd094D0sU01" class="block w-full py-2 border border-gray-600 text-white text-center rounded hover:bg-gray-800">Download Kit</a>
+                <p class="text-sm text-gray-400 mb-6">Need a quote for <strong>Real Flights</strong> and Insurance? We provide confirmed bookings and bank-transfer payment options.</p>
+                <a href="https://wa.me/447511219482?text=Hello%20Global%20Visa%2C%20I%20would%20like%20a%20quote%20for%20Real%20Flights%20and%20Insurance." class="block w-full py-2 bg-green-600 hover:bg-green-500 text-white text-center rounded">Chat for Quote</a>
             </div>
 
-            <!-- Flight Reservation -->
+            <!-- Visa App Itinerary -->
             <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 hover:border-gold transition">
                 <div class="flex justify-between items-start mb-4">
-                    <h3 class="text-lg font-bold text-white">Flight Reservation</h3>
+                    <h3 class="text-lg font-bold text-white">Visa App Itinerary</h3>
                     <span class="text-gold font-bold">£50.00</span>
                 </div>
-                <p class="text-sm text-gray-400 mb-6">Verifiable flight itinerary for your application. <strong>Do not buy a full ticket</strong> until your visa is approved.</p>
-                <!-- UPDATED LINK: Flight Reservation -->
+                <p class="text-sm text-gray-400 mb-6">Verifiable flight reservation for your visa application only. <strong>Do not buy a full ticket</strong> until your visa is approved.</p>
                 <a href="https://buy.stripe.com/cNieVc3YFemK6Cq80z0sU05" class="block w-full py-2 border border-gray-600 text-white text-center rounded hover:bg-gray-800">Reserve Flight</a>
             </div>
 
@@ -174,7 +172,6 @@
                     <span class="text-gold font-bold">£700</span>
                 </div>
                 <p class="text-sm text-gray-400 mb-6">We take over everything. Narrative writing, form review, and logistics. Ideal for high-net-worth individuals.</p>
-                <!-- UPDATED LINK: Full Access -->
                 <a href="https://buy.stripe.com/3cIfZggLr2E2d0O4On0sU03" class="block w-full py-2 border border-gray-600 text-white text-center rounded hover:bg-gray-800">Start Full Access</a>
             </div>
         </div>
@@ -184,12 +181,12 @@
     <footer class="bg-navy border-t border-gray-800 py-10 px-4 text-center">
         <p class="text-gold font-black text-xl mb-2">GLOBAL VISA & JOURNEYS</p>
         <p class="text-xs text-gray-600">
-            &copy; 2025 Global Visa & Journeys Ltd. Registered in England & Wales.<br>
+            &copy; 2025 Global Visa & Journeys Ltd. Registered in England & Wales. Company No: 16959031.<br>
             ICO Registered (Data Protection). Not a regulated immigration advisory firm. We provide travel consultancy and documentation strategy.
         </p>
     </footer>
 
-    <!-- Floating WhatsApp -->
+    <!-- Floating WhatsApp (LEFT SIDE) -->
     <a href="https://wa.me/447511219482" class="whatsapp-float">
         <i class="fab fa-whatsapp"></i>
     </a>
