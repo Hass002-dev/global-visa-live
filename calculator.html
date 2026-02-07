@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free UK Visa Risk Calculator | Check Your Refusal Probability</title>
-    <meta name="description" content="Do not apply blindly. Use our free forensic calculator to check your 'Disposable Income' and 'Funds Parking' risk score in 60 seconds.">
-    <!-- FAVICON -->
-    <link rel="icon" type="image/x-icon" href="./favicon.ico">
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Inter Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Visa Readiness Calculator | GV&J London</title>
     
-    <!-- Google Analytics -->
+    <!-- TAILWIND CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- GOOGLE ANALYTICS 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1EZM399KT"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -24,153 +24,83 @@
     </script>
 
     <style>
-        body { background-color: #0d1117; color: #e5e7eb; font-family: 'Inter', sans-serif; }
-        .text-gold { color: #d4af37; }
-        .bg-navy { background-color: #1a232e; }
-        .btn-gold { background-color: #d4af37; color: #1a232e; transition: 0.3s; font-weight: 700; }
-        .btn-gold:hover { background-color: #ffcc66; }
-        .btn-whatsapp { background-color: #25D366; color: white; transition: 0.3s; font-weight: 700; }
-        .btn-whatsapp:hover { background-color: #128C7E; }
-        .logo-text { font-size: 1.75rem; font-weight: 900; }
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --border-surface: #30363d;
+            --brand-gold: #d4af37;
+            --text-primary: #f0f6fc;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-primary); color: var(--text-primary); }
+        h1, h2 { font-family: 'Playfair Display', serif; }
+        
+        .btn-gold {
+            background-color: var(--brand-gold);
+            color: #0d1117;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .btn-gold:hover { background-color: #fef08a; transform: translateY(-2px); }
+        
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col relative">
+<body class="min-h-screen flex items-center justify-center p-4">
 
-    <!-- Navigation -->
-    <nav class="sticky top-0 bg-navy shadow-lg z-40 w-full">
-        <div class="flex items-center justify-between p-4 max-w-7xl mx-auto">
-            <a href="index.html" class="flex items-center space-x-3 cursor-pointer">
-                <div class="relative w-12 h-12 flex-shrink-0">
-                     <img src="./Global Visa & Journeys Logo.jpeg" alt="Global Visa & Journeys Logo" class="w-full h-full object-contain" onerror="this.style.display='none';">
-                </div>
-                <div class="flex flex-col">
-                    <span class="logo-text text-gold leading-none hidden sm:block">GLOBAL VISA</span>
-                    <span class="logo-text text-white leading-none hidden sm:block">& JOURNEYS</span>
-                    <span class="logo-text text-gold sm:hidden">GV&J</span>
-                </div>
-            </a>
-            <div>
-                <a href="index.html" class="text-white hover:text-gold font-semibold text-sm">Back to Home</a>
-            </div>
+    <div class="max-w-2xl w-full bg-[#161b22] border border-[#30363d] rounded-xl p-8 shadow-2xl relative">
+        <a href="#" onclick="window.history.back()" class="absolute top-6 left-6 text-[#8b949e] hover:text-white text-sm">
+            <i class="fa-solid fa-arrow-left mr-2"></i> Back
+        </a>
+        
+        <div class="text-center mb-10 mt-6">
+            <h1 class="text-3xl font-bold text-white mb-2">Visa Readiness Calculator</h1>
+            <p class="text-[#8b949e]">Forensic logic to detect "Funds Parking" and Refusal Risk.</p>
         </div>
-    </nav>
 
-    <!-- Calculator Section -->
-    <main class="flex-grow flex items-center justify-center p-4">
-        <div class="max-w-2xl w-full bg-gray-900 border border-gold rounded-xl p-8 shadow-2xl">
-            <div class="text-center mb-8">
-                <h1 class="text-3xl font-black text-white mb-2">Visa Readiness Calculator</h1>
-                <p class="text-gray-400">Run a forensic math check on your application. We use the same formula as the Embassy.</p>
+        <form id="risk-form" class="space-y-6">
+            <div>
+                <label class="block text-sm font-medium text-[#d4af37] mb-2">Estimated Trip Cost (£)</label>
+                <input type="number" id="tripCost" placeholder="Flight + Hotel + Spending" class="w-full px-4 py-3 rounded-lg bg-[#0d1117] border border-[#30363d] text-white focus:border-[#d4af37] outline-none transition">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-[#d4af37] mb-2">Monthly Disposable Income (£)</label>
+                <input type="number" id="monthlyDisposable" placeholder="Income left after all bills" class="w-full px-4 py-3 rounded-lg bg-[#0d1117] border border-[#30363d] text-white focus:border-[#d4af37] outline-none transition">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-[#d4af37] mb-2">Closing Bank Balance (£)</label>
+                <input type="number" id="closingBalance" placeholder="Current total savings" class="w-full px-4 py-3 rounded-lg bg-[#0d1117] border border-[#30363d] text-white focus:border-[#d4af37] outline-none transition">
             </div>
             
-            <form id="calc-form" onsubmit="event.preventDefault(); showEmailGate();">
-                <!-- Dates -->
-                <div class="grid md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                        <label class="block text-xs text-gold font-bold uppercase mb-2">Trip Start Date</label>
-                        <input type="date" id="calc-start-date" required class="w-full bg-navy border border-gray-700 rounded p-3 text-white focus:border-gold outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-xs text-gold font-bold uppercase mb-2">Trip Return Date</label>
-                        <input type="date" id="calc-return-date" required class="w-full bg-navy border border-gray-700 rounded p-3 text-white focus:border-gold outline-none">
-                    </div>
-                </div>
-
-                <!-- Financials -->
-                <div class="grid md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                        <label class="block text-xs text-gold font-bold uppercase mb-2">Current Bank Balance (£)</label>
-                        <input type="number" id="calc-balance" placeholder="e.g. 2500" required class="w-full bg-navy border border-gray-700 rounded p-3 text-white focus:border-gold outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-xs text-gold font-bold uppercase mb-2">Total Trip Cost (£)</label>
-                        <input type="number" id="calc-cost" placeholder="Flight + Hotel" required class="w-full bg-navy border border-gray-700 rounded p-3 text-white focus:border-gold outline-none">
-                        <p class="text-xs text-gray-500 mt-1">Estimate flight + hotel costs.</p>
-                    </div>
-                </div>
-
-                <!-- BRP & Risk -->
-                <div class="mb-8 space-y-4">
-                    <div>
-                        <label class="block text-xs text-gold font-bold uppercase mb-2">Passport / Visa Expiry Date</label>
-                        <input type="date" id="calc-brp-date" required class="w-full bg-navy border border-gray-700 rounded p-3 text-white focus:border-gold outline-none">
-                    </div>
-                    <label class="flex items-center space-x-3 cursor-pointer p-3 bg-navy rounded border border-gray-700">
-                        <input type="checkbox" id="calc-lump-sum" class="w-5 h-5 text-gold bg-gray-800 border-gray-600 rounded focus:ring-gold">
-                        <span class="text-sm text-gray-300">Is there a recent large deposit (>50% of monthly income)?</span>
-                    </label>
-                </div>
-
-                <button type="submit" class="w-full btn-gold py-4 rounded-xl shadow-lg transform active:scale-95 transition text-lg">
-                    CALCULATE RISK LEVEL
-                </button>
-            </form>
-
-            <!-- EMAIL GATE -->
-            <div id="email-gate" class="hidden text-center mt-8 pt-8 border-t border-gray-700">
-                <div class="mb-6">
-                    <i class="fas fa-lock text-4xl text-gold mb-4"></i>
-                    <h3 class="text-xl font-bold text-white">Calculation Complete</h3>
-                    <p class="text-gray-400 text-sm mt-2">Enter your email to unlock your detailed Risk Report and see if you pass the "Forensic Threshold".</p>
-                </div>
-                <div class="max-w-md mx-auto">
-                    <input type="email" id="user-email" placeholder="Enter your email address" required class="w-full bg-navy border border-gray-700 rounded p-3 text-white focus:border-gold outline-none mb-4">
-                    <button id="unlock-btn" onclick="revealResult()" class="w-full btn-gold py-3 rounded-lg font-bold shadow-md hover:shadow-gold/50 transition">
-                        Unlock Report
-                    </button>
-                </div>
-                <p class="text-xs text-gray-600 mt-4">We respect your privacy. No spam.</p>
+            <div class="flex items-start space-x-3 bg-[#0d1117] p-4 rounded border border-[#30363d] cursor-pointer" onclick="document.getElementById('recentLargeDeposit').click()">
+                <input type="checkbox" id="recentLargeDeposit" class="w-5 h-5 text-[#d4af37] bg-gray-700 border-gray-600 rounded mt-1 accent-[#d4af37]">
+                <label for="recentLargeDeposit" class="text-sm text-[#8b949e] cursor-pointer">
+                    Have you made a deposit larger than 30% of your income in the last 28 days?
+                </label>
             </div>
+            
+            <button type="button" id="calc-btn" class="w-full btn-gold py-4 rounded-lg text-lg shadow-lg uppercase tracking-wider">
+                CALCULATE FORENSIC RISK
+            </button>
+        </form>
 
-            <!-- RESULT AREA -->
-            <div id="calc-result" class="hidden mt-8">
-                <div id="result-box" class="p-6 rounded-xl border-2 text-center mb-6">
-                    <h3 id="calc-status-title" class="text-2xl font-black uppercase mb-2"></h3>
-                    <div id="calc-status-desc" class="text-sm font-medium mb-4"></div>
-                </div>
-
-                <div class="bg-navy p-6 rounded-xl border border-gray-700">
-                    <h4 class="text-gold font-bold uppercase text-xs mb-4">Forensic Breakdown</h4>
-                    <ul class="space-y-3 text-sm text-gray-300">
-                        <li class="flex justify-between">
-                            <span>Disposable Income:</span>
-                            <span id="res-disposable" class="font-bold text-white"></span>
-                        </li>
-                        <li class="flex justify-between">
-                            <span>Daily Subsistence Buffer:</span>
-                            <span id="res-daily" class="font-bold text-white"></span>
-                        </li>
-                         <li class="flex justify-between">
-                            <span>Risk Factor:</span>
-                            <span id="res-risk" class="font-bold text-white"></span>
-                        </li>
-                    </ul>
-                </div>
-
-                <button onclick="window.location.href='index.html#quickscan-section'" class="mt-6 w-full btn-gold py-4 rounded-xl font-bold shadow-lg animate-pulse">
-                    Fix This Risk: Get Full QuickScan (£39.99)
-                </button>
-            </div>
-
+        <!-- RESULT AREA -->
+        <div id="result-area" class="hidden mt-8 p-6 rounded-lg text-center border-2 animate-in fade-in zoom-in duration-300">
+            <!-- Dynamic Content Injected Here -->
         </div>
-    </main>
 
-    <!-- Footer -->
-    <footer class="bg-navy border-t border-gray-800 py-8 px-4 text-center text-gray-400 text-xs">
-        <div class="max-w-4xl mx-auto space-y-2">
-            <p class="font-bold text-white">Global Visa & Journeys Ltd</p>
-            <p>71-75 Shelton Street, Covent Garden, London, WC2H 9JQ</p>
-            <p>UK Office: 0204 628 1692 | Email: office@globalvisajourneys.com</p>
-            <p class="pt-2 border-t border-gray-800">&copy; 2025 Global Visa & Journeys Ltd. Registered in England & Wales. Company No: 16959031.</p>
+        <div class="mt-8 text-center">
+            <p class="text-[10px] text-[#8b949e] uppercase tracking-widest">Global Visa & Journeys • London HQ • Covent Garden</p>
         </div>
-    </footer>
+    </div>
 
-    <!-- Firebase Logic -->
+    <!-- JAVASCRIPT LOGIC -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, addDoc, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 
+        // CONFIG
         const firebaseConfig = {
             apiKey: "AIzaSyCcoyBXRITTblrH0XcaLGMjftUttXYLtj4",
             authDomain: "global-visa-journeys.firebaseapp.com",
@@ -180,135 +110,123 @@
             appId: "1:381217766164:web:1cb70fbc26332f5a8d6001"
         };
 
-        let db, auth, userId;
-        let isAuthReady = false;
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
 
-        async function initFirebase() {
-             try {
-                const app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-                auth = getAuth(app);
-                await signInAnonymously(auth);
-                auth.onAuthStateChanged((user) => {
-                    if (user) {
-                        userId = user.uid;
-                        isAuthReady = true;
-                        console.log("System Ready: User ID", userId);
-                    }
-                });
-            } catch (e) {
-                console.error("Firebase Init Failed:", e);
-            }
-        }
-        
-        // Start init immediately
-        initFirebase();
+        // Constants
+        const STRIPE_LINK = "https://book.stripe.com/28E4gygLremKd0Ogx50sU00";
+        const WHATSAPP_LINK = "https://wa.me/447511219482";
 
-        window.showEmailGate = function() {
-            const start = document.getElementById('calc-start-date').value;
-            const end = document.getElementById('calc-return-date').value;
-            const brp = document.getElementById('calc-brp-date').value;
-            const bal = document.getElementById('calc-balance').value;
-            
-            if(!start || !end || !brp || !bal) {
-                alert("Please fill in all fields.");
-                return;
-            }
-            document.getElementById('calc-form').classList.add('hidden');
-            document.getElementById('email-gate').classList.remove('hidden');
-        }
+        // Logic
+        document.getElementById('calc-btn').addEventListener('click', async () => {
+            const tripCost = parseFloat(document.getElementById('tripCost').value);
+            const monthlyDisposable = parseFloat(document.getElementById('monthlyDisposable').value);
+            const closingBalance = parseFloat(document.getElementById('closingBalance').value);
+            const recentLargeDeposit = document.getElementById('recentLargeDeposit').checked;
+            const resultArea = document.getElementById('result-area');
 
-        window.revealResult = async function() {
-            const emailInput = document.getElementById('user-email');
-            const unlockBtn = document.getElementById('unlock-btn');
-            const email = emailInput.value;
-
-            if(!email.includes('@')) {
-                alert("Please enter a valid email address.");
+            if (isNaN(tripCost) || isNaN(monthlyDisposable) || isNaN(closingBalance)) {
+                showSimpleError("Please enter valid numerical values for all fields.");
                 return;
             }
 
-            // Lock Button
-            unlockBtn.disabled = true;
-            unlockBtn.textContent = "Verifying...";
+            let riskLevel, riskTag, message, colorClass, borderClass, btnText;
 
-            // 1. PERFORM ALL MATH & LOGIC *BEFORE* SAVING
-            const balance = parseFloat(document.getElementById('calc-balance').value);
-            const cost = parseFloat(document.getElementById('calc-cost').value);
-            const lumpSum = document.getElementById('calc-lump-sum').checked;
-            const startDate = new Date(document.getElementById('calc-start-date').value);
-            const returnDate = new Date(document.getElementById('calc-return-date').value);
-            const brpDate = new Date(document.getElementById('calc-brp-date').value);
-
-            const threeMonthsMs = 90 * 24 * 60 * 60 * 1000;
-            const durationMs = returnDate - startDate;
-            const durationDays = Math.ceil(durationMs / (1000 * 60 * 60 * 24));
-            const subsistenceTotal = durationDays * 80;
-            const totalRequired = cost + subsistenceTotal;
-            const disposable = balance - totalRequired;
-            const brpBuffer = brpDate - returnDate;
-
-            // Determine Risk Tags (The Intelligence)
-            let title, desc, colorClass, riskTag;
-
-            if (brpBuffer < threeMonthsMs) {
-                title = "🔴 CRITICAL FAIL: Visa Validity";
-                desc = "Your BRP/Visa expires less than 3 months after your return. This is an automatic refusal.";
-                colorClass = "bg-red-900/20 border-red-500 text-red-500";
-                riskTag = "BRP Expiry";
+            // 1. RULE A: INSOLVENCY (RED)
+            if (closingBalance < tripCost) {
+                riskLevel = "CRITICAL RISK";
+                riskTag = "INSOLVENT PROFILE";
+                message = "Your current balance is less than the cost of the trip. This is an automatic 'Lack of Funds' refusal. Do not submit your application.";
+                colorClass = "bg-red-900/20 text-red-500";
+                borderClass = "border-red-500";
+                btnText = "FIX INSOLVENCY STATUS (£39.99)";
             } 
-            else if (disposable < 500) { 
-                title = "🔴 HIGH RISK: Insufficient Funds";
-                desc = `You have £${balance}. After trip costs (£${cost}) and required daily subsistence (£${subsistenceTotal} for ${durationDays} days), you are left with £${disposable.toFixed(2)}. This is dangerously low.`;
-                colorClass = "bg-red-900/20 border-red-500 text-red-500";
-                riskTag = "Financial Shortfall";
+            // 2. RULE B: FUNDS PARKING (RED)
+            else if (recentLargeDeposit) {
+                riskLevel = "HIGH RISK";
+                riskTag = "FUNDS PARKING DETECTED";
+                message = "That large deposit is a 'Deception' trigger. Even with a high balance, the ECO will assume the money is borrowed. You risk a 10-year entry ban.";
+                colorClass = "bg-red-900/20 text-red-500";
+                borderClass = "border-red-500";
+                btnText = "BOOK FORENSIC AUDIT (£39.99)";
             }
-            else if (lumpSum) {
-                title = "⚠️ WARNING: Funds Parking";
-                desc = "Your math works, BUT the large deposit is a refusal trigger. You must explain the source legally.";
-                colorClass = "bg-yellow-900/20 border-yellow-500 text-yellow-500";
-                riskTag = "Funds Parking";
-            }
+            // 3. RULE C: AFFORDABILITY (2:1 SURPLUS RULE)
             else {
-                title = "🟢 GOOD STANDING";
-                desc = `You have a healthy buffer of £${disposable.toFixed(2)} after all costs. Your basic eligibility is strong.`;
-                colorClass = "bg-green-900/20 border-green-500 text-green-500";
-                riskTag = "Low Risk";
-            }
-
-            // 2. SAVE INTELLIGENCE TO FIREBASE (Flattened for Zapier)
-            try {
-                if(db) {
-                    await addDoc(collection(db, "calculator_leads"), {
-                        email: email,
-                        timestamp: new Date().toISOString(),
-                        userId: userId || 'anonymous',
-                        // KEY INTELLIGENCE FIELDS
-                        riskTag: riskTag,             // The main tag for Zapier
-                        calculatedDisposable: disposable, // The math
-                        tripCost: cost,
-                        durationDays: durationDays,
-                        refusalReason: desc
-                    });
-                    console.log("Lead Saved to Firebase");
+                // Calculation: Disposable income must be at least 2x the trip cost to be "Safe"
+                // If Trip is 1000, you need 2000 disposable.
+                if (monthlyDisposable < (tripCost * 2)) {
+                    riskLevel = "MODERATE RISK";
+                    riskTag = "LOW CREDIBILITY";
+                    message = "Your trip cost is too high compared to your monthly surplus. ECOs view this as 'economically irrational' behavior, suggesting you won't return home.";
+                    colorClass = "bg-yellow-900/20 text-yellow-500";
+                    borderClass = "border-yellow-500";
+                    btnText = "BOOK QUICKSCAN AUDIT (£39.99)";
                 } else {
-                    console.error("Database connection missing - Result shown locally only.");
+                    // 4. RULE D: SAFE PASS (GREEN)
+                    riskLevel = "LOW RISK";
+                    riskTag = "FINANCIALLY COMPLIANT";
+                    message = "Your math is strong. However, 70% of refusals for strong financial profiles are due to narrative errors in the cover letter.";
+                    colorClass = "bg-green-900/20 text-green-500";
+                    borderClass = "border-green-500";
+                    btnText = "BOOK FINAL NARRATIVE CHECK";
                 }
-            } catch(e) { 
-                console.error("Lead capture error (safe to ignore for user):", e); 
             }
 
-            // 3. UPDATE UI
-            document.getElementById('calc-status-title').textContent = title;
-            document.getElementById('calc-status-desc').textContent = desc;
-            document.getElementById('result-box').className = `p-6 rounded-xl border-2 text-center mb-6 ${colorClass}`;
-            
-            document.getElementById('res-disposable').textContent = `£${disposable.toFixed(2)}`;
-            document.getElementById('res-daily').textContent = `£${subsistenceTotal} (${durationDays} days)`;
-            document.getElementById('res-risk').textContent = riskTag;
+            // Update UI
+            resultArea.className = `mt-8 p-8 rounded-lg text-center border-2 ${borderClass} ${colorClass}`;
+            resultArea.innerHTML = `
+                <div class="text-xs font-bold uppercase tracking-widest mb-2 opacity-80">Forensic Verdict</div>
+                <h3 class="text-3xl font-black mb-1">${riskLevel}</h3>
+                <div class="inline-block px-4 py-1 border border-current rounded-full text-xs font-bold mb-6">${riskTag}</div>
+                <p class="text-sm text-white font-medium mb-8 leading-relaxed">${message}</p>
+                
+                <div class="space-y-3">
+                    <a href="${STRIPE_LINK}" class="block w-full bg-[#d4af37] text-[#0d1117] py-4 rounded font-bold hover:bg-[#fef08a] transition shadow-lg uppercase text-sm">
+                        ${btnText}
+                    </a>
+                    <a href="${WHATSAPP_LINK}" class="block w-full text-xs text-[#8b949e] hover:text-white transition">
+                        Speak to a Strategist First <i class="fa-brands fa-whatsapp ml-1"></i>
+                    </a>
+                </div>
+            `;
+            resultArea.classList.remove('hidden');
+            resultArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-            document.getElementById('email-gate').classList.add('hidden');
-            document.getElementById('calc-result').classList.remove('hidden');
+            // LOGGING & ANALYTICS
+            try {
+                // Ensure auth is ready
+                if (!auth.currentUser) await signInAnonymously(auth);
+                
+                // Track in Firebase (Rule 1: Strict Paths)
+                await addDoc(collection(db, "artifacts", "global-visa-journeys", "public", "data", "risk_assessments"), {
+                    tripCost,
+                    monthlyDisposable,
+                    closingBalance,
+                    recentLargeDeposit,
+                    riskLevel,
+                    riskTag,
+                    timestamp: new Date().toISOString()
+                });
+
+                // GA4 Event
+                if (typeof gtag === 'function') {
+                    gtag('event', 'calculator_use', {
+                        'risk_level': riskLevel,
+                        'risk_tag': riskTag,
+                        'value': tripCost
+                    });
+                }
+            } catch (e) {
+                console.warn("Analytics non-critical error:", e.message);
+            }
+        });
+
+        function showSimpleError(msg) {
+            const resultArea = document.getElementById('result-area');
+            resultArea.className = "mt-8 p-4 rounded-lg text-center border border-red-500 text-red-500 bg-red-900/10";
+            resultArea.innerHTML = `<p class="text-sm font-bold">${msg}</p>`;
+            resultArea.classList.remove('hidden');
         }
     </script>
 </body>
