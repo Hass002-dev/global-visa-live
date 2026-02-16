@@ -49,7 +49,7 @@
 <body class="min-h-screen flex items-center justify-center p-4">
 
     <div class="max-w-2xl w-full bg-[#161b22] border border-[#30363d] rounded-xl p-8 shadow-2xl relative">
-        <a href="#" onclick="window.history.back()" class="absolute top-6 left-6 text-[#8b949e] hover:text-white text-sm">
+        <a href="./index.html" onclick="window.history.back()" class="absolute top-6 left-6 text-[#8b949e] hover:text-white text-sm">
             <i class="fa-solid fa-arrow-left mr-2"></i> Back
         </a>
         
@@ -75,7 +75,7 @@
             <div class="flex items-start space-x-3 bg-[#0d1117] p-4 rounded border border-[#30363d] cursor-pointer" onclick="document.getElementById('recentLargeDeposit').click()">
                 <input type="checkbox" id="recentLargeDeposit" class="w-5 h-5 text-[#d4af37] bg-gray-700 border-gray-600 rounded mt-1 accent-[#d4af37]">
                 <label for="recentLargeDeposit" class="text-sm text-[#8b949e] cursor-pointer">
-                    Have you made a deposit larger than 30% of your income in the last 28 days?
+                    Have you made a deposit larger than 50% of your income in the last 28 days?
                 </label>
             </div>
             
@@ -137,7 +137,7 @@
             if (closingBalance < tripCost) {
                 riskLevel = "CRITICAL RISK";
                 riskTag = "INSOLVENT PROFILE";
-                message = "Your current balance is less than the cost of the trip. This is an automatic 'Lack of Funds' refusal. Do not submit your application.";
+                message = "Your current balance is less than the cost of the trip. This is an automatic Lack of Funds refusal. Do not submit your application.";
                 colorClass = "bg-red-900/20 text-red-500";
                 borderClass = "border-red-500";
                 btnText = "FIX INSOLVENCY STATUS (£39.99)";
