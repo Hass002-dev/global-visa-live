@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UK & Schengen Visa Strategy for Nigeria & West Africa | Global Visa & Journeys</title>
-    <meta name="description" content="Stop guessing your visa outcome.Specialized forensic visa strategy for high-risk applicants in Nigeria, Gambia & Sierra Leone. We fix 'Funds Parking' & 'Weak Ties' refusals before you apply.">
+    <title>Global Visa & Journeys | Forensic Visa Strategy & Refusal Prevention</title>
+    <meta name="description" content="Stop guessing your visa outcome. Forensic visa audits for high-risk applicants in Nigeria, Gambia & Sierra Leone. We fix 'Funds Parking' & 'Weak Ties' refusals.">
     
     <!-- FAVICON -->
     <link rel="icon" type="image/x-icon" href="./favicon.ico">
@@ -55,15 +55,17 @@
         /* BUTTON STYLES */
         .btn-gold {
             background-color: var(--brand-gold);
-            color: #ffffff; /* White Text */
-            font-weight: 700;
+            color: #0d1117; /* Dark Text on Gold for Readability */
+            font-weight: 800;
             transition: all 0.3s ease;
-            font-family: 'Inter', sans-serif; /* Buttons stay clean/modern */
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
         .btn-gold:hover {
             background-color: #fef08a;
-            color: #0d1117;
             transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
         }
 
         .btn-white {
@@ -87,88 +89,44 @@
         .btn-red { background-color: #dc2626; color: #ffffff; font-weight: 700; transition: all 0.3s ease; font-family: 'Inter', sans-serif; }
         .btn-red:hover { background-color: #b91c1c; }
 
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid var(--brand-gold);
-            color: var(--brand-gold);
-            font-weight: 600;
-            transition: all 0.3s ease;
-            font-family: 'Inter', sans-serif;
-        }
-        .btn-outline:hover { background-color: rgba(212, 175, 55, 0.1); }
-
         /* CARD STYLE */
         .gvj-card {
             background-color: var(--bg-secondary);
             border: 1px solid var(--border-surface);
             border-top: 3px solid var(--brand-gold);
             border-radius: 0.75rem;
+            transition: transform 0.3s ease;
         }
+        .gvj-card:hover { transform: translateY(-5px); }
 
         /* WHATSAPP FLOAT */
         .whatsapp-float {
-            position: fixed;
-            width: 60px;
-            height: 60px;
-            bottom: 30px;
-            right: 30px;
-            background-color: #25d366;
-            color: #FFF;
-            border-radius: 50px;
-            text-align: center;
-            font-size: 30px;
-            box-shadow: 2px 2px 3px #000;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px;
+            background-color: #25d366; color: #FFF; border-radius: 50px;
+            text-align: center; font-size: 30px; box-shadow: 2px 2px 3px #000;
+            z-index: 1000; display: flex; align-items: center; justify-content: center;
             transition: all 0.3s ease;
         }
         .whatsapp-float:hover { transform: scale(1.1); }
 
         /* SLIDESHOW CSS */
         .slideshow-container {
-            position: relative;
-            max-width: 800px;
-            margin: auto;
-            overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            /* Subtle Background Image */
+            position: relative; max-width: 800px; margin: auto; overflow: hidden;
+            border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             background-image: linear-gradient(rgba(13, 17, 23, 0.9), rgba(13, 17, 23, 0.9)), url('https://images.unsplash.com/photo-1569154941061-e231b4725ef1?q=80&w=2670&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            padding: 40px 20px;
+            background-size: cover; background-position: center; padding: 40px 20px;
         }
 
-        .mySlides {
-            display: none;
-            text-align: center;
-            animation: fade 1.5s;
-        }
-
+        .mySlides { display: none; text-align: center; animation: fade 1.5s; }
         .prev, .next {
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            width: auto;
-            margin-top: -22px;
-            padding: 16px;
-            color: var(--brand-gold);
-            font-weight: bold;
-            font-size: 18px;
-            transition: 0.6s ease;
-            border-radius: 0 3px 3px 0;
-            user-select: none;
+            cursor: pointer; position: absolute; top: 50%; width: auto; margin-top: -22px;
+            padding: 16px; color: var(--brand-gold); font-weight: bold; font-size: 18px;
+            transition: 0.6s ease; border-radius: 0 3px 3px 0; user-select: none;
         }
         .next { right: 0; border-radius: 3px 0 0 3px; }
         .prev { left: 0; border-radius: 3px 0 0 3px; }
         .prev:hover, .next:hover { background-color: rgba(0,0,0,0.8); }
-
-        @keyframes fade {
-            from {opacity: .4} 
-            to {opacity: 1}
-        }
+        @keyframes fade { from {opacity: .4} to {opacity: 1} }
     </style>
 </head>
 <body>
@@ -178,14 +136,15 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
                 
-                <!-- BRANDING (STACKED) -->
+                <!-- BRANDING -->
                 <div class="flex items-center space-x-3">
-                    <img src=".//Global Visa & Journeys Logo.jpeg" alt="GV&J" class="h-12 w-12 object-contain" onerror="this.style.display='none'">
+                    <img src="./Global Visa & Journeys Logo.jpeg" alt="GV&J" class="h-12 w-12 object-contain" onerror="this.style.display='none'">
                     <div class="flex flex-col leading-none">
-                        <span class="text-xl md:text-2xl font-black tracking-tight hidden md:block" style="font-family: 'sans', serif;">
+                        <span class="text-xl md:text-2xl font-black tracking-tight hidden md:block" style="font-family: 'Playfair Display', serif;">
                             <span class="text-gold">GLOBAL VISA</span><br>
                             <span class="text-white">& JOURNEYS</span>
                         </span>
+                        <!-- Mobile Logo -->
                         <span class="text-xl font-bold tracking-tight md:hidden">
                             GV<span class="text-gold">&</span>J
                         </span>
@@ -193,13 +152,18 @@
                 </div>
                 
                 <!-- MENU -->
-                <div class="flex items-center space-x-6">
-                    <a href="index.html" class="text-[#8b949e] hover:text-gold font-medium transition text-sm md:text-base">Home</a>
-                    <a href="#services" class="text-[#8b949e] hover:text-gold font-medium transition text-sm md:text-base">Services</a>
+                <div class="flex items-center space-x-2 md:space-x-6">
+                    <!-- SERVICES LINK -->
+                    <a href="#services" class="text-[#8b949e] hover:text-gold font-medium transition text-xs md:text-base">Services</a>
                     
-                    <!-- LEGAL DROPDOWN (TOP RIGHT) -->
+                    <!-- CALCULATOR LINK -->
+                    <a href="calculator.html" class="border border-gold text-gold hover:bg-gold hover:text-[#0d1117] px-2 py-1 md:px-4 md:py-2 rounded text-xs md:text-sm font-bold transition flex items-center">
+                        <i class="fa-solid fa-calculator mr-1 md:mr-2"></i><span class="hidden md:inline">Financial Check</span><span class="md:hidden">Check</span>
+                    </a>
+
+                    <!-- LEGAL DROPDOWN -->
                     <div class="relative group">
-                        <button class="text-[#8b949e] hover:text-gold font-medium transition flex items-center text-sm md:text-base">
+                        <button class="text-[#8b949e] hover:text-gold font-medium transition flex items-center text-xs md:text-base">
                             Legal <i class="fa-solid fa-chevron-down ml-1 text-xs"></i>
                         </button>
                         <div class="absolute right-0 mt-2 w-48 bg-[#161b22] border border-[#30363d] rounded-md shadow-lg hidden group-hover:block" style="z-index: 2000;">
@@ -221,29 +185,32 @@
             </div>
             
             <h1 class="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
-                Get the Visa <span class="text-gold italic">Right</span> <br>
-                Enjoy your Flight. 
+                Stop Visa Refusals <br>
+                <span class="text-gold italic">Before They Happen.</span>
             </h1>
-            <p class="text-lg md:text-xl text-[#8b949e] mb-8 max-w-2xl mx-auto font-light">
-                We audit your application exactly like a Visa Officer. We spot the Lump Sum deposits and Weak Ties that trigger refusals-fixing the risk before you pay the fee.
+            <p class="text-lg md:text-xl text-[#8b949e] mb-8 max-w-2xl mx-auto font-light leading-relaxed">
+                Stop guessing. We check your papers exactly like the Embassy does. We find the mistakes in your bank statement that cause rejections.
             </p>
             
             <!-- BUTTONS -->
             <div class="flex flex-col md:flex-row gap-4 justify-center">
-                <!-- GOLD BG -->
-                <button onclick="redirectToStripe('quickscan')" class="btn-gold px-8 py-4 rounded-full text-lg shadow-lg shadow-gold/20">
-                    Start Strategy Review (£39.99)
-                </button>
-                
-                <!-- WHITE BG -->
-                <a href="#services" class="btn-white px-8 py-4 rounded-full text-lg shadow-lg flex items-center justify-center">
-                    View All Services
+                <!-- 1. CALCULATOR -->
+                <a href="calculator.html" class="btn-gold px-8 py-4 rounded-full text-lg shadow-lg shadow-gold/20 flex items-center justify-center">
+                   <i class="fa-solid fa-calculator mr-2"></i> Financial Risk Check
                 </a>
                 
-                <!-- GREEN BG -->
+                <!-- 2. PAID AUDIT -->
+                <button onclick="redirectToStripe('quickscan')" class="btn-white px-8 py-4 rounded-full text-lg shadow-lg flex items-center justify-center">
+                    Start Strategy Audit (£39.99)
+                </button>
+
+                <!-- 3. WHATSAPP -->
                 <a href="https://wa.me/447511219482" target="_blank" class="bg-[#25D366] text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-[#128C7E] transition shadow-lg flex items-center justify-center" style="font-family: 'Inter', sans-serif;">
                     <i class="fa-brands fa-whatsapp mr-2"></i> Chat on WhatsApp
                 </a>
+            </div>
+             <div class="mt-6 text-sm text-[#8b949e]">
+                <i class="fa-solid fa-shield-halved text-green-500 mr-1"></i> Data protected by UK GDPR
             </div>
         </div>
     </header>
@@ -264,96 +231,33 @@
         </div>
     </div>
 
-    <!-- CALCULATOR TEASER -->
+    <!-- ELIGIBILITY CHECK CENTER -->
     <section class="py-20 bg-[#0d1117]">
         <div class="max-w-4xl mx-auto px-4 text-center">
-            <h2 class="text-3xl font-bold text-white mb-6">Unsure if you qualify?.</h2>
+            <h2 class="text-3xl font-bold text-white mb-6">Unsure if you qualify?</h2>
             <p class="text-[#8b949e] mb-8 text-lg">
-                 Use our <span class="text-gold font-bold">Free Visa Risk Calculator</span> to check your financial eligibility and passport validity in 30 seconds. No cost.
+                Choose how you want to check your eligibility. Both methods are free.
             </p>
-            <a href="calculator.html" class="inline-flex items-center justify-center bg-[#161b22] border-2 border-gold text-gold hover:bg-gold hover:text-[#0d1117] text-xl font-bold px-10 py-5 rounded-full transition duration-300 shadow-xl shadow-gold/10" style="font-family: 'Inter', sans-serif;">
-                <i class="fa-solid fa-calculator mr-3"></i> Launch Free Calculator
-            </a>
-        </div>
-    </section>
-
-    <!-- WHY US -->
-    <section class="py-20 bg-[#161b22] border-y border-[#30363d]">
-        <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-3xl font-bold text-white text-center mb-12">WHY GLOBAL VISA & JOURNEYS</h2>
             
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Highlighted Card -->
-                <div class="bg-[#0d1117] p-8 rounded-xl border-2 border-gold shadow-lg shadow-gold/10 transform hover:-translate-y-2 transition">
-                    <div class="text-4xl text-gold mb-6"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
-                    <h3 class="text-xl font-bold text-white mb-4">The Audit-First Standard</h3>
-                    <p class="text-[#8b949e] text-sm leading-relaxed">
-                        We don't just apply we audit. Most refusals happen because applicants guess their status. We use a forensic pre-check to catch Funds Parking triggers before the embassy sees your file.
-                    </p>
+            <div class="flex flex-col md:flex-row justify-center gap-6">
+                <!-- Option 1: Calculator -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d] w-full md:w-1/2">
+                    <h3 class="text-white font-bold mb-2">Automated Financial Check</h3>
+                    <p class="text-[#8b949e] text-xs mb-4">Instant calculation of Disposable Income ratios.</p>
+                    <a href="calculator.html" class="inline-flex items-center justify-center bg-[#161b22] border border-gold text-gold hover:bg-gold hover:text-[#0d1117] text-sm font-bold px-6 py-3 rounded-full transition duration-300 w-full">
+                        <i class="fa-solid fa-calculator mr-2"></i> Launch Calculator
+                    </a>
                 </div>
 
-                <div class="bg-[#0d1117] p-8 rounded-xl border border-[#30363d] transform hover:-translate-y-2 transition">
-                    <div class="text-4xl text-[#38bdf8] mb-6"><i class="fa-solid fa-location-dot"></i></div>
-                    <h3 class="text-xl font-bold text-white mb-4">The Specialist Edge</h3>
-                    <p class="text-[#8b949e] text-sm leading-relaxed">
-                        We understand the specific refusal triggers for Nigerian, Gambian, and West African applicants. We solve the Source of Funds and Family Ties issues that general agents ignore.
-                    </p>
-                </div>
-
-                <div class="bg-[#0d1117] p-8 rounded-xl border border-[#30363d] transform hover:-translate-y-2 transition">
-                    <div class="text-4xl text-[#22c55e] mb-6"><i class="fa-solid fa-file-contract"></i></div>
-                    <h3 class="text-xl font-bold text-white mb-4">The Liability Shield</h3>
-                    <p class="text-[#8b949e] text-sm leading-relaxed">
-                        Unlike freelance fixers, we carry full Professional Indemnity Insurance. You are engaging a secure, regulated London consultancy, offering professionalism risky middlemen cannot match.
-                    </p>
+                <!-- Option 2: Google Form -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d] w-full md:w-1/2">
+                    <h3 class="text-white font-bold mb-2">Manual Team Assessment</h3>
+                    <p class="text-[#8b949e] text-xs mb-4">Fill a form. Our team reviews it within 24 hours.</p>
+                    <a href="https://forms.gle/cWzi4wbjzqVKYogx8" target="_blank" class="inline-flex items-center justify-center bg-blue-600 text-white hover:bg-blue-700 text-sm font-bold px-6 py-3 rounded-full transition duration-300 w-full">
+                        <i class="fa-solid fa-clipboard-list mr-2"></i> Fill Assessment Form
+                    </a>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- TESTIMONIALS (Slideshow) -->
-    <section class="py-20 bg-[#0d1117] overflow-hidden">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-white">Trusted by Clients Facing Complex Hurdles</h2>
-        </div>
-        
-        <!-- Slideshow Container -->
-        <div class="slideshow-container" onmouseenter="pauseSlides()" onmouseleave="startSlides()">
-            
-            <div class="mySlides fade">
-                <div class="p-8 text-center h-full flex flex-col justify-center">
-                    <p class="text-gold text-3xl mb-4">★★★★★</p>
-                    <p class="italic text-gray-300 text-lg mb-6">"Global Visa and Journeys made my Schengen process smooth and stress-free. The staff were friendly, understanding, and very supportive from start to finish. I really appreciated their professionalism."</p>
-                    <p class="font-semibold text-white text-base">- Lawratou., Scotland</p>
-                </div>
-            </div>
-
-            <div class="mySlides fade">
-                <div class="p-8 text-center h-full flex flex-col justify-center">
-                    <p class="text-gold text-3xl mb-4">★★★★★</p>
-                    <p class="italic text-gray-300 text-lg mb-6">"Their free visa eligibility check is so amazing. It let's you check your visa eligiblity. I would highly recommend Global Visa and Journeys to you. Indeed a travel expert. 🎉💯"</p>
-                    <p class="font-semibold text-white text-base">- Fanta F., Banjul</p>
-                </div>
-            </div>
-
-            <div class="mySlides fade">
-                <div class="p-8 text-center h-full flex flex-col justify-center">
-                    <p class="text-gold text-3xl mb-4">★★★★★</p>
-                    <p class="italic text-gray-300 text-lg mb-6">"Great, reliable and fast service. Our Australian visa application was completed within a few hours with no hassle 👌. Will definitely recommend Global visa to all!"</p>
-                    <p class="font-semibold text-white text-base">- Isa., London</p>
-                </div>
-            </div>
-
-            <div class="mySlides fade">
-                <div class="p-8 text-center h-full flex flex-col justify-center">
-                    <p class="text-gold text-3xl mb-4">★★★★★</p>
-                    <p class="italic text-gray-300 text-lg mb-6">"GV&J handled everything from the Schengen narrative to booking my flights. Flawless process, immediate approval. Highly recommend."</p>
-                    <p class="font-semibold text-white text-base">- James A., Abuja</p>
-                </div>
-            </div>
-
-            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-            <a class="next" onclick="plusSlides(1)">&#10095;</a>
         </div>
     </section>
 
@@ -381,27 +285,29 @@
                     </div>
                 </div>
 
-                <!-- 2. Full Access (Yellow) -->
-                <div class="gvj-card p-8 flex flex-col relative border-gold shadow-gold/10 shadow-xl">
+                <!-- 2. Full Access Strategy (Corrected: Gold Card, Green Button) -->
+                <div class="gvj-card p-8 flex flex-col relative border-gold shadow-gold/10 shadow-xl bg-[#161b22] scale-105 z-10">
                     <div class="absolute top-0 right-0 bg-gold text-[#0d1117] text-xs font-bold px-3 py-1 rounded-bl-lg">POPULAR</div>
                     <div class="w-12 h-12 bg-[#0d1117] border border-[#30363d] text-gold rounded-lg flex items-center justify-center mb-6 text-xl"><i class="fa-solid fa-earth-africa"></i></div>
                     <h3 class="text-xl font-bold text-white mb-2">Full Access Strategy</h3>
-                    <p class="text-[#8b949e] mb-6 text-sm flex-grow"> Our Elite End-to-End Solution for applicants who cannot afford a refusal. We perform a forensic audit of your bank statements to resolve Lump Sum triggers and prove strong Home Ties to the Visa Officer.
-                        We build your entire case from scratch crafting your narrative and managing all Verifiable Flight & Hotel logistics. This is a London-grade defense designed to withstand the harshest Embassy scrutiny.
-                        
+                    <p class="text-[#8b949e] mb-6 text-sm flex-grow"> 
+                       Our Elite End-to-End Solution for applicants who cannot afford a refusal. We perform a forensic audit of your bank statements to resolve Lump Sum triggers and prove strong Home Ties.
+                        <br><br>
+                        We build your entire case from scratch—crafting your narrative and managing all <strong>Verifiable Flight & Hotel</strong> logistics. This is a London-grade defense designed to withstand Embassy scrutiny.
+                    </p>
                     </p>
                     <div class="mt-auto pt-4 border-t border-[#30363d] flex justify-between items-center">
-                        <span class="font-bold text-lg text-white">£700.00</span>
-                        <button onclick="redirectToStripe('fullaccess')" class="btn-gold px-4 py-2 rounded text-sm">Start Process &rarr;</button>
+                        <span class="font-bold text-lg text-white">Custom</span>
+                        <a href="https://wa.me/447511219482?text=I%20need%20a%20quote%20for%20Full%20Access%20Strategy" target="_blank" class="btn-green px-4 py-2 rounded text-sm flex items-center gap-2">Get Quote <i class="fa-brands fa-whatsapp"></i></a>
                     </div>
                 </div>
 
                 <!-- 3. UK Resident (Blue) -->
                 <div class="gvj-card p-8 flex flex-col">
                     <div class="w-12 h-12 bg-[#0d1117] border border-[#30363d] text-gold rounded-lg flex items-center justify-center mb-6 text-xl"><i class="fa-solid fa-passport"></i></div>
-                    <h3 class="text-xl font-bold text-white mb-2">UK Resident Schengen Strategy</h3>
+                    <h3 class="text-xl font-bold text-white mb-2">UK Resident Schengen</h3>
                     <p class="text-[#8b949e] mb-6 text-sm flex-grow">
-                        Designed exclusively for UK Residents (Skilled Worker, Student, or Spouse Visa holders) applying for Schengen visas. We manage the entire appointment strategy and application form to secure the longest possible visa validity (6 months to 2 years). Includes 'Golden Hour' appointment hunting and document structure review.
+                    Designed exclusively for UK Residents (Skilled Worker, Student, or Spouse Visa holders) applying for Schengen visas. We manage the entire appointment strategy and application form to secure the longest possible visa validity (6 months to 2 years). Includes Golden Hour appointment hunting and document structure review.
                     </p>
                     <div class="mt-auto pt-4 border-t border-[#30363d] flex justify-between items-center">
                         <span class="font-bold text-lg text-white">£200.00</span>
@@ -409,10 +315,10 @@
                     </div>
                 </div>
 
-                <!-- 4. Visa Itinerary (Green + WhatsApp) -->
+                <!-- 4. Visa Itinerary -->
                 <div class="gvj-card p-8 flex flex-col">
                     <div class="w-12 h-12 bg-[#0d1117] border border-[#30363d] text-gold rounded-lg flex items-center justify-center mb-6 text-xl"><i class="fa-solid fa-file-invoice"></i></div>
-                    <h3 class="text-xl font-bold text-white mb-2">Visa Application Itinerary</h3>
+                    <h3 class="text-xl font-bold text-white mb-2">Visa Flight Reservation</h3>
                     <p class="text-[#8b949e] mb-6 text-sm flex-grow">
                         We reserve a verifiable flight itinerary for your visa application without you buying the full ticket. Don't risk losing thousands on a plane ticket before your visa is actually approved. This is a valid reservation for embassy proof only. It is the safest and smartest way to prove your travel plans without any financial risk.
                     </p>
@@ -422,12 +328,12 @@
                     </div>
                 </div>
 
-                <!-- 5. Real Flights (Green + WhatsApp) -->
+                <!-- 5. Real Flights -->
                 <div class="gvj-card p-8 flex flex-col">
                     <div class="w-12 h-12 bg-[#0d1117] border border-[#30363d] text-gold rounded-lg flex items-center justify-center mb-6 text-xl"><i class="fa-solid fa-plane-departure"></i></div>
                     <h3 class="text-xl font-bold text-white mb-2">Real Flights & Insurance</h3>
                     <p class="text-[#8b949e] mb-6 text-sm flex-grow">
-                        Ready to travel? We provide end-to-end booking for confirmed flight tickets and mandatory travel insurance. We find the best routes and ensure your insurance meets strict Embassy standards. Payments via Bank Transfer to save you fees.
+                        We reserve a verifiable flight itinerary for your visa application without you buying the full ticket. Don't risk losing thousands on a plane ticket before your visa is actually approved. This is a valid reservation for embassy proof only. It is the safest and smartest way to prove your travel plans without any financial risk.
                     </p>
                     <div class="mt-auto pt-4 border-t border-[#30363d] flex justify-between items-center">
                         <span class="font-bold text-lg text-white">Custom</span>
@@ -451,42 +357,76 @@
         </div>
     </section>
 
-    <!-- DIGITAL VAULT -->
-    <section id="digital-vault" class="py-20 bg-[#161b22] border-t border-[#30363d]">
+    <!-- WHY US (Moved Below Services) -->
+    <section class="py-20 bg-[#161b22] border-y border-[#30363d]">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="mb-12">
-                <span class="text-gold font-bold tracking-wider uppercase text-sm">Instant Downloads</span>
-                <h2 class="text-3xl font-bold text-white mt-2">The Digital Vault</h2>
-                <p class="text-[#8b949e] mt-2">Tools for the smart applicant who wants to do it themselves.</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- 7. DIY Kit (Blue) -->
-                <div class="bg-[#0d1117] p-8 rounded-xl border border-[#30363d] flex flex-col md:flex-row gap-6 items-center">
-                    <div class="w-24 h-24 bg-[#161b22] rounded-lg flex items-center justify-center text-3xl text-gold shrink-0"><i class="fa-solid fa-box-open"></i></div>
-                    <div>
-                        <h3 class="text-xl font-bold text-white mb-2">Do It Yourself (DIY) Successful Toolkit</h3>
-                        <p class="text-[#8b949e] text-sm mb-4">Exact templates used for clients. Includes Cover Letters, Sponsorship Declarations, and "Funds Parking" Affidavit.</p>
-                        <div class="flex items-center gap-4">
-                            <span class="text-2xl font-bold text-white">£79.99</span>
-                            <button onclick="redirectToStripe('diykit')" class="btn-blue px-4 py-2 rounded text-sm">Download</button>
-                        </div>
-                    </div>
+            <h2 class="text-3xl font-bold text-white text-center mb-12">WHY GLOBAL VISAS & JOURNEYS?</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Highlighted Card -->
+                <div class="bg-[#0d1117] p-8 rounded-xl border-2 border-gold shadow-lg shadow-gold/10 transform hover:-translate-y-2 transition">
+                    <div class="text-4xl text-gold mb-6"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+                    <h3 class="text-xl font-bold text-white mb-4">The Audit-First Standard</h3>
+                    <p class="text-[#8b949e] text-sm leading-relaxed">
+                        We don't just apply we audit. Most refusals happen because applicants guess their status. We use a forensic pre-check to catch Funds Parkin' triggers before the embassy sees your file.
+                    </p>
                 </div>
 
-                <!-- 8. Interactive Checklist (Green) -->
-                <div class="bg-[#0d1117] p-8 rounded-xl border border-[#30363d] flex flex-col md:flex-row gap-6 items-center">
-                    <div class="w-24 h-24 bg-[#161b22] rounded-lg flex items-center justify-center text-3xl text-[#38bdf8] shrink-0"><i class="fa-solid fa-list-check"></i></div>
-                    <div>
-                        <h3 class="text-xl font-bold text-white mb-2">UK Interactive Checklist</h3>
-                        <p class="text-[#8b949e] text-sm mb-4">Stop worrying about missing a single document. This automated tool organizes your entire application using a simple Traffic Light system: Red means something is missing, and Green means you are ready.</p>
-                        <div class="flex items-center gap-4">
-                            <span class="text-2xl font-bold text-white">£14.99</span>
-                            <button onclick="redirectToStripe('checklist')" class="btn-green px-4 py-2 rounded text-sm">Download</button>
-                        </div>
-                    </div>
+                <div class="bg-[#0d1117] p-8 rounded-xl border border-[#30363d] transform hover:-translate-y-2 transition">
+                    <div class="text-4xl text-[#38bdf8] mb-6"><i class="fa-solid fa-location-dot"></i></div>
+                    <h3 class="text-xl font-bold text-white mb-4">West Africa Specialist</h3>
+                    <p class="text-[#8b949e] text-sm leading-relaxed">
+                        We understand the specific refusal triggers for Nigerian, Gambian, and Sierra Leonean applicants. We solve the Source of Funds and Family Ties issues that general agents ignore.
+                    </p>
+                </div>
+
+                <div class="bg-[#0d1117] p-8 rounded-xl border border-[#30363d] transform hover:-translate-y-2 transition">
+                    <div class="text-4xl text-[#22c55e] mb-6"><i class="fa-solid fa-file-contract"></i></div>
+                    <h3 class="text-xl font-bold text-white mb-4">The Liability Shield</h3>
+                    <p class="text-[#8b949e] text-sm leading-relaxed">
+                        Unlike freelance fixers, we carry full Professional Indemnity Insurance. You are engaging a secure, regulated London consultancy, offering professionalism risky middlemen cannot match.
+                    </p>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS (Slideshow) -->
+    <section class="py-20 bg-[#0d1117] overflow-hidden">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-white">Trusted by Clients Facing Complex Hurdles</h2>
+        </div>
+        <div class="slideshow-container" onmouseenter="pauseSlides()" onmouseleave="startSlides()">
+            <div class="mySlides fade">
+                <div class="p-8 text-center h-full flex flex-col justify-center">
+                    <p class="text-gold text-3xl mb-4">★★★★★</p>
+                    <p class="italic text-gray-300 text-lg mb-6">"Global Visa and Journeys made my Schengen process smooth and stress-free. The staff were friendly and very supportive. I really appreciated their professionalism."</p>
+                    <p class="font-semibold text-white text-base">- Lawratou., Scotland</p>
+                </div>
+            </div>
+            <div class="mySlides fade">
+                <div class="p-8 text-center h-full flex flex-col justify-center">
+                    <p class="text-gold text-3xl mb-4">★★★★★</p>
+                    <p class="italic text-gray-300 text-lg mb-6">"Their free visa eligibility check is so amazing. It lets you check your visa eligiblity. I would highly recommend Global Visa and Journeys to you. Indeed a travel expert. 🎉💯"</p>
+                    <p class="font-semibold text-white text-base">- Fanta F., Banjul</p>
+                </div>
+            </div>
+            <div class="mySlides fade">
+                <div class="p-8 text-center h-full flex flex-col justify-center">
+                    <p class="text-gold text-3xl mb-4">★★★★★</p>
+                    <p class="italic text-gray-300 text-lg mb-6">"Great, reliable and fast service. Our Australian visa application was completed within a few hours with no hassle 👌. Will definitely recommend Global Visa to all!"</p>
+                    <p class="font-semibold text-white text-base">- Isa., London</p>
+                </div>
+            </div>
+             <div class="mySlides fade">
+                <div class="p-8 text-center h-full flex flex-col justify-center">
+                    <p class="text-gold text-3xl mb-4">★★★★★</p>
+                    <p class="italic text-gray-300 text-lg mb-6">"GV&J handled everything from the Schengen narrative to booking my flights. Flawless process, immediate approval. Highly recommend."</p>
+                    <p class="font-semibold text-white text-base">- James A., Abuja</p>
+                </div>
+            </div>
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
         </div>
     </section>
 
@@ -494,11 +434,11 @@
     <footer class="bg-[#0d1117] text-[#8b949e] py-12 border-t border-[#30363d]">
         <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-4 gap-8">
             <div class="col-span-1 md:col-span-2">
-                <span class="text-white text-xl font-bold" style="font-family: 'sans', serif;">GLOBAL VISA <span class="text-gold">&</span> JOURNEYS</span>
+                <span class="text-white text-xl font-bold" style="font-family: 'Playfair Display', serif;">GLOBAL VISA <span class="text-gold">&</span> JOURNEYS</span>
                 <p class="mt-4 text-sm">We are a forensic travel consultancy bridging the gap between complex bureaucratic compliance and seamless travel logistics.</p>
                 <div class="mt-6 flex gap-4">
-                    <a href="https://www.facebook.com/875160259023433?ref=NONE_xav_ig_profile_page_web" class="text-white hover:text-gold transition"><i class="fa-brands fa-facebook text-xl"></i></a>
-                    <a href="https://www.instagram.com/globalvisajourneysltd?igsh=MTJ3YXZuc2Fnbmdp&utm_source=qr" class="text-white hover:text-gold transition"><i class="fa-brands fa-instagram text-xl"></i></a>
+                    <a href="https://facebook.com/globalvisajourneys" class="text-white hover:text-gold transition"><i class="fa-brands fa-facebook text-xl"></i></a>
+                    <a href="https://instagram.com/globalvisajourneysltd" class="text-white hover:text-gold transition"><i class="fa-brands fa-instagram text-xl"></i></a>
                 </div>
             </div>
             
@@ -507,7 +447,7 @@
                 <ul class="space-y-2 text-sm">
                     <li><i class="fa-solid fa-envelope mr-2"></i> office@globalvisajourneys.com</li>
                     <li><i class="fa-solid fa-phone mr-2"></i> 0204 628 1692 (UK Office)</li>
-                    <li><i class="fa-solid fa-phone mr-2"></i> +44 7511219482 (WhatsApp)</li>
+                    <li><i class="fa-brands fa-whatsapp mr-2"></i> +44 7511 219482 (WhatsApp)</li>
                     <li><i class="fa-solid fa-location-dot mr-2"></i> 71-75 Shelton Street, Covent Garden, London, WC2H 9JQ</li>
                 </ul>
             </div>
@@ -517,9 +457,9 @@
                 <p class="text-xs mb-4">Don't let a Lump Sum error ban you. Join our alert list.</p>
                 <div id="mc_embed_signup">
                      <form class="flex flex-col gap-2">
-    <input id="newsletter-email" type="email" placeholder="Email Address" class="bg-[#161b22] border border-[#30363d] text-white px-3 py-2 rounded text-sm focus:outline-none focus:border-gold">
-    <button id="newsletter-btn" type="button" class="btn-gold px-4 py-2 rounded text-sm text-[#0d1117]">Subscribe</button>
-</form>
+                        <input id="newsletter-email" type="email" placeholder="Email Address" class="bg-[#161b22] border border-[#30363d] text-white px-3 py-2 rounded text-sm focus:outline-none focus:border-gold">
+                        <button id="newsletter-btn" type="button" class="btn-gold px-4 py-2 rounded text-sm text-[#0d1117]">Subscribe</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -539,7 +479,7 @@
                 <h2 class="text-2xl font-bold text-white mb-6 border-b border-gold pb-4">🛡️ ENGAGEMENT LETTER & SCOPE OF SERVICE</h2>
                 <p class="mb-4">This Agreement ("Letter") outlines the professional services provided by Global Visa & Journeys (the "Consultant") to the Client [Client Name] (the "Client") concerning the UK/Schengen Visitor Visa Application.</p>
 
-                <h3 class="text-white font-bold mt-6 mb-2">1. Scope of Engagement: Full Access Strategy (£700 Fee)</h3>
+                <h3 class="text-white font-bold mt-6 mb-2">1. Scope of Engagement: Full Access Strategy</h3>
                 <p>The Consultant agrees to provide the following high-value services, defined by the "Get the Visa Right, Enjoy Your Flight" model.</p>
                 <ul class="list-disc pl-5 mt-2 space-y-2">
                     <li><strong>Document Review & Organization:</strong> Forensic review of all supporting documents (financial statements, employment letters, sponsor documents) to ensure 100% compliance with current UKVI/Schengen guidelines for the specific application type.</li>
@@ -580,8 +520,8 @@
                 <h3 class="text-white font-bold mt-6 mb-2">5. Acceptance</h3>
                 <p>By signing below, the Client acknowledges that they have read, understood, and accept the terms of this Engagement Letter, specifically the non-refund policy and the limitations of the Consultant's role.</p>
                 <div class="mt-8 pt-8 border-t border-[#30363d]">
-                    <p>Client Name: ___________________________        Date: ___________________________</p>
-                    <p class="mt-4">Consultant Name: ________________________        Date: ___________________________</p>
+                    <p>Client Name: ___________________________         Date: ___________________________</p>
+                    <p class="mt-4">Consultant Name: ________________________         Date: ___________________________</p>
                 </div>
             </div>
         </div>
@@ -608,7 +548,7 @@
                 <p>4.1. Consulting Service Cancellation: As per Clause 2.3, the Consulting Fee is non-refundable once the Engagement Letter is signed and work has commenced.<br>4.2. Travel Cancellation: Refunds for flights, hotels, and insurance are governed by the specific terms and conditions of the third-party providers.</p>
 
                 <h3 class="text-white font-bold mt-6 mb-2">5. Limitation of Liability</h3>
-                <p>5.1. Maximum Liability: In the event of an established error or negligence by the Consultant, the Consultant’s total liability shall be strictly limited to the total amount of the Consulting Fee (£700) paid by the Client.<br>5.2. Consequential Damages: The Consultant shall not be liable for any indirect, consequential, or economic loss, including but not limited to loss of income, wasted time, or emotional distress.</p>
+                <p>5.1. Maximum Liability: In the event of an established error or negligence by the Consultant, the Consultant’s total liability shall be strictly limited to the total amount of the Consulting Fee paid by the Client.<br>5.2. Consequential Damages: The Consultant shall not be liable for any indirect, consequential, or economic loss, including but not limited to loss of income, wasted time, or emotional distress.</p>
 
                 <h3 class="text-white font-bold mt-6 mb-2">6. Intellectual Property (IP)</h3>
                 <p>6.1. Ownership: All strategy documents, templates, Cover Letter narratives, and procedural checklists provided by the Consultant remain the sole intellectual property of Global Visa & Journeys.<br>6.2. Usage: The Client may not share, sell, or distribute these documents to any third party.</p>
@@ -627,7 +567,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
         import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
-        // CONFIG HARDCODED AS REQUESTED
         const firebaseConfig = {
             apiKey: "AIzaSyCcoyBXRITTblrH0XcaLGMjftUttXYLtj4",
             authDomain: "global-visa-journeys.firebaseapp.com",
@@ -640,111 +579,62 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // 2. PAYMENT LINKS
+        // PAYMENT LINKS
         window.redirectToStripe = function(service) {
             let url = "";
             switch(service) {
                 case 'quickscan': url = "https://book.stripe.com/28E4gygLremKd0Ogx50sU00"; break;
-                case 'traveldesk': url = "https://wa.me/447511219482?text=Hello%20Global%20Visa%2C%20I%20would%20like%20a%20quote%20for%20Real%20Flights%20and%20Insurance."; break;
+                case 'traveldesk': url = "https://wa.me/447511219482?text=Quote%20Needed%20for%20Flights"; break;
                 case 'fullaccess': url = "https://buy.stripe.com/3cIfZggLr2E2d0O4On0sU03"; break;
                 case 'ukresident': url = "https://buy.stripe.com/bJe3cubr70vUgd00y70sU06"; break;
                 case 'flightres': url = "https://buy.stripe.com/cNieVc3YFemK6Cq80z0sU05"; break;
-                case 'diykit': url = "https://buy.stripe.com/7sYcN49iZfqOgd094D0sU01"; break;
-                case 'checklist': url = "https://buy.stripe.com/dRmcN4dzf0vU8Ky6Wv0sU02"; break;
                 case 'quickfix': url = "https://book.stripe.com/00waEW7aR3I64uieoX0sU04"; break;
                 default: return;
             }
             window.location.href = url;
         }
 
-        // 3. MODAL TOGGLE
+        // MODAL TOGGLE
         window.toggleModal = function(id) {
             const el = document.getElementById(id);
-            if (el.classList.contains('hidden')) {
-                el.classList.remove('hidden');
-            } else {
-                el.classList.add('hidden');
-            }
+            if (el.classList.contains('hidden')) el.classList.remove('hidden');
+            else el.classList.add('hidden');
         }
 
-        // 4. SLIDESHOW LOGIC (Auto + Pause)
+        // SLIDESHOW LOGIC
         let slideIndex = 1;
         let slideTimer;
-
         showSlides(slideIndex);
-
-        window.plusSlides = function(n) {
-            showSlides(slideIndex += n);
-        }
-
-        window.currentSlide = function(n) {
-            showSlides(slideIndex = n);
-        }
-
+        window.plusSlides = function(n) { showSlides(slideIndex += n); }
         function showSlides(n) {
             let i;
             let slides = document.getElementsByClassName("mySlides");
             if (n > slides.length) {slideIndex = 1}    
             if (n < 1) {slideIndex = slides.length}
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";  
-            }
+            for (i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
             slides[slideIndex-1].style.display = "block";  
         }
-
-        function startSlides() {
-            slideTimer = setInterval(() => {
-                plusSlides(1);
-            }, 3000); // 3 Seconds
-        }
-
-        function pauseSlides() {
-            clearInterval(slideTimer);
-        }
-
-        // Init
+        function startSlides() { slideTimer = setInterval(() => { plusSlides(1); }, 3000); }
+        function pauseSlides() { clearInterval(slideTimer); }
         startSlides();
         window.startSlides = startSlides;
         window.pauseSlides = pauseSlides;
 
-
-        // ------------------------------------------
-        // NEWSLETTER LOGIC (Paste this at the bottom of script)
-        // ------------------------------------------
+        // NEWSLETTER LOGIC
         const newsBtn = document.getElementById('newsletter-btn');
         const newsInput = document.getElementById('newsletter-email');
-
         if(newsBtn) {
             newsBtn.addEventListener('click', async () => {
                 const email = newsInput.value;
-                
-                // Simple validation
-                if (!email || !email.includes('@')) {
-                    alert("Please enter a valid email address.");
-                    return;
-                }
-
-                // Change button text to show processing
+                if (!email || !email.includes('@')) { alert("Please enter a valid email."); return; }
                 const originalText = newsBtn.innerText;
                 newsBtn.innerText = "Joining...";
-
                 try {
-                    // Save to Firebase Collection 'newsletter_subs'
-                    await addDoc(collection(db, "newsletter_subs"), {
-                        email: email,
-                        source: "footer_signup",
-                        timestamp: new Date()
-                    });
-
-                    // Success Message
-                    alert("Welcome to the Inner Circle. Watch your inbox for forensic compliance alerts.");
-                    newsInput.value = ""; // Clear input
-                } catch (error) {
-                    console.error("Error subscribing:", error);
-                    alert("Connection error. Please try again.");
-                } finally {
-                    newsBtn.innerText = originalText;
-                }
+                    await addDoc(collection(db, "newsletter_subs"), { email: email, source: "footer_signup", timestamp: new Date() });
+                    alert("Welcome to the Inner Circle.");
+                    newsInput.value = "";
+                } catch (error) { console.error(error); alert("Error subscribing."); }
+                finally { newsBtn.innerText = originalText; }
             });
         }
     </script>

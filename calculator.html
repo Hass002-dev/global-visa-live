@@ -49,24 +49,33 @@
 <body class="min-h-screen flex items-center justify-center p-4">
 
     <div class="max-w-2xl w-full bg-[#161b22] border border-[#30363d] rounded-xl p-8 shadow-2xl relative">
-        <a href="./index.html" onclick="window.history.back()" class="absolute top-6 left-6 text-[#8b949e] hover:text-white text-sm">
+        <a href="index.html" class="absolute top-6 left-6 text-[#8b949e] hover:text-white text-sm">
             <i class="fa-solid fa-arrow-left mr-2"></i> Back
         </a>
         
         <div class="text-center mb-10 mt-6">
             <h1 class="text-3xl font-bold text-white mb-2">Visa Readiness Calculator</h1>
-            <p class="text-[#8b949e]">Forensic logic to detect "Funds Parking" and Refusal Risk.</p>
+            <p class="text-[#8b949e]">Forensic logic to detect Funds Parking and Refusal Risk.</p>
         </div>
 
         <form id="risk-form" class="space-y-6">
+            <!-- EMAIL FIELD (REQUIRED) -->
             <div>
-                <label class="block text-sm font-medium text-[#d4af37] mb-2">Estimated Trip Cost (£)</label>
-                <input type="number" id="tripCost" placeholder="Flight + Hotel + Spending" class="w-full px-4 py-3 rounded-lg bg-[#0d1117] border border-[#30363d] text-white focus:border-[#d4af37] outline-none transition">
+                <label class="block text-sm font-medium text-white mb-2">Your Email Address <span class="text-red-500">*</span></label>
+                <input type="email" id="userEmail" placeholder="Enter email to see results" class="w-full px-4 py-3 rounded-lg bg-[#0d1117] border border-[#30363d] text-white focus:border-[#d4af37] outline-none transition" required>
             </div>
-            <div>
-                <label class="block text-sm font-medium text-[#d4af37] mb-2">Monthly Disposable Income (£)</label>
-                <input type="number" id="monthlyDisposable" placeholder="Income left after all bills" class="w-full px-4 py-3 rounded-lg bg-[#0d1117] border border-[#30363d] text-white focus:border-[#d4af37] outline-none transition">
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-medium text-[#d4af37] mb-2">Total Trip Cost (£)</label>
+                    <input type="number" id="tripCost" placeholder="Flight + Hotel + Spending" class="w-full px-4 py-3 rounded-lg bg-[#0d1117] border border-[#30363d] text-white focus:border-[#d4af37] outline-none transition">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-[#d4af37] mb-2">Monthly Disposable (£)</label>
+                    <input type="number" id="monthlyDisposable" placeholder="Income left after bills" class="w-full px-4 py-3 rounded-lg bg-[#0d1117] border border-[#30363d] text-white focus:border-[#d4af37] outline-none transition">
+                </div>
             </div>
+
             <div>
                 <label class="block text-sm font-medium text-[#d4af37] mb-2">Closing Bank Balance (£)</label>
                 <input type="number" id="closingBalance" placeholder="Current total savings" class="w-full px-4 py-3 rounded-lg bg-[#0d1117] border border-[#30363d] text-white focus:border-[#d4af37] outline-none transition">
@@ -75,12 +84,12 @@
             <div class="flex items-start space-x-3 bg-[#0d1117] p-4 rounded border border-[#30363d] cursor-pointer" onclick="document.getElementById('recentLargeDeposit').click()">
                 <input type="checkbox" id="recentLargeDeposit" class="w-5 h-5 text-[#d4af37] bg-gray-700 border-gray-600 rounded mt-1 accent-[#d4af37]">
                 <label for="recentLargeDeposit" class="text-sm text-[#8b949e] cursor-pointer">
-                    Have you made a deposit larger than 50% of your income in the last 28 days?
+                    Have you made a lump sum deposit larger than 50% of your salary in the last 28 days?
                 </label>
             </div>
             
-            <button type="button" id="calc-btn" class="w-full btn-gold py-4 rounded-lg text-lg shadow-lg uppercase tracking-wider">
-                CALCULATE FORENSIC RISK
+            <button type="button" id="calc-btn" class="w-full btn-gold py-4 rounded-lg text-lg shadow-lg uppercase tracking-wider flex justify-center items-center gap-2">
+                <span>CALCULATE FORENSIC RISK</span> <i class="fa-solid fa-chart-pie"></i>
             </button>
         </form>
 
@@ -100,7 +109,7 @@
         import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
         import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 
-        // CONFIG
+        // CONFIG (RESTORED FROM INDEX.HTML)
         const firebaseConfig = {
             apiKey: "AIzaSyCcoyBXRITTblrH0XcaLGMjftUttXYLtj4",
             authDomain: "global-visa-journeys.firebaseapp.com",
@@ -110,9 +119,15 @@
             appId: "1:381217766164:web:1cb70fbc26332f5a8d6001"
         };
 
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const auth = getAuth(app);
+        let app, db, auth;
+        
+        try {
+            app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            auth = getAuth(app);
+        } catch (e) {
+            console.error("Firebase Init Error:", e);
+        }
 
         // Constants
         const STRIPE_LINK = "https://book.stripe.com/28E4gygLremKd0Ogx50sU00";
@@ -120,60 +135,70 @@
 
         // Logic
         document.getElementById('calc-btn').addEventListener('click', async () => {
+            const email = document.getElementById('userEmail').value;
             const tripCost = parseFloat(document.getElementById('tripCost').value);
             const monthlyDisposable = parseFloat(document.getElementById('monthlyDisposable').value);
             const closingBalance = parseFloat(document.getElementById('closingBalance').value);
             const recentLargeDeposit = document.getElementById('recentLargeDeposit').checked;
             const resultArea = document.getElementById('result-area');
+            const btn = document.getElementById('calc-btn');
 
+            // VALIDATION
+            if (!email || !email.includes('@')) {
+                showSimpleError("Please enter a valid email address to see your results.");
+                return;
+            }
             if (isNaN(tripCost) || isNaN(monthlyDisposable) || isNaN(closingBalance)) {
-                showSimpleError("Please enter valid numerical values for all fields.");
+                showSimpleError("Please enter valid numbers for financial fields.");
                 return;
             }
 
+            // PROCESSING STATE
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> ANALYZING...`;
+
             let riskLevel, riskTag, message, colorClass, borderClass, btnText;
 
-            // 1. RULE A: INSOLVENCY (RED)
+            // --- FORENSIC LOGIC ENGINE ---
+
+            // 1. CRITICAL FAIL (RED) - Insolvency or Deception
             if (closingBalance < tripCost) {
                 riskLevel = "CRITICAL RISK";
                 riskTag = "INSOLVENT PROFILE";
-                message = "Your current balance is less than the cost of the trip. This is an automatic Lack of Funds refusal. Do not submit your application.";
-                colorClass = "bg-red-900/20 text-red-500";
+                message = "You do not have enough funds to cover the trip cost. This leads to an automatic refusal under Appendix V 4.2(e). Do not apply yet.";
+                colorClass = "bg-red-900/40 text-red-400";
                 borderClass = "border-red-500";
                 btnText = "FIX INSOLVENCY STATUS (£39.99)";
             } 
-            // 2. RULE B: FUNDS PARKING (RED)
             else if (recentLargeDeposit) {
                 riskLevel = "HIGH RISK";
                 riskTag = "FUNDS PARKING DETECTED";
-                message = "That large deposit is a 'Deception' trigger. Even with a high balance, the ECO will assume the money is borrowed. You risk a 10-year entry ban.";
-                colorClass = "bg-red-900/20 text-red-500";
+                message = "The large deposit you declared is a major 'Deception' trigger. The ECO will assume the money is borrowed or inflated. This carries a risk of a 10-year ban.";
+                colorClass = "bg-red-900/40 text-red-400";
                 borderClass = "border-red-500";
                 btnText = "BOOK FORENSIC AUDIT (£39.99)";
             }
-            // 3. RULE C: AFFORDABILITY (2:1 SURPLUS RULE)
+            // 2. MODERATE FAIL (AMBER) - Proportionality & Sustainability
+            // Rule: Spending more than 60% of total savings OR taking > 3 months disposable to pay
+            else if (tripCost > (closingBalance * 0.60) || tripCost > (monthlyDisposable * 3)) {
+                riskLevel = "MODERATE RISK";
+                riskTag = "PROPORTIONALITY CONCERN";
+                message = "While you have the funds, the trip is too expensive relative to your savings or income. The ECO will view this expenditure as 'not credible' for a genuine visitor.";
+                colorClass = "bg-yellow-900/30 text-yellow-400";
+                borderClass = "border-yellow-500";
+                btnText = "FIX RATIO STRATEGY (£39.99)";
+            } 
+            // 3. PASS (GREEN) - Strong Profile
             else {
-                // Calculation: Disposable income must be at least 2x the trip cost to be "Safe"
-                // If Trip is 1000, you need 2000 disposable.
-                if (monthlyDisposable < (tripCost * 2)) {
-                    riskLevel = "MODERATE RISK";
-                    riskTag = "LOW CREDIBILITY";
-                    message = "Your trip cost is too high compared to your monthly surplus. ECOs view this as 'economically irrational' behavior, suggesting you won't return home.";
-                    colorClass = "bg-yellow-900/20 text-yellow-500";
-                    borderClass = "border-yellow-500";
-                    btnText = "BOOK QUICKSCAN AUDIT (£39.99)";
-                } else {
-                    // 4. RULE D: SAFE PASS (GREEN)
-                    riskLevel = "LOW RISK";
-                    riskTag = "FINANCIALLY COMPLIANT";
-                    message = "Your math is strong. However, 70% of refusals for strong financial profiles are due to narrative errors in the cover letter.";
-                    colorClass = "bg-green-900/20 text-green-500";
-                    borderClass = "border-green-500";
-                    btnText = "BOOK FINAL NARRATIVE CHECK";
-                }
+                riskLevel = "LOW RISK";
+                riskTag = "FINANCIALLY COMPLIANT";
+                message = "Your financial ratios are healthy. However, 70% of refusals for wealthy applicants are due to 'Soft Factors' (Ties & Narrative). You are ready for the final check.";
+                colorClass = "bg-green-900/30 text-green-400";
+                borderClass = "border-green-500";
+                btnText = "BOOK FINAL NARRATIVE CHECK";
             }
 
-            // Update UI
+            // --- RENDER RESULT ---
             resultArea.className = `mt-8 p-8 rounded-lg text-center border-2 ${borderClass} ${colorClass}`;
             resultArea.innerHTML = `
                 <div class="text-xs font-bold uppercase tracking-widest mb-2 opacity-80">Forensic Verdict</div>
@@ -193,39 +218,41 @@
             resultArea.classList.remove('hidden');
             resultArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-            // LOGGING & ANALYTICS
+            // --- DATABASE SAVE ---
             try {
-                // Ensure auth is ready
-                if (!auth.currentUser) await signInAnonymously(auth);
+                if (auth && !auth.currentUser) await signInAnonymously(auth);
                 
-                // Track in Firebase (Rule 1: Strict Paths)
-                await addDoc(collection(db, "artifacts", "global-visa-journeys", "public", "data", "risk_assessments"), {
-                    tripCost,
-                    monthlyDisposable,
-                    closingBalance,
-                    recentLargeDeposit,
-                    riskLevel,
-                    riskTag,
-                    timestamp: new Date().toISOString()
-                });
+                if (db) {
+                    await addDoc(collection(db, "risk_assessments"), {
+                        email,
+                        tripCost,
+                        monthlyDisposable,
+                        closingBalance,
+                        recentLargeDeposit,
+                        riskLevel,
+                        riskTag,
+                        timestamp: new Date().toISOString()
+                    });
 
-                // GA4 Event
-                if (typeof gtag === 'function') {
-                    gtag('event', 'calculator_use', {
-                        'risk_level': riskLevel,
-                        'risk_tag': riskTag,
-                        'value': tripCost
+                    // Backup to newsletter list
+                    await addDoc(collection(db, "newsletter_subs"), {
+                        email,
+                        source: "calculator_usage",
+                        timestamp: new Date()
                     });
                 }
             } catch (e) {
-                console.warn("Analytics non-critical error:", e.message);
+                console.warn("Data save warning:", e.message);
+                // We do NOT show an error alert to the user here, because the calculation was successful.
+            } finally {
+                btn.innerHTML = originalText;
             }
         });
 
         function showSimpleError(msg) {
             const resultArea = document.getElementById('result-area');
             resultArea.className = "mt-8 p-4 rounded-lg text-center border border-red-500 text-red-500 bg-red-900/10";
-            resultArea.innerHTML = `<p class="text-sm font-bold">${msg}</p>`;
+            resultArea.innerHTML = `<p class="text-sm font-bold"><i class="fa-solid fa-triangle-exclamation mr-2"></i>${msg}</p>`;
             resultArea.classList.remove('hidden');
         }
     </script>
