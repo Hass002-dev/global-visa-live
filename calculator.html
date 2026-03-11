@@ -282,13 +282,44 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIC -->
-    <script>
-        // ==========================================
-        // YOUR NEW, LIVE GOOGLE APPS SCRIPT URL
-        // ==========================================
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzZgDe0yJ8b5GNl5wz4jDisVRv7CnfguCPbLAgx3nPeQ1lS-GkWKvlEyC7KYRPx16Eo/exec"; 
+    <!-- ========================================== -->
+    <!-- FIREBASE INTEGRATION FOR AUTOMATED CHECK   -->
+    <!-- ========================================== -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
+        // FIREBASE CONFIGURATION (Using your exact credentials)
+        const firebaseConfig = {
+            apiKey: "AIzaSyCcoyBXRITTblrH0XcaLGMjftUttXYLtj4",
+            authDomain: "global-visa-journeys.firebaseapp.com",
+            projectId: "global-visa-journeys",
+            storageBucket: "global-visa-journeys.firebasestorage.app",
+            messagingSenderId: "381217766164",
+            appId: "1:381217766164:web:1cb70fbc26332f5a8d6001"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Attach a global function so our regular script below can call it
+        window.saveAutomatedCheckToFirebase = async (dataPayload) => {
+            try {
+                // Adds a new document to the "automated_checks" collection
+                await addDoc(collection(db, "automated_checks"), dataPayload);
+                console.log("Automated Lead saved to Firestore successfully.");
+            } catch (error) {
+                console.error("Error saving lead to Firestore: ", error);
+            }
+        };
+    </script>
+
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT LOGIC (ROUTING, CALC & GSHEETS) -->
+    <!-- ========================================== -->
+    <script>
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzZgDe0yJ8b5GNl5wz4jDisVRv7CnfguCPbLAgx3nPeQ1lS-GkWKvlEyC7KYRPx16Eo/exec"; 
         const STRIPE_LINK_QUICKSCAN = "https://book.stripe.com/28E4gygLremKd0Ogx50sU00";
         const WHATSAPP_LINK = "https://wa.me/447511219482";
 
@@ -351,6 +382,7 @@
             const btn = document.getElementById('calc-submit-btn');
             btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> ANALYZING...`;
 
+            const email = document.getElementById('calcEmail').value;
             const tripCost = parseFloat(document.getElementById('tripCost').value);
             const monthlyDisposable = parseFloat(document.getElementById('monthlyDisposable').value);
             const closingBalance = parseFloat(document.getElementById('closingBalance').value);
@@ -380,6 +412,20 @@
                 btnText = "BOOK FULL STRATEGY PACKAGE"; btnLink = "index.html#services-section"; 
             }
 
+            // 1. SILENTLY SAVE TO FIREBASE
+            if (window.saveAutomatedCheckToFirebase) {
+                window.saveAutomatedCheckToFirebase({
+                    email: email,
+                    tripCost: tripCost,
+                    disposableIncome: monthlyDisposable,
+                    bankBalance: closingBalance,
+                    hasLargeDeposit: recentLargeDeposit,
+                    riskLevel: riskLevel,
+                    timestamp: new Date().toISOString()
+                });
+            }
+
+            // 2. SHOW THE RESULT TO THE USER
             calcSteps[currentCalcStep].classList.remove('active');
             const resultArea = document.getElementById('calc-result-area');
             resultArea.className = `mt-4 p-8 rounded-lg text-center border-2 ${borderClass} ${colorClass} step-container active`;
