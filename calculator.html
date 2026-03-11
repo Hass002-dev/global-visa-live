@@ -3,258 +3,463 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visa Readiness Calculator | GV&J London</title>
-    
-    <!-- TAILWIND CSS -->
+    <title>Visa Readiness Assessment | GV&J London</title>
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- FONTS -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-    
-    <!-- FONT AWESOME -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- GOOGLE ANALYTICS 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1EZM399KT"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-Q1EZM399KT');
-    </script>
 
     <style>
         :root {
-            --bg-primary: #0d1117;
-            --bg-secondary: #161b22;
-            --border-surface: #30363d;
-            --brand-gold: #d4af37;
-            --text-primary: #f0f6fc;
+            --bg-primary: #0d1117; --bg-secondary: #161b22; --border-surface: #30363d;
+            --brand-gold: #d4af37; --text-primary: #f0f6fc;
         }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-primary); color: var(--text-primary); }
-        h1, h2 { font-family: 'Playfair Display', serif; }
-        
-        .btn-gold {
-            background-color: var(--brand-gold);
-            color: #0d1117;
-            font-weight: 700;
-            transition: all 0.3s ease;
-        }
-        .btn-gold:hover { background-color: #fef08a; transform: translateY(-2px); }
-        
-        input[type="number"]::-webkit-inner-spin-button,
-        input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-primary); color: var(--text-primary); overflow-x: hidden;}
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        .btn-gold { background-color: var(--brand-gold); color: #0d1117; font-weight: 700; transition: all 0.3s ease; }
+        .btn-gold:hover { background-color: #fef08a; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); }
+        .btn-blue { background-color: #38bdf8; color: #0d1117; font-weight: 700; transition: all 0.3s ease; }
+        .btn-blue:hover { background-color: #0284c7; color: white; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(56, 189, 248, 0.3); }
+        .gvj-input { width: 100%; padding: 0.75rem 1rem; border-radius: 0.5rem; background-color: #0d1117; border: 1px solid var(--border-surface); color: white; transition: all 0.3s; }
+        .gvj-input:focus { outline: none; border-color: var(--brand-gold); box-shadow: 0 0 0 1px var(--brand-gold); }
+        select.gvj-input { appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b949e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1em; }
+        .step-container { display: none; animation: slideInRight 0.5s forwards; }
+        .step-container.active { display: block; }
+        @keyframes slideInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+        .progress-bar { height: 4px; background-color: var(--border-surface); border-radius: 2px; overflow: hidden; margin-bottom: 2rem; }
+        .progress-fill { height: 100%; background-color: var(--brand-gold); width: 0%; transition: width 0.4s ease; }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
+<body class="min-h-screen flex flex-col items-center justify-center p-4 relative">
 
-    <div class="max-w-2xl w-full bg-[#161b22] border border-[#30363d] rounded-xl p-8 shadow-2xl relative">
-        <a href="index.html" class="absolute top-6 left-6 text-[#8b949e] hover:text-white text-sm">
-            <i class="fa-solid fa-arrow-left mr-2"></i> Back
-        </a>
+    <a href="index.html" class="absolute top-6 left-6 text-[#8b949e] hover:text-white text-sm font-bold flex items-center transition z-50">
+        <i class="fa-solid fa-arrow-left mr-2"></i> Return to Homepage
+    </a>
+
+    <div class="max-w-2xl w-full bg-[#161b22] border border-[#30363d] rounded-2xl p-8 shadow-2xl relative overflow-hidden mt-12 md:mt-0">
         
-        <div class="text-center mb-10 mt-6">
-            <h1 class="text-3xl font-bold text-white mb-2">Visa Readiness Calculator</h1>
-            <p class="text-[#8b949e]">Forensic logic to detect Funds Parking and Refusal Risk.</p>
+        <div id="path-chooser" class="step-container text-center py-8 active">
+            <h1 class="text-3xl font-bold text-white mb-2">Select Assessment Type</h1>
+            <p class="text-[#8b949e] mb-8">How would you like us to evaluate your profile?</p>
+            <div class="space-y-4">
+                <button onclick="startApp('automated')" class="w-full bg-[#0d1117] border border-gold text-gold py-4 rounded-xl font-bold hover:bg-gold hover:text-[#0d1117] transition flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-calculator text-xl"></i> Automated Financial Check
+                </button>
+                <button onclick="startApp('manual')" class="w-full bg-[#0d1117] border border-[#38bdf8] text-[#38bdf8] py-4 rounded-xl font-bold hover:bg-[#38bdf8] hover:text-[#0d1117] transition flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-clipboard-list text-xl"></i> Manual Team Assessment
+                </button>
+            </div>
         </div>
 
-        <form id="risk-form" class="space-y-6">
-            <!-- EMAIL FIELD (REQUIRED) -->
-            <div>
-                <label class="block text-sm font-medium text-white mb-2">Your Email Address <span class="text-red-500">*</span></label>
-                <input type="email" id="userEmail" placeholder="Enter email to see results" class="w-full px-4 py-3 rounded-lg bg-[#0d1117] border border-[#30363d] text-white focus:border-[#d4af37] outline-none transition" required>
+        <!-- PATH A: CALCULATOR -->
+        <div id="flow-calculator" class="hidden">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold text-white">Financial Forensic Check</h2>
+                <p class="text-xs text-[#8b949e]">Checking for Appendix V 4.2(e) compliance.</p>
+            </div>
+            <div class="progress-bar"><div id="calc-progress" class="progress-fill"></div></div>
+
+            <div class="step-container calc-step active">
+                <label class="block text-sm font-medium text-white mb-2">1. What is your email address?</label>
+                <p class="text-xs text-[#8b949e] mb-4">We will send a copy of your forensic result here.</p>
+                <input type="email" id="calcEmail" placeholder="e.g. name@example.com" class="gvj-input mb-6" required>
+                <button onclick="nextCalcStep(1)" class="w-full btn-gold py-3 rounded-lg">Next Step <i class="fa-solid fa-arrow-right ml-2"></i></button>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-6">
-                <div>
-                    <label class="block text-sm font-medium text-[#d4af37] mb-2">Total Trip Cost (£)</label>
-                    <input type="number" id="tripCost" placeholder="Flight + Hotel + Spending" class="w-full px-4 py-3 rounded-lg bg-[#0d1117] border border-[#30363d] text-white focus:border-[#d4af37] outline-none transition">
+            <div class="step-container calc-step">
+                <label class="block text-sm font-medium text-[#d4af37] mb-2">2. Estimated Total Trip Cost (£)</label>
+                <p class="text-xs text-[#8b949e] mb-4">Total for Flights, Hotels, and Daily Spending.</p>
+                <input type="number" id="tripCost" placeholder="e.g. 1500" class="gvj-input mb-6" required>
+                <div class="flex gap-4">
+                    <button onclick="prevCalcStep(0)" class="w-1/3 bg-[#0d1117] text-white py-3 rounded-lg border border-[#30363d]">Back</button>
+                    <button onclick="nextCalcStep(2)" class="w-2/3 btn-gold py-3 rounded-lg">Next Step</button>
                 </div>
-                <div>
-                    <label class="block text-sm font-medium text-[#d4af37] mb-2">Monthly Disposable (£)</label>
-                    <input type="number" id="monthlyDisposable" placeholder="Income left after bills" class="w-full px-4 py-3 rounded-lg bg-[#0d1117] border border-[#30363d] text-white focus:border-[#d4af37] outline-none transition">
+            </div>
+
+            <div class="step-container calc-step">
+                <label class="block text-sm font-medium text-[#d4af37] mb-2">3. Monthly Disposable Income (£)</label>
+                <p class="text-xs text-[#8b949e] mb-4">How much is left in your account after rent and bills?</p>
+                <input type="number" id="monthlyDisposable" placeholder="e.g. 600" class="gvj-input mb-6" required>
+                <div class="flex gap-4">
+                    <button onclick="prevCalcStep(1)" class="w-1/3 bg-[#0d1117] text-white py-3 rounded-lg border border-[#30363d]">Back</button>
+                    <button onclick="nextCalcStep(3)" class="w-2/3 btn-gold py-3 rounded-lg">Next Step</button>
                 </div>
             </div>
 
-            <div>
-                <label class="block text-sm font-medium text-[#d4af37] mb-2">Closing Bank Balance (£)</label>
-                <input type="number" id="closingBalance" placeholder="Current total savings" class="w-full px-4 py-3 rounded-lg bg-[#0d1117] border border-[#30363d] text-white focus:border-[#d4af37] outline-none transition">
-            </div>
-            
-            <div class="flex items-start space-x-3 bg-[#0d1117] p-4 rounded border border-[#30363d] cursor-pointer" onclick="document.getElementById('recentLargeDeposit').click()">
-                <input type="checkbox" id="recentLargeDeposit" class="w-5 h-5 text-[#d4af37] bg-gray-700 border-gray-600 rounded mt-1 accent-[#d4af37]">
-                <label for="recentLargeDeposit" class="text-sm text-[#8b949e] cursor-pointer">
-                    Have you made a lump sum deposit larger than 50% of your salary in the last 28 days?
-                </label>
-            </div>
-            
-            <button type="button" id="calc-btn" class="w-full btn-gold py-4 rounded-lg text-lg shadow-lg uppercase tracking-wider flex justify-center items-center gap-2">
-                <span>CALCULATE FORENSIC RISK</span> <i class="fa-solid fa-chart-pie"></i>
-            </button>
-        </form>
+            <div class="step-container calc-step">
+                <label class="block text-sm font-medium text-[#d4af37] mb-2">4. Current Bank Balance (£)</label>
+                <p class="text-xs text-[#8b949e] mb-4">Total accessible savings across all accounts.</p>
+                <input type="number" id="closingBalance" placeholder="e.g. 4500" class="gvj-input mb-6" required>
+                
+                <div class="flex items-start space-x-3 bg-[#0d1117] p-4 rounded border border-[#30363d] cursor-pointer mb-6" onclick="document.getElementById('recentLargeDeposit').click()">
+                    <input type="checkbox" id="recentLargeDeposit" class="w-5 h-5 text-[#d4af37] bg-gray-700 border-gray-600 rounded mt-1 accent-[#d4af37]">
+                    <label for="recentLargeDeposit" class="text-sm text-[#8b949e] cursor-pointer">
+                        Have you made a lump sum deposit larger than 50% of your salary in the last 28 days?
+                    </label>
+                </div>
 
-        <!-- RESULT AREA -->
-        <div id="result-area" class="hidden mt-8 p-6 rounded-lg text-center border-2 animate-in fade-in zoom-in duration-300">
-            <!-- Dynamic Content Injected Here -->
+                <div class="flex gap-4">
+                    <button onclick="prevCalcStep(2)" class="w-1/3 bg-[#0d1117] text-white py-3 rounded-lg border border-[#30363d]">Back</button>
+                    <button onclick="calculateRisk()" id="calc-submit-btn" class="w-2/3 btn-gold py-3 rounded-lg flex justify-center items-center gap-2">
+                        <span>CALCULATE</span> <i class="fa-solid fa-chart-pie"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="calc-result-area" class="hidden mt-4 p-6 rounded-lg text-center border-2 animate-in fade-in zoom-in duration-300"></div>
         </div>
 
-        <div class="mt-8 text-center">
-            <p class="text-[10px] text-[#8b949e] uppercase tracking-widest">Global Visa & Journeys • London HQ • Covent Garden</p>
+        <!-- PATH B: MANUAL TEAM ASSESSMENT -->
+        <div id="flow-manual" class="hidden">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold text-white">Manual Team Assessment</h2>
+                <p class="text-xs text-[#8b949e]">Fill this out accurately for our strategists.</p>
+            </div>
+            <div class="progress-bar"><div id="manual-progress" class="progress-fill bg-[#38bdf8]"></div></div>
+
+            <form id="google-sheet-form">
+                <!-- Manual Step 1: Basics -->
+                <div class="step-container manual-step active">
+                    <h3 class="text-white font-bold mb-4 border-b border-[#30363d] pb-2">Stage 1: The Basics</h3>
+                    <div class="space-y-4 mb-6">
+                        <div>
+                            <label class="block text-xs font-medium text-[#8b949e] mb-1">Full Name</label>
+                            <input type="text" id="m_name" name="name" required class="gvj-input" placeholder="As it appears on passport">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-medium text-[#8b949e] mb-1">Email Address</label>
+                                <input type="email" id="m_email" name="email" required class="gvj-input" placeholder="name@example.com">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-[#8b949e] mb-1">WhatsApp Number</label>
+                                <input type="tel" id="m_whatsapp" name="whatsapp" required class="gvj-input" placeholder="+44 7123 456789">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-[#8b949e] mb-1">Date of Birth</label>
+                            <input type="date" id="m_dob" name="dob" required class="gvj-input text-[#8b949e]">
+                        </div>
+                    </div>
+                    <button type="button" onclick="nextManualStep(1)" class="w-full btn-blue py-3 rounded-lg">Continue to Demographics <i class="fa-solid fa-arrow-right ml-2"></i></button>
+                </div>
+
+                <!-- Manual Step 2: Demographics -->
+                <div class="step-container manual-step">
+                    <h3 class="text-white font-bold mb-4 border-b border-[#30363d] pb-2">Stage 2: Demographics</h3>
+                    <div class="space-y-4 mb-6">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-medium text-[#8b949e] mb-1">Nationality</label>
+                                <input type="text" id="m_nationality" name="nationality" required class="gvj-input" placeholder="e.g. Nigerian">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-[#8b949e] mb-1">Country of Residence</label>
+                                <input type="text" id="m_residence" name="residence" required class="gvj-input" placeholder="e.g. UK">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-[#8b949e] mb-1">Marital Status</label>
+                            <select id="m_marital" name="marital" class="gvj-input text-[#8b949e]">
+                                <option value="Single">Single</option>
+                                <option value="Married">Married</option>
+                                <option value="Divorced">Divorced</option>
+                                <option value="Widowed">Widowed</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-[#8b949e] mb-1">Employment Status</label>
+                            <select id="m_employment" name="employment" class="gvj-input text-[#8b949e]">
+                                <option value="Employed">Employed (Full/Part Time)</option>
+                                <option value="Self-Employed">Self-Employed / Business Owner</option>
+                                <option value="Student">Student</option>
+                                <option value="Unemployed">Unemployed</option>
+                                <option value="Retired">Retired</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <button type="button" onclick="prevManualStep(0)" class="w-1/3 bg-[#0d1117] text-white py-3 rounded-lg border border-[#30363d]">Back</button>
+                        <button type="button" onclick="nextManualStep(2)" class="w-2/3 btn-blue py-3 rounded-lg">Continue <i class="fa-solid fa-arrow-right ml-2"></i></button>
+                    </div>
+                </div>
+
+                <!-- Manual Step 3: Immigration History -->
+                <div class="step-container manual-step">
+                    <h3 class="text-white font-bold mb-4 border-b border-[#30363d] pb-2">Stage 3: Immigration History</h3>
+                    <div class="space-y-4 mb-6">
+                        <div>
+                            <label class="block text-xs font-medium text-[#8b949e] mb-1">Travel History (UK, USA, Canada, Schengen, Aus)</label>
+                            <textarea id="m_travel_history" name="travel_history" rows="2" class="gvj-input" placeholder="If yes, list countries and years. If no, type 'None'." required></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-[#8b949e] mb-1">Have you ever been refused a visa for ANY country?</label>
+                            <textarea id="m_refusals" name="refusals" rows="2" class="gvj-input border-red-900 focus:border-red-500" placeholder="If yes, state the country, year, and reason. Be honest. If no, type 'None'." required></textarea>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <button type="button" onclick="prevManualStep(1)" class="w-1/3 bg-[#0d1117] text-white py-3 rounded-lg border border-[#30363d]">Back</button>
+                        <button type="button" onclick="nextManualStep(3)" class="w-2/3 btn-blue py-3 rounded-lg">Continue <i class="fa-solid fa-arrow-right ml-2"></i></button>
+                    </div>
+                </div>
+
+                <!-- Manual Step 4: Logistics -->
+                <div class="step-container manual-step">
+                    <h3 class="text-white font-bold mb-4 border-b border-[#30363d] pb-2">Stage 4: Trip Logistics</h3>
+                    <div class="space-y-4 mb-6">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-medium text-[#8b949e] mb-1">Destination Country</label>
+                                <select id="m_destination" name="destination" class="gvj-input text-[#8b949e]">
+                                    <option value="UK">United Kingdom</option>
+                                    <option value="Spain">Spain</option>
+                                    <option value="Greece">Greece</option>
+                                    <option value="France">France</option>
+                                    <option value="Other Schengen">Other Schengen</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-[#8b949e] mb-1">Main Purpose</label>
+                                <select id="m_purpose" name="purpose" class="gvj-input text-[#8b949e]">
+                                    <option value="Tourism">Tourism / Holiday</option>
+                                    <option value="Family Visit">Visiting Family/Friends</option>
+                                    <option value="Business">Business / Conference</option>
+                                    <option value="Study">Study</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-[#8b949e] mb-1">Who is paying for this trip?</label>
+                            <select id="m_sponsor" name="sponsor" class="gvj-input text-[#8b949e]">
+                                <option value="Self">I am paying for myself</option>
+                                <option value="Spouse">My Spouse / Partner</option>
+                                <option value="Parent/Family">Parent / Family Member</option>
+                                <option value="Company">My Company / Employer</option>
+                            </select>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-medium text-[#8b949e] mb-1">Bank Statements?</label>
+                                <select id="m_bank" name="bank_statement" class="gvj-input text-[#8b949e]">
+                                    <option value="Yes (3-6 Months)">Yes, I have 3-6 months</option>
+                                    <option value="No">No, I do not</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-[#8b949e] mb-1">Where did you find us?</label>
+                                <select id="m_source" name="source" class="gvj-input text-[#8b949e]">
+                                    <option value="Instagram">Instagram</option>
+                                    <option value="Facebook">Facebook</option>
+                                    <option value="Google">Google Search</option>
+                                    <option value="Referral">Friend / Word of Mouth</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <button type="button" onclick="prevManualStep(2)" class="w-1/3 bg-[#0d1117] text-white py-3 rounded-lg border border-[#30363d]">Back</button>
+                        <button type="button" onclick="submitGoogleForm()" id="gsheet-submit-btn" class="w-2/3 btn-blue py-3 rounded-lg flex justify-center items-center gap-2 shadow-lg shadow-blue-500/20">
+                            <span>SUBMIT PROFILE</span> <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Success State -->
+                <div id="manual-success" class="hidden text-center py-8 animate-in zoom-in duration-300">
+                    <div class="w-20 h-20 bg-green-900/30 border border-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fa-solid fa-check text-4xl text-green-500"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Profile Received</h3>
+                    <p class="text-[#8b949e] mb-6">Our senior strategists are reviewing your case file. Check your email (and WhatsApp) within the next 30 minutes for our official assessment and next steps.</p>
+                    <a href="index.html" class="btn-blue px-8 py-3 rounded-full inline-block">Return to Homepage</a>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="mt-8 text-center border-t border-[#30363d] pt-4">
+            <p class="text-[10px] text-[#8b949e] uppercase tracking-widest">Global Visa & Journeys • London HQ</p>
         </div>
     </div>
 
     <!-- JAVASCRIPT LOGIC -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+    <script>
+        // ==========================================
+        // YOUR NEW, LIVE GOOGLE APPS SCRIPT URL
+        // ==========================================
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzZgDe0yJ8b5GNl5wz4jDisVRv7CnfguCPbLAgx3nPeQ1lS-GkWKvlEyC7KYRPx16Eo/exec"; 
 
-        // CONFIG (RESTORED FROM INDEX.HTML)
-        const firebaseConfig = {
-            apiKey: "AIzaSyCcoyBXRITTblrH0XcaLGMjftUttXYLtj4",
-            authDomain: "global-visa-journeys.firebaseapp.com",
-            projectId: "global-visa-journeys",
-            storageBucket: "global-visa-journeys.firebasestorage.app",
-            messagingSenderId: "381217766164",
-            appId: "1:381217766164:web:1cb70fbc26332f5a8d6001"
-        };
-
-        let app, db, auth;
-        
-        try {
-            app = initializeApp(firebaseConfig);
-            db = getFirestore(app);
-            auth = getAuth(app);
-        } catch (e) {
-            console.error("Firebase Init Error:", e);
-        }
-
-        // Constants
-        const STRIPE_LINK = "https://book.stripe.com/28E4gygLremKd0Ogx50sU00";
+        const STRIPE_LINK_QUICKSCAN = "https://book.stripe.com/28E4gygLremKd0Ogx50sU00";
         const WHATSAPP_LINK = "https://wa.me/447511219482";
 
-        // Logic
-        document.getElementById('calc-btn').addEventListener('click', async () => {
-            const email = document.getElementById('userEmail').value;
+        // --- APP ROUTING LOGIC ---
+        window.onload = () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const type = urlParams.get('type');
+            if (type === 'automated') startApp('automated');
+            else if (type === 'manual') startApp('manual');
+        };
+
+        window.startApp = (type) => {
+            document.getElementById('path-chooser').classList.remove('active');
+            setTimeout(() => {
+                document.getElementById('path-chooser').style.display = 'none';
+                if(type === 'automated') {
+                    document.getElementById('flow-calculator').style.display = 'block';
+                    updateProgress('calc-progress', 25);
+                } else {
+                    document.getElementById('flow-manual').style.display = 'block';
+                    updateProgress('manual-progress', 25);
+                }
+            }, 300);
+        };
+
+        function updateProgress(barId, percentage) {
+            document.getElementById(barId).style.width = percentage + '%';
+        }
+
+        function validateInputs(container) {
+            let valid = true;
+            const inputs = container.querySelectorAll('input[required], textarea[required]');
+            inputs.forEach(input => {
+                if (!input.value) { input.classList.add('border-red-500'); valid = false; } 
+                else { input.classList.remove('border-red-500'); }
+            });
+            return valid;
+        }
+
+        // --- CALCULATOR LOGIC ---
+        let currentCalcStep = 0;
+        const calcSteps = document.querySelectorAll('.calc-step');
+        
+        window.nextCalcStep = (n) => {
+            if (!validateInputs(calcSteps[currentCalcStep])) return;
+            calcSteps[currentCalcStep].classList.remove('active');
+            currentCalcStep = n;
+            calcSteps[currentCalcStep].classList.add('active');
+            updateProgress('calc-progress', (currentCalcStep + 1) * 25);
+        };
+        window.prevCalcStep = (n) => {
+            calcSteps[currentCalcStep].classList.remove('active');
+            currentCalcStep = n;
+            calcSteps[currentCalcStep].classList.add('active');
+            updateProgress('calc-progress', (currentCalcStep + 1) * 25);
+        };
+
+        window.calculateRisk = async () => {
+            if (!validateInputs(calcSteps[currentCalcStep])) return;
+            const btn = document.getElementById('calc-submit-btn');
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> ANALYZING...`;
+
             const tripCost = parseFloat(document.getElementById('tripCost').value);
             const monthlyDisposable = parseFloat(document.getElementById('monthlyDisposable').value);
             const closingBalance = parseFloat(document.getElementById('closingBalance').value);
             const recentLargeDeposit = document.getElementById('recentLargeDeposit').checked;
-            const resultArea = document.getElementById('result-area');
-            const btn = document.getElementById('calc-btn');
 
-            // VALIDATION
-            if (!email || !email.includes('@')) {
-                showSimpleError("Please enter a valid email address to see your results.");
-                return;
-            }
-            if (isNaN(tripCost) || isNaN(monthlyDisposable) || isNaN(closingBalance)) {
-                showSimpleError("Please enter valid numbers for financial fields.");
-                return;
-            }
+            let riskLevel, riskTag, message, colorClass, borderClass, btnText, btnLink;
 
-            // PROCESSING STATE
-            const originalText = btn.innerHTML;
-            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> ANALYZING...`;
-
-            let riskLevel, riskTag, message, colorClass, borderClass, btnText;
-
-            // --- FORENSIC LOGIC ENGINE ---
-
-            // 1. CRITICAL FAIL (RED) - Insolvency or Deception
             if (closingBalance < tripCost) {
-                riskLevel = "CRITICAL RISK";
-                riskTag = "INSOLVENT PROFILE";
+                riskLevel = "CRITICAL RISK"; riskTag = "INSOLVENT PROFILE";
                 message = "You do not have enough funds to cover the trip cost. This leads to an automatic refusal under Appendix V 4.2(e). Do not apply yet.";
-                colorClass = "bg-red-900/40 text-red-400";
-                borderClass = "border-red-500";
-                btnText = "FIX INSOLVENCY STATUS (£39.99)";
-            } 
-            else if (recentLargeDeposit) {
-                riskLevel = "HIGH RISK";
-                riskTag = "FUNDS PARKING DETECTED";
+                colorClass = "bg-red-900/40 text-red-400"; borderClass = "border-red-500";
+                btnText = "FIX INSOLVENCY STATUS (£39.99)"; btnLink = STRIPE_LINK_QUICKSCAN;
+            } else if (recentLargeDeposit) {
+                riskLevel = "HIGH RISK"; riskTag = "FUNDS PARKING DETECTED";
                 message = "The large deposit you declared is a major 'Deception' trigger. The ECO will assume the money is borrowed or inflated. This carries a risk of a 10-year ban.";
-                colorClass = "bg-red-900/40 text-red-400";
-                borderClass = "border-red-500";
-                btnText = "BOOK FORENSIC AUDIT (£39.99)";
-            }
-            // 2. MODERATE FAIL (AMBER) - Proportionality & Sustainability
-            // Rule: Spending more than 60% of total savings OR taking > 3 months disposable to pay
-            else if (tripCost > (closingBalance * 0.60) || tripCost > (monthlyDisposable * 3)) {
-                riskLevel = "MODERATE RISK";
-                riskTag = "PROPORTIONALITY CONCERN";
+                colorClass = "bg-red-900/40 text-red-400"; borderClass = "border-red-500";
+                btnText = "BOOK FORENSIC AUDIT (£39.99)"; btnLink = STRIPE_LINK_QUICKSCAN;
+            } else if (tripCost > (closingBalance * 0.60) || tripCost > (monthlyDisposable * 3)) {
+                riskLevel = "MODERATE RISK"; riskTag = "PROPORTIONALITY CONCERN";
                 message = "While you have the funds, the trip is too expensive relative to your savings or income. The ECO will view this expenditure as 'not credible' for a genuine visitor.";
-                colorClass = "bg-yellow-900/30 text-yellow-400";
-                borderClass = "border-yellow-500";
-                btnText = "FIX RATIO STRATEGY (£39.99)";
-            } 
-            // 3. PASS (GREEN) - Strong Profile
-            else {
-                riskLevel = "LOW RISK";
-                riskTag = "FINANCIALLY COMPLIANT";
+                colorClass = "bg-yellow-900/30 text-yellow-400"; borderClass = "border-yellow-500";
+                btnText = "FIX RATIO STRATEGY (£39.99)"; btnLink = STRIPE_LINK_QUICKSCAN;
+            } else {
+                riskLevel = "LOW RISK"; riskTag = "FINANCIALLY COMPLIANT";
                 message = "Your financial ratios are healthy. However, 70% of refusals for wealthy applicants are due to 'Soft Factors' (Ties & Narrative). You are ready for the final check.";
-                colorClass = "bg-green-900/30 text-green-400";
-                borderClass = "border-green-500";
-                btnText = "BOOK FINAL NARRATIVE CHECK";
+                colorClass = "bg-green-900/30 text-green-400"; borderClass = "border-green-500";
+                btnText = "BOOK FULL STRATEGY PACKAGE"; btnLink = "index.html#services-section"; 
             }
 
-            // --- RENDER RESULT ---
-            resultArea.className = `mt-8 p-8 rounded-lg text-center border-2 ${borderClass} ${colorClass}`;
+            calcSteps[currentCalcStep].classList.remove('active');
+            const resultArea = document.getElementById('calc-result-area');
+            resultArea.className = `mt-4 p-8 rounded-lg text-center border-2 ${borderClass} ${colorClass} step-container active`;
             resultArea.innerHTML = `
                 <div class="text-xs font-bold uppercase tracking-widest mb-2 opacity-80">Forensic Verdict</div>
                 <h3 class="text-3xl font-black mb-1">${riskLevel}</h3>
                 <div class="inline-block px-4 py-1 border border-current rounded-full text-xs font-bold mb-6">${riskTag}</div>
                 <p class="text-sm text-white font-medium mb-8 leading-relaxed">${message}</p>
-                
                 <div class="space-y-3">
-                    <a href="${STRIPE_LINK}" class="block w-full bg-[#d4af37] text-[#0d1117] py-4 rounded font-bold hover:bg-[#fef08a] transition shadow-lg uppercase text-sm">
-                        ${btnText}
-                    </a>
-                    <a href="${WHATSAPP_LINK}" class="block w-full text-xs text-[#8b949e] hover:text-white transition">
-                        Speak to a Strategist First <i class="fa-brands fa-whatsapp ml-1"></i>
-                    </a>
+                    <a href="${btnLink}" class="block w-full bg-gold text-[#0d1117] py-4 rounded font-bold hover:bg-[#fef08a] transition shadow-lg uppercase text-sm">${btnText}</a>
+                    <a href="${WHATSAPP_LINK}" class="block w-full text-xs text-[#8b949e] hover:text-white transition mt-4">Speak to a Strategist First <i class="fa-brands fa-whatsapp ml-1"></i></a>
                 </div>
             `;
-            resultArea.classList.remove('hidden');
-            resultArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            updateProgress('calc-progress', 100);
+        };
 
-            // --- DATABASE SAVE ---
+
+        // --- MANUAL FORM LOGIC (GOOGLE SHEETS INTEGRATION) ---
+        let currentManualStep = 0;
+        const manualSteps = document.querySelectorAll('.manual-step');
+
+        window.nextManualStep = (n) => {
+            if (!validateInputs(manualSteps[currentManualStep])) return;
+            manualSteps[currentManualStep].classList.remove('active');
+            currentManualStep = n;
+            manualSteps[currentManualStep].classList.add('active');
+            updateProgress('manual-progress', (currentManualStep + 1) * 25);
+        };
+        window.prevManualStep = (n) => {
+            manualSteps[currentManualStep].classList.remove('active');
+            currentManualStep = n;
+            manualSteps[currentManualStep].classList.add('active');
+            updateProgress('manual-progress', (currentManualStep + 1) * 25);
+        };
+
+        window.submitGoogleForm = async () => {
+            if (!validateInputs(manualSteps[currentManualStep])) return;
+            const btn = document.getElementById('gsheet-submit-btn');
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> SENDING...`;
+
+            const formData = {
+                timestamp: new Date().toISOString(),
+                email: document.getElementById('m_email').value,
+                whatsapp: document.getElementById('m_whatsapp').value,
+                fullName: document.getElementById('m_name').value,
+                dob: document.getElementById('m_dob').value,
+                nationality: document.getElementById('m_nationality').value,
+                residence: document.getElementById('m_residence').value,
+                maritalStatus: document.getElementById('m_marital').value,
+                travelHistory: document.getElementById('m_travel_history').value,
+                refusals: document.getElementById('m_refusals').value,
+                employment: document.getElementById('m_employment').value,
+                bankStatement: document.getElementById('m_bank').value,
+                sponsor: document.getElementById('m_sponsor').value,
+                destination: document.getElementById('m_destination').value,
+                purpose: document.getElementById('m_purpose').value,
+                source: document.getElementById('m_source').value
+            };
+
             try {
-                if (auth && !auth.currentUser) await signInAnonymously(auth);
+                // Using no-cors because Apps Script does not return standard CORS headers
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors', 
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(formData)
+                });
                 
-                if (db) {
-                    await addDoc(collection(db, "risk_assessments"), {
-                        email,
-                        tripCost,
-                        monthlyDisposable,
-                        closingBalance,
-                        recentLargeDeposit,
-                        riskLevel,
-                        riskTag,
-                        timestamp: new Date().toISOString()
-                    });
-
-                    // Backup to newsletter list
-                    await addDoc(collection(db, "newsletter_subs"), {
-                        email,
-                        source: "calculator_usage",
-                        timestamp: new Date()
-                    });
-                }
-            } catch (e) {
-                console.warn("Data save warning:", e.message);
-                // We do NOT show an error alert to the user here, because the calculation was successful.
-            } finally {
-                btn.innerHTML = originalText;
+                // Show Success Screen
+                manualSteps[currentManualStep].classList.remove('active');
+                document.getElementById('manual-success').classList.remove('hidden');
+                document.getElementById('manual-success').classList.add('active');
+                updateProgress('manual-progress', 100);
+                
+            } catch (error) {
+                console.error("Submission Error:", error);
+                alert("There was an issue connecting to the server. Please check your internet connection and try again.");
+                btn.innerHTML = `<span>SUBMIT PROFILE</span> <i class="fa-solid fa-paper-plane"></i>`;
             }
-        });
-
-        function showSimpleError(msg) {
-            const resultArea = document.getElementById('result-area');
-            resultArea.className = "mt-8 p-4 rounded-lg text-center border border-red-500 text-red-500 bg-red-900/10";
-            resultArea.innerHTML = `<p class="text-sm font-bold"><i class="fa-solid fa-triangle-exclamation mr-2"></i>${msg}</p>`;
-            resultArea.classList.remove('hidden');
-        }
+        };
     </script>
 </body>
 </html>
