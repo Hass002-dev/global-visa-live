@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Client Portal | GV&J</title>
+    
+    <!-- FAVICON -->
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    
+    <!-- TAILWIND CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --border-surface: #30363d;
+            --brand-gold: #d4af37;
+        }
+
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-primary); color: #f0f6fc; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        
+        .btn-gold {
+            background-color: var(--brand-gold); color: #0d1117; font-weight: 800; transition: all 0.3s ease;
+            text-transform: uppercase; letter-spacing: 0.05em;
+        }
+        .btn-gold:hover { background-color: #fef08a; transform: translateY(-2px); box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3); }
+
+        /* Decrypting Animation */
+        #loader {
+            position: fixed; inset: 0; background: var(--bg-primary); z-index: 9999;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- FAKE SECURE DECRYPTING LOADER (Adds to the premium feel) -->
+    <div id="loader">
+        <i class="fa-solid fa-shield-halved text-4xl text-gold mb-4 animate-pulse"></i>
+        <h2 class="text-xl font-bold tracking-widest text-white">AUTHENTICATING PIN</h2>
+        <p class="text-[#8b949e] text-sm mt-2 font-mono" id="decrypt-text">Establishing secure connection...</p>
+    </div>
+
+    <!-- TOP NAV -->
+    <nav class="border-b border-[#30363d] bg-[#161b22] px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+            <i class="fa-solid fa-lock text-gold text-xl"></i>
+            <span class="text-lg font-bold tracking-widest" style="font-family: 'Playfair Display', serif;">GV&J SECURE PORTAL</span>
+        </div>
+        <a href="index.html" class="text-sm text-[#8b949e] hover:text-white transition flex items-center">
+            <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i> Exit
+        </a>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <div class="max-w-5xl mx-auto px-4 py-12">
+        
+        <div class="text-center mb-12">
+            <span class="bg-green-900/30 text-green-400 border border-green-500 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4 inline-block">Connection Encrypted</span>
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Client Document Vault</h1>
+            <p class="text-[#8b949e] max-w-2xl mx-auto">Please review the strict submission guidelines below before launching the uploader. Incorrect document formats are the #1 cause of visa delays.</p>
+        </div>
+
+        <div class="grid md:grid-cols-5 gap-8">
+            
+            <!-- LEFT COLUMN: The Rules -->
+            <div class="md:col-span-3 space-y-6">
+                <div class="bg-[#161b22] border border-[#30363d] rounded-xl p-6">
+                    <h3 class="text-xl font-bold text-white mb-4 border-b border-[#30363d] pb-2">
+                        <i class="fa-solid fa-scale-balanced text-gold mr-2"></i> Mandatory Upload Rules
+                    </h3>
+                    
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-circle-xmark text-red-500 mt-1 mr-3"></i>
+                            <div>
+                                <strong class="text-white block text-sm">NO SCREENSHOTS</strong>
+                                <span class="text-[#8b949e] text-xs">Bank statements must be official PDF downloads from your banking app. Screenshots of balances will be rejected.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-file-pdf text-blue-400 mt-1 mr-3"></i>
+                            <div>
+                                <strong class="text-white block text-sm">PDF FORMAT PREFERRED</strong>
+                                <span class="text-[#8b949e] text-xs">Please convert all word documents, employment letters, and sponsor letters into PDF format before uploading.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-passport text-gold mt-1 mr-3"></i>
+                            <div>
+                                <strong class="text-white block text-sm">CLEAR PASSPORT SCANS</strong>
+                                <span class="text-[#8b949e] text-xs">Ensure all 4 corners of your passport bio-data page are visible without glare or flash reflection.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: The Uploader -->
+            <div class="md:col-span-2">
+                <div class="bg-[#161b22] border border-gold rounded-xl p-8 text-center shadow-lg shadow-gold/10 h-full flex flex-col justify-center">
+                    <div class="w-20 h-20 bg-[#0d1117] border-2 border-gold border-dashed rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fa-solid fa-cloud-arrow-up text-3xl text-gold"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Ready to Upload?</h3>
+                    <p class="text-sm text-[#8b949e] mb-8">Click below to open your secure Google Drive drop-zone. You can upload up to 10 files at once.</p>
+                    
+                    <!-- THE GOOGLE FORM LINK IS INJECTED HERE -->
+                    <a href="https://forms.gle/jcsmoW4hztjkzT3u9" target="_blank" class="block w-full btn-gold py-4 rounded-lg flex items-center justify-center gap-2">
+                        <span>Launch Uploader</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- SCRIPT FOR LOADER -->
+    <script>
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            const text = document.getElementById('decrypt-text');
+            
+            setTimeout(() => { text.innerText = "Verifying 256-bit encryption..."; }, 600);
+            setTimeout(() => { text.innerText = "Access Granted."; text.classList.replace('text-[#8b949e]', 'text-green-500'); }, 1200);
+            setTimeout(() => { 
+                loader.style.opacity = '0'; 
+                setTimeout(() => loader.style.display = 'none', 500);
+            }, 1800);
+        });
+    </script>
+</body>
+</html>
