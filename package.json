@@ -1,0 +1,26 @@
+{
+  "name": "global-visas-and-journeys",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  "dev": "tailwindcss -i ./input.css -o ./output.css --watch",
+  "build": "tailwindcss -i ./input.css -o ./output.css --minify",
+  "test": "echo \"Error: no test specified\" && exit 1"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hass002-dev/global-visa-live.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Hass002-dev/global-visa-live/issues"
+  },
+  "homepage": "https://github.com/Hass002-dev/global-visa-live#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.4.19"
+  }
+}
