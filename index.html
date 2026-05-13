@@ -93,6 +93,10 @@
             background-position: center;
             background-attachment: fixed;
         }
+        /* background-attachment:fixed breaks on iOS Safari — use scroll on mobile */
+        @media (max-width: 767px) {
+            .hero-bg { background-attachment: scroll; }
+        }
 
         /* ── BUTTONS ── */
         .btn-gold {
@@ -1667,10 +1671,10 @@
     }
 </script>
 
-<!-- Tawk.to live chat — ensure no overlap with WhatsApp button on mobile -->
+<!-- Tawk.to live chat — pushed above bottom nav + WhatsApp button on mobile -->
 <style>
     @media (max-width: 768px) {
-        .tawk-min-container { bottom: 100px !important; }
+        .tawk-min-container { bottom: 165px !important; }
     }
 </style>
 
