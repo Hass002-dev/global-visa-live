@@ -1,511 +1,1501 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visa Readiness Assessment | GV&J London</title>
+    <title>Visa Readiness Check | Global Visa & Journeys London</title>
+    <meta name="description" content="Check your Schengen visa financial readiness instantly. Our forensic calculator checks your balance against 2026 embassy thresholds and flags every risk before you apply.">
+
     <link rel="icon" type="image/x-icon" href="./favicon.ico">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./output.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1EZM399KT"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-Q1EZM399KT');
+    </script>
+
     <style>
+        /* ── DESIGN TOKENS — exact match to index.html ── */
         :root {
-            --bg-primary: #0d1117; --bg-secondary: #161b22; --border-surface: #30363d;
-            --brand-gold: #d4af37; --text-primary: #f0f6fc;
+            --bg-primary:       #080c10;
+            --bg-secondary:     #0f1419;
+            --bg-card:          #131920;
+            --border-surface:   #1e2730;
+            --border-subtle:    #252e38;
+            --brand-gold:       #c9a84c;
+            --brand-gold-light: #e8c97a;
+            --brand-gold-dim:   #8a6f2e;
+            --text-primary:     #eef2f7;
+            --text-secondary:   #7a8899;
+            --text-muted:       #4a5568;
+            --green-accent:     #22c55e;
+            --blue-accent:      #38bdf8;
+            --whatsapp:         #25d366;
         }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-primary); color: var(--text-primary); overflow-x: hidden;}
-        h1, h2, h3 { font-family: 'Playfair Display', serif; }
-        .btn-gold { background-color: var(--brand-gold); color: #0d1117; font-weight: 700; transition: all 0.3s ease; }
-        .btn-gold:hover { background-color: #fef08a; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); }
-        .btn-blue { background-color: #38bdf8; color: #0d1117; font-weight: 700; transition: all 0.3s ease; }
-        .btn-blue:hover { background-color: #0284c7; color: white; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(56, 189, 248, 0.3); }
-        .gvj-input { width: 100%; padding: 0.75rem 1rem; border-radius: 0.5rem; background-color: #0d1117; border: 1px solid var(--border-surface); color: white; transition: all 0.3s; }
-        .gvj-input:focus { outline: none; border-color: var(--brand-gold); box-shadow: 0 0 0 1px var(--brand-gold); }
-        select.gvj-input { appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b949e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1em; }
-        .step-container { display: none; animation: slideInRight 0.5s forwards; }
-        .step-container.active { display: block; }
-        @keyframes slideInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
-        .progress-bar { height: 4px; background-color: var(--border-surface); border-radius: 2px; overflow: hidden; margin-bottom: 2rem; }
-        .progress-fill { height: 100%; background-color: var(--brand-gold); width: 0%; transition: width 0.4s ease; }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            font-weight: 450;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; }
+
+        /* ── NOISE TEXTURE ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        /* ── NAV ── */
+        .nav-scrolled {
+            background: rgba(8,12,16,0.98) !important;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+        }
+
+        /* ── BUTTONS ── */
+        .btn-gold {
+            background: linear-gradient(135deg, var(--brand-gold) 0%, var(--brand-gold-light) 100%);
+            color: #080c10;
+            font-weight: 800;
+            font-family: 'DM Sans', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        .btn-gold::after { content:''; position:absolute; inset:0; background:white; opacity:0; transition:opacity 0.3s; }
+        .btn-gold:hover::after { opacity: 0.1; }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,168,76,0.35); }
+        .btn-gold:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+        .btn-outline-gold {
+            border: 1.5px solid var(--brand-gold);
+            color: var(--brand-gold);
+            font-weight: 700;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s ease;
+            background: transparent;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        .btn-outline-gold:hover {
+            background: linear-gradient(135deg, var(--brand-gold), var(--brand-gold-light));
+            color: #080c10;
+            transform: translateY(-1px);
+        }
+
+        .btn-back {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-surface);
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.25s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .btn-back:hover { border-color: var(--text-muted); color: var(--text-primary); }
+
+        /* ── INPUTS — 16px min prevents iOS zoom ── */
+        .gvj-input {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 10px;
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-surface);
+            color: var(--text-primary);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.25s;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        .gvj-input:focus {
+            outline: none;
+            border-color: var(--brand-gold);
+            box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+        }
+        .gvj-input::placeholder { color: var(--text-muted); }
+        .gvj-input.error { border-color: #ef4444 !important; box-shadow: 0 0 0 3px rgba(239,68,68,0.12); }
+
+        select.gvj-input {
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237a8899' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            background-size: 18px;
+            padding-right: 44px;
+            cursor: pointer;
+        }
+        select.gvj-input option { background: var(--bg-card); color: var(--text-primary); }
+
+        textarea.gvj-input { resize: vertical; min-height: 90px; }
+
+        .input-label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        /* ── TAB SWITCHER ── */
+        .tab-btn {
+            flex: 1;
+            padding: 16px 12px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+            line-height: 1.3;
+        }
+        .tab-btn.active {
+            color: var(--brand-gold);
+            border-bottom-color: var(--brand-gold);
+            background: rgba(201,168,76,0.04);
+        }
+        .tab-btn:hover:not(.active) { color: var(--text-primary); }
+
+        /* ── STEP INDICATORS ── */
+        .step-indicators {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+        .step-col { display: flex; flex-direction: column; align-items: center; }
+        .step-dot {
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            border: 2px solid var(--border-surface);
+            background: var(--bg-primary);
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.35s;
+            flex-shrink: 0;
+        }
+        .step-dot.active { border-color: var(--brand-gold); color: var(--brand-gold); background: rgba(201,168,76,0.1); }
+        .step-dot.done   { border-color: var(--green-accent); background: rgba(34,197,94,0.12); color: var(--green-accent); }
+        .step-line-h {
+            flex: 1;
+            height: 2px;
+            background: var(--border-surface);
+            transition: background 0.35s;
+            margin-top: 14px;
+            max-width: 40px;
+            min-width: 10px;
+        }
+        .step-line-h.done { background: var(--green-accent); }
+        .step-label-sm {
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-top: 5px;
+            text-align: center;
+            max-width: 52px;
+            line-height: 1.2;
+        }
+        .step-label-sm.active { color: var(--brand-gold); }
+        .step-label-sm.done   { color: var(--green-accent); }
+
+        /* ── STEP PANELS ── */
+        .calc-step, .manual-step {
+            display: none;
+            animation: stepIn 0.38s ease forwards;
+        }
+        .calc-step.active, .manual-step.active { display: block; }
+        @keyframes stepIn {
+            from { opacity: 0; transform: translateX(16px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        /* ── CHECK ROWS in result ── */
+        .check-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 11px 0;
+            border-bottom: 1px solid var(--border-surface);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .check-row:last-child { border-bottom: none; }
+        .check-icon {
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.65rem;
+            margin-top: 1px;
+        }
+        .check-icon.pass { background: rgba(34,197,94,0.15);  color: var(--green-accent); }
+        .check-icon.warn { background: rgba(234,179,8,0.15);  color: #eab308; }
+        .check-icon.fail { background: rgba(239,68,68,0.15);  color: #ef4444; }
+
+        /* ── RAG VERDICT BOX ── */
+        .verdict-box { border-radius: 16px; padding: 28px; text-align: center; border: 2px solid; }
+        .verdict-green { background: rgba(34,197,94,0.07);  border-color: #22c55e; }
+        .verdict-amber { background: rgba(234,179,8,0.07);  border-color: #eab308; }
+        .verdict-red   { background: rgba(239,68,68,0.07);  border-color: #ef4444; }
+
+        /* ── QUICKSCAN CTA BOX ── */
+        .quickscan-cta {
+            background: linear-gradient(135deg, rgba(201,168,76,0.09) 0%, rgba(8,12,16,0) 100%);
+            border: 1px solid var(--brand-gold);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        /* ── CUSTOM CHECKBOX ── */
+        .gvj-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-surface);
+            border-radius: 10px;
+            padding: 14px;
+            cursor: pointer;
+            transition: border-color 0.25s;
+            width: 100%;
+            text-align: left;
+        }
+        .gvj-checkbox:hover { border-color: var(--brand-gold-dim); }
+        .gvj-checkbox input[type="checkbox"] {
+            width: 20px; height: 20px;
+            flex-shrink: 0;
+            margin-top: 2px;
+            accent-color: var(--brand-gold);
+            cursor: pointer;
+        }
+
+        /* ── TRUST BADGE ── */
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-surface);
+            border-radius: 8px;
+            padding: 12px 16px;
+        }
+
+        /* ── GOLD DIVIDER ── */
+        .gold-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--brand-gold-dim), transparent);
+        }
+
+        /* ── WHATSAPP FLOAT ── */
+        @keyframes ringShake {
+            0%, 75%, 100% { transform: rotate(0) scale(1); }
+            77%, 81%, 85%, 89% { transform: rotate(-14deg) scale(1.08); }
+            79%, 83%, 87% { transform: rotate(14deg) scale(1.08); }
+        }
+        .whatsapp-float {
+            position: fixed;
+            width: 58px; height: 58px;
+            bottom: 28px; right: 28px;
+            background: var(--whatsapp);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 28px;
+            box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+            z-index: 999;
+            display: flex; align-items: center; justify-content: center;
+            animation: ringShake 5s infinite;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+        }
+        .whatsapp-float:hover {
+            animation: none;
+            transform: scale(1.12);
+            box-shadow: 0 6px 28px rgba(37,211,102,0.6);
+        }
+
+        @media (max-width: 768px) {
+            .tawk-min-container { bottom: 100px !important; }
+            .tab-btn { font-size: 0.7rem; padding: 14px 8px; }
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-4 relative">
+<body>
 
-    <a href="index.html" class="absolute top-6 left-6 text-[#8b949e] hover:text-white text-sm font-bold flex items-center transition z-50">
-        <i class="fa-solid fa-arrow-left mr-2"></i> Return to Homepage
-    </a>
-
-    <div class="max-w-2xl w-full bg-[#161b22] border border-[#30363d] rounded-2xl p-8 shadow-2xl relative overflow-hidden mt-12 md:mt-0">
-        
-        <div id="path-chooser" class="step-container text-center py-8 active">
-            <h1 class="text-3xl font-bold text-white mb-2">Select Assessment Type</h1>
-            <p class="text-[#8b949e] mb-8">How would you like us to evaluate your profile?</p>
-            <div class="space-y-4">
-                <button onclick="startApp('automated')" class="w-full bg-[#0d1117] border border-gold text-gold py-4 rounded-xl font-bold hover:bg-gold hover:text-[#0d1117] transition flex items-center justify-center gap-3">
-                    <i class="fa-solid fa-calculator text-xl"></i> Automated Financial Check
-                </button>
-                <button onclick="startApp('manual')" class="w-full bg-[#0d1117] border border-[#38bdf8] text-[#38bdf8] py-4 rounded-xl font-bold hover:bg-[#38bdf8] hover:text-[#0d1117] transition flex items-center justify-center gap-3">
-                    <i class="fa-solid fa-clipboard-list text-xl"></i> Manual Team Assessment
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- NAV                                                        -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<nav id="main-nav" class="bg-[#080c10]/90 backdrop-blur-md border-b border-[#1e2730] fixed w-full z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="flex justify-between h-20 items-center">
+            <a href="index.html" class="flex items-center space-x-3">
+                <img src="./Updated Logo.png" alt="GV&J Logo" class="h-11 w-11 object-contain rounded-md" onerror="this.style.display='none'">
+                <div class="flex flex-col leading-none">
+                    <span class="text-xl md:text-2xl font-black tracking-tight hidden md:block" style="font-family:'Cormorant Garamond',serif; letter-spacing:0.02em;">
+                        <span style="color:var(--brand-gold)">GLOBAL VISA</span> <span class="text-white">&amp; JOURNEYS</span>
+                    </span>
+                    <span class="text-xl font-black tracking-tight md:hidden" style="font-family:'Cormorant Garamond',serif;">GV<span style="color:var(--brand-gold)">&amp;</span>J</span>
+                </div>
+            </a>
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="text-[#7a8899] hover:text-white font-semibold transition text-sm hidden md:block">Home</a>
+                <a href="about.html" class="text-[#7a8899] hover:text-white font-semibold transition text-sm hidden md:block">About</a>
+                <a href="blog/index.html" class="text-[#7a8899] hover:text-white font-semibold transition text-sm hidden md:block">Insights</a>
+                <button onclick="toggleModal('portal-modal')" class="border border-[#1e2730] hover:border-[#c9a84c] text-[#7a8899] hover:text-[#c9a84c] transition px-3 py-2 md:px-4 rounded-lg text-xs md:text-sm font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-lock text-xs"></i>
+                    <span class="hidden md:inline">Client Portal</span><span class="md:hidden">Portal</span>
                 </button>
             </div>
         </div>
+    </div>
+</nav>
 
-        <!-- PATH A: CALCULATOR -->
-        <div id="flow-calculator" class="hidden">
-            <div class="text-center mb-6">
-                <h2 class="text-2xl font-bold text-white">Financial Forensic Check</h2>
-                <p class="text-xs text-[#8b949e]">Checking for Appendix V 4.2(e) compliance.</p>
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- PAGE HEADER                                                -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="bg-[#080c10] pt-32 pb-10 relative z-10 border-b border-[#1e2730]">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+        <div class="inline-flex items-center gap-2 bg-[#0f1419]/80 border border-[#1e2730] rounded-full px-5 py-1.5 mb-5">
+            <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+            <span style="color:var(--brand-gold)" class="text-xs font-bold tracking-widest uppercase">Free · No Commitment</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-black text-white mb-3">Visa Readiness Check</h1>
+        <p class="text-[#7a8899] text-base font-medium max-w-xl mx-auto">
+            Check your financial readiness against 2026 Schengen embassy thresholds — or submit your profile for a full team assessment.
+        </p>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- MAIN TOOL                                                  -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<main class="relative z-10 py-12">
+    <div class="max-w-2xl mx-auto px-4">
+
+        <!-- ── CARD WRAPPER ── -->
+        <div class="bg-[#0f1419] border border-[#1e2730] rounded-2xl overflow-hidden mb-4">
+
+            <!-- ── TAB BAR ── -->
+            <div class="flex border-b border-[#1e2730]">
+                <button id="tab-btn-auto" class="tab-btn active" onclick="switchTab('automated')">
+                    <i class="fa-solid fa-calculator mr-1.5" style="color:var(--brand-gold)"></i>Automated Financial Check
+                </button>
+                <button id="tab-btn-manual" class="tab-btn" onclick="switchTab('manual')">
+                    <i class="fa-solid fa-clipboard-list mr-1.5"></i>Team Assessment Form
+                </button>
             </div>
-            <div class="progress-bar"><div id="calc-progress" class="progress-fill"></div></div>
 
-            <div class="step-container calc-step active">
-                <label class="block text-sm font-medium text-white mb-2">1. What is your email address?</label>
-                <p class="text-xs text-[#8b949e] mb-4">We will send a copy of your forensic result here.</p>
-                <input type="email" id="calcEmail" placeholder="e.g. name@example.com" class="gvj-input mb-6" required>
-                <button onclick="nextCalcStep(1)" class="w-full btn-gold py-3 rounded-lg">Next Step <i class="fa-solid fa-arrow-right ml-2"></i></button>
-            </div>
+            <!-- ══════════════════════════════════════════════
+                 TOOL 1 — AUTOMATED FINANCIAL CHECK
+            ══════════════════════════════════════════════ -->
+            <div id="tool-automated" class="p-6 md:p-8">
 
-            <div class="step-container calc-step">
-                <label class="block text-sm font-medium text-[#d4af37] mb-2">2. Estimated Total Trip Cost (£)</label>
-                <p class="text-xs text-[#8b949e] mb-4">Total for Flights, Hotels, and Daily Spending.</p>
-                <input type="number" id="tripCost" placeholder="e.g. 1500" class="gvj-input mb-6" required>
-                <div class="flex gap-4">
-                    <button onclick="prevCalcStep(0)" class="w-1/3 bg-[#0d1117] text-white py-3 rounded-lg border border-[#30363d]">Back</button>
-                    <button onclick="nextCalcStep(2)" class="w-2/3 btn-gold py-3 rounded-lg">Next Step</button>
-                </div>
-            </div>
+                <!-- Step indicator built by JS -->
+                <div class="step-indicators mb-8" id="auto-step-indicators"></div>
 
-            <div class="step-container calc-step">
-                <label class="block text-sm font-medium text-[#d4af37] mb-2">3. Monthly Disposable Income (£)</label>
-                <p class="text-xs text-[#8b949e] mb-4">How much is left in your account after rent and bills?</p>
-                <input type="number" id="monthlyDisposable" placeholder="e.g. 600" class="gvj-input mb-6" required>
-                <div class="flex gap-4">
-                    <button onclick="prevCalcStep(1)" class="w-1/3 bg-[#0d1117] text-white py-3 rounded-lg border border-[#30363d]">Back</button>
-                    <button onclick="nextCalcStep(3)" class="w-2/3 btn-gold py-3 rounded-lg">Next Step</button>
-                </div>
-            </div>
-
-            <div class="step-container calc-step">
-                <label class="block text-sm font-medium text-[#d4af37] mb-2">4. Current Bank Balance (£)</label>
-                <p class="text-xs text-[#8b949e] mb-4">Total accessible savings across all accounts.</p>
-                <input type="number" id="closingBalance" placeholder="e.g. 4500" class="gvj-input mb-6" required>
-                
-                <div class="flex items-start space-x-3 bg-[#0d1117] p-4 rounded border border-[#30363d] cursor-pointer mb-6" onclick="document.getElementById('recentLargeDeposit').click()">
-                    <input type="checkbox" id="recentLargeDeposit" class="w-5 h-5 text-[#d4af37] bg-gray-700 border-gray-600 rounded mt-1 accent-[#d4af37]">
-                    <label for="recentLargeDeposit" class="text-sm text-[#8b949e] cursor-pointer">
-                        Have you made a lump sum deposit larger than 50% of your salary in the last 28 days?
-                    </label>
-                </div>
-
-                <div class="flex gap-4">
-                    <button onclick="prevCalcStep(2)" class="w-1/3 bg-[#0d1117] text-white py-3 rounded-lg border border-[#30363d]">Back</button>
-                    <button onclick="calculateRisk()" id="calc-submit-btn" class="w-2/3 btn-gold py-3 rounded-lg flex justify-center items-center gap-2">
-                        <span>CALCULATE</span> <i class="fa-solid fa-chart-pie"></i>
+                <!-- ── STEP 0: Destination ── -->
+                <div class="calc-step active" data-step="0">
+                    <h3 class="text-xl font-bold text-white mb-5">Where are you travelling?</h3>
+                    <div class="space-y-4 mb-6">
+                        <div>
+                            <label class="input-label">Destination Country</label>
+                            <select id="c_destination" class="gvj-input" onchange="onDestinationChange()">
+                                <option value="">— Select destination —</option>
+                                <option value="Spain">Spain</option>
+                                <option value="France">France</option>
+                                <option value="Greece">Greece</option>
+                                <option value="Germany">Germany</option>
+                                <option value="Netherlands">Netherlands</option>
+                                <option value="Italy">Italy</option>
+                                <option value="Portugal">Portugal</option>
+                                <option value="Switzerland">Switzerland</option>
+                                <option value="Other">Other Schengen</option>
+                            </select>
+                        </div>
+                        <div id="france-accom-group" class="hidden">
+                            <label class="input-label">Accommodation Type <span style="color:#ef4444">*</span></label>
+                            <select id="c_accommodation" class="gvj-input">
+                                <option value="hotel">Pre-booked Hotel (€65/day)</option>
+                                <option value="hostel">Hostel (€32.25/day)</option>
+                                <option value="family">Staying with Family / Friends</option>
+                                <option value="none">Not yet booked (€120/day applies)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="input-label">Trip Duration (days)</label>
+                            <input type="number" id="c_days" class="gvj-input" placeholder="e.g. 14" min="1" max="90">
+                        </div>
+                        <div>
+                            <label class="input-label">Intended Travel Date <span class="text-[#4a5568] normal-case font-medium text-xs">(optional — checks 28-day rule)</span></label>
+                            <input type="date" id="c_travel_date" class="gvj-input">
+                        </div>
+                    </div>
+                    <button onclick="calcNext(1)" class="w-full btn-gold py-4 rounded-xl text-sm">
+                        Continue <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
-            </div>
 
-            <div id="calc-result-area" class="hidden mt-4 p-6 rounded-lg text-center border-2 animate-in fade-in zoom-in duration-300"></div>
-        </div>
-
-        <!-- PATH B: MANUAL TEAM ASSESSMENT -->
-        <div id="flow-manual" class="hidden">
-            <div class="text-center mb-6">
-                <h2 class="text-2xl font-bold text-white">Manual Team Assessment</h2>
-                <p class="text-xs text-[#8b949e]">Fill this out accurately for our strategists.</p>
-            </div>
-            <div class="progress-bar"><div id="manual-progress" class="progress-fill bg-[#38bdf8]"></div></div>
-
-            <form id="google-sheet-form">
-                <!-- Manual Step 1: Basics -->
-                <div class="step-container manual-step active">
-                    <h3 class="text-white font-bold mb-4 border-b border-[#30363d] pb-2">Stage 1: The Basics</h3>
+                <!-- ── STEP 1: Finances ── -->
+                <div class="calc-step" data-step="1">
+                    <h3 class="text-xl font-bold text-white mb-5">Your Financial Position</h3>
                     <div class="space-y-4 mb-6">
                         <div>
-                            <label class="block text-xs font-medium text-[#8b949e] mb-1">Full Name</label>
-                            <input type="text" id="m_name" name="name" required class="gvj-input" placeholder="As it appears on passport">
-                        </div>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-medium text-[#8b949e] mb-1">Email Address</label>
-                                <input type="email" id="m_email" name="email" required class="gvj-input" placeholder="name@example.com">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-medium text-[#8b949e] mb-1">WhatsApp Number</label>
-                                <input type="tel" id="m_whatsapp" name="whatsapp" required class="gvj-input" placeholder="+44 7123 456789">
-                            </div>
+                            <label class="input-label">Monthly Net Income (£)</label>
+                            <input type="number" id="c_income" class="gvj-input" placeholder="e.g. 2500" min="0">
+                            <p class="text-[#7a8899] text-xs mt-1.5">Take-home pay after tax — used to detect funds parking risk.</p>
                         </div>
                         <div>
-                            <label class="block text-xs font-medium text-[#8b949e] mb-1">Date of Birth</label>
-                            <input type="date" id="m_dob" name="dob" required class="gvj-input text-[#8b949e]">
-                        </div>
-                    </div>
-                    <button type="button" onclick="nextManualStep(1)" class="w-full btn-blue py-3 rounded-lg">Continue to Demographics <i class="fa-solid fa-arrow-right ml-2"></i></button>
-                </div>
-
-                <!-- Manual Step 2: Demographics -->
-                <div class="step-container manual-step">
-                    <h3 class="text-white font-bold mb-4 border-b border-[#30363d] pb-2">Stage 2: Demographics</h3>
-                    <div class="space-y-4 mb-6">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-medium text-[#8b949e] mb-1">Nationality</label>
-                                <input type="text" id="m_nationality" name="nationality" required class="gvj-input" placeholder="e.g. Nigerian">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-medium text-[#8b949e] mb-1">Country of Residence</label>
-                                <input type="text" id="m_residence" name="residence" required class="gvj-input" placeholder="e.g. UK">
-                            </div>
+                            <label class="input-label">Current Bank Balance (£)</label>
+                            <input type="number" id="c_balance" class="gvj-input" placeholder="e.g. 4800" min="0">
+                            <p class="text-[#7a8899] text-xs mt-1.5">Total accessible funds across all accounts.</p>
                         </div>
                         <div>
-                            <label class="block text-xs font-medium text-[#8b949e] mb-1">Marital Status</label>
-                            <select id="m_marital" name="marital" class="gvj-input text-[#8b949e]">
-                                <option value="Single">Single</option>
-                                <option value="Married">Married</option>
-                                <option value="Divorced">Divorced</option>
-                                <option value="Widowed">Widowed</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-[#8b949e] mb-1">Employment Status</label>
-                            <select id="m_employment" name="employment" class="gvj-input text-[#8b949e]">
-                                <option value="Employed">Employed (Full/Part Time)</option>
-                                <option value="Self-Employed">Self-Employed / Business Owner</option>
-                                <option value="Student">Student</option>
-                                <option value="Unemployed">Unemployed</option>
-                                <option value="Retired">Retired</option>
+                            <label class="input-label">Bank Statement History</label>
+                            <select id="c_statement_history" class="gvj-input">
+                                <option value="">— Select —</option>
+                                <option value="under3">Less than 3 months</option>
+                                <option value="3months">3 months</option>
+                                <option value="6months">6 months or more</option>
                             </select>
                         </div>
                     </div>
-                    <div class="flex gap-4">
-                        <button type="button" onclick="prevManualStep(0)" class="w-1/3 bg-[#0d1117] text-white py-3 rounded-lg border border-[#30363d]">Back</button>
-                        <button type="button" onclick="nextManualStep(2)" class="w-2/3 btn-blue py-3 rounded-lg">Continue <i class="fa-solid fa-arrow-right ml-2"></i></button>
-                    </div>
-                </div>
-
-                <!-- Manual Step 3: Immigration History -->
-                <div class="step-container manual-step">
-                    <h3 class="text-white font-bold mb-4 border-b border-[#30363d] pb-2">Stage 3: Immigration History</h3>
-                    <div class="space-y-4 mb-6">
-                        <div>
-                            <label class="block text-xs font-medium text-[#8b949e] mb-1">Travel History (UK, USA, Canada, Schengen, Aus)</label>
-                            <textarea id="m_travel_history" name="travel_history" rows="2" class="gvj-input" placeholder="If yes, list countries and years. If no, type 'None'." required></textarea>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-[#8b949e] mb-1">Have you ever been refused a visa for ANY country?</label>
-                            <textarea id="m_refusals" name="refusals" rows="2" class="gvj-input border-red-900 focus:border-red-500" placeholder="If yes, state the country, year, and reason. Be honest. If no, type 'None'." required></textarea>
-                        </div>
-                    </div>
-                    <div class="flex gap-4">
-                        <button type="button" onclick="prevManualStep(1)" class="w-1/3 bg-[#0d1117] text-white py-3 rounded-lg border border-[#30363d]">Back</button>
-                        <button type="button" onclick="nextManualStep(3)" class="w-2/3 btn-blue py-3 rounded-lg">Continue <i class="fa-solid fa-arrow-right ml-2"></i></button>
-                    </div>
-                </div>
-
-                <!-- Manual Step 4: Logistics -->
-                <div class="step-container manual-step">
-                    <h3 class="text-white font-bold mb-4 border-b border-[#30363d] pb-2">Stage 4: Trip Logistics</h3>
-                    <div class="space-y-4 mb-6">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-medium text-[#8b949e] mb-1">Destination Country</label>
-                                <select id="m_destination" name="destination" class="gvj-input text-[#8b949e]">
-                                    <option value="UK">United Kingdom</option>
-                                    <option value="Spain">Spain</option>
-                                    <option value="Greece">Greece</option>
-                                    <option value="France">France</option>
-                                    <option value="Other Schengen">Other Schengen</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-medium text-[#8b949e] mb-1">Main Purpose</label>
-                                <select id="m_purpose" name="purpose" class="gvj-input text-[#8b949e]">
-                                    <option value="Tourism">Tourism / Holiday</option>
-                                    <option value="Family Visit">Visiting Family/Friends</option>
-                                    <option value="Business">Business / Conference</option>
-                                    <option value="Study">Study</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-[#8b949e] mb-1">Who is paying for this trip?</label>
-                            <select id="m_sponsor" name="sponsor" class="gvj-input text-[#8b949e]">
-                                <option value="Self">I am paying for myself</option>
-                                <option value="Spouse">My Spouse / Partner</option>
-                                <option value="Parent/Family">Parent / Family Member</option>
-                                <option value="Company">My Company / Employer</option>
-                            </select>
-                        </div>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-medium text-[#8b949e] mb-1">Bank Statements?</label>
-                                <select id="m_bank" name="bank_statement" class="gvj-input text-[#8b949e]">
-                                    <option value="Yes (3-6 Months)">Yes, I have 3-6 months</option>
-                                    <option value="No">No, I do not</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-medium text-[#8b949e] mb-1">Where did you find us?</label>
-                                <select id="m_source" name="source" class="gvj-input text-[#8b949e]">
-                                    <option value="Instagram">Instagram</option>
-                                    <option value="Facebook">Facebook</option>
-                                    <option value="Google">Google Search</option>
-                                    <option value="Referral">Friend / Word of Mouth</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex gap-4">
-                        <button type="button" onclick="prevManualStep(2)" class="w-1/3 bg-[#0d1117] text-white py-3 rounded-lg border border-[#30363d]">Back</button>
-                        <button type="button" onclick="submitGoogleForm()" id="gsheet-submit-btn" class="w-2/3 btn-blue py-3 rounded-lg flex justify-center items-center gap-2 shadow-lg shadow-blue-500/20">
-                            <span>SUBMIT PROFILE</span> <i class="fa-solid fa-paper-plane"></i>
+                    <div class="flex gap-3">
+                        <button onclick="calcPrev(0)" class="w-1/3 btn-back py-4 rounded-xl text-sm">
+                            <i class="fa-solid fa-arrow-left"></i> Back
+                        </button>
+                        <button onclick="calcNext(2)" class="flex-1 btn-gold py-4 rounded-xl text-sm">
+                            Continue <i class="fa-solid fa-arrow-right"></i>
                         </button>
                     </div>
                 </div>
 
-                <!-- Success State -->
-                <div id="manual-success" class="hidden text-center py-8 animate-in zoom-in duration-300">
-                    <div class="w-20 h-20 bg-green-900/30 border border-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <i class="fa-solid fa-check text-4xl text-green-500"></i>
+                <!-- ── STEP 2: Employment & Flags ── -->
+                <div class="calc-step" data-step="2">
+                    <h3 class="text-xl font-bold text-white mb-5">Employment &amp; Risk Flags</h3>
+                    <div class="space-y-4 mb-6">
+                        <div>
+                            <label class="input-label">Employment Status</label>
+                            <select id="c_employment" class="gvj-input" onchange="onEmploymentChange()">
+                                <option value="">— Select —</option>
+                                <option value="employed">Employed (PAYE)</option>
+                                <option value="self-employed">Self-Employed / Business Owner</option>
+                                <option value="student">Student</option>
+                                <option value="unemployed">Unemployed</option>
+                                <option value="sponsored">Sponsored</option>
+                            </select>
+                        </div>
+                        <div id="sponsor-group" class="hidden">
+                            <label class="input-label">Sponsor Name / Relationship</label>
+                            <input type="text" id="c_sponsor" class="gvj-input" placeholder="e.g. Father — Mr Amara Diallo">
+                        </div>
+
+                        <div class="pt-1">
+                            <label class="input-label mb-3 block">Risk Flags — tick all that apply</label>
+                            <div class="space-y-3">
+                                <label class="gvj-checkbox">
+                                    <input type="checkbox" id="c_large_deposit">
+                                    <div>
+                                        <p class="text-white text-sm font-semibold">Large deposit in last 90 days</p>
+                                        <p class="text-[#7a8899] text-xs mt-0.5">Any single deposit above 50% of monthly income in the last 90 days.</p>
+                                    </div>
+                                </label>
+                                <label class="gvj-checkbox">
+                                    <input type="checkbox" id="c_prev_refusal">
+                                    <div>
+                                        <p class="text-white text-sm font-semibold">Previous visa refusal</p>
+                                        <p class="text-[#7a8899] text-xs mt-0.5">Any prior refusal for any Schengen country, regardless of year.</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-2">Profile Received</h3>
-                    <p class="text-[#8b949e] mb-6">Our senior strategists are reviewing your case file. Check your email (and WhatsApp) within the next 30 minutes for our official assessment and next steps.</p>
-                    <a href="index.html" class="btn-blue px-8 py-3 rounded-full inline-block">Return to Homepage</a>
+                    <div class="flex gap-3">
+                        <button onclick="calcPrev(1)" class="w-1/3 btn-back py-4 rounded-xl text-sm">
+                            <i class="fa-solid fa-arrow-left"></i> Back
+                        </button>
+                        <button onclick="calcNext(3)" class="flex-1 btn-gold py-4 rounded-xl text-sm">
+                            Run Analysis <i class="fa-solid fa-microscope"></i>
+                        </button>
+                    </div>
                 </div>
 
-            </form>
+                <!-- ── STEP 3: RESULT ── -->
+                <div class="calc-step" data-step="3">
+                    <div id="calc-result-output"></div>
+                </div>
+
+                <!-- ── STEP 4: Email capture — AFTER result ── -->
+                <div class="calc-step" data-step="4">
+                    <div class="text-center mb-6">
+                        <div class="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4" style="background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.3)">
+                            <i class="fa-solid fa-envelope text-xl" style="color:var(--brand-gold)"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Get Your Full Report by Email</h3>
+                        <p class="text-[#7a8899] text-sm mt-2 font-medium">We'll send a detailed breakdown of every check to your inbox.</p>
+                    </div>
+                    <div class="space-y-3 mb-5">
+                        <div>
+                            <label class="input-label">Your Name</label>
+                            <input type="text" id="c_name_capture" class="gvj-input" placeholder="First name">
+                        </div>
+                        <div>
+                            <label class="input-label">Email Address</label>
+                            <input type="email" id="c_email_capture" class="gvj-input" placeholder="name@example.com">
+                        </div>
+                    </div>
+                    <button onclick="submitEmailCapture()" id="email-capture-btn" class="w-full btn-gold py-4 rounded-xl text-sm mb-3">
+                        Send My Report <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                    <button onclick="window.location.href='index.html'" class="w-full text-[#7a8899] hover:text-white text-xs py-2 transition font-medium">
+                        No thanks — return to homepage
+                    </button>
+                    <div id="email-capture-success" class="hidden mt-4 bg-green-900/20 border border-green-700/40 rounded-xl p-4 text-center">
+                        <i class="fa-solid fa-circle-check text-green-400 mr-2"></i>
+                        <span class="text-green-400 text-sm font-bold">Report on its way — check your inbox.</span>
+                    </div>
+                </div>
+
+            </div><!-- /tool-automated -->
+
+            <!-- ══════════════════════════════════════════════
+                 TOOL 2 — MANUAL TEAM ASSESSMENT
+            ══════════════════════════════════════════════ -->
+            <div id="tool-manual" class="hidden p-6 md:p-8">
+
+                <div class="step-indicators mb-8" id="manual-step-indicators"></div>
+
+                <!-- ── MANUAL STEP 0: Personal ── -->
+                <div class="manual-step active" data-step="0">
+                    <h3 class="text-xl font-bold text-white mb-5">Personal Details</h3>
+                    <div class="space-y-4 mb-6">
+                        <div>
+                            <label class="input-label">Full Name <span style="color:#ef4444">*</span></label>
+                            <input type="text" id="m_name" class="gvj-input" placeholder="As it appears on your passport" required>
+                        </div>
+                        <div>
+                            <label class="input-label">Email Address <span style="color:#ef4444">*</span></label>
+                            <input type="email" id="m_email" class="gvj-input" placeholder="name@example.com" required>
+                        </div>
+                        <div>
+                            <label class="input-label">WhatsApp Number (with country code) <span style="color:#ef4444">*</span></label>
+                            <input type="tel" id="m_whatsapp" class="gvj-input" placeholder="+234 801 234 5678" required>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="input-label">Nationality <span style="color:#ef4444">*</span></label>
+                                <input type="text" id="m_nationality" class="gvj-input" placeholder="e.g. Nigerian" required>
+                            </div>
+                            <div>
+                                <label class="input-label">Country of Residence <span style="color:#ef4444">*</span></label>
+                                <input type="text" id="m_residence" class="gvj-input" placeholder="e.g. Nigeria" required>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="manualNext(1)" class="w-full btn-gold py-4 rounded-xl text-sm">
+                        Continue <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- ── MANUAL STEP 1: Trip Details ── -->
+                <div class="manual-step" data-step="1">
+                    <h3 class="text-xl font-bold text-white mb-5">Trip Details</h3>
+                    <div class="space-y-4 mb-6">
+                        <div>
+                            <label class="input-label">Destination Country <span style="color:#ef4444">*</span></label>
+                            <select id="m_destination" class="gvj-input" required>
+                                <option value="">— Select destination —</option>
+                                <option value="Spain">Spain</option>
+                                <option value="France">France</option>
+                                <option value="Greece">Greece</option>
+                                <option value="Germany">Germany</option>
+                                <option value="Italy">Italy</option>
+                                <option value="Netherlands">Netherlands</option>
+                                <option value="Portugal">Portugal</option>
+                                <option value="Switzerland">Switzerland</option>
+                                <option value="Other Schengen">Other Schengen</option>
+                                <option value="Morocco">Morocco</option>
+                                <option value="UK">United Kingdom</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="input-label">Purpose of Travel <span style="color:#ef4444">*</span></label>
+                            <select id="m_purpose" class="gvj-input" required>
+                                <option value="">— Select purpose —</option>
+                                <option value="Tourism">Tourism / Holiday</option>
+                                <option value="Business">Business / Conference</option>
+                                <option value="Family Visit">Family Visit / VFR</option>
+                                <option value="Study">Study</option>
+                                <option value="Work">Work</option>
+                            </select>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="input-label">Travel From <span style="color:#ef4444">*</span></label>
+                                <input type="date" id="m_date_from" class="gvj-input" required>
+                            </div>
+                            <div>
+                                <label class="input-label">Travel To <span style="color:#ef4444">*</span></label>
+                                <input type="date" id="m_date_to" class="gvj-input" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <button onclick="manualPrev(0)" class="w-1/3 btn-back py-4 rounded-xl text-sm"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                        <button onclick="manualNext(2)" class="flex-1 btn-gold py-4 rounded-xl text-sm">Continue <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- ── MANUAL STEP 2: Financial Profile ── -->
+                <div class="manual-step" data-step="2">
+                    <h3 class="text-xl font-bold text-white mb-5">Financial Profile</h3>
+                    <div class="space-y-4 mb-6">
+                        <div>
+                            <label class="input-label">Employment Status <span style="color:#ef4444">*</span></label>
+                            <select id="m_employment" class="gvj-input" required>
+                                <option value="">— Select —</option>
+                                <option value="Employed">Employed (Full / Part Time)</option>
+                                <option value="Self-Employed">Self-Employed / Business Owner</option>
+                                <option value="Student">Student</option>
+                                <option value="Unemployed">Unemployed</option>
+                                <option value="Sponsored">Sponsored</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="input-label">Monthly Net Income Range <span style="color:#ef4444">*</span></label>
+                            <select id="m_income" class="gvj-input" required>
+                                <option value="">— Select range —</option>
+                                <option value="Under £500">Under £500</option>
+                                <option value="£500–£1,000">£500 – £1,000</option>
+                                <option value="£1,000–£2,000">£1,000 – £2,000</option>
+                                <option value="£2,000–£3,500">£2,000 – £3,500</option>
+                                <option value="£3,500–£5,000">£3,500 – £5,000</option>
+                                <option value="Over £5,000">Over £5,000</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="input-label">Current Bank Balance Range <span style="color:#ef4444">*</span></label>
+                            <select id="m_balance" class="gvj-input" required>
+                                <option value="">— Select range —</option>
+                                <option value="Under £500">Under £500</option>
+                                <option value="£500–£1,500">£500 – £1,500</option>
+                                <option value="£1,500–£3,000">£1,500 – £3,000</option>
+                                <option value="£3,000–£6,000">£3,000 – £6,000</option>
+                                <option value="Over £6,000">Over £6,000</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="input-label">Bank Statement History <span style="color:#ef4444">*</span></label>
+                            <select id="m_statement" class="gvj-input" required>
+                                <option value="">— Select —</option>
+                                <option value="Less than 3 months">Less than 3 months</option>
+                                <option value="3 months">3 months</option>
+                                <option value="6 months or more">6 months or more</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="input-label">Do you have a Sponsor?</label>
+                            <select id="m_sponsor" class="gvj-input">
+                                <option value="No">No — self-funded</option>
+                                <option value="Yes">Yes — sponsored</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <button onclick="manualPrev(1)" class="w-1/3 btn-back py-4 rounded-xl text-sm"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                        <button onclick="manualNext(3)" class="flex-1 btn-gold py-4 rounded-xl text-sm">Continue <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- ── MANUAL STEP 3: Immigration History ── -->
+                <div class="manual-step" data-step="3">
+                    <h3 class="text-xl font-bold text-white mb-5">Immigration History</h3>
+                    <div class="space-y-4 mb-6">
+                        <div>
+                            <label class="input-label">Any Previous Visa Refusals? <span style="color:#ef4444">*</span></label>
+                            <select id="m_refusal_yn" class="gvj-input" onchange="toggleRefusalDetail()" required>
+                                <option value="No">No — clean record</option>
+                                <option value="Yes">Yes — previously refused</option>
+                            </select>
+                        </div>
+                        <div id="refusal-detail-group" class="hidden">
+                            <label class="input-label">Which country and year?</label>
+                            <input type="text" id="m_refusal_detail" class="gvj-input" placeholder="e.g. Spain 2022, France 2023">
+                        </div>
+                        <div>
+                            <label class="input-label">Previous Travel History <span style="color:#ef4444">*</span></label>
+                            <select id="m_travel_history" class="gvj-input" required>
+                                <option value="">— Select —</option>
+                                <option value="None">None — first international travel</option>
+                                <option value="Africa only">Africa only</option>
+                                <option value="Asia or Middle East">Asia or Middle East</option>
+                                <option value="Europe or USA">Europe or USA</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="input-label">How did you hear about us?</label>
+                            <select id="m_source" class="gvj-input">
+                                <option value="Instagram">Instagram</option>
+                                <option value="Facebook">Facebook</option>
+                                <option value="WhatsApp">WhatsApp</option>
+                                <option value="Google">Google Search</option>
+                                <option value="Referral">Referral / Word of Mouth</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="input-label">Additional Notes <span class="text-[#4a5568] normal-case font-medium text-xs">(optional)</span></label>
+                            <textarea id="m_notes" class="gvj-input" placeholder="Anything else our team should know..."></textarea>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <button onclick="manualPrev(2)" class="w-1/3 btn-back py-4 rounded-xl text-sm"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                        <button onclick="submitManualForm()" id="manual-submit-btn" class="flex-1 btn-gold py-4 rounded-xl text-sm">
+                            Submit Profile <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <div id="manual-error" class="hidden mt-4 bg-red-900/20 border border-red-700/40 rounded-xl p-3 text-center">
+                        <i class="fa-solid fa-circle-exclamation text-red-400 mr-2"></i>
+                        <span class="text-red-400 text-sm font-medium">Please complete all required fields.</span>
+                    </div>
+                </div>
+
+                <!-- ── MANUAL SUCCESS ── -->
+                <div class="manual-step" data-step="4">
+                    <div class="text-center py-8">
+                        <div class="w-20 h-20 bg-green-900/25 border-2 border-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fa-solid fa-check text-4xl text-green-400"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">Assessment Received</h3>
+                        <p class="text-[#adb8c4] text-sm leading-relaxed max-w-sm mx-auto mb-7 font-medium">
+                            Thank you — your assessment has been received. Our team will review your profile within 24 hours and contact you on WhatsApp. You can also reach us directly at <strong class="text-white">+44 7511 219482</strong>.
+                        </p>
+                        <a href="https://wa.me/447511219482?text=Hi%2C%20I%20just%20submitted%20my%20assessment%20form%20and%20wanted%20to%20follow%20up"
+                           target="_blank"
+                           class="inline-flex items-center gap-2 font-bold px-7 py-3.5 rounded-full text-sm mb-5 transition"
+                           style="background:#25D366; color:#fff;">
+                            <i class="fa-brands fa-whatsapp text-lg"></i> Follow Up on WhatsApp
+                        </a>
+                        <br>
+                        <a href="index.html" class="text-[#7a8899] hover:text-white text-sm transition font-medium">
+                            <i class="fa-solid fa-house mr-1"></i> Return to Homepage
+                        </a>
+                    </div>
+                </div>
+
+            </div><!-- /tool-manual -->
+
+        </div><!-- /card wrapper -->
+
+        <!-- Trust strip -->
+        <div class="flex flex-wrap justify-center gap-5 mt-2">
+            <span class="text-[#4a5568] text-xs font-semibold flex items-center gap-1.5">
+                <i class="fa-solid fa-lock" style="color:var(--brand-gold)"></i> GDPR Compliant
+            </span>
+            <span class="text-[#4a5568] text-xs font-semibold flex items-center gap-1.5">
+                <i class="fa-solid fa-shield-halved" style="color:var(--brand-gold)"></i> PI Insured Consultancy
+            </span>
+            <span class="text-[#4a5568] text-xs font-semibold flex items-center gap-1.5">
+                <i class="fa-brands fa-stripe" style="color:#635BFF"></i> Payments by Stripe
+            </span>
         </div>
 
-        <div class="mt-8 text-center border-t border-[#30363d] pt-4">
-            <p class="text-[10px] text-[#8b949e] uppercase tracking-widest">Global Visa & Journeys • London HQ</p>
-        </div>
     </div>
+</main>
 
-    <!-- ========================================== -->
-    <!-- FIREBASE INTEGRATION FOR AUTOMATED CHECK   -->
-    <!-- ========================================== -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- FOOTER                                                     -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<footer class="bg-[#080c10] text-[#7a8899] border-t border-[#1e2730] relative z-10 py-10">
+    <div class="max-w-5xl mx-auto px-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+            <div class="trust-badge"><i class="fa-solid fa-building-columns text-xl flex-shrink-0" style="color:var(--brand-gold)"></i><div><p class="text-white text-xs font-bold">Companies House</p><p class="text-[#7a8899] text-[11px]">No. 16959031</p></div></div>
+            <div class="trust-badge"><i class="fa-solid fa-shield-halved text-xl flex-shrink-0 text-green-400"></i><div><p class="text-white text-xs font-bold">PI Insured</p><p class="text-[#7a8899] text-[11px]">Professional Indemnity</p></div></div>
+            <div class="trust-badge"><i class="fa-brands fa-stripe text-2xl flex-shrink-0 text-[#635BFF]"></i><div><p class="text-white text-xs font-bold">Secure Payments</p><p class="text-[#7a8899] text-[11px]">Powered by Stripe</p></div></div>
+            <div class="trust-badge"><i class="fa-solid fa-lock text-xl flex-shrink-0 text-blue-400"></i><div><p class="text-white text-xs font-bold">GDPR Compliant</p><p class="text-[#7a8899] text-[11px]">256-bit Encrypted</p></div></div>
+        </div>
+        <div class="gold-divider mb-6"></div>
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium">
+            <div>
+                <span class="text-white font-black text-base" style="font-family:'Cormorant Garamond',serif;">GLOBAL VISA <span style="color:var(--brand-gold)">&amp;</span> JOURNEYS</span>
+                <p class="text-[#4a5568] mt-1">71-75 Shelton Street, London WC2H 9JQ &nbsp;·&nbsp; office@globalvisajourneys.com &nbsp;·&nbsp; 0204 628 1692</p>
+            </div>
+            <div class="flex gap-4 text-[#4a5568]">
+                <a href="index.html" class="hover:text-white transition">Home</a>
+                <a href="index.html#services-section" class="hover:text-white transition">Services</a>
+                <a href="index.html#faq" class="hover:text-white transition">FAQ</a>
+                <a href="https://wa.me/447511219482" target="_blank" class="hover:text-green-400 transition">WhatsApp</a>
+            </div>
+        </div>
+        <p class="text-[#2d3748] text-xs text-center mt-6">&copy; 2026 Global Visa &amp; Journeys Ltd. Registered in England &amp; Wales (No: 16959031). Not a Tour Operator. Not ATOL registered.</p>
+    </div>
+</footer>
 
-        // FIREBASE CONFIGURATION (Using your exact credentials)
-        const firebaseConfig = {
-            apiKey: "AIzaSyCcoyBXRITTblrH0XcaLGMjftUttXYLtj4",
-            authDomain: "global-visa-journeys.firebaseapp.com",
-            projectId: "global-visa-journeys",
-            storageBucket: "global-visa-journeys.firebasestorage.app",
-            messagingSenderId: "381217766164",
-            appId: "1:381217766164:web:1cb70fbc26332f5a8d6001"
-        };
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/447511219482" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
 
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+<!-- CLIENT PORTAL MODAL -->
+<div id="portal-modal" class="hidden fixed inset-0 bg-black/95 flex items-center justify-center p-4 z-[10000]">
+    <div class="bg-[#0f1419] border w-full max-w-md rounded-2xl p-8 text-center relative shadow-2xl" style="border-color:var(--brand-gold); box-shadow:0 0 40px rgba(201,168,76,0.2)">
+        <button onclick="toggleModal('portal-modal')" class="absolute top-4 right-4 text-[#7a8899] hover:text-white text-xl w-8 h-8 flex items-center justify-center rounded-full hover:bg-[#1e2730] transition">&times;</button>
+        <div class="w-16 h-16 bg-[#080c10] rounded-2xl mx-auto flex items-center justify-center mb-6" style="border:1px solid rgba(201,168,76,0.3)">
+            <i class="fa-solid fa-lock text-2xl" style="color:var(--brand-gold)"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-white mb-2" style="font-family:'Cormorant Garamond',serif;">Secure Client Portal</h2>
+        <p class="text-sm text-[#7a8899] mb-6 font-medium">Enter the Access PIN from your receipt email.</p>
+        <div id="portal-error" class="hidden text-red-400 text-xs font-bold mb-4 bg-red-900/20 border border-red-800 rounded-lg px-4 py-2">
+            <i class="fa-solid fa-circle-exclamation mr-1"></i> Incorrect PIN. Please try again.
+        </div>
+        <input type="password" id="portal-pin" placeholder="Enter PIN" class="gvj-input mb-4 text-center tracking-[0.4em] text-lg" onkeydown="if(event.key==='Enter') unlockPortal()">
+        <button onclick="unlockPortal()" class="w-full btn-gold py-3 rounded-xl text-sm">Access Portal</button>
+        <p class="text-xs text-[#7a8899] mt-4 flex items-center justify-center gap-2 font-medium">
+            <i class="fa-solid fa-shield-halved text-green-400"></i> GDPR compliant · 256-bit encrypted
+        </p>
+    </div>
+</div>
 
-        // Attach a global function so our regular script below can call it
-        window.saveAutomatedCheckToFirebase = async (dataPayload) => {
-            try {
-                // Adds a new document to the "automated_checks" collection
-                await addDoc(collection(db, "automated_checks"), dataPayload);
-                console.log("Automated Lead saved to Firestore successfully.");
-            } catch (error) {
-                console.error("Error saving lead to Firestore: ", error);
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- FIREBASE — module                                          -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCcoyBXRITTblrH0XcaLGMjftUttXYLtj4",
+        authDomain: "global-visa-journeys.firebaseapp.com",
+        projectId: "global-visa-journeys",
+        storageBucket: "global-visa-journeys.firebasestorage.app",
+        messagingSenderId: "381217766164",
+        appId: "1:381217766164:web:1cb70fbc26332f5a8d6001"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db  = getFirestore(app);
+
+    window._fbSaveAutomated = async (data) => {
+        try { await addDoc(collection(db, "automated_checks"), data); }
+        catch(e) { console.error("FB automated:", e); }
+    };
+
+    // Manual assessment saves to "assessments" collection per spec
+    window._fbSaveAssessment = async (data) => {
+        try { await addDoc(collection(db, "assessments"), data); }
+        catch(e) { console.error("FB assessment:", e); }
+    };
+</script>
+
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- APP LOGIC                                                  -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<script>
+    /* ── CONSTANTS ── */
+    const QUICKSCAN_STRIPE = "https://book.stripe.com/28E4gygLremKd0Ogx50sU00";
+    const WA               = "https://wa.me/447511219482";
+    const EUR_GBP          = 0.86; // 1 EUR = 0.86 GBP (2026 working rate)
+
+    /* ═══════════════════════════════════════════════════════
+       NAV + MODAL
+    ═══════════════════════════════════════════════════════ */
+    window.addEventListener('scroll', () => {
+        document.getElementById('main-nav').classList.toggle('nav-scrolled', window.scrollY > 50);
+    });
+
+    function toggleModal(id) {
+        const el = document.getElementById(id);
+        el.classList.toggle('hidden');
+        document.body.style.overflow = el.classList.contains('hidden') ? 'auto' : 'hidden';
+    }
+    document.getElementById('portal-modal').addEventListener('click', function(e) {
+        if (e.target === this) { this.classList.add('hidden'); document.body.style.overflow = 'auto'; }
+    });
+    function unlockPortal() {
+        const pin = document.getElementById('portal-pin').value.trim();
+        if (pin === "GVJ2026") { window.location.href = "portal.html"; }
+        else { document.getElementById('portal-error').classList.remove('hidden'); document.getElementById('portal-pin').value = ''; }
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       TAB SWITCHER
+    ═══════════════════════════════════════════════════════ */
+    function switchTab(tab) {
+        const isAuto = tab === 'automated';
+        document.getElementById('tool-automated').classList.toggle('hidden', !isAuto);
+        document.getElementById('tool-manual').classList.toggle('hidden', isAuto);
+        document.getElementById('tab-btn-auto').classList.toggle('active', isAuto);
+        document.getElementById('tab-btn-manual').classList.toggle('active', !isAuto);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       STEP INDICATOR BUILDER
+    ═══════════════════════════════════════════════════════ */
+    function buildStepUI(containerId, labels) {
+        const c = document.getElementById(containerId);
+        c.innerHTML = '';
+        labels.forEach((label, i) => {
+            const col = document.createElement('div');
+            col.className = 'step-col';
+            col.innerHTML = `<div class="step-dot ${i === 0 ? 'active' : ''}" id="${containerId}-dot-${i}">${i + 1}</div>
+                             <span class="step-label-sm ${i === 0 ? 'active' : ''}" id="${containerId}-lbl-${i}">${label}</span>`;
+            c.appendChild(col);
+            if (i < labels.length - 1) {
+                const line = document.createElement('div');
+                line.className = 'step-line-h';
+                line.id = `${containerId}-line-${i}`;
+                c.appendChild(line);
             }
-        };
-    </script>
+        });
+    }
 
+    function updateStepUI(containerId, current, total) {
+        for (let i = 0; i < total; i++) {
+            const dot = document.getElementById(`${containerId}-dot-${i}`);
+            const lbl = document.getElementById(`${containerId}-lbl-${i}`);
+            if (!dot) continue;
+            const state = i < current ? 'done' : i === current ? 'active' : '';
+            dot.className = 'step-dot ' + state;
+            lbl.className = 'step-label-sm ' + state;
+            dot.innerHTML = i < current ? '<i class="fa-solid fa-check text-[9px]"></i>' : String(i + 1);
+            if (i < total - 1) {
+                const line = document.getElementById(`${containerId}-line-${i}`);
+                if (line) line.className = 'step-line-h ' + (i < current ? 'done' : '');
+            }
+        }
+    }
 
-    <!-- ========================================== -->
-    <!-- JAVASCRIPT LOGIC (ROUTING, CALC & GSHEETS) -->
-    <!-- ========================================== -->
-    <script>
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzZgDe0yJ8b5GNl5wz4jDisVRv7CnfguCPbLAgx3nPeQ1lS-GkWKvlEyC7KYRPx16Eo/exec"; 
-        const STRIPE_LINK_QUICKSCAN = "https://book.stripe.com/28E4gygLremKd0Ogx50sU00";
-        const WHATSAPP_LINK = "https://wa.me/447511219482";
+    /* ═══════════════════════════════════════════════════════
+       INIT ON LOAD
+    ═══════════════════════════════════════════════════════ */
+    window.addEventListener('DOMContentLoaded', () => {
+        buildStepUI('auto-step-indicators',   ['Destination', 'Finances', 'Flags', 'Results', 'Report']);
+        buildStepUI('manual-step-indicators', ['Personal', 'Trip', 'Finances', 'History', 'Done']);
 
-        // --- APP ROUTING LOGIC ---
-        window.onload = () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const type = urlParams.get('type');
-            if (type === 'automated') startApp('automated');
-            else if (type === 'manual') startApp('manual');
-        };
+        const urlType = new URLSearchParams(window.location.search).get('type');
+        switchTab(urlType === 'manual' ? 'manual' : 'automated');
 
-        window.startApp = (type) => {
-            document.getElementById('path-chooser').classList.remove('active');
-            setTimeout(() => {
-                document.getElementById('path-chooser').style.display = 'none';
-                if(type === 'automated') {
-                    document.getElementById('flow-calculator').style.display = 'block';
-                    updateProgress('calc-progress', 25);
-                } else {
-                    document.getElementById('flow-manual').style.display = 'block';
-                    updateProgress('manual-progress', 25);
-                }
-            }, 300);
-        };
+        document.getElementById('c_destination').addEventListener('change', onDestinationChange);
+        document.getElementById('c_employment').addEventListener('change', onEmploymentChange);
+    });
 
-        function updateProgress(barId, percentage) {
-            document.getElementById(barId).style.width = percentage + '%';
+    function onDestinationChange() {
+        const dest = document.getElementById('c_destination').value;
+        document.getElementById('france-accom-group').classList.toggle('hidden', dest !== 'France');
+    }
+    function onEmploymentChange() {
+        const emp = document.getElementById('c_employment').value;
+        document.getElementById('sponsor-group').classList.toggle('hidden', emp !== 'sponsored');
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       TOOL 1 — CALCULATOR STEP NAVIGATION
+    ═══════════════════════════════════════════════════════ */
+    let calcStep = 0;
+    const CALC_STEPS_TOTAL = 5;
+
+    function getCalcPanels() { return document.querySelectorAll('.calc-step'); }
+
+    function calcValidate(stepIndex) {
+        let ok = true;
+        if (stepIndex === 0) {
+            const dest = document.getElementById('c_destination').value;
+            const days = document.getElementById('c_days').value;
+            if (!dest) { document.getElementById('c_destination').classList.add('error'); ok = false; } else document.getElementById('c_destination').classList.remove('error');
+            if (!days || parseInt(days) < 1) { document.getElementById('c_days').classList.add('error'); ok = false; } else document.getElementById('c_days').classList.remove('error');
+        }
+        if (stepIndex === 1) {
+            const income  = document.getElementById('c_income').value;
+            const balance = document.getElementById('c_balance').value;
+            const hist    = document.getElementById('c_statement_history').value;
+            if (!income  || parseFloat(income)  < 0) { document.getElementById('c_income').classList.add('error'); ok = false; } else document.getElementById('c_income').classList.remove('error');
+            if (!balance || parseFloat(balance) < 0) { document.getElementById('c_balance').classList.add('error'); ok = false; } else document.getElementById('c_balance').classList.remove('error');
+            if (!hist) { document.getElementById('c_statement_history').classList.add('error'); ok = false; } else document.getElementById('c_statement_history').classList.remove('error');
+        }
+        if (stepIndex === 2) {
+            const emp = document.getElementById('c_employment').value;
+            if (!emp) { document.getElementById('c_employment').classList.add('error'); ok = false; } else document.getElementById('c_employment').classList.remove('error');
+        }
+        return ok;
+    }
+
+    function calcNext(targetStep) {
+        if (!calcValidate(calcStep)) return;
+        // Run calculation engine before showing result panel
+        if (calcStep === 2) runCalculation();
+        const panels = getCalcPanels();
+        panels[calcStep].classList.remove('active');
+        calcStep = targetStep;
+        panels[calcStep].classList.add('active');
+        updateStepUI('auto-step-indicators', calcStep, CALC_STEPS_TOTAL);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function calcPrev(targetStep) {
+        const panels = getCalcPanels();
+        panels[calcStep].classList.remove('active');
+        calcStep = targetStep;
+        panels[calcStep].classList.add('active');
+        updateStepUI('auto-step-indicators', calcStep, CALC_STEPS_TOTAL);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       2026 SCHENGEN THRESHOLD ENGINE
+    ═══════════════════════════════════════════════════════ */
+    function getThreshold(dest, days, accom) {
+        let dailyEUR = 0, minimumEUR = 0, entryEUR = 0, notes = '';
+
+        switch (dest) {
+            case 'Spain':
+                dailyEUR = 100; minimumEUR = 900;
+                notes = 'Spain: €100/day with a minimum total of €900 regardless of trip length.';
+                break;
+            case 'France':
+                if (accom === 'hotel')  { dailyEUR = 65;    notes = 'France: €65/day with pre-booked hotel proof.'; }
+                else if (accom === 'hostel') { dailyEUR = 32.25; notes = 'France: €32.25/day with hostel accommodation.'; }
+                else                   { dailyEUR = 120;   notes = 'France: €120/day without pre-booked accommodation proof.'; }
+                break;
+            case 'Greece':
+                dailyEUR = 50; minimumEUR = 300;
+                notes = 'Greece: €50/day with a minimum total of €300 regardless of trip length.';
+                break;
+            case 'Germany':     dailyEUR = 45;  notes = 'Germany: €45/day.'; break;
+            case 'Netherlands': dailyEUR = 34;  notes = 'Netherlands: €34/day.'; break;
+            case 'Italy':       dailyEUR = 120; notes = 'Italy: €120/day.'; break;
+            case 'Portugal':
+                dailyEUR = 40; entryEUR = 75;
+                notes = 'Portugal: €40/day plus €75 additional entry requirement.';
+                break;
+            case 'Switzerland': dailyEUR = 100; notes = 'Switzerland: €100/day.'; break;
+            default:            dailyEUR = 100; notes = 'General Schengen benchmark: €100/day.'; break;
         }
 
-        function validateInputs(container) {
-            let valid = true;
-            const inputs = container.querySelectorAll('input[required], textarea[required]');
-            inputs.forEach(input => {
-                if (!input.value) { input.classList.add('border-red-500'); valid = false; } 
-                else { input.classList.remove('border-red-500'); }
-            });
-            return valid;
+        const rawEUR   = (dailyEUR * days) + entryEUR;
+        const totalEUR = Math.max(rawEUR, minimumEUR);
+        const totalGBP = Math.round(totalEUR * EUR_GBP);
+        const dailyGBP = Math.round(dailyEUR * EUR_GBP);
+        const minGBP   = minimumEUR ? Math.round(minimumEUR * EUR_GBP) : null;
+
+        return { dailyEUR, dailyGBP, totalEUR: Math.round(totalEUR), totalGBP, minimumEUR, minGBP, entryEUR, notes };
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       MAIN CALCULATION ENGINE
+    ═══════════════════════════════════════════════════════ */
+    function runCalculation() {
+        const dest        = document.getElementById('c_destination').value;
+        const days        = parseInt(document.getElementById('c_days').value);
+        const travelDate  = document.getElementById('c_travel_date').value;
+        const accom       = document.getElementById('c_accommodation')?.value || 'none';
+        const income      = parseFloat(document.getElementById('c_income').value) || 0;
+        const balance     = parseFloat(document.getElementById('c_balance').value) || 0;
+        const statHist    = document.getElementById('c_statement_history').value;
+        const employment  = document.getElementById('c_employment').value;
+        const bigDeposit  = document.getElementById('c_large_deposit').checked;
+        const prevRefusal = document.getElementById('c_prev_refusal').checked;
+
+        const T      = getThreshold(dest, days, accom);
+        const checks = [];
+        let ragScore = 0; // 0=green, 1=amber, 2=red
+
+        // ── CHECK 1: Minimum Balance ──
+        const meetsMin = balance >= T.totalGBP;
+        const shortfall = Math.ceil(T.totalGBP - balance);
+        if (meetsMin) {
+            checks.push({ s:'pass', title:'Minimum Balance Threshold',
+                desc:`Your balance of <strong>£${balance.toLocaleString()}</strong> meets the ${dest} requirement of <strong>£${T.totalGBP.toLocaleString()} (€${T.totalEUR.toLocaleString()})</strong> for ${days} days. ${T.notes}` });
+        } else {
+            ragScore = 2;
+            checks.push({ s:'fail', title:'Minimum Balance Threshold — SHORTFALL',
+                desc:`You need <strong>£${shortfall.toLocaleString()} more</strong>. ${dest} requires <strong>£${T.totalGBP.toLocaleString()} (€${T.totalEUR.toLocaleString()})</strong> for ${days} days. Current balance: £${balance.toLocaleString()}. ${T.notes}` });
         }
 
-        // --- CALCULATOR LOGIC ---
-        let currentCalcStep = 0;
-        const calcSteps = document.querySelectorAll('.calc-step');
-        
-        window.nextCalcStep = (n) => {
-            if (!validateInputs(calcSteps[currentCalcStep])) return;
-            calcSteps[currentCalcStep].classList.remove('active');
-            currentCalcStep = n;
-            calcSteps[currentCalcStep].classList.add('active');
-            updateProgress('calc-progress', (currentCalcStep + 1) * 25);
-        };
-        window.prevCalcStep = (n) => {
-            calcSteps[currentCalcStep].classList.remove('active');
-            currentCalcStep = n;
-            calcSteps[currentCalcStep].classList.add('active');
-            updateProgress('calc-progress', (currentCalcStep + 1) * 25);
-        };
+        // ── CHECK 2: Funds Parking Risk ──
+        const parkingRisk = (income > 0) && (balance > income * 4) && (statHist === 'under3');
+        if (parkingRisk) {
+            ragScore = Math.max(ragScore, 2);
+            checks.push({ s:'fail', title:'Funds Parking Risk Detected',
+                desc:`Your balance (£${balance.toLocaleString()}) is more than 4× your monthly income (£${income.toLocaleString()}) but you have less than 3 months of statement history. ECOs treat this as evidence of borrowed or artificially inflated funds — a potential 10-year ban trigger.` });
+        } else {
+            checks.push({ s:'pass', title:'Funds Parking Risk',
+                desc:'Balance-to-income ratio and statement history are consistent. No immediate funds parking flag detected.' });
+        }
 
-        window.calculateRisk = async () => {
-            if (!validateInputs(calcSteps[currentCalcStep])) return;
-            const btn = document.getElementById('calc-submit-btn');
-            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> ANALYZING...`;
+        // ── CHECK 3: Bank Statement History ──
+        const strictCountries = ['Spain','France','Italy','Greece'];
+        if (statHist === 'under3') {
+            ragScore = Math.max(ragScore, 2);
+            checks.push({ s:'fail', title:'Bank Statement History — Critical',
+                desc:'Less than 3 months of bank statements is a critical flag. Most Schengen embassies require a minimum of 3–6 months of uninterrupted account history. Do not apply until you have at least 3 months.' });
+        } else if (statHist === '3months' && strictCountries.includes(dest)) {
+            ragScore = Math.max(ragScore, 1);
+            checks.push({ s:'warn', title:'Bank Statement History — Advisory',
+                desc:`${dest} typically expects 6 months of statements. You have 3 months. Consider strengthening your file or delaying the application to build a longer financial record before submission.` });
+        } else {
+            checks.push({ s:'pass', title:'Bank Statement History',
+                desc:`${statHist === '6months' ? '6+ months' : '3 months'} of statement history meets standard Schengen requirements.` });
+        }
 
-            const email = document.getElementById('calcEmail').value;
-            const tripCost = parseFloat(document.getElementById('tripCost').value);
-            const monthlyDisposable = parseFloat(document.getElementById('monthlyDisposable').value);
-            const closingBalance = parseFloat(document.getElementById('closingBalance').value);
-            const recentLargeDeposit = document.getElementById('recentLargeDeposit').checked;
-
-            let riskLevel, riskTag, message, colorClass, borderClass, btnText, btnLink;
-
-            if (closingBalance < tripCost) {
-                riskLevel = "CRITICAL RISK"; riskTag = "INSOLVENT PROFILE";
-                message = "You do not have enough funds to cover the trip cost. This leads to an automatic refusal under Appendix V 4.2(e). Do not apply yet.";
-                colorClass = "bg-red-900/40 text-red-400"; borderClass = "border-red-500";
-                btnText = "FIX INSOLVENCY STATUS (£39.99)"; btnLink = STRIPE_LINK_QUICKSCAN;
-            } else if (recentLargeDeposit) {
-                riskLevel = "HIGH RISK"; riskTag = "FUNDS PARKING DETECTED";
-                message = "The large deposit you declared is a major 'Deception' trigger. The ECO will assume the money is borrowed or inflated. This carries a risk of a 10-year ban.";
-                colorClass = "bg-red-900/40 text-red-400"; borderClass = "border-red-500";
-                btnText = "BOOK FORENSIC AUDIT (£39.99)"; btnLink = STRIPE_LINK_QUICKSCAN;
-            } else if (tripCost > (closingBalance * 0.60) || tripCost > (monthlyDisposable * 3)) {
-                riskLevel = "MODERATE RISK"; riskTag = "PROPORTIONALITY CONCERN";
-                message = "While you have the funds, the trip is too expensive relative to your savings or income. The ECO will view this expenditure as 'not credible' for a genuine visitor.";
-                colorClass = "bg-yellow-900/30 text-yellow-400"; borderClass = "border-yellow-500";
-                btnText = "FIX RATIO STRATEGY (£39.99)"; btnLink = STRIPE_LINK_QUICKSCAN;
+        // ── CHECK 4: 28-Day Statement Rule ──
+        if (travelDate) {
+            const today    = new Date(); today.setHours(0,0,0,0);
+            const travel   = new Date(travelDate);
+            const diffDays = Math.round((travel - today) / 86400000);
+            if (diffDays > 28) {
+                ragScore = Math.max(ragScore, 1);
+                checks.push({ s:'warn', title:'28-Day Bank Statement Rule',
+                    desc:`Your travel date is <strong>${diffDays} days away</strong>. Your current bank statement will be older than 28 days at time of submission. You <strong>must obtain a fresh statement</strong> within 28 days of the embassy appointment.` });
+            } else if (diffDays >= 0) {
+                checks.push({ s:'pass', title:'28-Day Bank Statement Rule',
+                    desc:`Travel date is ${diffDays} day${diffDays !== 1 ? 's' : ''} away. Your statement will be within the valid 28-day window at submission.` });
             } else {
-                riskLevel = "LOW RISK"; riskTag = "FINANCIALLY COMPLIANT";
-                message = "Your financial ratios are healthy. However, 70% of refusals for wealthy applicants are due to 'Soft Factors' (Ties & Narrative). You are ready for the final check.";
-                colorClass = "bg-green-900/30 text-green-400"; borderClass = "border-green-500";
-                btnText = "BOOK FULL STRATEGY PACKAGE"; btnLink = "index.html#services-section"; 
+                checks.push({ s:'warn', title:'28-Day Bank Statement Rule', desc:'Travel date appears to be in the past. Please verify your intended travel date.' });
             }
+        } else {
+            ragScore = Math.max(ragScore, 1);
+            checks.push({ s:'warn', title:'28-Day Bank Statement Rule',
+                desc:'No travel date entered. Ensure your bank statement is no older than 28 days at submission. Enter your travel date above for a precise check.' });
+        }
 
-            // 1. SILENTLY SAVE TO FIREBASE
-            if (window.saveAutomatedCheckToFirebase) {
-                window.saveAutomatedCheckToFirebase({
-                    email: email,
-                    tripCost: tripCost,
-                    disposableIncome: monthlyDisposable,
-                    bankBalance: closingBalance,
-                    hasLargeDeposit: recentLargeDeposit,
-                    riskLevel: riskLevel,
-                    timestamp: new Date().toISOString()
-                });
-            }
+        // ── CHECK 5: Employment Consistency ──
+        if (employment === 'unemployed') {
+            ragScore = Math.max(ragScore, 2);
+            checks.push({ s:'fail', title:'Employment & Source of Funds — Critical',
+                desc:'Unemployed status with no declared sponsor is a critical red flag. The ECO will question your source of funds and intent to return. A notarised sponsor letter with supporting bank evidence is essential — or delay application until employment can be demonstrated.' });
+        } else if (employment === 'sponsored') {
+            checks.push({ s:'pass', title:'Sponsored Application Noted',
+                desc:'Ensure the sponsor letter is signed, dated, and accompanied by their 3–6 months of bank statements and proof of relationship.' });
+        } else {
+            checks.push({ s:'pass', title:'Employment & Income Consistency',
+                desc:`Employment status (${employment}) is consistent with the financial profile presented. Include recent payslips and an employer confirmation letter in the file.` });
+        }
 
-            // 2. SHOW THE RESULT TO THE USER
-            calcSteps[currentCalcStep].classList.remove('active');
-            const resultArea = document.getElementById('calc-result-area');
-            resultArea.className = `mt-4 p-8 rounded-lg text-center border-2 ${borderClass} ${colorClass} step-container active`;
-            resultArea.innerHTML = `
-                <div class="text-xs font-bold uppercase tracking-widest mb-2 opacity-80">Forensic Verdict</div>
-                <h3 class="text-3xl font-black mb-1">${riskLevel}</h3>
-                <div class="inline-block px-4 py-1 border border-current rounded-full text-xs font-bold mb-6">${riskTag}</div>
-                <p class="text-sm text-white font-medium mb-8 leading-relaxed">${message}</p>
-                <div class="space-y-3">
-                    <a href="${btnLink}" class="block w-full bg-gold text-[#0d1117] py-4 rounded font-bold hover:bg-[#fef08a] transition shadow-lg uppercase text-sm">${btnText}</a>
-                    <a href="${WHATSAPP_LINK}" class="block w-full text-xs text-[#8b949e] hover:text-white transition mt-4">Speak to a Strategist First <i class="fa-brands fa-whatsapp ml-1"></i></a>
-                </div>
-            `;
-            updateProgress('calc-progress', 100);
-        };
+        // ── CHECK 6: Lump Sum / Large Deposit ──
+        if (bigDeposit) {
+            ragScore = Math.max(ragScore, 2);
+            checks.push({ s:'fail', title:'Large Deposit / Lump Sum Risk',
+                desc:'A large deposit in the last 90 days is a major deception trigger. ECOs may assume funds are borrowed to inflate the balance — a pattern linked to 10-year visa bans. This must be addressed with a credible, documented source-of-funds narrative before submission.' });
+        } else {
+            checks.push({ s:'pass', title:'Large Deposit / Lump Sum Risk',
+                desc:'No large deposits declared. Balance appears organically accumulated over time. No immediate lump-sum deception flag.' });
+        }
 
+        // ── CHECK 7: Previous Refusal ──
+        if (prevRefusal) {
+            ragScore = Math.max(ragScore, 1);
+            checks.push({ s:'warn', title:'Previous Refusal on Record',
+                desc:'A prior refusal is not automatically fatal to a new application, but it must be addressed directly in your cover letter. Failure to disclose a known refusal is classified as deception and carries a mandatory refusal.' });
+        } else {
+            checks.push({ s:'pass', title:'Previous Visa Refusal',
+                desc:'No prior refusals declared. A clean record strengthens the credibility of your application file.' });
+        }
 
-        // --- MANUAL FORM LOGIC (GOOGLE SHEETS INTEGRATION) ---
-        let currentManualStep = 0;
-        const manualSteps = document.querySelectorAll('.manual-step');
-
-        window.nextManualStep = (n) => {
-            if (!validateInputs(manualSteps[currentManualStep])) return;
-            manualSteps[currentManualStep].classList.remove('active');
-            currentManualStep = n;
-            manualSteps[currentManualStep].classList.add('active');
-            updateProgress('manual-progress', (currentManualStep + 1) * 25);
-        };
-        window.prevManualStep = (n) => {
-            manualSteps[currentManualStep].classList.remove('active');
-            currentManualStep = n;
-            manualSteps[currentManualStep].classList.add('active');
-            updateProgress('manual-progress', (currentManualStep + 1) * 25);
-        };
-
-        window.submitGoogleForm = async () => {
-            if (!validateInputs(manualSteps[currentManualStep])) return;
-            const btn = document.getElementById('gsheet-submit-btn');
-            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> SENDING...`;
-
-            const formData = {
+        // ── SAVE TO FIREBASE (silently) ──
+        if (window._fbSaveAutomated) {
+            window._fbSaveAutomated({
+                destination: dest, days, income, balance,
+                statHistory: statHist, employment,
+                bigDeposit, prevRefusal,
+                rag: ['GREEN','AMBER','RED'][ragScore],
+                passCount: checks.filter(c => c.s === 'pass').length,
+                flagCount: checks.filter(c => c.s !== 'pass').length,
                 timestamp: new Date().toISOString(),
-                email: document.getElementById('m_email').value,
-                whatsapp: document.getElementById('m_whatsapp').value,
-                fullName: document.getElementById('m_name').value,
-                dob: document.getElementById('m_dob').value,
-                nationality: document.getElementById('m_nationality').value,
-                residence: document.getElementById('m_residence').value,
-                maritalStatus: document.getElementById('m_marital').value,
-                travelHistory: document.getElementById('m_travel_history').value,
-                refusals: document.getElementById('m_refusals').value,
-                employment: document.getElementById('m_employment').value,
-                bankStatement: document.getElementById('m_bank').value,
-                sponsor: document.getElementById('m_sponsor').value,
-                destination: document.getElementById('m_destination').value,
-                purpose: document.getElementById('m_purpose').value,
-                source: document.getElementById('m_source').value
-            };
+                source: 'automated_calculator_v3'
+            });
+        }
 
-            try {
-                // Using no-cors because Apps Script does not return standard CORS headers
-                await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors', 
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify(formData)
-                });
-                
-                // Show Success Screen
-                manualSteps[currentManualStep].classList.remove('active');
-                document.getElementById('manual-success').classList.remove('hidden');
-                document.getElementById('manual-success').classList.add('active');
-                updateProgress('manual-progress', 100);
-                
-            } catch (error) {
-                console.error("Submission Error:", error);
-                alert("There was an issue connecting to the server. Please check your internet connection and try again.");
-                btn.innerHTML = `<span>SUBMIT PROFILE</span> <i class="fa-solid fa-paper-plane"></i>`;
-            }
+        renderResult(checks, ragScore, T, dest, days);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       RENDER RESULT
+    ═══════════════════════════════════════════════════════ */
+    function renderResult(checks, ragScore, T, dest, days) {
+        const cfg = [
+            { label:'FINANCIALLY STRONG',  tag:'All checks passed',      cls:'verdict-green', ic:'fa-circle-check',       icCol:'#22c55e', hex:'#22c55e' },
+            { label:'REVIEW RECOMMENDED',  tag:'Amber flags detected',    cls:'verdict-amber', ic:'fa-triangle-exclamation',icCol:'#eab308', hex:'#eab308' },
+            { label:'DO NOT SUBMIT YET',   tag:'Critical issues found',   cls:'verdict-red',   ic:'fa-circle-xmark',       icCol:'#ef4444', hex:'#ef4444' },
+        ][ragScore];
+
+        const passCount = checks.filter(c => c.s === 'pass').length;
+        const flagCount = checks.length - passCount;
+
+        const rows = checks.map(c => {
+            const iconMap = { pass:'fa-check', warn:'fa-triangle-exclamation', fail:'fa-xmark' };
+            return `<div class="check-row">
+                <div class="check-icon ${c.s}"><i class="fa-solid ${iconMap[c.s]}"></i></div>
+                <div><p class="text-white font-semibold text-sm mb-0.5">${c.title}</p>
+                     <p class="text-[#7a8899] text-xs leading-relaxed font-medium">${c.desc}</p></div>
+            </div>`;
+        }).join('');
+
+        const ctaHtml = ragScore > 0 ? `
+            <div class="quickscan-cta">
+                <div class="flex items-start gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(201,168,76,0.12); border:1px solid rgba(201,168,76,0.35)">
+                        <i class="fa-solid fa-magnifying-glass-chart" style="color:var(--brand-gold)"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold text-base" style="font-family:'Cormorant Garamond',serif;">QuickScan Audit — £39.99</h4>
+                        <p class="text-[#7a8899] text-xs mt-0.5 font-medium">A senior strategist audits your full financial file and delivers a Fatal Flaws report within 48 hours — with an exact correction plan for every flag above.</p>
+                    </div>
+                </div>
+                <a href="${QUICKSCAN_STRIPE}" target="_blank" class="w-full btn-gold py-3.5 rounded-xl text-sm block text-center mb-3">
+                    Book QuickScan Audit — £39.99 <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                <a href="${WA}" target="_blank" class="block text-center text-[#7a8899] hover:text-white text-xs transition font-medium">
+                    <i class="fa-brands fa-whatsapp mr-1"></i> Speak to a Strategist First
+                </a>
+            </div>` : `
+            <div class="quickscan-cta">
+                <div class="flex items-start gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(34,197,94,0.1); border:1px solid rgba(34,197,94,0.3)">
+                        <i class="fa-solid fa-circle-check text-green-400"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold text-base" style="font-family:'Cormorant Garamond',serif;">Ready for the next step?</h4>
+                        <p class="text-[#7a8899] text-xs mt-0.5 font-medium">Your financials are solid. 70% of refusals for financially strong applicants come from "soft factors" — narrative, ties, and intent. Our strategy packages cover all of it.</p>
+                    </div>
+                </div>
+                <a href="index.html#services-section" class="w-full btn-gold py-3.5 rounded-xl text-sm block text-center">
+                    View Strategy Packages <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>`;
+
+        document.getElementById('calc-result-output').innerHTML = `
+            <div class="verdict-box ${cfg.cls} mb-6">
+                <i class="fa-solid ${cfg.ic} text-3xl mb-3 block" style="color:${cfg.icCol}"></i>
+                <p class="text-xs font-bold uppercase tracking-widest opacity-60 mb-1">${dest} · ${days} day${days !== 1 ? 's' : ''} · Forensic Verdict</p>
+                <h3 class="text-2xl font-black text-white mb-1" style="font-family:'Cormorant Garamond',serif;">${cfg.label}</h3>
+                <span class="inline-block px-4 py-1 border rounded-full text-xs font-bold mt-1" style="color:${cfg.hex}; border-color:${cfg.hex}">${cfg.tag}</span>
+                <div class="mt-4 flex flex-wrap justify-center gap-5 text-xs font-medium text-[#7a8899]">
+                    <span>Required: <strong class="text-white">£${T.totalGBP.toLocaleString()} (€${T.totalEUR.toLocaleString()})</strong></span>
+                    <span>${T.dailyEUR ? `Daily rate: <strong class="text-white">€${T.dailyEUR}/day (£${T.dailyGBP}/day)</strong>` : ''}</span>
+                </div>
+                <div class="mt-3 flex justify-center gap-5 text-xs">
+                    <span class="text-green-400 font-bold">${passCount} passed</span>
+                    <span class="${flagCount > 0 ? 'text-red-400' : 'text-green-400'} font-bold">${flagCount} flagged</span>
+                </div>
+            </div>
+
+            <div class="bg-[#080c10] border border-[#1e2730] rounded-2xl p-5 mb-5">
+                <p class="text-[#7a8899] text-xs font-bold uppercase tracking-widest mb-3">Detailed Check Breakdown</p>
+                ${rows}
+            </div>
+
+            ${ctaHtml}
+
+            <button onclick="calcNext(4)" class="w-full mt-5 btn-outline-gold py-3 rounded-xl text-xs">
+                <i class="fa-solid fa-envelope mr-2"></i> Email Me This Report
+            </button>
+        `;
+    }
+
+    /* ─── Email capture ─── */
+    async function submitEmailCapture() {
+        const name  = document.getElementById('c_name_capture').value.trim();
+        const email = document.getElementById('c_email_capture').value.trim();
+        if (!email || !email.includes('@')) { document.getElementById('c_email_capture').classList.add('error'); return; }
+        document.getElementById('c_email_capture').classList.remove('error');
+        const btn = document.getElementById('email-capture-btn');
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+        btn.disabled = true;
+        if (window._fbSaveAutomated) {
+            await window._fbSaveAutomated({ name, email, source: 'email_capture', timestamp: new Date().toISOString() });
+        }
+        document.getElementById('email-capture-success').classList.remove('hidden');
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> Sent!';
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       TOOL 2 — MANUAL FORM NAVIGATION
+    ═══════════════════════════════════════════════════════ */
+    let manualStep = 0;
+    const MANUAL_TOTAL = 5;
+
+    function getManualPanels() { return document.querySelectorAll('.manual-step'); }
+
+    function toggleRefusalDetail() {
+        const yn = document.getElementById('m_refusal_yn').value;
+        document.getElementById('refusal-detail-group').classList.toggle('hidden', yn !== 'Yes');
+    }
+
+    function manualValidate(idx) {
+        const panel    = getManualPanels()[idx];
+        const required = panel.querySelectorAll('[required]');
+        let ok = true;
+        required.forEach(el => {
+            if (!el.value.trim()) { el.classList.add('error'); ok = false; }
+            else el.classList.remove('error');
+        });
+        return ok;
+    }
+
+    function manualNext(n) {
+        if (!manualValidate(manualStep)) return;
+        const panels = getManualPanels();
+        panels[manualStep].classList.remove('active');
+        manualStep = n;
+        panels[manualStep].classList.add('active');
+        updateStepUI('manual-step-indicators', manualStep, MANUAL_TOTAL);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function manualPrev(n) {
+        const panels = getManualPanels();
+        panels[manualStep].classList.remove('active');
+        manualStep = n;
+        panels[manualStep].classList.add('active');
+        updateStepUI('manual-step-indicators', manualStep, MANUAL_TOTAL);
+    }
+
+    async function submitManualForm() {
+        if (!manualValidate(manualStep)) {
+            document.getElementById('manual-error').classList.remove('hidden');
+            return;
+        }
+        document.getElementById('manual-error').classList.add('hidden');
+
+        const btn = document.getElementById('manual-submit-btn');
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
+        btn.disabled  = true;
+
+        const refusalYN = document.getElementById('m_refusal_yn').value;
+
+        const payload = {
+            fullName:          document.getElementById('m_name').value.trim(),
+            email:             document.getElementById('m_email').value.trim(),
+            whatsapp:          document.getElementById('m_whatsapp').value.trim(),
+            nationality:       document.getElementById('m_nationality').value.trim(),
+            countryOfResidence:document.getElementById('m_residence').value.trim(),
+            destination:       document.getElementById('m_destination').value,
+            purposeOfTravel:   document.getElementById('m_purpose').value,
+            travelDateFrom:    document.getElementById('m_date_from').value,
+            travelDateTo:      document.getElementById('m_date_to').value,
+            employmentStatus:  document.getElementById('m_employment').value,
+            monthlyIncomeRange:document.getElementById('m_income').value,
+            bankBalanceRange:  document.getElementById('m_balance').value,
+            statementHistory:  document.getElementById('m_statement').value,
+            hasSponsor:        document.getElementById('m_sponsor').value,
+            previousRefusal:   refusalYN,
+            refusalDetail:     refusalYN === 'Yes' ? (document.getElementById('m_refusal_detail').value.trim() || 'Not specified') : 'N/A',
+            travelHistory:     document.getElementById('m_travel_history').value,
+            heardAboutUs:      document.getElementById('m_source').value,
+            additionalNotes:   document.getElementById('m_notes').value.trim(),
+            timestamp:         new Date().toISOString(),
+            source:            'manual_assessment' // per spec
         };
-    </script>
+
+        if (window._fbSaveAssessment) {
+            await window._fbSaveAssessment(payload);
+        }
+
+        manualNext(4);
+    }
+</script>
+
+<!-- Tawk.to -->
+<style> @media (max-width:768px) { .tawk-min-container { bottom: 100px !important; } } </style>
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true; s1.src='https://embed.tawk.to/69ab4b7560e0031c3443b1b0/1jj2htghu';
+        s1.charset='UTF-8'; s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+    })();
+</script>
+
+
+<!-- Mobile Bottom Nav -->
+<style>
+#mobile-bottom-nav { display: none; }
+@media (max-width: 767px) {
+    #mobile-bottom-nav { display: block; }
+    .whatsapp-float { bottom: 90px !important; }
+    body { padding-bottom: 80px; }
+}
+</style>
+<nav id="mobile-bottom-nav" style="position:fixed; bottom:0; left:0; right:0; z-index:9998; background:#0f1419; border-top:1px solid #1e2730; -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); padding-bottom:env(safe-area-inset-bottom);">
+    <div style="display:flex;">
+        <a href="index.html" class="mobile-nav-item" data-nav="home" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-house" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Home</span>
+        </a>
+        <a href="calculator.html" class="mobile-nav-item" data-nav="readiness" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-clipboard-list" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Readiness</span>
+        </a>
+        <a href="blog/index.html" class="mobile-nav-item" data-nav="insights" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-newspaper" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Insights</span>
+        </a>
+        <a href="about.html" class="mobile-nav-item" data-nav="about" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-circle-info" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">About</span>
+        </a>
+        <a href="index.html#faq" class="mobile-nav-item" data-nav="faq" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-circle-question" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">FAQ</span>
+        </a>
+    </div>
+</nav>
+<script>
+(function(){
+    var p = window.location.pathname;
+    var active = {
+        home:      (p.endsWith('/index.html') || p === '/') && !p.includes('/blog/'),
+        readiness: p.endsWith('/calculator.html'),
+        insights:  p.includes('/blog/'),
+        about:     p.endsWith('/about.html'),
+        faq:       false
+    };
+    document.querySelectorAll('.mobile-nav-item').forEach(function(el){
+        if(active[el.getAttribute('data-nav')]) el.style.color = '#c9a84c';
+    });
+})();
+</script>
+
 </body>
 </html>

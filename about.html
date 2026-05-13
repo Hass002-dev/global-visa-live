@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Global Visa & Journeys — London Visa Strategy Consultancy</title>
+
+    <meta name="description" content="The London-based visa strategy consultancy disrupting the predatory visa fixer industry. Discover our mission, values, and the Goldilocks Zone we occupy between travel agents, immigration lawyers, and unregulated middlemen.">
+
+    <!-- FAVICON -->
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+
+    <!-- TAILWIND CSS -->
+    <link rel="stylesheet" href="./output.css">
+
+    <!-- FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- GOOGLE ANALYTICS 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1EZM399KT"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-Q1EZM399KT');
+    </script>
+
+    <style>
+        /* ── DESIGN TOKENS — matched to index.html ── */
+        :root {
+            --bg-primary: #080c10;
+            --bg-secondary: #0f1419;
+            --bg-card: #131920;
+            --border-surface: #1e2730;
+            --border-subtle: #252e38;
+            --brand-gold: #c9a84c;
+            --brand-gold-light: #e8c97a;
+            --brand-gold-dim: #8a6f2e;
+            --text-primary: #eef2f7;
+            --text-secondary: #7a8899;
+            --text-muted: #4a5568;
+            --green-accent: #22c55e;
+            --blue-accent: #38bdf8;
+            --whatsapp: #25d366;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            font-weight: 450;
+        }
+
+        h1, h2, h3, h4, .brand-font {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        p, li, span, a, label { font-weight: 450; }
+
+        /* ── UTILITY ── */
+        .text-gold { color: var(--brand-gold); }
+        .text-gold-light { color: var(--brand-gold-light); }
+        .border-gold { border-color: var(--brand-gold); }
+        .bg-card { background-color: var(--bg-card); }
+
+        /* ── NOISE TEXTURE OVERLAY — matched to index ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        /* ── ABOUT HERO — different image to differentiate from homepage ── */
+        .about-hero-bg {
+            background-image:
+                linear-gradient(to bottom, rgba(8,12,16,0.95) 0%, rgba(8,12,16,0.82) 50%, rgba(8,12,16,0.98) 100%),
+                url('https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=2670&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* ── BUTTONS ── */
+        .btn-gold {
+            background: linear-gradient(135deg, var(--brand-gold) 0%, var(--brand-gold-light) 100%);
+            color: #080c10;
+            font-weight: 800;
+            font-family: 'DM Sans', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-gold::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: white;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .btn-gold:hover::after { opacity: 0.1; }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,168,76,0.35); }
+
+        .btn-outline-gold {
+            border: 1.5px solid var(--brand-gold);
+            color: var(--brand-gold);
+            font-weight: 700;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+        .btn-outline-gold:hover {
+            background: linear-gradient(135deg, var(--brand-gold), var(--brand-gold-light));
+            color: #080c10;
+            transform: translateY(-1px);
+        }
+
+        /* ── ANIMATIONS ── */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .fade-in-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* ── NAV SCROLL EFFECT ── */
+        .nav-scrolled {
+            background: rgba(8,12,16,0.98) !important;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+        }
+
+        /* ── SECTION DIVIDER ── */
+        .gold-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--brand-gold-dim), transparent);
+        }
+
+        /* ── ABOUT PAGE SPECIFIC ── */
+
+        /* Pull quote — used in Our Story section */
+        .pull-quote {
+            position: relative;
+            border-left: 3px solid var(--brand-gold);
+            padding: 8px 0 8px 28px;
+            margin: 32px 0;
+        }
+        .pull-quote::before {
+            content: '"';
+            position: absolute;
+            left: -10px;
+            top: -28px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 6rem;
+            color: var(--brand-gold);
+            opacity: 0.18;
+            line-height: 1;
+        }
+
+        /* Mission card — clean prose block */
+        .mission-block {
+            background: linear-gradient(135deg, rgba(201,168,76,0.06) 0%, rgba(8,12,16,0) 100%);
+            border: 1px solid var(--border-surface);
+            border-left: 3px solid var(--brand-gold);
+            border-radius: 12px;
+            padding: 40px;
+        }
+
+        /* Differentiator card — used in Goldilocks Zone */
+        .diff-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-surface);
+            border-radius: 12px;
+            padding: 28px;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        .diff-card.featured {
+            border-color: var(--brand-gold);
+            box-shadow: 0 0 40px rgba(201,168,76,0.10);
+        }
+        .diff-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--brand-gold-light);
+        }
+        .diff-card .weakness {
+            color: #ef4444;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 14px;
+        }
+
+        /* Values card */
+        .value-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-surface);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--brand-gold), var(--brand-gold-light));
+            transition: width 0.5s ease;
+        }
+        .value-card:hover { border-color: var(--brand-gold-dim); transform: translateY(-3px); }
+        .value-card:hover::before { width: 100%; }
+
+        .value-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--brand-gold);
+            opacity: 0.5;
+            line-height: 1;
+        }
+
+        /* Numbers / stats large */
+        .big-stat {
+            text-align: center;
+            padding: 24px 12px;
+        }
+        .big-stat-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            color: var(--brand-gold);
+            line-height: 1;
+            letter-spacing: -0.02em;
+        }
+        .big-stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 700;
+            margin-top: 12px;
+        }
+
+        /* Audience card */
+        .audience-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-surface);
+            border-top: 2px solid var(--brand-gold);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .audience-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.5); }
+
+        .audience-card-header {
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        /* Legal transparency callout */
+        .legal-callout {
+            background: linear-gradient(135deg, rgba(239,68,68,0.06) 0%, rgba(8,12,16,0) 100%);
+            border: 1px solid rgba(239,68,68,0.2);
+            border-left: 3px solid #ef4444;
+            border-radius: 12px;
+            padding: 32px;
+        }
+
+        /* Whatsapp float — matches index */
+        @keyframes ringShake {
+            0%, 75%, 100% { transform: rotate(0) scale(1); }
+            77%, 81%, 85%, 89% { transform: rotate(-14deg) scale(1.08); }
+            79%, 83%, 87% { transform: rotate(14deg) scale(1.08); }
+        }
+        .whatsapp-float {
+            position: fixed;
+            width: 58px; height: 58px;
+            bottom: 28px; right: 28px;
+            background: var(--whatsapp);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 28px;
+            box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+            z-index: 999;
+            display: flex; align-items: center; justify-content: center;
+            animation: ringShake 5s infinite;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .whatsapp-float:hover {
+            animation: none;
+            transform: scale(1.12);
+            box-shadow: 0 6px 28px rgba(37,211,102,0.6);
+        }
+
+        @media (max-width: 768px) {
+            .tawk-min-container { bottom: 100px !important; }
+            .big-stat-number { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- NAVIGATION — copied from index.html for consistency        -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<nav id="main-nav" class="bg-[#080c10]/90 backdrop-blur-md border-b border-[#1e2730] fixed w-full z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-20 items-center">
+            <a href="index.html" class="flex items-center space-x-3">
+                <img src="./Updated Logo.png" alt="GV&J Logo" class="h-11 w-11 object-contain rounded-md" onerror="this.style.display='none'">
+                <div class="flex flex-col leading-none">
+                    <span class="text-xl md:text-2xl font-black tracking-tight hidden md:block" style="font-family:'Cormorant Garamond',serif; letter-spacing:0.02em;">
+                        <span class="text-gold">GLOBAL VISA</span> <span class="text-white">&amp; JOURNEYS</span>
+                    </span>
+                    <span class="text-xl font-black tracking-tight md:hidden" style="font-family:'Cormorant Garamond',serif;">GV<span class="text-gold">&amp;</span>J</span>
+                </div>
+            </a>
+            <div class="flex items-center space-x-3 md:space-x-5">
+                <a href="index.html" class="text-[#7a8899] hover:text-white font-semibold transition text-sm hidden md:block">Home</a>
+                <a href="about.html" class="text-gold font-semibold transition text-sm hidden md:block">About</a>
+                <a href="blog/index.html" class="text-sm text-[#7a8899] hover:text-white font-semibold transition hidden md:block">Insights</a>
+                <a href="index.html#faq" class="text-sm text-[#7a8899] hover:text-white font-semibold transition hidden md:block">FAQ</a>
+                <a href="https://wa.me/447511219482" target="_blank" class="btn-outline-gold px-3 py-2 md:px-4 rounded-lg text-xs md:text-sm flex items-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-xs"></i>
+                    <span class="hidden md:inline">WhatsApp HQ</span><span class="md:hidden">Chat</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 1. HERO                                                    -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<header class="about-hero-bg min-h-[85vh] flex items-center justify-center text-center px-4 pt-36 md:pt-40 pb-24 relative z-10">
+    <div class="max-w-4xl fade-in-up visible">
+        <div class="inline-flex items-center gap-2 bg-[#0f1419]/80 backdrop-blur-sm border border-[#1e2730] rounded-full px-5 py-1.5 mb-8">
+            <span class="w-2 h-2 rounded-full bg-gold animate-pulse"></span>
+            <span class="text-gold text-xs font-bold tracking-widest uppercase">About Global Visa &amp; Journeys</span>
+        </div>
+
+        <h1 class="text-5xl md:text-7xl font-black text-white mb-6 leading-[1.05]" style="font-family:'Cormorant Garamond',serif;">
+           <br> We Built This Firm<br>
+            <em class="text-gold">to End Predatory Visa Practice.</em>
+        </h1>
+        <p class="text-lg md:text-xl text-[#adb8c4] max-w-2xl mx-auto font-medium leading-relaxed">
+            Global Visa &amp; Journeys is a London consultancy disrupting an industry built on shortcuts, false promises, and forged paperwork. We replace it with forensic preparation, radical transparency, and a 100% compliance record.
+        </p>
+    </div>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 2. OUR STORY                                               -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="py-24 bg-[#0f1419] border-y border-[#1e2730] relative z-10">
+    <div class="max-w-4xl mx-auto px-4 fade-in-up">
+
+        <div class="text-center mb-12">
+            <span class="text-gold text-xs tracking-widest uppercase font-bold">Our Story</span>
+            <h2 class="text-4xl md:text-5xl font-bold text-white mt-3" style="font-family:'Cormorant Garamond',serif;">Born from a Broken Industry.</h2>
+        </div>
+
+        <div class="text-[#adb8c4] text-base md:text-lg leading-relaxed font-medium space-y-6">
+            <p>
+                The visa industry has long been split into two extremes. On one side, immigration lawyers charging £1,500 to £3,000 for advice that travellers don't quite need. On the other, an underworld of unregulated fixers — operators who promise the world, deliver fabricated documents, and leave clients exposed to ten-year bans.
+            </p>
+
+            <div class="pull-quote">
+                <p class="text-xl md:text-2xl text-white italic font-medium leading-relaxed" style="font-family:'Cormorant Garamond',serif;">
+                    The middle ground — where most genuine applicants actually live — was abandoned. So we built it.
+                </p>
+            </div>
+
+            <p>
+                Global Visa &amp; Journeys was registered in England &amp; Wales (Companies House No. 16959031) with one founding principle: that the visa application process deserves the same forensic rigour as a top London law firm, delivered with the warmth and accessibility of a trusted advisor. No fabricated documents. No false guarantees. No corners cut.
+            </p>
+
+            <p>
+                We saw families lose £2,000 in flight bookings to a single refusal letter. We saw students miss the start of term because a fixer had submitted a recycled cover letter copied from a Reddit thread. We saw professionals from Lagos, Banjul, Freetown and Accra carry the financial burden of repeat applications because nobody had told them the real reason their first attempt failed.
+            </p>
+
+            <p class="text-white font-semibold">
+                That ends with us. We sit in what the industry calls the <span class="text-gold">Goldilocks Zone</span> — the precision of legal advice without the price tag, and the logistics of a travel agent without the lack of expertise.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 3. MISSION                                                 -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="py-24 bg-[#080c10] relative z-10">
+    <div class="max-w-5xl mx-auto px-4 fade-in-up">
+
+        <div class="grid md:grid-cols-5 gap-12 items-center">
+
+            <div class="md:col-span-2">
+                <span class="text-gold text-xs tracking-widest uppercase font-bold">Our Mission</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-white mt-3 leading-tight" style="font-family:'Cormorant Garamond',serif;">
+                    To make the bureaucracy <em class="text-gold">invisible.</em>
+                </h2>
+            </div>
+
+            <div class="md:col-span-3">
+                <div class="mission-block">
+                    <p class="text-[#eef2f7] text-lg leading-relaxed font-medium mb-5">
+                        We exist to handle the strict legal logic, document forensics, and embassy compliance — so our clients can focus on the journey ahead.
+                    </p>
+                    <p class="text-[#adb8c4] text-base leading-relaxed font-medium">
+                        Every application we touch must be capable of withstanding the most sceptical visa officer. Every narrative must be defensible. Every financial trail must be explainable. We disrupt the predatory visa industry by proving that ethical, transparent consulting is not only possible — it's the only model that works.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 4. WHAT MAKES US DIFFERENT — The Goldilocks Zone           -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="py-24 bg-[#0f1419] border-y border-[#1e2730] relative z-10">
+    <div class="max-w-7xl mx-auto px-4">
+
+        <div class="text-center mb-16 fade-in-up">
+            <span class="text-gold text-xs tracking-widest uppercase font-bold">What Makes Us Different</span>
+            <h2 class="text-4xl md:text-5xl font-bold text-white mt-3" style="font-family:'Cormorant Garamond',serif;">The Goldilocks Zone.</h2>
+            <p class="text-[#7a8899] mt-4 max-w-2xl mx-auto text-base font-medium">
+                There are four kinds of operators in the visa industry. Three of them have clear weaknesses. The fourth is us.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 fade-in-up">
+
+            <!-- General Travel Agents -->
+            <div class="diff-card">
+                <div class="w-12 h-12 rounded-lg bg-[#1e2730] flex items-center justify-center mb-5">
+                    <i class="fa-solid fa-suitcase-rolling text-[#7a8899] text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">General Travel Agents</h3>
+                <p class="text-[#7a8899] text-sm leading-relaxed font-medium">
+                    Focus on flights and holidays. Submit generic itineraries that get flagged as fake. Refuse complex cases.
+                </p>
+                <p class="weakness"><i class="fa-solid fa-xmark mr-1"></i> No visa expertise</p>
+            </div>
+
+            <!-- Immigration Lawyers -->
+            <div class="diff-card">
+                <div class="w-12 h-12 rounded-lg bg-[#1e2730] flex items-center justify-center mb-5">
+                    <i class="fa-solid fa-scale-balanced text-[#7a8899] text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">Immigration Lawyers</h3>
+                <p class="text-[#7a8899] text-sm leading-relaxed font-medium">
+                    Built for appeals, asylum, deportation. Charge £1,500 to £3,000+ for advice. Don't manage logistics or flights.
+                </p>
+                <p class="weakness"><i class="fa-solid fa-xmark mr-1"></i> Out of reach for travellers</p>
+            </div>
+
+            <!-- Fixers -->
+            <div class="diff-card">
+                <div class="w-12 h-12 rounded-lg bg-[#1e2730] flex items-center justify-center mb-5">
+                    <i class="fa-solid fa-user-secret text-[#7a8899] text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">Visa Fixers &amp; Touts</h3>
+                <p class="text-[#7a8899] text-sm leading-relaxed font-medium">
+                    Unregulated, often fraudulent. Use forged documents that expose clients to 10-year bans. No insurance, no accountability.
+                </p>
+                <p class="weakness"><i class="fa-solid fa-xmark mr-1"></i> High client risk</p>
+            </div>
+
+            <!-- GV&J -->
+            <div class="diff-card featured">
+                <div class="w-12 h-12 rounded-lg bg-gold/15 border border-gold/40 flex items-center justify-center mb-5">
+                    <i class="fa-solid fa-shield-halved text-gold text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">Global Visa &amp; Journeys</h3>
+                <p class="text-[#adb8c4] text-sm leading-relaxed font-medium">
+                    Forensic document precision. Full logistics management. Insured, compliant, transparent. Mid-tier price, top-tier outcome.
+                </p>
+                <p class="text-gold text-[11px] font-bold uppercase tracking-widest mt-3.5"><i class="fa-solid fa-check mr-1"></i> The Goldilocks Zone</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 5. VALUES                                                  -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="py-24 bg-[#080c10] relative z-10">
+    <div class="max-w-6xl mx-auto px-4">
+
+        <div class="text-center mb-16 fade-in-up">
+            <span class="text-gold text-xs tracking-widest uppercase font-bold">Our Values</span>
+            <h2 class="text-4xl md:text-5xl font-bold text-white mt-3" style="font-family:'Cormorant Garamond',serif;">Four Principles. No Exceptions.</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6 fade-in-up">
+
+            <!-- Value 01 -->
+            <div class="value-card">
+                <div class="flex items-start justify-between mb-5">
+                    <div class="w-12 h-12 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center">
+                        <i class="fa-solid fa-eye text-gold text-lg"></i>
+                    </div>
+                    <span class="value-number">01</span>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">Radical Transparency</h3>
+                <p class="text-[#adb8c4] text-sm leading-relaxed font-medium">
+                    We never guarantee a visa. Anyone who does is misleading you. Instead, we educate clients on exactly why guarantees are impossible — and deliver the strongest possible application package and narrative strategy.
+                </p>
+            </div>
+
+            <!-- Value 02 -->
+            <div class="value-card">
+                <div class="flex items-start justify-between mb-5">
+                    <div class="w-12 h-12 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center">
+                        <i class="fa-solid fa-shield-halved text-gold text-lg"></i>
+                    </div>
+                    <span class="value-number">02</span>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">Compliance First</h3>
+                <p class="text-[#adb8c4] text-sm leading-relaxed font-medium">
+                    No corners cut. No documents fabricated. No data manipulated. Clients who do not yet meet requirements are told upfront — and offered a 3 to 6 month Profile Rehabilitation plan, rather than paying for a likely refusal.
+                </p>
+            </div>
+
+            <!-- Value 03 -->
+            <div class="value-card">
+                <div class="flex items-start justify-between mb-5">
+                    <div class="w-12 h-12 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center">
+                        <i class="fa-solid fa-user-shield text-gold text-lg"></i>
+                    </div>
+                    <span class="value-number">03</span>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">Single-Point Accountability</h3>
+                <p class="text-[#adb8c4] text-sm leading-relaxed font-medium">
+                    Clients work directly with a dedicated expert consultant — never a call centre, never a chatbot. The consultant takes personal responsibility for the integrity of every file from start to finish.
+                </p>
+            </div>
+
+            <!-- Value 04 -->
+            <div class="value-card">
+                <div class="flex items-start justify-between mb-5">
+                    <div class="w-12 h-12 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center">
+                        <i class="fa-solid fa-lock text-gold text-lg"></i>
+                    </div>
+                    <span class="value-number">04</span>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">Data Privacy &amp; Security</h3>
+                <p class="text-[#adb8c4] text-sm leading-relaxed font-medium">
+                    Your visa file is among the most sensitive paperwork you'll ever produce. We operate under strict UK GDPR compliance. Every document is held on encrypted servers, used only for your application, and never shared.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 6. WHO WE SERVE                                            -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="py-24 bg-[#0f1419] border-y border-[#1e2730] relative z-10">
+    <div class="max-w-6xl mx-auto px-4">
+
+        <div class="text-center mb-16 fade-in-up">
+            <span class="text-gold text-xs tracking-widest uppercase font-bold">Who We Serve</span>
+            <h2 class="text-4xl md:text-5xl font-bold text-white mt-3" style="font-family:'Cormorant Garamond',serif;">Two Markets. One Standard.</h2>
+            <p class="text-[#7a8899] mt-4 max-w-2xl mx-auto text-base font-medium">
+                We serve middle-to-high income individuals who have the funds — but lack the expertise — to present their case convincingly to immigration authorities.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 fade-in-up">
+
+            <!-- UK Residents -->
+            <div class="audience-card">
+                <div class="audience-card-header" style="background-image:url('https://images.unsplash.com/photo-1486299267070-83823f5448dd?q=80&w=800&auto=format&fit=crop');">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"></div>
+                    <div class="absolute top-4 left-4 inline-flex items-center gap-2 bg-[#080c10]/85 backdrop-blur-sm border border-[#1e2730] rounded-full px-3 py-1">
+                        <span class="text-lg">🇬🇧</span>
+                        <span class="text-white text-xs font-bold tracking-wide uppercase">Market One</span>
+                    </div>
+                    <h3 class="absolute bottom-4 left-6 text-3xl font-black text-white drop-shadow-lg" style="font-family:'Cormorant Garamond',serif;">UK Residents</h3>
+                </div>
+                <div class="p-7">
+                    <p class="text-[#adb8c4] text-sm leading-relaxed font-medium mb-5">
+                        UK passport and BRP holders applying for Schengen tourist visas — Spain, Greece, France, Netherlands, Italy, Germany, and beyond. Our typical UK client is a professional, family unit, or frequent traveller who values their time and refuses to take chances with their European travel plans.
+                    </p>
+                    <ul class="space-y-2 text-sm text-[#7a8899] font-medium">
+                        <li><i class="fa-solid fa-check text-green-400 mr-2"></i>Schengen tourist visas</li>
+                        <li><i class="fa-solid fa-check text-green-400 mr-2"></i>Family travel logistics</li>
+                        <li><i class="fa-solid fa-check text-green-400 mr-2"></i>Quick-turnaround visa cases</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- African Residents -->
+            <div class="audience-card">
+                <div class="audience-card-header" style="background-image:url('https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?q=80&w=800&auto=format&fit=crop');">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"></div>
+                    <div class="absolute top-4 left-4 inline-flex items-center gap-2 bg-[#080c10]/85 backdrop-blur-sm border border-[#1e2730] rounded-full px-3 py-1">
+                        <span class="text-lg">🌍</span>
+                        <span class="text-white text-xs font-bold tracking-wide uppercase">Market Two</span>
+                    </div>
+                    <h3 class="absolute bottom-4 left-6 text-3xl font-black text-white drop-shadow-lg" style="font-family:'Cormorant Garamond',serif;">African Residents</h3>
+                </div>
+                <div class="p-7">
+                    <p class="text-[#adb8c4] text-sm leading-relaxed font-medium mb-5">
+                        Applicants from Nigeria, The Gambia, Senegal, Togo, Ghana, and beyond — facing punitive macro-policies, suspicion-driven refusal patterns, and a "fixer" industry that has historically exploited them. We solve the Source of Funds, Family Ties, and Intent to Return problems other agents ignore.
+                    </p>
+                    <ul class="space-y-2 text-sm text-[#7a8899] font-medium">
+                        <li><i class="fa-solid fa-check text-green-400 mr-2"></i>EU Study &amp; Work visas</li>
+                        <li><i class="fa-solid fa-check text-green-400 mr-2"></i>Schengen tourism &amp; family</li>
+                        <li><i class="fa-solid fa-check text-green-400 mr-2"></i>Refusal recovery &amp; rebuilding</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 7. BY THE NUMBERS                                          -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="py-24 bg-[#080c10] relative z-10">
+    <div class="max-w-6xl mx-auto px-4">
+
+        <div class="text-center mb-16 fade-in-up">
+            <span class="text-gold text-xs tracking-widest uppercase font-bold">By The Numbers</span>
+            <h2 class="text-4xl md:text-5xl font-bold text-white mt-3" style="font-family:'Cormorant Garamond',serif;">Track Record at a Glance.</h2>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 fade-in-up">
+
+            <div class="big-stat bg-[#0f1419] border border-[#1e2730] rounded-2xl">
+                <div class="big-stat-number">100+</div>
+                <div class="big-stat-label">Applications Managed</div>
+            </div>
+
+            <div class="big-stat bg-[#0f1419] border border-[#1e2730] rounded-2xl">
+                <div class="big-stat-number">12+</div>
+                <div class="big-stat-label">Countries Served</div>
+            </div>
+
+            <div class="big-stat bg-[#0f1419] border border-[#1e2730] rounded-2xl">
+                <div class="big-stat-number">48hr</div>
+                <div class="big-stat-label">Audit Turnaround</div>
+            </div>
+
+            <div class="big-stat bg-[#0f1419] border border-gold/40 rounded-2xl">
+                <div class="big-stat-number">95%</div>
+                <div class="big-stat-label">Client Satisfaction</div>
+            </div>
+
+        </div>
+
+        <div class="mt-12 text-center fade-in-up">
+            <div class="inline-block bg-[#0f1419] border border-[#1e2730] rounded-2xl px-8 py-6 max-w-2xl">
+                <p class="text-[#adb8c4] text-sm leading-relaxed font-medium">
+                    <i class="fa-solid fa-quote-left text-gold opacity-40 mr-2"></i>
+                    Every approval is earned, not promised. Every refusal is studied so the next case is stronger. We measure success in withstood scrutiny — not in marketing claims.
+                    <i class="fa-solid fa-quote-right text-gold opacity-40 ml-2"></i>
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 8. LEGAL TRANSPARENCY                                      -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="py-24 bg-[#0f1419] border-y border-[#1e2730] relative z-10">
+    <div class="max-w-5xl mx-auto px-4 fade-in-up">
+
+        <div class="text-center mb-16">
+            <span class="text-gold text-xs tracking-widest uppercase font-bold">Legal Transparency</span>
+            <h2 class="text-4xl md:text-5xl font-bold text-white mt-3" style="font-family:'Cormorant Garamond',serif;">What We Are. What We Aren't.</h2>
+            <p class="text-[#7a8899] mt-4 max-w-2xl mx-auto text-base font-medium">
+                Honest disclosure builds trust. Here's exactly where we sit, legally and professionally.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+
+            <!-- What we are -->
+            <div class="bg-[#080c10] border border-green-800/40 border-l-2 border-l-green-400 rounded-2xl p-7">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-10 h-10 rounded-full bg-green-900/30 border border-green-700/40 flex items-center justify-center">
+                        <i class="fa-solid fa-check text-green-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white" style="font-family:'Cormorant Garamond',serif;">What We Are</h3>
+                </div>
+                <ul class="space-y-3 text-sm text-[#adb8c4] font-medium">
+                    <li class="flex items-start gap-2">
+                        <i class="fa-solid fa-check text-green-400 mt-1 text-xs flex-shrink-0"></i>
+                        <span>A registered London consultancy: <strong class="text-white">Companies House No. 16959031</strong>, England &amp; Wales.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fa-solid fa-check text-green-400 mt-1 text-xs flex-shrink-0"></i>
+                        <span>Covered by full <strong class="text-white">Professional Indemnity Insurance</strong> (£500k limit).</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fa-solid fa-check text-green-400 mt-1 text-xs flex-shrink-0"></i>
+                        <span><strong class="text-white">UK GDPR compliant.</strong> Encrypted document storage. Strict client confidentiality.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fa-solid fa-check text-green-400 mt-1 text-xs flex-shrink-0"></i>
+                        <span>Specialist in Schengen and EU visa strategy, document audit, and case construction.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- What we aren't -->
+            <div class="bg-[#080c10] border border-red-900/40 border-l-2 border-l-red-500 rounded-2xl p-7">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-10 h-10 rounded-full bg-red-900/30 border border-red-800/40 flex items-center justify-center">
+                        <i class="fa-solid fa-xmark text-red-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white" style="font-family:'Cormorant Garamond',serif;">What We Aren't</h3>
+                </div>
+                <ul class="space-y-3 text-sm text-[#adb8c4] font-medium">
+                    <li class="flex items-start gap-2">
+                        <i class="fa-solid fa-xmark text-red-400 mt-1 text-xs flex-shrink-0"></i>
+                        <span>We are <strong class="text-white">not a law firm</strong> and do not provide legal representation.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fa-solid fa-xmark text-red-400 mt-1 text-xs flex-shrink-0"></i>
+                        <span>We are <strong class="text-white">not OISC-registered</strong> — this is required only for UK immigration advice. We deal exclusively in Schengen and EU visas, which fall outside OISC scope.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fa-solid fa-xmark text-red-400 mt-1 text-xs flex-shrink-0"></i>
+                        <span>We are <strong class="text-white">not a Tour Operator</strong> and not ATOL-registered. We do not sell flight-inclusive packages.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fa-solid fa-xmark text-red-400 mt-1 text-xs flex-shrink-0"></i>
+                        <span>We <strong class="text-white">do not guarantee visa approval.</strong> Anyone who does is misleading you.</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- The Engagement Letter callout -->
+        <div class="legal-callout">
+            <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-lg bg-red-900/30 border border-red-800/40 flex items-center justify-center flex-shrink-0">
+                    <i class="fa-solid fa-file-signature text-red-400 text-lg"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">The Engagement Letter</h3>
+                    <p class="text-[#adb8c4] text-sm leading-relaxed font-medium mb-4">
+                        Every client signs a binding Engagement Letter before any work begins. It sets out our scope, our limits, the strict no-guarantee clause, and the anti-fraud policy that terminates the contract immediately if forged documents are discovered. Read both legal documents in full any time you wish.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="index.html#engagement" class="inline-flex items-center gap-2 bg-[#0f1419] border border-[#1e2730] hover:border-gold transition px-4 py-2 rounded-lg text-xs font-bold text-[#adb8c4] hover:text-white">
+                            <i class="fa-solid fa-shield-halved text-gold"></i> Engagement Letter
+                        </a>
+                        <a href="index.html#terms" class="inline-flex items-center gap-2 bg-[#0f1419] border border-[#1e2730] hover:border-gold transition px-4 py-2 rounded-lg text-xs font-bold text-[#adb8c4] hover:text-white">
+                            <i class="fa-solid fa-scale-balanced text-gold"></i> Terms &amp; Conditions
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 9. CTA — back to QuickScan as primary                      -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="py-24 bg-[#080c10] relative z-10 overflow-hidden">
+
+    <!-- Background accent -->
+    <div class="absolute inset-0 opacity-40 pointer-events-none">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full" style="background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, rgba(8,12,16,0) 70%);"></div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 text-center relative fade-in-up">
+
+        <span class="text-gold text-xs tracking-widest uppercase font-bold">Ready When You Are</span>
+        <h2 class="text-4xl md:text-6xl font-bold text-white mt-4 mb-6 leading-[1.1]" style="font-family:'Cormorant Garamond',serif;">
+            Let's Stop Refusals<br>
+            <em class="text-gold">Before They Happen.</em>
+        </h2>
+        <p class="text-lg text-[#adb8c4] max-w-2xl mx-auto font-medium leading-relaxed mb-10">
+            Every consultation starts with a forensic look at your case. The QuickScan Audit gives you a Fatal Flaws report in 48 hours — for less than the cost of a single refused embassy fee.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <!-- Primary CTA: QuickScan -->
+            <a href="https://book.stripe.com/28E4gygLremKd0Ogx50sU00" target="_blank" class="w-full sm:w-auto btn-gold px-8 py-4 rounded-full text-sm shadow-[0_0_30px_rgba(201,168,76,0.3)]">
+                Start QuickScan Audit — £39.99
+            </a>
+            <a href="https://wa.me/447511219482" target="_blank" class="w-full sm:w-auto bg-[#25D366] text-white px-8 py-4 rounded-full font-bold text-sm hover:bg-[#128C7E] transition shadow-lg flex items-center justify-center gap-2">
+                <i class="fa-brands fa-whatsapp text-xl"></i> WhatsApp HQ Now
+            </a>
+        </div>
+
+        <div class="mt-10 flex flex-wrap justify-center gap-x-8 gap-y-2 text-xs text-[#7a8899] font-semibold">
+            <span><i class="fa-solid fa-shield-halved text-gold mr-1.5"></i> PI Insured</span>
+            <span><i class="fa-solid fa-building-columns text-gold mr-1.5"></i> Companies House Registered</span>
+            <span><i class="fa-solid fa-lock text-gold mr-1.5"></i> GDPR Compliant</span>
+        </div>
+
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- FOOTER — matched to index.html                             -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<footer class="bg-[#080c10] text-[#7a8899] relative z-10 border-t border-[#1e2730]">
+
+    <div class="py-14">
+        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-4 gap-10">
+
+            <div class="col-span-1 md:col-span-2">
+                <span class="text-white text-2xl font-black" style="font-family:'Cormorant Garamond',serif;">GLOBAL VISA <span class="text-gold">&amp;</span> JOURNEYS</span>
+                <p class="mt-4 text-sm leading-relaxed max-w-sm font-medium">A forensic travel consultancy bridging complex bureaucratic compliance and seamless travel logistics. Registered in England &amp; Wales.</p>
+                <div class="mt-6 flex gap-3 flex-wrap">
+                    <a href="https://facebook.com/globalvisajourneys" target="_blank" class="text-[#7a8899] hover:text-gold transition w-9 h-9 rounded-full border border-[#1e2730] flex items-center justify-center hover:border-gold">
+                        <i class="fa-brands fa-facebook text-sm"></i>
+                    </a>
+                    <a href="https://instagram.com/globalvisajourneysltd" target="_blank" class="text-[#7a8899] hover:text-gold transition w-9 h-9 rounded-full border border-[#1e2730] flex items-center justify-center hover:border-gold">
+                        <i class="fa-brands fa-instagram text-sm"></i>
+                    </a>
+                    <a href="https://wa.me/447511219482" target="_blank" class="text-[#7a8899] hover:text-green-400 transition w-9 h-9 rounded-full border border-[#1e2730] flex items-center justify-center hover:border-green-400">
+                        <i class="fa-brands fa-whatsapp text-sm"></i>
+                    </a>
+                    <a href="https://whatsapp.com/channel/0029VbCDSSWEquiHjVOXqp2f" target="_blank" class="text-white hover:text-[#25D366] transition flex items-center gap-2 bg-[#25D366]/10 border border-[#25D366]/30 rounded-full px-4 h-9 text-xs font-bold hover:bg-[#25D366]/20 hover:border-[#25D366]/60">
+                        <i class="fa-brands fa-whatsapp text-[#25D366]"></i> Follow Our Channel
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-5 text-sm tracking-wider uppercase">Quick Contact</h4>
+                <ul class="space-y-3 text-sm font-medium">
+                    <li class="flex items-start gap-2"><i class="fa-solid fa-envelope text-gold mt-0.5 flex-shrink-0"></i> office@globalvisajourneys.com</li>
+                    <li class="flex items-start gap-2"><i class="fa-solid fa-phone text-gold mt-0.5 flex-shrink-0"></i> 0204 628 1692 (UK Office)</li>
+                    <li class="flex items-start gap-2">
+                        <a href="https://wa.me/447511219482" target="_blank" class="hover:text-white transition flex items-start gap-2">
+                            <i class="fa-brands fa-whatsapp text-green-400 mt-0.5 flex-shrink-0"></i> +44 7511 219482
+                        </a>
+                    </li>
+                    <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot text-gold mt-0.5 flex-shrink-0"></i> 71-75 Shelton Street, London WC2H 9JQ</li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-5 text-sm tracking-wider uppercase">Navigate</h4>
+                <ul class="space-y-3 text-sm font-medium">
+                    <li><a href="index.html" class="hover:text-white transition">Home</a></li>
+                    <li><a href="about.html" class="hover:text-white transition">About</a></li>
+                    <li><a href="index.html#services-section" class="hover:text-white transition">Services &amp; Packages</a></li>
+                    <li><a href="calculator.html" class="hover:text-white transition">Readiness Calculator</a></li>
+                    <li><a href="index.html#faq" class="hover:text-white transition">FAQ</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="gold-divider mx-auto max-w-7xl"></div>
+
+    <div class="max-w-7xl mx-auto px-4 py-8 text-center text-xs">
+        <p class="text-[#4a5568] font-medium">&copy; 2026 Global Visa &amp; Journeys Ltd. Registered in England &amp; Wales (No: 16959031).</p>
+        <p class="mt-2 text-[#2d3748]">Global Visa &amp; Journeys Ltd is a travel consultancy, not a Tour Operator. We do not sell flight-inclusive packages and are not ATOL holders.</p>
+    </div>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/447511219482" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SCRIPTS                                                    -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<script>
+    // ── NAV SCROLL EFFECT ──
+    window.addEventListener('scroll', () => {
+        const nav = document.getElementById('main-nav');
+        if (window.scrollY > 50) nav.classList.add('nav-scrolled');
+        else nav.classList.remove('nav-scrolled');
+    });
+
+    // ── SCROLL ANIMATIONS ──
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+</script>
+
+<!-- Tawk.to live chat -->
+<script type="text/javascript">
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function(){
+        var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+        s1.async = true;
+        s1.src = 'https://embed.tawk.to/69ab4b7560e0031c3443b1b0/1jj2htghu';
+        s1.charset = 'UTF-8';
+        s1.setAttribute('crossorigin', '*');
+        s0.parentNode.insertBefore(s1, s0);
+    })();
+</script>
+
+
+<!-- Mobile Bottom Nav -->
+<style>
+#mobile-bottom-nav { display: none; }
+@media (max-width: 767px) {
+    #mobile-bottom-nav { display: block; }
+    .whatsapp-float { bottom: 90px !important; }
+    body { padding-bottom: 80px; }
+}
+</style>
+<nav id="mobile-bottom-nav" style="position:fixed; bottom:0; left:0; right:0; z-index:9998; background:#0f1419; border-top:1px solid #1e2730; -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); padding-bottom:env(safe-area-inset-bottom);">
+    <div style="display:flex;">
+        <a href="index.html" class="mobile-nav-item" data-nav="home" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-house" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Home</span>
+        </a>
+        <a href="calculator.html" class="mobile-nav-item" data-nav="readiness" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-clipboard-list" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Readiness</span>
+        </a>
+        <a href="blog/index.html" class="mobile-nav-item" data-nav="insights" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-newspaper" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Insights</span>
+        </a>
+        <a href="about.html" class="mobile-nav-item" data-nav="about" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-circle-info" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">About</span>
+        </a>
+        <a href="index.html#faq" class="mobile-nav-item" data-nav="faq" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-circle-question" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">FAQ</span>
+        </a>
+    </div>
+</nav>
+<script>
+(function(){
+    var p = window.location.pathname;
+    var active = {
+        home:      (p.endsWith('/index.html') || p === '/') && !p.includes('/blog/'),
+        readiness: p.endsWith('/calculator.html'),
+        insights:  p.includes('/blog/'),
+        about:     p.endsWith('/about.html'),
+        faq:       false
+    };
+    document.querySelectorAll('.mobile-nav-item').forEach(function(el){
+        if(active[el.getAttribute('data-nav')]) el.style.color = '#c9a84c';
+    });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+# ──────────────────────────────────────────────────────────
+# robots.txt — Global Visa & Journeys Ltd
+# https://globalvisajourneys.com
+# ──────────────────────────────────────────────────────────
+
+# Allow all crawlers to index all public pages
+User-agent: *
+Allow: /
+
+# Private and sensitive pages — block all crawlers
+Disallow: /admin.html
+Disallow: /portal.html
+Disallow: /cors.json
+Disallow: /firebase.json
+Disallow: /.firebaserc
+
+# Sitemap location
+Sitemap: https://globalvisajourneys.com/sitemap.xml

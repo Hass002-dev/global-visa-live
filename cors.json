@@ -1,0 +1,12 @@
+[
+  {
+    "origin": [
+      "https://hass002-dev.github.io",
+      "http://localhost",
+      "http://127.0.0.1:5500"
+    ],
+    "method": ["GET", "PUT", "POST", "DELETE"],
+    "responseHeader": ["Content-Type", "Authorization"],
+    "maxAgeSeconds": 3600
+  }
+]
