@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Page Not Found | Global Visa &amp; Journeys</title>
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <link rel="stylesheet" href="./output.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-primary:       #080c10;
+            --bg-secondary:     #0f1419;
+            --bg-card:          #131920;
+            --border-surface:   #1e2730;
+            --brand-gold:       #c9a84c;
+            --brand-gold-light: #e8c97a;
+            --brand-gold-dim:   #8a6f2e;
+            --text-primary:     #eef2f7;
+            --text-secondary:   #7a8899;
+            --text-muted:       #4a5568;
+            --whatsapp:         #25d366;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            font-weight: 450;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; }
+
+        /* Noise texture — matched to index.html */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        /* Subtle radial gold glow behind the 404 */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 700px;
+            height: 700px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, rgba(8,12,16,0) 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── BUTTONS ── */
+        .btn-gold {
+            background: linear-gradient(135deg, var(--brand-gold) 0%, var(--brand-gold-light) 100%);
+            color: #080c10;
+            font-weight: 800;
+            font-family: 'DM Sans', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(201,168,76,0.35);
+        }
+
+        .btn-whatsapp {
+            background-color: var(--whatsapp);
+            color: #fff;
+            font-weight: 700;
+            font-family: 'DM Sans', sans-serif;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-whatsapp:hover {
+            background-color: #128C7E;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37,211,102,0.35);
+        }
+
+        /* ── 404 number ── */
+        .four-oh-four {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(80px, 18vw, 140px);
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            color: var(--brand-gold);
+            /* Gold shimmer effect */
+            background: linear-gradient(135deg, var(--brand-gold-dim) 0%, var(--brand-gold-light) 45%, var(--brand-gold) 55%, var(--brand-gold-dim) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            /* Soft text glow */
+            filter: drop-shadow(0 0 40px rgba(201,168,76,0.25));
+        }
+
+        /* ── Countdown bar ── */
+        .countdown-bar-track {
+            width: 160px;
+            height: 3px;
+            background: var(--border-surface);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        .countdown-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--brand-gold), var(--brand-gold-light));
+            border-radius: 999px;
+            width: 100%;
+            transition: width 1s linear;
+        }
+
+        /* ── Divider ── */
+        .gold-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--brand-gold-dim), transparent);
+        }
+
+        /* ── WhatsApp float — exact match to index.html ── */
+        @keyframes ringShake {
+            0%, 75%, 100% { transform: rotate(0) scale(1); }
+            77%, 81%, 85%, 89% { transform: rotate(-14deg) scale(1.08); }
+            79%, 83%, 87% { transform: rotate(14deg) scale(1.08); }
+        }
+        .whatsapp-float {
+            position: fixed;
+            width: 58px;
+            height: 58px;
+            bottom: 28px;
+            right: 28px;
+            background: var(--whatsapp);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 28px;
+            box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: ringShake 5s infinite;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+        }
+        .whatsapp-float:hover {
+            animation: none;
+            transform: scale(1.12);
+            box-shadow: 0 6px 28px rgba(37,211,102,0.6);
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     MAIN — takes all available vertical space
+══════════════════════════════════════════════════════════ -->
+<main class="flex-1 flex flex-col items-center justify-center px-4 py-12 relative z-10" style="min-height: calc(100vh - 64px);">
+
+    <div class="w-full max-w-lg text-center">
+
+        <!-- ── BRAND ── -->
+        <a href="./index.html" class="inline-flex items-center gap-3 mb-12 opacity-90 hover:opacity-100 transition-opacity">
+            <img src="./Updated Logo.png" alt="GV&J Logo"
+                 class="h-12 w-12 object-contain rounded-xl"
+                 onerror="this.style.display='none'">
+            <span style="font-family:'Cormorant Garamond',serif; font-size:1.25rem; font-weight:900; letter-spacing:0.02em;">
+                <span style="color:var(--brand-gold)">GLOBAL VISA</span>
+                <span style="color:var(--text-primary)"> &amp; JOURNEYS</span>
+            </span>
+        </a>
+
+        <!-- ── CARD ── -->
+        <div class="bg-[#0f1419] border border-[#1e2730] rounded-2xl px-8 py-12 md:px-12 shadow-2xl"
+             style="border-top: 2px solid var(--brand-gold);">
+
+            <!-- 404 -->
+            <div class="four-oh-four mb-4">404</div>
+
+            <!-- Heading -->
+            <h1 class="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight"
+                style="font-family:'Cormorant Garamond',serif;">
+                Page Not Found
+            </h1>
+
+            <!-- Subheading -->
+            <p class="text-[#7a8899] text-base md:text-lg font-medium leading-relaxed mb-10 max-w-sm mx-auto">
+                The page you're looking for doesn't exist or has been moved.
+                Let's get you back on track.
+            </p>
+
+            <!-- Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-10">
+                <a href="./index.html"
+                   class="btn-gold px-7 py-3.5 rounded-full text-sm">
+                    <i class="fa-solid fa-house text-xs"></i>
+                    Back to Homepage
+                </a>
+                <a href="https://wa.me/447511219482"
+                   target="_blank"
+                   class="btn-whatsapp px-7 py-3.5 rounded-full text-sm font-bold">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    Need Help?
+                </a>
+            </div>
+
+            <!-- Countdown -->
+            <div class="flex flex-col items-center gap-3">
+                <p class="text-[#4a5568] text-xs font-semibold tracking-wide">
+                    Redirecting you to the homepage in
+                    <span id="countdown" style="color:var(--brand-gold); font-weight:800;">10</span>
+                    second<span id="plural">s</span>&hellip;
+                </p>
+                <div class="countdown-bar-track">
+                    <div class="countdown-bar-fill" id="countdown-bar"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Quick links below the card -->
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-8 text-xs font-semibold text-[#4a5568]">
+            <a href="./index.html#services-section" class="hover:text-gold transition" style="--tw-text-opacity:1;">View Services</a>
+            <a href="./calculator.html" class="hover:text-gold transition">Readiness Check</a>
+            <a href="./about.html" class="hover:text-gold transition">About Us</a>
+            <a href="./blog/index.html" class="hover:text-gold transition">Blog</a>
+        </div>
+
+    </div>
+</main>
+
+<!-- ══════════════════════════════════════════════════════════
+     FOOTER — copyright line only
+══════════════════════════════════════════════════════════ -->
+<footer class="relative z-10 py-6 px-4">
+    <div class="gold-divider max-w-lg mx-auto mb-5"></div>
+    <p class="text-center text-[#4a5568] text-xs font-medium">
+        &copy; 2026 Global Visa &amp; Journeys Ltd. Registered in England &amp; Wales (No: 16959031).
+    </p>
+</footer>
+
+<!-- ══════════════════════════════════════════════════════════
+     FLOATING WHATSAPP
+══════════════════════════════════════════════════════════ -->
+<a href="https://wa.me/447511219482"
+   class="whatsapp-float"
+   target="_blank"
+   title="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<!-- ══════════════════════════════════════════════════════════
+     COUNTDOWN SCRIPT
+══════════════════════════════════════════════════════════ -->
+<script>
+    (function () {
+        const DURATION  = 10;
+        const countEl   = document.getElementById('countdown');
+        const pluralEl  = document.getElementById('plural');
+        const barEl     = document.getElementById('countdown-bar');
+
+        let remaining   = DURATION;
+
+        /* Set initial bar to full width */
+        barEl.style.width = '100%';
+
+        const tick = () => {
+            remaining -= 1;
+
+            /* Update number */
+            countEl.textContent = remaining;
+
+            /* Singular/plural */
+            pluralEl.textContent = remaining === 1 ? '' : 's';
+
+            /* Shrink bar proportionally */
+            const pct = (remaining / DURATION) * 100;
+            barEl.style.width = pct + '%';
+
+            if (remaining <= 0) {
+                clearInterval(timer);
+                window.location.href = './index.html';
+            }
+        };
+
+        /* Start 1-second interval */
+        const timer = setInterval(tick, 1000);
+
+        /* Cancel redirect if user clicks either button */
+        document.querySelectorAll('a[href="./index.html"], a.btn-whatsapp').forEach(btn => {
+            btn.addEventListener('click', () => clearInterval(timer));
+        });
+    })();
+</script>
+
+
+<!-- Mobile Bottom Nav -->
+<style>
+#mobile-bottom-nav { display: none; }
+@media (max-width: 767px) {
+    #mobile-bottom-nav { display: block; }
+    .whatsapp-float { bottom: 90px !important; }
+    body { padding-bottom: 80px; }
+}
+</style>
+<nav id="mobile-bottom-nav" style="position:fixed; bottom:0; left:0; right:0; z-index:9998; background:#0f1419; border-top:1px solid #1e2730; -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); padding-bottom:env(safe-area-inset-bottom);">
+    <div style="display:flex;">
+        <a href="index.html" class="mobile-nav-item" data-nav="home" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-house" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Home</span>
+        </a>
+        <a href="calculator.html" class="mobile-nav-item" data-nav="readiness" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-clipboard-list" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Readiness</span>
+        </a>
+        <a href="blog/index.html" class="mobile-nav-item" data-nav="insights" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-newspaper" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Insights</span>
+        </a>
+        <a href="about.html" class="mobile-nav-item" data-nav="about" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-circle-info" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">About</span>
+        </a>
+        <a href="index.html#faq" class="mobile-nav-item" data-nav="faq" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-circle-question" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">FAQ</span>
+        </a>
+    </div>
+</nav>
+<script>
+(function(){
+    var p = window.location.pathname;
+    var active = {
+        home:      (p.endsWith('/index.html') || p === '/') && !p.includes('/blog/'),
+        readiness: p.endsWith('/calculator.html'),
+        insights:  p.includes('/blog/'),
+        about:     p.endsWith('/about.html'),
+        faq:       false
+    };
+    document.querySelectorAll('.mobile-nav-item').forEach(function(el){
+        if(active[el.getAttribute('data-nav')]) el.style.color = '#c9a84c';
+    });
+})();
+</script>
+
+</body>
+</html>

@@ -1,143 +1,920 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Client Portal | GV&J</title>
-    
-    <!-- FAVICON -->
+    <title>Secure Client Portal | Global Visa & Journeys</title>
+    <meta name="robots" content="noindex, nofollow">
+
     <link rel="icon" type="image/x-icon" href="./favicon.ico">
-    
-    <!-- TAILWIND CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- FONTS -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="./output.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --bg-primary: #0d1117;
-            --bg-secondary: #161b22;
-            --border-surface: #30363d;
-            --brand-gold: #d4af37;
+            --bg-primary:       #080c10;
+            --bg-secondary:     #0f1419;
+            --bg-card:          #131920;
+            --border-surface:   #1e2730;
+            --brand-gold:       #c9a84c;
+            --brand-gold-light: #e8c97a;
+            --brand-gold-dim:   #8a6f2e;
+            --text-primary:     #eef2f7;
+            --text-secondary:   #7a8899;
+            --text-muted:       #4a5568;
+            --green-accent:     #22c55e;
+            --whatsapp:         #25d366;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            font-weight: 450;
+            min-height: 100vh;
+        }
+        h1,h2,h3,h4 { font-family: 'Cormorant Garamond', serif; }
+
+        /* noise */
+        body::before {
+            content:''; position:fixed; inset:0;
+            background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events:none; z-index:0; opacity:0.4;
         }
 
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-primary); color: #f0f6fc; }
-        h1, h2, h3 { font-family: 'Playfair Display', serif; }
-        
+        /* buttons */
         .btn-gold {
-            background-color: var(--brand-gold); color: #0d1117; font-weight: 800; transition: all 0.3s ease;
-            text-transform: uppercase; letter-spacing: 0.05em;
+            background: linear-gradient(135deg, var(--brand-gold) 0%, var(--brand-gold-light) 100%);
+            color: #080c10; font-weight: 800; font-family: 'DM Sans', sans-serif;
+            text-transform: uppercase; letter-spacing: 0.07em;
+            transition: all 0.3s; border: none; cursor: pointer;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
         }
-        .btn-gold:hover { background-color: #fef08a; transform: translateY(-2px); box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3); }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,168,76,0.35); }
+        .btn-gold:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-        /* Decrypting Animation */
-        #loader {
-            position: fixed; inset: 0; background: var(--bg-primary); z-index: 9999;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: opacity 0.5s ease;
+        .btn-outline {
+            border: 1.5px solid var(--border-surface); color: var(--text-secondary);
+            font-weight: 600; font-family: 'DM Sans', sans-serif; background: transparent;
+            cursor: pointer; transition: all 0.25s;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
         }
+        .btn-outline:hover { border-color: var(--text-muted); color: var(--text-primary); }
+
+        /* inputs */
+        .gvj-input {
+            width: 100%; padding: 14px 16px; border-radius: 10px;
+            background: var(--bg-primary); border: 1px solid var(--border-surface);
+            color: var(--text-primary); font-family: 'DM Sans', sans-serif;
+            font-size: 16px; font-weight: 500; transition: all 0.25s;
+            -webkit-appearance: none; appearance: none;
+        }
+        .gvj-input:focus { outline: none; border-color: var(--brand-gold); box-shadow: 0 0 0 3px rgba(201,168,76,0.12); }
+        .gvj-input::placeholder { color: var(--text-muted); }
+        .input-label { display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
+
+        /* views */
+        .view { display: none; }
+        .view.active { display: block; }
+
+        /* progress stages */
+        .stage-line { flex: 1; height: 3px; background: var(--border-surface); transition: background 0.4s; }
+        .stage-line.done { background: var(--brand-gold); }
+        .stage-dot {
+            width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--border-surface);
+            background: var(--bg-primary); display: flex; align-items: center; justify-content: center;
+            font-size: 0.75rem; color: var(--text-muted); transition: all 0.4s; flex-shrink: 0;
+        }
+        .stage-dot.done { border-color: var(--brand-gold); background: var(--brand-gold); color: #080c10; }
+        .stage-dot.active { border-color: var(--brand-gold); background: rgba(201,168,76,0.15); color: var(--brand-gold); animation: pulse-gold 1.8s infinite; }
+        @keyframes pulse-gold { 0%,100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.5); } 50% { box-shadow: 0 0 0 8px rgba(201,168,76,0); } }
+
+        /* doc cards */
+        .doc-card { background: var(--bg-primary); border: 1px solid var(--border-surface); border-radius: 12px; padding: 16px; transition: border-color 0.25s; }
+        .doc-card:hover { border-color: var(--brand-gold-dim); }
+        .doc-card.uploaded { border-color: rgba(34,197,94,0.35); }
+
+        /* modal */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 16px; }
+        .modal-box { background: var(--bg-secondary); border: 1px solid var(--border-surface); border-radius: 16px; max-width: 440px; width: 100%; padding: 32px; position: relative; max-height: 90vh; overflow-y: auto; }
+
+        /* trust badges */
+        .trust-badge { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-surface); border-radius: 8px; padding: 10px 14px; }
+
+        /* whatsapp float */
+        @keyframes ringShake { 0%,75%,100%{transform:rotate(0) scale(1)} 77%,81%,85%,89%{transform:rotate(-14deg) scale(1.08)} 79%,83%,87%{transform:rotate(14deg) scale(1.08)} }
+        .whatsapp-float { position:fixed; width:58px; height:58px; bottom:28px; right:28px; background:var(--whatsapp); color:#fff; border-radius:50%; font-size:28px; box-shadow:0 4px 20px rgba(37,211,102,0.45); z-index:999; display:flex; align-items:center; justify-content:center; animation:ringShake 5s infinite; transition:transform 0.2s,box-shadow 0.2s; text-decoration:none; }
+        .whatsapp-float:hover { animation:none; transform:scale(1.12); box-shadow:0 6px 28px rgba(37,211,102,0.6); }
+
+        .gold-divider { height:1px; background:linear-gradient(to right, transparent, var(--brand-gold-dim), transparent); }
+
+        /* loading spinner */
+        .spin { animation: spin 0.8s linear infinite; display: inline-block; }
+        @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+        /* auth loading splash pulse */
+        @keyframes splashPulse { 0%,100%{opacity:1; transform:scale(1)} 50%{opacity:0.45; transform:scale(0.93)} }
+
+        @media(max-width:640px) { .stage-label { font-size: 0.55rem; max-width: 52px; } }
     </style>
 </head>
 <body>
 
-    <!-- FAKE SECURE DECRYPTING LOADER (Adds to the premium feel) -->
-    <div id="loader">
-        <i class="fa-solid fa-shield-halved text-4xl text-gold mb-4 animate-pulse"></i>
-        <h2 class="text-xl font-bold tracking-widest text-white">AUTHENTICATING PIN</h2>
-        <p class="text-[#8b949e] text-sm mt-2 font-mono" id="decrypt-text">Establishing secure connection...</p>
+<!-- ══════════════════════════════════════════════════════════
+     VIEW 0 — LOADING SPLASH (shown while Firebase resolves auth state)
+══════════════════════════════════════════════════════════ -->
+<div id="view-loading" class="view active min-h-screen flex flex-col items-center justify-center relative z-10">
+    <div class="text-center">
+        <img src="./Updated Logo.png" alt="GV&J Logo"
+             class="h-20 w-20 object-contain rounded-2xl mx-auto mb-6"
+             style="animation: splashPulse 1.4s ease-in-out infinite;"
+             onerror="this.style.display='none'">
+        <p class="text-xs font-bold uppercase tracking-widest" style="color:var(--brand-gold); animation: splashPulse 1.4s ease-in-out infinite;">
+            Authenticating&hellip;
+        </p>
     </div>
+</div>
 
-    <!-- TOP NAV -->
-    <nav class="border-b border-[#30363d] bg-[#161b22] px-6 py-4 flex justify-between items-center">
-        <div class="flex items-center space-x-3">
-            <i class="fa-solid fa-lock text-gold text-xl"></i>
-            <span class="text-lg font-bold tracking-widest" style="font-family: 'Playfair Display', serif;">GV&J SECURE PORTAL</span>
+<!-- ══════════════════════════════════════════════════════════
+     VIEW 1 — LOGIN
+══════════════════════════════════════════════════════════ -->
+<div id="view-login" class="view min-h-screen flex flex-col items-center justify-center px-4 py-12 relative z-10">
+    <div class="w-full max-w-md">
+
+        <!-- Brand -->
+        <div class="text-center mb-8">
+            <img src="./Updated Logo.png" alt="GV&J Logo" class="h-16 w-16 object-contain rounded-xl mx-auto mb-4" onerror="this.style.display='none'">
+            <span class="text-2xl font-black text-white" style="font-family:'Cormorant Garamond',serif;">GLOBAL VISA <span style="color:var(--brand-gold)">&amp;</span> JOURNEYS</span>
         </div>
-        <a href="index.html" class="text-sm text-[#8b949e] hover:text-white transition flex items-center">
-            <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i> Exit
-        </a>
+
+        <!-- Login card -->
+        <div class="bg-[#0f1419] border border-[#1e2730] rounded-2xl p-8 shadow-2xl">
+            <div class="text-center mb-7">
+                <div class="w-14 h-14 rounded-xl mx-auto flex items-center justify-center mb-4" style="background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.3)">
+                    <i class="fa-solid fa-lock text-2xl" style="color:var(--brand-gold)"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-white">Secure Client Portal</h1>
+                <p class="text-[#7a8899] text-sm mt-1.5 font-medium">Enter your credentials to access your case file.</p>
+            </div>
+
+            <!-- Error / info messages -->
+            <div id="login-error" class="hidden mb-4 bg-red-900/20 border border-red-700/40 rounded-xl p-3 text-red-400 text-sm font-medium"></div>
+            <div id="login-info"  class="hidden mb-4 bg-green-900/20 border border-green-700/40 rounded-xl p-3 text-green-400 text-sm font-medium"></div>
+
+            <div class="space-y-4 mb-5">
+                <div>
+                    <label class="input-label">Email Address</label>
+                    <input type="email" id="login-email" class="gvj-input" placeholder="name@example.com" autocomplete="email">
+                </div>
+                <div>
+                    <label class="input-label">Password</label>
+                    <input type="password" id="login-password" class="gvj-input" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter') doLogin()">
+                </div>
+            </div>
+
+            <button id="login-btn" onclick="doLogin()" class="w-full btn-gold py-4 rounded-xl text-sm mb-4">
+                Access My Portal
+            </button>
+
+            <div class="text-center">
+                <button onclick="doForgotPassword()" id="forgot-btn" class="text-[#7a8899] hover:text-gold text-xs font-semibold transition" style="background:none;border:none;cursor:pointer;">
+                    Forgot Password?
+                </button>
+            </div>
+        </div>
+
+        <!-- Trust badges -->
+        <div class="grid grid-cols-3 gap-3 mt-6">
+            <div class="trust-badge flex-col text-center">
+                <i class="fa-solid fa-lock text-green-400 text-lg mb-1"></i>
+                <p class="text-[11px] text-[#7a8899] font-semibold">GDPR Compliant</p>
+            </div>
+            <div class="trust-badge flex-col text-center">
+                <i class="fa-solid fa-shield-halved text-blue-400 text-lg mb-1"></i>
+                <p class="text-[11px] text-[#7a8899] font-semibold">256-bit Encrypted</p>
+            </div>
+            <div class="trust-badge flex-col text-center">
+                <i class="fa-solid fa-user-shield" style="color:var(--brand-gold)" class="text-lg mb-1"></i>
+                <p class="text-[11px] text-[#7a8899] font-semibold">Secure Login</p>
+            </div>
+        </div>
+
+        <p class="text-center text-[#4a5568] text-xs mt-6">
+            Don't have portal access? <a href="https://wa.me/447511219482" target="_blank" class="hover:text-white transition" style="color:var(--brand-gold)">Contact GV&J on WhatsApp</a>
+        </p>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     VIEW 2 — CLIENT DASHBOARD
+══════════════════════════════════════════════════════════ -->
+<div id="view-dashboard" class="view relative z-10">
+
+    <!-- Nav -->
+    <nav class="bg-[#080c10]/95 backdrop-blur-md border-b border-[#1e2730] sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 h-18 flex items-center justify-between py-4">
+            <div class="flex items-center gap-3">
+                <img src="./Updated Logo.png" alt="GV&J Logo" class="h-9 w-9 object-contain rounded-md" onerror="this.style.display='none'">
+                <span class="font-black hidden md:block" style="font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:var(--brand-gold)">GV&J CLIENT PORTAL</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="about.html" class="text-sm text-[#7a8899] hover:text-white font-semibold transition hidden md:block">About</a>
+                <a href="blog/index.html" class="text-sm text-[#7a8899] hover:text-white font-semibold transition hidden md:block">Insights</a>
+                <span class="text-sm text-[#7a8899] font-medium hidden sm:block">Welcome back, <strong id="dash-firstname" class="text-white"></strong></span>
+                <button onclick="doLogout()" class="btn-outline px-4 py-2 rounded-lg text-xs">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Log Out
+                </button>
+            </div>
+        </div>
     </nav>
 
-    <!-- MAIN CONTENT -->
-    <div class="max-w-5xl mx-auto px-4 py-12">
-        
-        <div class="text-center mb-12">
-            <span class="bg-green-900/30 text-green-400 border border-green-500 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4 inline-block">Connection Encrypted</span>
-            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Client Document Vault</h1>
-            <p class="text-[#8b949e] max-w-2xl mx-auto">Please review the strict submission guidelines below before launching the uploader. Incorrect document formats are the #1 cause of visa delays.</p>
-        </div>
+    <div class="max-w-5xl mx-auto px-4 py-10 space-y-8">
 
-        <div class="grid md:grid-cols-5 gap-8">
-            
-            <!-- LEFT COLUMN: The Rules -->
-            <div class="md:col-span-3 space-y-6">
-                <div class="bg-[#161b22] border border-[#30363d] rounded-xl p-6">
-                    <h3 class="text-xl font-bold text-white mb-4 border-b border-[#30363d] pb-2">
-                        <i class="fa-solid fa-scale-balanced text-gold mr-2"></i> Mandatory Upload Rules
-                    </h3>
-                    
-                    <ul class="space-y-4">
-                        <li class="flex items-start">
-                            <i class="fa-solid fa-circle-xmark text-red-500 mt-1 mr-3"></i>
-                            <div>
-                                <strong class="text-white block text-sm">NO SCREENSHOTS</strong>
-                                <span class="text-[#8b949e] text-xs">Bank statements must be official PDF downloads from your banking app. Screenshots of balances will be rejected.</span>
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fa-solid fa-file-pdf text-blue-400 mt-1 mr-3"></i>
-                            <div>
-                                <strong class="text-white block text-sm">PDF FORMAT PREFERRED</strong>
-                                <span class="text-[#8b949e] text-xs">Please convert all word documents, employment letters, and sponsor letters into PDF format before uploading.</span>
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fa-solid fa-passport text-gold mt-1 mr-3"></i>
-                            <div>
-                                <strong class="text-white block text-sm">CLEAR PASSPORT SCANS</strong>
-                                <span class="text-[#8b949e] text-xs">Ensure all 4 corners of your passport bio-data page are visible without glare or flash reflection.</span>
-                            </div>
-                        </li>
-                    </ul>
+        <!-- ── SECTION 1: APPLICATION STATUS TRACKER ── -->
+        <div class="bg-[#0f1419] border border-[#1e2730] rounded-2xl p-6 md:p-8">
+            <h2 class="text-2xl font-bold text-white mb-2">Your Application Status</h2>
+            <p class="text-[#7a8899] text-sm mb-8 font-medium">Track every stage of your case from payment to submission.</p>
+
+            <!-- Stage progress bar -->
+            <div class="relative mb-10">
+                <div class="flex items-center" id="stage-track">
+                    <!-- Stages injected by JS -->
+                </div>
+                <!-- Labels row -->
+                <div class="flex justify-between mt-3" id="stage-labels">
+                    <!-- Labels injected by JS -->
                 </div>
             </div>
 
-            <!-- RIGHT COLUMN: The Uploader -->
-            <div class="md:col-span-2">
-                <div class="bg-[#161b22] border border-gold rounded-xl p-8 text-center shadow-lg shadow-gold/10 h-full flex flex-col justify-center">
-                    <div class="w-20 h-20 bg-[#0d1117] border-2 border-gold border-dashed rounded-full flex items-center justify-center mx-auto mb-6">
-                        <i class="fa-solid fa-cloud-arrow-up text-3xl text-gold"></i>
+            <!-- Status message box -->
+            <div id="status-message-box" class="rounded-xl p-5 border" style="background:rgba(201,168,76,0.06); border-color:rgba(201,168,76,0.25)">
+                <div class="flex items-start gap-3">
+                    <div class="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(201,168,76,0.12); border:1px solid rgba(201,168,76,0.3)">
+                        <i class="fa-solid fa-circle-info" style="color:var(--brand-gold)"></i>
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-2">Ready to Upload?</h3>
-                    <p class="text-sm text-[#8b949e] mb-8">Click below to open your secure Google Drive drop-zone. You can upload up to 10 files at once.</p>
-                    
-                    <!-- THE GOOGLE FORM LINK IS INJECTED HERE -->
-                    <a href="https://forms.gle/jcsmoW4hztjkzT3u9" target="_blank" class="block w-full btn-gold py-4 rounded-lg flex items-center justify-center gap-2">
-                        <span>Launch Uploader</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                    </a>
+                    <div>
+                        <p class="text-white font-bold text-sm mb-1" id="status-msg-title">Loading...</p>
+                        <p class="text-[#adb8c4] text-sm leading-relaxed font-medium" id="status-msg-body"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── SECTION 2: DOCUMENT UPLOAD ── -->
+        <div class="bg-[#0f1419] border border-[#1e2730] rounded-2xl p-6 md:p-8">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-white">Upload Your Documents</h2>
+                    <p class="text-[#7a8899] text-sm mt-1 font-medium">PDF or image files only · Max 10MB per file</p>
+                </div>
+                <div class="bg-[#080c10] border border-[#1e2730] rounded-xl px-4 py-2.5 text-sm font-bold flex items-center gap-2 flex-shrink-0">
+                    <i class="fa-solid fa-folder-open" style="color:var(--brand-gold)"></i>
+                    <span id="doc-progress-text" class="text-white">0 of 8 required</span>
                 </div>
             </div>
 
+            <!-- Progress bar -->
+            <div class="h-2 bg-[#080c10] rounded-full mb-6 overflow-hidden">
+                <div id="doc-progress-bar" class="h-full rounded-full transition-all duration-500" style="width:0%; background:linear-gradient(90deg, var(--brand-gold), var(--brand-gold-light))"></div>
+            </div>
+
+            <!-- Upload rules banner -->
+            <div class="bg-[#080c10] border border-[#1e2730] rounded-xl p-4 mb-6">
+                <div class="flex flex-wrap gap-x-6 gap-y-2 text-xs text-[#7a8899] font-semibold">
+                    <span><i class="fa-solid fa-circle-xmark text-red-400 mr-1.5"></i>No screenshots — official PDF downloads only</span>
+                    <span><i class="fa-solid fa-file-pdf text-blue-400 mr-1.5"></i>PDF format preferred for all letters</span>
+                    <span><i class="fa-solid fa-passport mr-1.5" style="color:var(--brand-gold)"></i>Clear passport scans — all 4 corners visible</span>
+                </div>
+            </div>
+
+            <!-- Document grid -->
+            <div class="grid md:grid-cols-3 gap-4" id="doc-grid">
+                <!-- Injected by JS -->
+            </div>
+
+            <p id="docs-all-done" class="hidden mt-5 text-center text-green-400 text-sm font-bold">
+                <i class="fa-solid fa-circle-check mr-2"></i>All required documents uploaded. Status updated automatically.
+            </p>
         </div>
+
+        <!-- ── SECTION 3: CONTACT SUPPORT ── -->
+        <div class="bg-[#0f1419] border border-[#1e2730] rounded-2xl p-6">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                    <h3 class="text-lg font-bold text-white" style="font-family:'Cormorant Garamond',serif;">Need Help?</h3>
+                    <p class="text-[#7a8899] text-sm mt-0.5 font-medium">Our team is available on WhatsApp to answer your questions.</p>
+                </div>
+                <a href="https://wa.me/447511219482?text=Hi%2C%20I%20need%20help%20with%20my%20portal"
+                   target="_blank"
+                   class="flex-shrink-0 flex items-center gap-2 font-bold px-6 py-3 rounded-full text-sm transition"
+                   style="background:#25D366; color:#fff;">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> Chat on WhatsApp
+                </a>
+            </div>
+        </div>
+
     </div>
 
-    <!-- SCRIPT FOR LOADER -->
-    <script>
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('loader');
-            const text = document.getElementById('decrypt-text');
-            
-            setTimeout(() => { text.innerText = "Verifying 256-bit encryption..."; }, 600);
-            setTimeout(() => { text.innerText = "Access Granted."; text.classList.replace('text-[#8b949e]', 'text-green-500'); }, 1200);
-            setTimeout(() => { 
-                loader.style.opacity = '0'; 
-                setTimeout(() => loader.style.display = 'none', 500);
-            }, 1800);
-        });
-    </script>
+    <!-- Footer -->
+    <footer class="border-t border-[#1e2730] py-6 text-center relative z-10">
+        <p class="text-[#4a5568] text-xs font-medium">&copy; 2026 Global Visa &amp; Journeys Ltd. Registered in England &amp; Wales (No: 16959031).</p>
+        <p class="text-[#2d3748] text-xs mt-1">Not a Tour Operator. Not ATOL registered. GDPR compliant. 256-bit encrypted.</p>
+    </footer>
+</div>
+
+<!-- Hidden file input -->
+<input type="file" id="file-input-global" accept=".pdf,.jpg,.jpeg,.png,.heic" class="hidden">
+
+<!-- WhatsApp float -->
+<a href="https://wa.me/447511219482" class="whatsapp-float" target="_blank">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     FIREBASE
+══════════════════════════════════════════════════════════ -->
+<script type="module">
+import { initializeApp }                              from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword,
+         signOut, sendPasswordResetEmail,
+         onAuthStateChanged,
+         setPersistence, browserLocalPersistence }    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, getDoc,
+         setDoc, updateDoc, onSnapshot }              from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getStorage, ref, uploadBytesResumable,
+         getDownloadURL }                             from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+
+const firebaseConfig = {
+    apiKey:            "AIzaSyCcoyBXRITTblrH0XcaLGMjftUttXYLtj4",
+    authDomain:        "global-visa-journeys.firebaseapp.com",
+    projectId:         "global-visa-journeys",
+    storageBucket:     "global-visa-journeys.firebasestorage.app",
+    messagingSenderId: "381217766164",
+    appId:             "1:381217766164:web:1cb70fbc26332f5a8d6001"
+};
+
+const app     = initializeApp(firebaseConfig);
+const auth    = getAuth(app);
+const db      = getFirestore(app);
+const storage = getStorage(app);
+
+/* ── FIX 1: Set LOCAL persistence FIRST — before any auth operation.
+   This caches the session in localStorage so it survives tab switches,
+   refreshes, and browser restarts until the user explicitly logs out. ── */
+await setPersistence(auth, browserLocalPersistence);
+console.log('[GVJ Portal] Auth persistence set to LOCAL.');
+
+/* ── DOCUMENT CATEGORIES ── */
+const DOC_CATEGORIES = [
+    { id:'passport',      label:'Valid Passport',           desc:'Bio-data page — all 4 corners visible, no glare.',            required: true  },
+    { id:'bank',          label:'Bank Statements (6 months)',desc:'Official PDF download only — no screenshots.',                required: true  },
+    { id:'employment',    label:'Employment Letter',         desc:'On company letterhead, signed, dated. PDF format.',           required: true  },
+    { id:'payslips',      label:'Payslips (3–6 months)',     desc:'All payslips for the requested period in PDF.',               required: true  },
+    { id:'accommodation', label:'Proof of Accommodation',    desc:'Hotel booking, Airbnb confirmation, or host letter.',         required: true  },
+    { id:'itinerary',     label:'Travel Itinerary',          desc:'Flight reservation (not full ticket) or travel plan.',        required: true  },
+    { id:'ties',          label:'Ties to Home Country',      desc:'Property deeds, family letters, business registration etc.',  required: true  },
+    { id:'insurance',     label:'Travel Insurance',          desc:'Schengen-compliant medical insurance — min €30,000 cover.',   required: true  },
+    { id:'supporting',    label:'Supporting Documents',      desc:'Any other documents supporting your application.',            required: false },
+];
+
+const STAGE_KEYS   = ['payment_confirmed','documents_uploaded','under_review','strategy_built','submitted'];
+const STAGE_LABELS = ['Payment Confirmed','Documents Uploaded','Under Review','Strategy Built','Submitted'];
+const STAGE_MSGS   = {
+    payment_confirmed:  { title:'Payment Confirmed — Case Open', body:'Welcome to GV&J. Your case is now open. Please upload your documents below to get started. We cannot begin work until all required documents are received.' },
+    documents_uploaded: { title:'Documents Received', body:'Thank you — your documents have been received. Our team will begin reviewing your file shortly. You will hear from us on WhatsApp within 24 hours.' },
+    under_review:       { title:'Under Review — Strategist Assigned', body:'Your documents are currently being reviewed by our senior strategist. We are checking for any issues that could affect your application. We will contact you on WhatsApp if we need anything additional.' },
+    strategy_built:     { title:'Strategy Complete — Ready for Submission', body:'Your visa strategy is complete. Your cover letter, travel itinerary, and supporting documents have been prepared. Final submission steps will be communicated via WhatsApp.' },
+    submitted:          { title:'Application Submitted to Embassy', body:'Your application has been submitted to the embassy. Processing times vary by country. We will notify you immediately when a decision is received. Do not book non-refundable travel until you hold the physical visa sticker.' },
+};
+
+/* ── STATE ── */
+let currentUser = null;
+let clientData  = {};
+let activeUploadCategory = null;
+let unsubSnapshot = null;
+
+/* ── FIX 5: visibilitychange guard — never log out on tab switch.
+   Only act if Firebase explicitly tells us the user is null. ── */
+document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+        const user = auth.currentUser;
+        console.log('[GVJ Portal] Tab became visible. Firebase currentUser:', user ? user.email : 'null');
+        // If user is still valid, do nothing — LOCAL persistence keeps them logged in.
+        // Only the onAuthStateChanged listener handles actual auth state changes.
+    }
+});
+
+/* ── FIX 4: Loading spinner — shown immediately while Firebase resolves auth state.
+   Hides the moment we know whether user is logged in or not. ── */
+showView('loading');
+console.log('[GVJ Portal] Page load — checking auth state…');
+
+/* ── FIX 3: Single onAuthStateChanged listener, initialised exactly once.
+   authInitialised flag prevents the loop caused by multiple listener firings.
+   FIX 2: No force-signOut on load. LOCAL persistence means the cached session
+   is intentional — if a user is authenticated, take them straight to dashboard. ── */
+let authInitialised = false;
+
+onAuthStateChanged(auth, async (user) => {
+    // Hide loading spinner on first resolution
+    if (!authInitialised) {
+        authInitialised = true;
+        hideSplash();
+        console.log('[GVJ Portal] Auth state resolved on first fire. User:', user ? user.email : 'none');
+    } else {
+        console.log('[GVJ Portal] Auth state changed. User:', user ? user.email : 'none (logged out)');
+    }
+
+    if (user) {
+        currentUser = user;
+        await loadClientDashboard(user);
+    } else {
+        currentUser = null;
+        if (unsubSnapshot) { unsubSnapshot(); unsubSnapshot = null; }
+        showView('login');
+    }
+});
+
+/* ── SHOW / HIDE VIEWS ── */
+function showView(name) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    const target = document.getElementById(`view-${name}`);
+    if (target) target.classList.add('active');
+    else console.warn('[GVJ] showView: no element found for view-' + name);
+}
+window.showView = showView;
+
+/* FIX 4: Hide the loading splash — called exactly once when auth state resolves */
+function hideSplash() {
+    const splash = document.getElementById('view-loading');
+    if (splash) splash.classList.remove('active');
+}
+
+/* ── LOGIN ── */
+window.doLogin = async () => {
+    const email    = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+    const btn      = document.getElementById('login-btn');
+    const errBox   = document.getElementById('login-error');
+    const infoBox  = document.getElementById('login-info');
+
+    if (!email || !password) {
+        showLoginError('Please enter your email address and password.');
+        return;
+    }
+    btn.innerHTML = '<i class="fa-solid fa-circle-notch spin"></i> Authenticating…';
+    btn.disabled  = true;
+    errBox.classList.add('hidden');
+    infoBox.classList.add('hidden');
+
+    try {
+        await signInWithEmailAndPassword(auth, email, password);
+        // onAuthStateChanged will handle the redirect to dashboard
+    } catch(e) {
+        btn.innerHTML = 'Access My Portal';
+        btn.disabled  = false;
+
+        // Additional improvement — specific error messages per Firebase error code
+        const code = e.code || '';
+        if (code === 'auth/too-many-requests') {
+            showLoginError('Too many failed attempts. Please wait a few minutes before trying again.', false);
+        } else if (
+            code === 'auth/user-not-found' ||
+            code === 'auth/wrong-password' ||
+            code === 'auth/invalid-credential' ||
+            code === 'auth/invalid-email'
+        ) {
+            showLoginError('Incorrect email or password. Please check your credentials or contact us on WhatsApp.', true);
+        } else {
+            showLoginError('Login failed. Please check your connection and try again.', false);
+        }
+        console.error('[GVJ Login] Auth error:', e.code, e.message);
+    }
+};
+
+/* ── FORGOT PASSWORD ── */
+window.doForgotPassword = async () => {
+    const email   = document.getElementById('login-email').value.trim();
+    const errBox  = document.getElementById('login-error');
+    const infoBox = document.getElementById('login-info');
+    const btn     = document.getElementById('forgot-btn');
+
+    if (!email) { showMsg(errBox, 'Please enter your email address above first.'); return; }
+
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    try {
+        await sendPasswordResetEmail(auth, email);
+        showMsg(infoBox, 'Password reset email sent. Please check your inbox.');
+        errBox.classList.add('hidden');
+    } catch(e) {
+        showMsg(errBox, 'Could not send reset email. Please check the address is correct.');
+        infoBox.classList.add('hidden');
+    } finally {
+        btn.textContent = 'Forgot Password?';
+        btn.disabled = false;
+    }
+};
+
+/* ── LOGOUT ── */
+window.doLogout = async () => {
+    await signOut(auth);
+};
+
+/* ── LOAD DASHBOARD ── */
+async function loadClientDashboard(user) {
+    showView('dashboard');
+    const docRef = doc(db, 'clients', user.uid);
+
+    // Real-time listener so admin status changes reflect immediately
+    if (unsubSnapshot) unsubSnapshot();
+    unsubSnapshot = onSnapshot(docRef, async (snap) => {
+        if (snap.exists()) {
+            clientData = snap.data();
+        } else {
+            // Create skeleton document on first login
+            clientData = {
+                email: user.email,
+                firstName: user.email.split('@')[0],
+                lastName: '',
+                status: 'payment_confirmed',
+                statusUpdatedAt: new Date().toISOString(),
+                documents: {},
+            };
+            await setDoc(docRef, clientData);
+        }
+        renderDashboard();
+    });
+}
+
+/* ── RENDER DASHBOARD ── */
+function renderDashboard() {
+    const firstName = clientData.firstName || clientData.email?.split('@')[0] || 'Client';
+    document.getElementById('dash-firstname').textContent = firstName;
+
+    renderStageTracker(clientData.status || 'payment_confirmed');
+    renderDocGrid();
+}
+
+/* ── STAGE TRACKER ── */
+function renderStageTracker(currentStatus) {
+    const currentIdx = STAGE_KEYS.indexOf(currentStatus);
+    const track      = document.getElementById('stage-track');
+    const labelsRow  = document.getElementById('stage-labels');
+
+    track.innerHTML = '';
+    labelsRow.innerHTML = '';
+
+    STAGE_KEYS.forEach((key, i) => {
+        const isDone   = i < currentIdx;
+        const isActive = i === currentIdx;
+
+        const dot = document.createElement('div');
+        dot.className = 'stage-dot ' + (isDone ? 'done' : isActive ? 'active' : '');
+        dot.innerHTML = isDone
+            ? '<i class="fa-solid fa-check text-xs"></i>'
+            : String(i + 1);
+        track.appendChild(dot);
+
+        if (i < STAGE_KEYS.length - 1) {
+            const line = document.createElement('div');
+            line.className = 'stage-line' + (isDone ? ' done' : '');
+            track.appendChild(line);
+        }
+    });
+
+    // Labels
+    STAGE_LABELS.forEach((label, i) => {
+        const isDone   = i < currentIdx;
+        const isActive = i === currentIdx;
+        const dateKey  = [,'paymentDate','documentsUploadedAt','','strategyBuiltAt','submittedAt'][i];
+        const dateStr  = dateKey && clientData[dateKey] ? `<br><span class="text-[10px] text-green-400">${formatDate(clientData[dateKey])}</span>` : '';
+
+        const lbl = document.createElement('div');
+        lbl.className = 'text-center flex-1 stage-label';
+        lbl.style.fontSize = '0.62rem';
+        lbl.style.fontWeight = '700';
+        lbl.style.textTransform = 'uppercase';
+        lbl.style.letterSpacing = '0.04em';
+        lbl.style.color = isDone ? '#22c55e' : isActive ? 'var(--brand-gold)' : 'var(--text-muted)';
+        lbl.innerHTML = label + dateStr;
+        labelsRow.appendChild(lbl);
+    });
+
+    // Status message
+    const msg = STAGE_MSGS[currentStatus] || STAGE_MSGS['payment_confirmed'];
+    document.getElementById('status-msg-title').textContent = msg.title;
+    document.getElementById('status-msg-body').textContent  = msg.body;
+}
+
+/* ── DOCUMENT GRID ── */
+function renderDocGrid() {
+    const grid = document.getElementById('doc-grid');
+    const docs = clientData.documents || {};
+    let uploadedRequired = 0;
+
+    grid.innerHTML = DOC_CATEGORIES.map(cat => {
+        const uploaded = docs[cat.id];
+        if (uploaded && cat.required) uploadedRequired++;
+
+        return `
+        <div class="doc-card ${uploaded ? 'uploaded' : ''}" id="doc-card-${cat.id}">
+            <div class="flex items-start justify-between gap-2 mb-2">
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="${uploaded ? 'background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.3)' : 'background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2)'}">
+                    <i class="fa-solid ${uploaded ? 'fa-check text-green-400' : 'fa-file-arrow-up'} text-xs" style="${uploaded ? '' : 'color:var(--brand-gold)'}"></i>
+                </div>
+                ${cat.required ? '' : '<span class="text-[10px] text-[#4a5568] font-bold uppercase">Optional</span>'}
+            </div>
+            <p class="text-white text-sm font-bold mb-1 leading-tight">${cat.label}</p>
+            <p class="text-[#7a8899] text-xs leading-relaxed mb-3 font-medium">${cat.desc}</p>
+            ${uploaded
+                ? `<div class="bg-green-900/15 border border-green-800/30 rounded-lg px-3 py-2 mb-3">
+                       <p class="text-green-400 text-xs font-bold truncate">${uploaded.filename}</p>
+                       <p class="text-[#4a5568] text-[10px] mt-0.5">${formatDate(uploaded.uploadedAt)}</p>
+                   </div>`
+                : `<p class="text-red-400 text-xs font-bold mb-3"><i class="fa-solid fa-circle-xmark mr-1"></i>Not Uploaded</p>`}
+            <button onclick="triggerUpload('${cat.id}')" id="upload-btn-${cat.id}" class="w-full py-2.5 rounded-lg text-xs font-bold transition ${uploaded ? 'border border-[#1e2730] text-[#7a8899] hover:border-[#4a5568] hover:text-white' : 'btn-gold'}" style="${uploaded ? 'background:transparent' : ''}">
+                ${uploaded ? '<i class="fa-solid fa-arrow-rotate-right mr-1"></i>Replace' : '<i class="fa-solid fa-cloud-arrow-up mr-1"></i>Upload'}
+            </button>
+            <div id="upload-progress-${cat.id}" class="hidden mt-2">
+                <div class="h-1.5 bg-[#080c10] rounded-full overflow-hidden">
+                    <div class="h-full rounded-full transition-all duration-200" id="upload-bar-${cat.id}" style="width:0%; background:var(--brand-gold)"></div>
+                </div>
+                <p class="text-[10px] text-[#7a8899] mt-1" id="upload-pct-${cat.id}">Uploading…</p>
+            </div>
+        </div>`;
+    }).join('');
+
+    // Update progress counter
+    const total = DOC_CATEGORIES.filter(c => c.required).length;
+    document.getElementById('doc-progress-text').textContent = `${uploadedRequired} of ${total} required`;
+    document.getElementById('doc-progress-bar').style.width = `${Math.round((uploadedRequired / total) * 100)}%`;
+
+    // All docs done?
+    if (uploadedRequired >= total) {
+        document.getElementById('docs-all-done').classList.remove('hidden');
+        autoAdvanceStatus();
+    } else {
+        document.getElementById('docs-all-done').classList.add('hidden');
+    }
+}
+
+/* ── TRIGGER FILE UPLOAD ── */
+window.triggerUpload = (categoryId) => {
+    // Always re-read currentUser at click time — never rely on closure
+    if (!auth.currentUser) {
+        console.error('[GVJ Upload] No authenticated user. Cannot upload.');
+        return;
+    }
+    activeUploadCategory = categoryId;
+    const input = document.getElementById('file-input-global');
+    input.value = '';
+    input.click();
+};
+
+/* ── INLINE ERROR HELPER FOR UPLOAD CARDS ── */
+function showUploadError(catId, message) {
+    const pct = document.getElementById(`upload-pct-${catId}`);
+    const btn = document.getElementById(`upload-btn-${catId}`);
+    if (pct) { pct.textContent = message; pct.style.color = '#ef4444'; pct.style.fontWeight = '700'; }
+    if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up mr-1"></i>Retry Upload'; }
+    console.error(`[GVJ Upload] Error on category "${catId}":`, message);
+}
+
+document.getElementById('file-input-global').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file || !activeUploadCategory) return;
+
+    /* Bug 2 fix — always read UID fresh from auth.currentUser, never from stale closure */
+    const user = auth.currentUser;
+    if (!user) {
+        console.error('[GVJ Upload] auth.currentUser is null at upload time. User may have been signed out.');
+        return;
+    }
+    const uid = user.uid;
+    console.log('[GVJ Upload] Starting upload for UID:', uid, '| Category:', activeUploadCategory, '| File:', file.name, '| Size:', file.size, 'bytes');
+
+    /* ── Validate file type and size ── */
+    const allowed = ['application/pdf','image/jpeg','image/png','image/heic','image/jpg'];
+    if (!allowed.includes(file.type)) {
+        showUploadError(activeUploadCategory, 'Invalid file type. Please upload a PDF or image (JPG, PNG, HEIC).');
+        return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+        showUploadError(activeUploadCategory, 'File too large. Maximum file size is 10MB.');
+        return;
+    }
+
+    const catId   = activeUploadCategory;
+    const btn     = document.getElementById(`upload-btn-${catId}`);
+    const progDiv = document.getElementById(`upload-progress-${catId}`);
+    const bar     = document.getElementById(`upload-bar-${catId}`);
+    const pct     = document.getElementById(`upload-pct-${catId}`);
+
+    /* Reset any previous error state */
+    if (pct) { pct.style.color = 'var(--text-secondary)'; pct.style.fontWeight = '500'; }
+
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-circle-notch spin mr-1"></i>Uploading…';
+    progDiv.classList.remove('hidden');
+    bar.style.width = '0%';
+    pct.textContent = 'Starting upload…';
+
+    /* Bug 2 fix — correct storage path using live UID */
+    const safeFilename = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+    const storagePath  = `clients/${uid}/${catId}/${safeFilename}`;
+    console.log('[GVJ Upload] Storage path:', storagePath);
+
+    const storageRef = ref(storage, storagePath);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    /* ── 30-second timeout ── */
+    let timedOut = false;
+    const timeoutHandle = setTimeout(() => {
+        timedOut = true;
+        uploadTask.cancel();
+        showUploadError(catId, 'Upload timed out. Please check your connection and try again.');
+        console.error('[GVJ Upload] Upload timed out after 30 seconds for category:', catId);
+    }, 30000);
+
+    uploadTask.on('state_changed',
+        /* Progress handler */
+        (snap) => {
+            if (timedOut) return;
+            const progress = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+            bar.style.width = progress + '%';
+            pct.textContent = `Uploading… ${progress}%`;
+            console.log(`[GVJ Upload] Progress — ${catId}: ${progress}% (${snap.bytesTransferred}/${snap.totalBytes} bytes)`);
+        },
+        /* Error handler */
+        (err) => {
+            clearTimeout(timeoutHandle);
+            if (timedOut) return; // Timeout already handled
+            let userMsg = 'Upload failed. Please try again.';
+            if (err.code === 'storage/unauthorized')    userMsg = 'Upload failed: permission denied. Please contact support.';
+            else if (err.code === 'storage/canceled')   userMsg = 'Upload was cancelled.';
+            else if (err.code === 'storage/unknown')    userMsg = 'Upload failed: unknown error. Please check your connection.';
+            else if (err.code === 'storage/quota-exceeded') userMsg = 'Upload failed: storage quota exceeded. Please contact support.';
+            showUploadError(catId, userMsg);
+            console.error('[GVJ Upload] Firebase Storage error:', err.code, err.message);
+        },
+        /* Success handler */
+        async () => {
+            clearTimeout(timeoutHandle);
+            if (timedOut) return;
+
+            try {
+                const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+                console.log('[GVJ Upload] Success! Download URL:', downloadURL);
+
+                const uploadData = {
+                    filename:   file.name,
+                    url:        downloadURL,
+                    uploadedAt: new Date().toISOString(),
+                    path:       storagePath,
+                };
+
+                /* Bug 3 fix — update Firestore at correct path with all required fields */
+                const clientDocRef = doc(db, 'clients', uid);
+                await updateDoc(clientDocRef, {
+                    [`documents.${catId}`]: uploadData,
+                });
+                console.log('[GVJ Upload] Firestore updated — documents.' + catId, uploadData);
+
+                /* Check if all 8 required docs are now uploaded and auto-advance status */
+                await checkAndAdvanceStatus(uid);
+
+                pct.textContent = 'Uploaded successfully!';
+                pct.style.color = '#22c55e';
+                pct.style.fontWeight = '700';
+                btn.innerHTML = '<i class="fa-solid fa-check mr-1"></i>Uploaded';
+                setTimeout(() => {
+                    progDiv.classList.add('hidden');
+                    btn.disabled = false;
+                }, 2500);
+
+            } catch (firestoreErr) {
+                console.error('[GVJ Upload] Firestore update failed after successful upload:', firestoreErr);
+                showUploadError(catId, 'File uploaded but record save failed. Please contact support.');
+            }
+        }
+    );
+});
+
+/* ── Bug 3 fix: Check all 8 required docs, auto-advance status ── */
+async function checkAndAdvanceStatus(uid) {
+    try {
+        const clientDocRef = doc(db, 'clients', uid);
+        const snap = await getDoc(clientDocRef);
+        if (!snap.exists()) return;
+
+        const data = snap.data();
+        const docs = data.documents || {};
+        const requiredIds = DOC_CATEGORIES.filter(c => c.required).map(c => c.id);
+        const allUploaded = requiredIds.every(id => !!docs[id]);
+
+        console.log('[GVJ Upload] Required docs check:', requiredIds.map(id => `${id}:${!!docs[id]}`).join(', '));
+
+        if (allUploaded && data.status === 'payment_confirmed') {
+            await updateDoc(clientDocRef, {
+                status:              'documents_uploaded',
+                statusUpdatedAt:     new Date().toISOString(),
+                documentsUploadedAt: new Date().toISOString(),
+            });
+            console.log('[GVJ Upload] All required docs uploaded — status auto-advanced to documents_uploaded');
+        }
+    } catch (err) {
+        console.error('[GVJ Upload] checkAndAdvanceStatus error:', err);
+    }
+}
+
+/* autoAdvanceStatus replaced by checkAndAdvanceStatus above */
+
+/* ── HELPERS ── */
+function showMsg(el, msg) {
+    el.textContent = msg;
+    el.classList.remove('hidden');
+}
+
+/* Additional improvement — login-specific error with optional WhatsApp CTA */
+function showLoginError(msg, showWA = false) {
+    const errBox = document.getElementById('login-error');
+    if (showWA) {
+        errBox.innerHTML = `${msg}&nbsp;&nbsp;<a href="https://wa.me/447511219482" target="_blank" style="color:#25d366; font-weight:700; text-decoration:underline; white-space:nowrap;"><i class="fa-brands fa-whatsapp mr-1"></i>WhatsApp Us</a>`;
+    } else {
+        errBox.textContent = msg;
+    }
+    errBox.classList.remove('hidden');
+}
+
+function formatDate(iso) {
+    if (!iso) return '';
+    try { return new Date(iso).toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' }); }
+    catch { return iso; }
+}
+
+</script>
+
+<!-- Tawk.to -->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
+    (function(){var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;s1.src='https://embed.tawk.to/69ab4b7560e0031c3443b1b0/1jj2htghu';
+    s1.charset='UTF-8';s1.setAttribute('crossorigin','*');s0.parentNode.insertBefore(s1,s0);})();
+</script>
+
+
+<!-- Mobile Bottom Nav -->
+<style>
+#mobile-bottom-nav { display: none; }
+@media (max-width: 767px) {
+    #mobile-bottom-nav { display: block; }
+    .whatsapp-float { bottom: 90px !important; }
+    body { padding-bottom: 80px; }
+}
+</style>
+<nav id="mobile-bottom-nav" style="position:fixed; bottom:0; left:0; right:0; z-index:9998; background:#0f1419; border-top:1px solid #1e2730; -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); padding-bottom:env(safe-area-inset-bottom);">
+    <div style="display:flex;">
+        <a href="index.html" class="mobile-nav-item" data-nav="home" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-house" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Home</span>
+        </a>
+        <a href="calculator.html" class="mobile-nav-item" data-nav="readiness" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-clipboard-list" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Readiness</span>
+        </a>
+        <a href="blog/index.html" class="mobile-nav-item" data-nav="insights" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-newspaper" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Insights</span>
+        </a>
+        <a href="about.html" class="mobile-nav-item" data-nav="about" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-circle-info" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">About</span>
+        </a>
+        <a href="index.html#faq" class="mobile-nav-item" data-nav="faq" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-circle-question" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">FAQ</span>
+        </a>
+    </div>
+</nav>
+<script>
+(function(){
+    var p = window.location.pathname;
+    var active = {
+        home:      (p.endsWith('/index.html') || p === '/') && !p.includes('/blog/'),
+        readiness: p.endsWith('/calculator.html'),
+        insights:  p.includes('/blog/'),
+        about:     p.endsWith('/about.html'),
+        faq:       false
+    };
+    document.querySelectorAll('.mobile-nav-item').forEach(function(el){
+        if(active[el.getAttribute('data-nav')]) el.style.color = '#c9a84c';
+    });
+})();
+</script>
+
 </body>
 </html>

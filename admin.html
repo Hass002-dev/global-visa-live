@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GV&J Admin Panel</title>
+    <!-- Never indexed, never linked from main site -->
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <link rel="stylesheet" href="./output.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Blog: markdown → HTML conversion + sanitisation -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+
+    <style>
+        :root {
+            --bg-primary:       #080c10;
+            --bg-secondary:     #0f1419;
+            --bg-card:          #131920;
+            --border-surface:   #1e2730;
+            --brand-gold:       #c9a84c;
+            --brand-gold-light: #e8c97a;
+            --brand-gold-dim:   #8a6f2e;
+            --text-primary:     #eef2f7;
+            --text-secondary:   #7a8899;
+            --text-muted:       #4a5568;
+            --green-accent:     #22c55e;
+        }
+        * { box-sizing: border-box; }
+        body { font-family: 'DM Sans', sans-serif; background: var(--bg-primary); color: var(--text-primary); overflow-x: hidden; font-weight: 450; min-height: 100vh; }
+        h1,h2,h3,h4 { font-family: 'Cormorant Garamond', serif; }
+
+        body::before {
+            content:''; position:fixed; inset:0;
+            background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events:none; z-index:0; opacity:0.4;
+        }
+
+        /* buttons */
+        .btn-gold { background:linear-gradient(135deg,var(--brand-gold) 0%,var(--brand-gold-light) 100%); color:#080c10; font-weight:800; font-family:'DM Sans',sans-serif; text-transform:uppercase; letter-spacing:0.07em; transition:all 0.3s; border:none; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:8px; }
+        .btn-gold:hover { transform:translateY(-2px); box-shadow:0 8px 25px rgba(201,168,76,0.35); }
+        .btn-gold:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
+        .btn-sm { padding:6px 14px; border-radius:8px; font-size:0.75rem; }
+        .btn-outline { border:1.5px solid var(--border-surface); color:var(--text-secondary); font-weight:600; font-family:'DM Sans',sans-serif; background:transparent; cursor:pointer; transition:all 0.25s; display:inline-flex; align-items:center; gap:6px; }
+        .btn-outline:hover { border-color:var(--text-muted); color:var(--text-primary); }
+        .btn-blue { background:#38bdf8; color:#080c10; font-weight:700; border:none; cursor:pointer; transition:all 0.25s; display:inline-flex; align-items:center; gap:6px; }
+        .btn-blue:hover { background:#0284c7; color:#fff; }
+
+        /* inputs */
+        .gvj-input { width:100%; padding:12px 14px; border-radius:10px; background:var(--bg-primary); border:1px solid var(--border-surface); color:var(--text-primary); font-family:'DM Sans',sans-serif; font-size:16px; font-weight:500; transition:all 0.25s; -webkit-appearance:none; appearance:none; }
+        .gvj-input:focus { outline:none; border-color:var(--brand-gold); box-shadow:0 0 0 3px rgba(201,168,76,0.12); }
+        .gvj-input::placeholder { color:var(--text-muted); }
+        .input-label { display:block; font-size:0.78rem; font-weight:700; color:var(--text-secondary); margin-bottom:6px; text-transform:uppercase; letter-spacing:0.06em; }
+
+        select.gvj-input { background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237a8899' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'/%3e%3c/svg%3e"); background-repeat:no-repeat; background-position:right 12px center; background-size:16px; padding-right:38px; }
+        select.gvj-input option { background:var(--bg-card); }
+
+        /* views */
+        .view { display:none; }
+        .view.active { display:block; }
+
+        /* status badges */
+        .badge { display:inline-flex; align-items:center; gap:5px; padding:3px 10px; border-radius:999px; font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; white-space:nowrap; }
+        .badge-blue   { background:rgba(59,130,246,0.15); color:#60a5fa; border:1px solid rgba(59,130,246,0.25); }
+        .badge-yellow { background:rgba(234,179,8,0.15);  color:#facc15; border:1px solid rgba(234,179,8,0.25); }
+        .badge-orange { background:rgba(249,115,22,0.15); color:#fb923c; border:1px solid rgba(249,115,22,0.25); }
+        .badge-purple { background:rgba(168,85,247,0.15); color:#c084fc; border:1px solid rgba(168,85,247,0.25); }
+        .badge-green  { background:rgba(34,197,94,0.15);  color:#4ade80; border:1px solid rgba(34,197,94,0.25); }
+
+        /* table */
+        .admin-table { width:100%; border-collapse:collapse; }
+        .admin-table th { background:var(--bg-card); color:var(--text-secondary); font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; padding:12px 14px; text-align:left; border-bottom:1px solid var(--border-surface); white-space:nowrap; }
+        .admin-table td { padding:13px 14px; border-bottom:1px solid var(--border-surface); font-size:0.85rem; vertical-align:middle; }
+        .admin-table tr.client-row:hover > td { background:rgba(201,168,76,0.04); cursor:pointer; }
+        .admin-table tr.expanded-row td { background:rgba(201,168,76,0.03); padding:0; }
+        .expand-panel { padding:20px 24px; border-top:1px solid var(--border-surface); }
+
+        /* modal */
+        /* Modal hidden by default — controlled via inline style by JS only */
+        .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.87); z-index:1000; display:none !important; align-items:center; justify-content:center; padding:16px; }
+        .modal-overlay.modal-open { display:flex !important; }
+        .modal-box { background:var(--bg-secondary); border:1px solid var(--border-surface); border-radius:16px; max-width:560px; width:100%; padding:28px; position:relative; max-height:90vh; overflow-y:auto; }
+
+        /* stat cards */
+        .stat-card { background:var(--bg-secondary); border:1px solid var(--border-surface); border-radius:14px; padding:20px 24px; }
+        .stat-number { font-family:'Cormorant Garamond',serif; font-size:2.8rem; font-weight:700; line-height:1; }
+
+        /* mini doc progress */
+        .mini-bar { height:5px; background:var(--border-surface); border-radius:3px; overflow:hidden; }
+        .mini-fill { height:100%; background:var(--brand-gold); border-radius:3px; }
+
+        .gold-divider { height:1px; background:linear-gradient(to right,transparent,var(--brand-gold-dim),transparent); }
+        .spin { animation:spin 0.8s linear infinite; display:inline-block; }
+        @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+        @keyframes adminPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.92)} }
+
+        /* Admin tab bar */
+        .admin-tabs { display:flex; gap:4px; background:var(--bg-secondary); border:1px solid var(--border-surface); border-radius:14px; padding:6px; margin-bottom:24px; }
+        .admin-tab { flex:1; padding:11px 12px; font-family:'DM Sans',sans-serif; font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; cursor:pointer; border:none; background:transparent; color:var(--text-secondary); border-radius:9px; transition:all 0.25s; }
+        .admin-tab.active { background:rgba(201,168,76,0.12); color:var(--brand-gold); }
+        .admin-tab:hover:not(.active) { color:var(--text-primary); }
+        .admin-pane { display:none; }
+        .admin-pane.active { display:block; }
+
+        /* Blog management */
+        .blog-subtab { padding:10px 18px; font-size:0.74rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; cursor:pointer; border:none; background:transparent; color:var(--text-secondary); border-bottom:2px solid transparent; transition:all 0.25s; }
+        .blog-subtab.active { color:var(--brand-gold); border-bottom-color:var(--brand-gold); }
+        .blog-pane { display:none; }
+        .blog-pane.active { display:block; }
+
+        textarea.gvj-input { resize:vertical; min-height:80px; font-family:'DM Sans',sans-serif; line-height:1.55; }
+        .char-counter { font-size:0.7rem; color:var(--text-muted); text-align:right; margin-top:4px; }
+        .char-counter.over { color:#ef4444; font-weight:700; }
+
+        /* Markdown toolbar */
+        .md-toolbar { display:flex; gap:4px; flex-wrap:wrap; padding:8px; background:var(--bg-card); border:1px solid var(--border-surface); border-bottom:none; border-radius:10px 10px 0 0; }
+        .md-tool-btn { background:transparent; border:1px solid var(--border-surface); color:var(--text-secondary); width:32px; height:32px; border-radius:6px; cursor:pointer; transition:all 0.2s; font-size:0.78rem; display:flex; align-items:center; justify-content:center; }
+        .md-tool-btn:hover { color:var(--brand-gold); border-color:var(--brand-gold-dim); }
+        .md-body-textarea { border-radius:0 0 10px 10px !important; border-top:none !important; min-height:340px !important; font-family:'DM Sans',sans-serif !important; font-size:14.5px !important; line-height:1.6 !important; }
+
+        .blog-status-badge { display:inline-flex; align-items:center; gap:5px; padding:2px 10px; border-radius:999px; font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; }
+        .blog-status-published { background:rgba(34,197,94,0.15); color:#4ade80; border:1px solid rgba(34,197,94,0.3); }
+        .blog-status-draft     { background:rgba(234,179,8,0.15); color:#facc15; border:1px solid rgba(234,179,8,0.3); }
+
+    </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     VIEW 0 — LOADING SPLASH
+══════════════════════════════════════════════════════════ -->
+<div id="view-loading" class="view active min-h-screen flex flex-col items-center justify-center relative z-10">
+    <div class="text-center">
+        <div class="w-20 h-20 rounded-2xl mx-auto mb-5 flex items-center justify-center"
+             style="background:rgba(239,68,68,0.1); border:2px solid rgba(239,68,68,0.3); animation:adminPulse 1.4s ease-in-out infinite;">
+            <i class="fa-solid fa-shield-halved text-3xl text-red-400"></i>
+        </div>
+        <p class="text-xs font-bold uppercase tracking-widest text-red-400"
+           style="animation:adminPulse 1.4s ease-in-out infinite;">
+            Verifying credentials&hellip;
+        </p>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     VIEW 1 — ADMIN LOGIN
+══════════════════════════════════════════════════════════ -->
+<div id="view-login" class="view min-h-screen flex items-center justify-center px-4 py-12 relative z-10">
+    <div class="w-full max-w-md">
+
+        <div class="text-center mb-8">
+            <div class="w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-4" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3)">
+                <i class="fa-solid fa-shield-halved text-2xl text-red-400"></i>
+            </div>
+            <h1 class="text-3xl font-bold text-white">GV&amp;J Admin Panel</h1>
+            <p class="text-[#7a8899] text-sm mt-1.5 font-medium">Authorised Personnel Only.</p>
+        </div>
+
+        <div class="bg-[#0f1419] border border-[#1e2730] rounded-2xl p-8">
+            <div id="admin-login-error" class="hidden mb-4 bg-red-900/20 border border-red-700/40 rounded-xl p-3 text-red-400 text-sm font-medium"></div>
+
+            <div class="space-y-4 mb-5">
+                <div>
+                    <label class="input-label">Admin Email</label>
+                    <input type="email" id="admin-email" class="gvj-input" placeholder="name@example.com" autocomplete="off">
+                </div>
+                <div>
+                    <label class="input-label">Password</label>
+                    <input type="password" id="admin-password" class="gvj-input" placeholder="••••••••" onkeydown="if(event.key==='Enter') doAdminLogin()">
+                </div>
+            </div>
+            <button id="admin-login-btn" onclick="doAdminLogin()" class="w-full btn-gold py-4 rounded-xl text-sm">
+                Access Admin Dashboard
+            </button>
+        </div>
+
+        <p class="text-center text-[#2d3748] text-xs mt-4">This page is not linked from the public website. Unauthorised access attempts are logged.</p>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     VIEW 2 — ADMIN DASHBOARD
+══════════════════════════════════════════════════════════ -->
+<div id="view-dashboard" class="view relative z-10">
+
+    <!-- Nav -->
+    <nav class="bg-[#080c10]/95 backdrop-blur-md border-b border-[#1e2730] sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-shield-halved text-red-400 text-xl"></i>
+                <span class="font-black text-white hidden md:block" style="font-family:'Cormorant Garamond',serif; font-size:1.1rem;">GV&J ADMIN PANEL</span>
+            </div>
+            <span class="text-[#7a8899] text-xs font-medium truncate hidden sm:block">Logged in as: <strong id="admin-email-display" class="text-white font-semibold"></strong></span>
+            <button onclick="doAdminLogout()" class="btn-outline px-4 py-2 rounded-lg text-xs flex-shrink-0">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Log Out
+            </button>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-4 py-8">
+
+        <!-- ── TOP-LEVEL ADMIN TABS ── -->
+        <div class="admin-tabs">
+            <button id="atab-clients" class="admin-tab active" onclick="switchAdminTab('clients')">
+                <i class="fa-solid fa-users mr-1.5"></i>Client Management
+            </button>
+            <button id="atab-blog" class="admin-tab" onclick="switchAdminTab('blog')">
+                <i class="fa-solid fa-feather-pointed mr-1.5"></i>Blog Management
+            </button>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             PANE: CLIENT MANAGEMENT (existing)
+        ══════════════════════════════════════════ -->
+        <div id="apane-clients" class="admin-pane active">
+
+        <!-- ── SUMMARY STATS ── -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="stat-card">
+                <p class="text-[#7a8899] text-xs font-bold uppercase tracking-widest mb-1">Total Clients</p>
+                <div class="stat-number" style="color:var(--brand-gold)" id="stat-total">—</div>
+            </div>
+            <div class="stat-card">
+                <p class="text-[#7a8899] text-xs font-bold uppercase tracking-widest mb-1">Awaiting Docs</p>
+                <div class="stat-number text-yellow-400" id="stat-awaiting">—</div>
+            </div>
+            <div class="stat-card">
+                <p class="text-[#7a8899] text-xs font-bold uppercase tracking-widest mb-1">Under Review</p>
+                <div class="stat-number text-orange-400" id="stat-review">—</div>
+            </div>
+            <div class="stat-card">
+                <p class="text-[#7a8899] text-xs font-bold uppercase tracking-widest mb-1">Submitted This Month</p>
+                <div class="stat-number text-green-400" id="stat-submitted">—</div>
+            </div>
+        </div>
+
+        <!-- ── SEARCH & FILTER BAR ── -->
+        <div class="bg-[#0f1419] border border-[#1e2730] rounded-2xl p-4 mb-4">
+            <div class="flex flex-col md:flex-row gap-3">
+                <div class="relative flex-1">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-[#4a5568] text-sm"></i>
+                    <input type="text" id="search-input" placeholder="Search by name or email…" class="gvj-input pl-9 py-3" oninput="applyFilters()">
+                </div>
+                <select id="filter-status" class="gvj-input md:w-48 py-3" onchange="applyFilters()">
+                    <option value="">All Statuses</option>
+                    <option value="payment_confirmed">Payment Confirmed</option>
+                    <option value="documents_uploaded">Documents Uploaded</option>
+                    <option value="under_review">Under Review</option>
+                    <option value="strategy_built">Strategy Built</option>
+                    <option value="submitted">Submitted</option>
+                </select>
+                <select id="filter-destination" class="gvj-input md:w-44 py-3" onchange="applyFilters()">
+                    <option value="">All Destinations</option>
+                    <option value="Spain">Spain</option>
+                    <option value="France">France</option>
+                    <option value="Greece">Greece</option>
+                    <option value="Germany">Germany</option>
+                    <option value="Italy">Italy</option>
+                    <option value="Netherlands">Netherlands</option>
+                    <option value="Portugal">Portugal</option>
+                    <option value="Switzerland">Switzerland</option>
+                    <option value="Other Schengen">Other Schengen</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- ── CLIENT TABLE ── -->
+        <div class="bg-[#0f1419] border border-[#1e2730] rounded-2xl overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Client</th>
+                            <th>Destination</th>
+                            <th class="hidden md:table-cell">Package</th>
+                            <th>Status</th>
+                            <th>Documents</th>
+                            <th class="hidden lg:table-cell">Last Updated</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="client-tbody">
+                        <tr><td colspan="7" class="text-center py-12 text-[#4a5568]"><i class="fa-solid fa-circle-notch spin mr-2"></i>Loading clients…</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <p id="no-clients-msg" class="hidden text-center text-[#4a5568] py-8 text-sm">No clients match the current filters.</p>
+
+        </div><!-- /apane-clients -->
+
+        <!-- ══════════════════════════════════════════
+             PANE: BLOG MANAGEMENT
+        ══════════════════════════════════════════ -->
+        <div id="apane-blog" class="admin-pane">
+
+            <!-- Blog sub-tabs -->
+            <div class="flex gap-1 border-b border-[#1e2730] mb-6">
+                <button id="btab-list" class="blog-subtab active" onclick="switchBlogTab('list')">
+                    <i class="fa-solid fa-list mr-1.5"></i>All Posts
+                </button>
+                <button id="btab-new" class="blog-subtab" onclick="switchBlogTab('new')">
+                    <i class="fa-solid fa-plus mr-1.5"></i>New Post
+                </button>
+                <button id="btab-seed" class="blog-subtab" onclick="switchBlogTab('seed')">
+                    <i class="fa-solid fa-seedling mr-1.5"></i>Seed Samples
+                </button>
+            </div>
+
+            <!-- ── BLOG PANE: ALL POSTS ── -->
+            <div id="bpane-list" class="blog-pane active">
+                <div class="bg-[#0f1419] border border-[#1e2730] rounded-2xl overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="admin-table">
+                            <thead><tr>
+                                <th>Title</th>
+                                <th class="hidden md:table-cell">Category</th>
+                                <th class="hidden md:table-cell">Author</th>
+                                <th>Status</th>
+                                <th class="hidden lg:table-cell">Date</th>
+                                <th>Actions</th>
+                            </tr></thead>
+                            <tbody id="blog-tbody">
+                                <tr><td colspan="6" class="text-center py-12 text-[#4a5568]"><i class="fa-solid fa-circle-notch spin mr-2"></i>Loading posts…</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── BLOG PANE: NEW POST FORM ── -->
+            <div id="bpane-new" class="blog-pane">
+                <form id="blog-form" onsubmit="event.preventDefault()" class="bg-[#0f1419] border border-[#1e2730] rounded-2xl p-6 md:p-8 space-y-5">
+
+                    <input type="hidden" id="bf-id" value="">
+
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="input-label">Title <span style="color:#ef4444">*</span></label>
+                            <input type="text" id="bf-title" class="gvj-input" placeholder="e.g. Why Your Schengen Visa Was Refused…" oninput="autoSlug()">
+                        </div>
+                        <div>
+                            <label class="input-label">Slug <span style="color:#ef4444">*</span> <span class="text-[#4a5568] normal-case font-medium text-xs">(URL-friendly)</span></label>
+                            <input type="text" id="bf-slug" class="gvj-input" placeholder="why-your-schengen-visa-was-refused">
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="input-label">Category <span style="color:#ef4444">*</span></label>
+                            <select id="bf-category" class="gvj-input">
+                                <option value="">— Select category —</option>
+                                <option value="UK Residents">UK Residents</option>
+                                <option value="Africa Residents">Africa Residents</option>
+                                <option value="General Visa Strategy">General Visa Strategy</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="input-label">Author</label>
+                            <input type="text" id="bf-author" class="gvj-input" value="GV&amp;J Strategy Team">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="input-label">Hero Image URL <span style="color:#ef4444">*</span></label>
+                        <input type="url" id="bf-hero" class="gvj-input" placeholder="https://images.unsplash.com/...">
+                        <p class="text-[#7a8899] text-xs mt-1.5">Use Unsplash, your own CDN, or any publicly accessible image URL.</p>
+                    </div>
+
+                    <div>
+                        <label class="input-label">Excerpt <span style="color:#ef4444">*</span> <span class="text-[#4a5568] normal-case font-medium text-xs">(max 200 chars — shown on blog index cards)</span></label>
+                        <textarea id="bf-excerpt" class="gvj-input" maxlength="220" rows="2" oninput="updateCounter('bf-excerpt','bf-excerpt-count',200)"></textarea>
+                        <div class="char-counter" id="bf-excerpt-count">0 / 200</div>
+                    </div>
+
+                    <div>
+                        <label class="input-label">Body <span style="color:#ef4444">*</span> <span class="text-[#4a5568] normal-case font-medium text-xs">(Markdown supported — converts to HTML on save)</span></label>
+                        <div class="md-toolbar">
+                            <button type="button" class="md-tool-btn" onclick="mdInsert('**','**')" title="Bold"><i class="fa-solid fa-bold"></i></button>
+                            <button type="button" class="md-tool-btn" onclick="mdInsert('*','*')" title="Italic"><i class="fa-solid fa-italic"></i></button>
+                            <button type="button" class="md-tool-btn" onclick="mdInsert('## ','')" title="Heading 2"><span style="font-weight:800">H2</span></button>
+                            <button type="button" class="md-tool-btn" onclick="mdInsert('### ','')" title="Heading 3"><span style="font-weight:800">H3</span></button>
+                            <button type="button" class="md-tool-btn" onclick="mdInsert('[','](https://)')" title="Link"><i class="fa-solid fa-link"></i></button>
+                            <button type="button" class="md-tool-btn" onclick="mdInsert('- ','')" title="List"><i class="fa-solid fa-list-ul"></i></button>
+                            <button type="button" class="md-tool-btn" onclick="mdInsert('![alt text](',')')" title="Image"><i class="fa-solid fa-image"></i></button>
+                            <button type="button" class="md-tool-btn" onclick="mdInsert('> ','')" title="Quote"><i class="fa-solid fa-quote-right"></i></button>
+                            <button type="button" class="md-tool-btn" onclick="mdInsert('\n---\n','')" title="Divider"><i class="fa-solid fa-minus"></i></button>
+                            <button type="button" class="md-tool-btn ml-auto" onclick="togglePreview()" title="Toggle preview"><i class="fa-solid fa-eye"></i></button>
+                        </div>
+                        <textarea id="bf-body" class="gvj-input md-body-textarea" placeholder="Write your article in Markdown…"></textarea>
+                        <div id="bf-preview" class="hidden mt-4 p-5 bg-[#080c10] border border-[#1e2730] rounded-xl">
+                            <p class="text-[#7a8899] text-xs font-bold uppercase tracking-widest mb-3">Live Preview</p>
+                            <div id="bf-preview-html" class="article-body" style="font-size:0.95rem"></div>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="input-label">Tags <span class="text-[#4a5568] normal-case font-medium text-xs">(comma-separated)</span></label>
+                            <input type="text" id="bf-tags" class="gvj-input" placeholder="schengen, refusal, nigeria, source of funds">
+                        </div>
+                        <div>
+                            <label class="input-label">CTA Type <span style="color:#ef4444">*</span></label>
+                            <select id="bf-cta" class="gvj-input">
+                                <option value="quickscan">QuickScan Audit (£39.99)</option>
+                                <option value="whatsapp">WhatsApp Strategist</option>
+                                <option value="calculator">Readiness Calculator</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="input-label">SEO Title <span class="text-[#4a5568] normal-case font-medium text-xs">(shown in search results)</span></label>
+                        <input type="text" id="bf-seo-title" class="gvj-input" placeholder="Defaults to title if blank">
+                    </div>
+
+                    <div>
+                        <label class="input-label">SEO Description <span class="text-[#4a5568] normal-case font-medium text-xs">(max 160 chars)</span></label>
+                        <textarea id="bf-seo-desc" class="gvj-input" maxlength="180" rows="2" oninput="updateCounter('bf-seo-desc','bf-seo-desc-count',160)"></textarea>
+                        <div class="char-counter" id="bf-seo-desc-count">0 / 160</div>
+                    </div>
+
+                    <div id="blog-form-error" class="hidden bg-red-900/20 border border-red-700/40 rounded-xl p-3 text-red-400 text-sm font-medium"></div>
+                    <div id="blog-form-ok"    class="hidden bg-green-900/20 border border-green-700/40 rounded-xl p-3 text-green-400 text-sm font-bold"></div>
+
+                    <div class="flex flex-col sm:flex-row gap-3 pt-3 border-t border-[#1e2730]">
+                        <button type="button" onclick="cancelEdit()" class="btn-outline px-5 py-3 rounded-xl text-xs flex-shrink-0">Cancel</button>
+                        <button type="button" id="bf-save-draft" onclick="savePost('draft')" class="btn-outline px-5 py-3 rounded-xl text-xs flex-1">
+                            <i class="fa-solid fa-floppy-disk"></i> Save as Draft
+                        </button>
+                        <button type="button" id="bf-publish" onclick="savePost('published')" class="btn-gold px-5 py-3 rounded-xl text-xs flex-1">
+                            <i class="fa-solid fa-paper-plane"></i> <span id="bf-publish-label">Publish Now</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- ── BLOG PANE: SEED SAMPLE POSTS ── -->
+            <div id="bpane-seed" class="blog-pane">
+                <div class="bg-[#0f1419] border border-[#1e2730] rounded-2xl p-6 md:p-8 text-center max-w-2xl mx-auto">
+                    <div class="w-14 h-14 mx-auto mb-4 rounded-2xl flex items-center justify-center" style="background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.3)">
+                        <i class="fa-solid fa-seedling text-xl text-gold"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Insert 3 Sample Posts</h3>
+                    <p class="text-[#7a8899] text-sm mb-6 font-medium">
+                        Adds three professionally-written sample articles to Firestore so you can see the blog populated immediately. Run this once. You can edit, unpublish, or delete the samples afterwards.
+                    </p>
+                    <button id="seed-btn" onclick="seedSamplePosts()" class="btn-gold px-6 py-3 rounded-xl text-sm">
+                        <i class="fa-solid fa-seedling"></i> Seed 3 Sample Posts
+                    </button>
+                    <p id="seed-status" class="hidden mt-4 text-sm font-bold"></p>
+                </div>
+            </div>
+
+        </div><!-- /apane-blog -->
+
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     MODAL: VIEW DOCUMENTS
+══════════════════════════════════════════════════════════ -->
+<div id="modal-docs" class="modal-overlay" style="display:none" onclick="closeModalIfOverlay(event,'modal-docs')">
+    <div class="modal-box">
+        <button onclick="closeModal('modal-docs')" class="absolute top-4 right-4 text-[#7a8899] hover:text-white w-8 h-8 flex items-center justify-center rounded-full hover:bg-[#1e2730] transition">&times;</button>
+        <h3 class="text-xl font-bold text-white mb-1" id="modal-docs-title" style="font-family:'Cormorant Garamond',serif;">Client Documents</h3>
+        <p class="text-[#7a8899] text-xs mb-5 font-medium" id="modal-docs-subtitle"></p>
+        <div id="modal-docs-body" class="space-y-2"><!-- injected --></div>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     MODAL: UPDATE STATUS
+══════════════════════════════════════════════════════════ -->
+<div id="modal-status" class="modal-overlay" style="display:none" onclick="closeModalIfOverlay(event,'modal-status')">
+    <div class="modal-box">
+        <button onclick="closeModal('modal-status')" class="absolute top-4 right-4 text-[#7a8899] hover:text-white w-8 h-8 flex items-center justify-center rounded-full hover:bg-[#1e2730] transition">&times;</button>
+        <h3 class="text-xl font-bold text-white mb-1" id="modal-status-title" style="font-family:'Cormorant Garamond',serif;">Update Client Status</h3>
+        <p class="text-[#7a8899] text-xs mb-6 font-medium" id="modal-status-subtitle">Changes save instantly and update the client portal in real time.</p>
+        <div>
+            <label class="input-label">New Status</label>
+            <select id="status-select" class="gvj-input mb-5">
+                <option value="payment_confirmed">Payment Confirmed</option>
+                <option value="documents_uploaded">Documents Uploaded</option>
+                <option value="under_review">Under Review</option>
+                <option value="strategy_built">Strategy Built</option>
+                <option value="submitted">Submitted</option>
+            </select>
+        </div>
+        <div id="status-save-error" class="hidden mb-4 bg-red-900/20 border border-red-700/40 rounded-xl p-3 text-red-400 text-sm"></div>
+        <div id="status-save-ok"    class="hidden mb-4 bg-green-900/20 border border-green-700/40 rounded-xl p-3 text-green-400 text-sm font-bold">
+            <i class="fa-solid fa-circle-check mr-2"></i>Status updated — client portal will refresh automatically.
+        </div>
+        <div class="flex gap-3">
+            <button onclick="closeModal('modal-status')" class="flex-1 btn-outline py-3 rounded-xl text-sm">Cancel</button>
+            <button id="save-status-btn" onclick="saveClientStatus()" class="flex-1 btn-gold py-3 rounded-xl text-sm">Save Status</button>
+        </div>
+        <input type="hidden" id="status-target-uid">
+    </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     FIREBASE
+══════════════════════════════════════════════════════════ -->
+<script type="module">
+import { initializeApp }                          from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword,
+         signOut, onAuthStateChanged,
+         setPersistence, browserLocalPersistence }  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, collection, getDocs, addDoc, deleteDoc,
+         doc, updateDoc, onSnapshot,
+         query, where, orderBy, serverTimestamp }   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey:            "AIzaSyCcoyBXRITTblrH0XcaLGMjftUttXYLtj4",
+    authDomain:        "global-visa-journeys.firebaseapp.com",
+    projectId:         "global-visa-journeys",
+    storageBucket:     "global-visa-journeys.firebasestorage.app",
+    messagingSenderId: "381217766164",
+    appId:             "1:381217766164:web:1cb70fbc26332f5a8d6001"
+};
+
+const ADMIN_EMAIL = "office@globalvisajourneys.com";
+
+const DOC_CATEGORIES_IDS = ['passport','bank','employment','payslips','accommodation','itinerary','ties','insurance','supporting'];
+const DOC_REQUIRED_COUNT  = 8;
+
+const STATUS_LABELS = {
+    payment_confirmed:  'Payment Confirmed',
+    documents_uploaded: 'Documents Uploaded',
+    under_review:       'Under Review',
+    strategy_built:     'Strategy Built',
+    submitted:          'Submitted',
+};
+const STATUS_BADGE = {
+    payment_confirmed:  'badge-blue',
+    documents_uploaded: 'badge-yellow',
+    under_review:       'badge-orange',
+    strategy_built:     'badge-purple',
+    submitted:          'badge-green',
+};
+
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db   = getFirestore(app);
+
+let allClients   = [];
+let unsubClients = null;
+
+/* ── FIX 1: Set LOCAL persistence FIRST — before any auth operation ── */
+await setPersistence(auth, browserLocalPersistence);
+console.log('[GVJ Admin] Auth persistence set to LOCAL.');
+
+/* ── FIX 4: Show loading splash while auth state resolves ── */
+showView('loading');
+
+/* ── FIX 3+6: Single onAuthStateChanged listener, initialised once.
+   authInitialised flag prevents repeated firing loops.
+   FIX 5: visibilitychange guard handled separately below. ── */
+let authInitialised = false;
+
+onAuthStateChanged(auth, async (user) => {
+    if (!authInitialised) {
+        authInitialised = true;
+        hideAdminSplash();
+        console.log('[GVJ Admin] Auth state resolved on first fire. User:', user ? user.email : 'none');
+    } else {
+        console.log('[GVJ Admin] Auth state changed. User:', user ? user.email : 'none (logged out)');
+    }
+
+    if (user) {
+        // Admin email guard — block any non-admin user immediately
+        if (user.email !== ADMIN_EMAIL) {
+            await signOut(auth);
+            showView('login');
+            showLoginError('Access denied. This portal is restricted to authorised administrators.');
+            console.warn('[GVJ Admin] Non-admin login attempt blocked:', user.email);
+            return;
+        }
+        document.getElementById('admin-email-display').textContent = user.email;
+        showView('dashboard');
+        // Only start the listener once — guard against duplicate calls
+        if (!unsubClients) listenToClients();
+    } else {
+        if (unsubClients) { unsubClients(); unsubClients = null; }
+        showView('login');
+    }
+});
+
+/* ── FIX 5: visibilitychange guard — never log out just because a tab was switched.
+   Only the onAuthStateChanged listener handles actual auth state changes. ── */
+document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+        const user = auth.currentUser;
+        console.log('[GVJ Admin] Tab became visible. Firebase currentUser:', user ? user.email : 'null');
+        // If the user is still authenticated, do nothing.
+        // LOCAL persistence keeps them logged in across tab switches.
+    }
+});
+
+/* ── SHOW VIEW ── */
+function showView(name) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    const target = document.getElementById(`view-${name}`);
+    if (target) target.classList.add('active');
+    else console.warn('[GVJ Admin] showView: no element for view-' + name);
+}
+window.showView = showView;
+
+/* FIX 4: Hide admin loading splash */
+function hideAdminSplash() {
+    const splash = document.getElementById('view-loading');
+    if (splash) splash.classList.remove('active');
+}
+
+function showLoginError(msg) {
+    const el = document.getElementById('admin-login-error');
+    el.textContent = msg;
+    el.classList.remove('hidden');
+}
+
+/* ── ADMIN LOGIN ── */
+window.doAdminLogin = async () => {
+    const email    = document.getElementById('admin-email').value.trim();
+    const password = document.getElementById('admin-password').value;
+    const btn      = document.getElementById('admin-login-btn');
+    const errEl    = document.getElementById('admin-login-error');
+
+    errEl.classList.add('hidden');
+    if (!email || !password) { showLoginError('Please enter your email and password.'); return; }
+
+    btn.innerHTML = '<i class="fa-solid fa-circle-notch spin"></i> Authenticating…';
+    btn.disabled  = true;
+
+    try {
+        await signInWithEmailAndPassword(auth, email, password);
+        // onAuthStateChanged handles the rest
+    } catch(e) {
+        showLoginError('Incorrect email or password.');
+        btn.innerHTML = 'Access Admin Dashboard';
+        btn.disabled  = false;
+    }
+};
+
+/* ── ADMIN LOGOUT ── */
+window.doAdminLogout = async () => {
+    await signOut(auth);
+};
+
+/* ── REAL-TIME CLIENT LISTENER ── */
+function listenToClients() {
+    const colRef = collection(db, 'clients');
+    unsubClients = onSnapshot(colRef, (snap) => {
+        allClients = snap.docs.map(d => ({ uid: d.id, ...d.data() }));
+        renderStats();
+        applyFilters();
+    });
+}
+
+/* ── STATS ── */
+function renderStats() {
+    const now   = new Date();
+    const month = now.getMonth();
+    const year  = now.getFullYear();
+
+    document.getElementById('stat-total').textContent     = allClients.length;
+    document.getElementById('stat-awaiting').textContent  = allClients.filter(c => c.status === 'payment_confirmed').length;
+    document.getElementById('stat-review').textContent    = allClients.filter(c => c.status === 'under_review').length;
+    document.getElementById('stat-submitted').textContent = allClients.filter(c => {
+        if (c.status !== 'submitted' || !c.submittedAt) return false;
+        const d = new Date(c.submittedAt);
+        return d.getMonth() === month && d.getFullYear() === year;
+    }).length;
+}
+
+/* ── FILTERS ── */
+window.applyFilters = () => {
+    const search = document.getElementById('search-input').value.toLowerCase();
+    const status = document.getElementById('filter-status').value;
+    const dest   = document.getElementById('filter-destination').value;
+
+    const filtered = allClients.filter(c => {
+        const name  = `${c.firstName||''} ${c.lastName||''}`.toLowerCase();
+        const email = (c.email||'').toLowerCase();
+        const matchSearch = !search || name.includes(search) || email.includes(search);
+        const matchStatus = !status || c.status === status;
+        const matchDest   = !dest   || c.destination === dest;
+        return matchSearch && matchStatus && matchDest;
+    });
+
+    renderClientTable(filtered);
+};
+
+/* ── CLIENT TABLE ── */
+function renderClientTable(clients) {
+    const tbody  = document.getElementById('client-tbody');
+    const noMsg  = document.getElementById('no-clients-msg');
+
+    if (clients.length === 0) {
+        // Distinguish: genuinely no clients vs filtered to zero
+        const hasActiveFilter = document.getElementById('search-input').value ||
+                                document.getElementById('filter-status').value ||
+                                document.getElementById('filter-destination').value;
+        const emptyMsg = hasActiveFilter
+            ? 'No clients match the current filters.'
+            : 'No clients yet. Client accounts will appear here once created in Firebase Authentication.';
+        tbody.innerHTML = `<tr><td colspan="7" class="text-center py-12 text-[#4a5568] text-sm font-medium">
+            <i class="fa-solid fa-users-slash mr-2"></i>${emptyMsg}
+        </td></tr>`;
+        noMsg.classList.add('hidden');
+        return;
+    }
+    noMsg.classList.add('hidden');
+
+    tbody.innerHTML = clients.map(c => {
+        const fullName    = `${c.firstName||''} ${c.lastName||''}`.trim() || c.email;
+        const badgeCls    = STATUS_BADGE[c.status] || 'badge-blue';
+        const statusLabel = STATUS_LABELS[c.status] || c.status;
+        const docs        = c.documents || {};
+        const uploaded    = DOC_CATEGORIES_IDS.filter(id => docs[id]).length;
+        const docPct      = Math.round((uploaded / DOC_REQUIRED_COUNT) * 100);
+        const updatedAt   = c.statusUpdatedAt ? formatDate(c.statusUpdatedAt) : '—';
+
+        return `
+        <tr class="client-row" onclick="toggleExpand('${c.uid}')">
+            <td>
+                <div class="font-semibold text-white text-sm">${escHtml(fullName)}</div>
+                <div class="text-[#7a8899] text-xs mt-0.5">${escHtml(c.email||'')}</div>
+            </td>
+            <td class="text-sm">${escHtml(c.destination||'—')}</td>
+            <td class="text-sm hidden md:table-cell">${escHtml(c.packagePurchased||'—')}</td>
+            <td><span class="badge ${badgeCls}">${statusLabel}</span></td>
+            <td>
+                <div class="flex items-center gap-2 min-w-[80px]">
+                    <div class="mini-bar flex-1"><div class="mini-fill" style="width:${docPct}%"></div></div>
+                    <span class="text-xs text-[#7a8899] font-medium whitespace-nowrap">${uploaded}/${DOC_REQUIRED_COUNT}</span>
+                </div>
+            </td>
+            <td class="text-[#7a8899] text-xs hidden lg:table-cell">${updatedAt}</td>
+            <td>
+                <div class="flex gap-2 flex-wrap">
+                    <button class="btn-blue btn-sm rounded-lg text-xs" onclick="event.stopPropagation(); openDocsModal('${c.uid}')">
+                        <i class="fa-solid fa-folder-open text-xs"></i> Docs
+                    </button>
+                    <button class="btn-gold btn-sm rounded-lg text-xs" onclick="event.stopPropagation(); openStatusModal('${c.uid}')">
+                        <i class="fa-solid fa-sliders text-xs"></i> Status
+                    </button>
+                </div>
+            </td>
+        </tr>
+        <tr class="expanded-row hidden" id="expand-${c.uid}">
+            <td colspan="7">
+                <div class="expand-panel">
+                    <div class="grid md:grid-cols-3 gap-4 text-sm">
+                        <div><p class="text-[#7a8899] text-xs font-bold uppercase tracking-widest mb-1">Full Name</p><p class="text-white">${escHtml(fullName)}</p></div>
+                        <div><p class="text-[#7a8899] text-xs font-bold uppercase tracking-widest mb-1">Email</p><p class="text-white">${escHtml(c.email||'—')}</p></div>
+                        <div><p class="text-[#7a8899] text-xs font-bold uppercase tracking-widest mb-1">WhatsApp</p><p class="text-white">${escHtml(c.whatsapp||'—')}</p></div>
+                        <div><p class="text-[#7a8899] text-xs font-bold uppercase tracking-widest mb-1">Destination</p><p class="text-white">${escHtml(c.destination||'—')}</p></div>
+                        <div><p class="text-[#7a8899] text-xs font-bold uppercase tracking-widest mb-1">Package</p><p class="text-white">${escHtml(c.packagePurchased||'—')}</p></div>
+                        <div><p class="text-[#7a8899] text-xs font-bold uppercase tracking-widest mb-1">Payment Date</p><p class="text-white">${formatDate(c.paymentDate)||'—'}</p></div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-[#1e2730]">
+                        <p class="text-[#7a8899] text-xs font-bold uppercase tracking-widest mb-3">Document Upload Summary</p>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+                            ${DOC_CATEGORIES_IDS.map(id => {
+                                const d = docs[id];
+                                return `<div class="flex items-center gap-2 text-xs ${d ? 'text-green-400' : 'text-[#4a5568]'}">
+                                    <i class="fa-solid ${d ? 'fa-check-circle' : 'fa-circle-xmark'} text-xs"></i>
+                                    <span class="font-medium">${id.charAt(0).toUpperCase()+id.slice(1)}</span>
+                                    ${d ? `<span class="text-[#4a5568] truncate max-w-[100px]">${escHtml(d.filename||'')}</span>` : ''}
+                                </div>`;
+                            }).join('')}
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>`;
+    }).join('');
+}
+
+/* ── EXPAND ROW ── */
+window.toggleExpand = (uid) => {
+    const row = document.getElementById(`expand-${uid}`);
+    if (row) row.classList.toggle('hidden');
+};
+
+/* ── DOCS MODAL ── */
+window.openDocsModal = (uid) => {
+    const client = allClients.find(c => c.uid === uid);
+    if (!client) return;
+    const docs = client.documents || {};
+    const fullName = `${client.firstName||''} ${client.lastName||''}`.trim() || client.email;
+
+    document.getElementById('modal-docs-title').textContent    = `${fullName} — Documents`;
+    document.getElementById('modal-docs-subtitle').textContent = `${client.email}  ·  ${client.destination||'No destination set'}`;
+
+    const body = document.getElementById('modal-docs-body');
+    body.innerHTML = DOC_CATEGORIES_IDS.map(id => {
+        const d = docs[id];
+        const label = id.charAt(0).toUpperCase() + id.slice(1).replace(/_/g,' ');
+        return `<div class="flex items-center justify-between gap-3 py-2.5 border-b border-[#1e2730] last:border-0">
+            <div class="flex items-center gap-2.5">
+                <i class="fa-solid ${d ? 'fa-circle-check text-green-400' : 'fa-circle-xmark text-[#4a5568]'} text-sm flex-shrink-0"></i>
+                <span class="text-sm font-semibold text-white">${label}</span>
+                ${d ? `<span class="text-xs text-[#7a8899] hidden sm:inline">${formatDate(d.uploadedAt)}</span>` : ''}
+            </div>
+            ${d && d.url
+                ? `<a href="${d.url}" target="_blank" rel="noopener noreferrer"
+                      class="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-lg transition"
+                      style="color:var(--brand-gold); border:1px solid rgba(201,168,76,0.3); background:rgba(201,168,76,0.06)">
+                       <i class="fa-solid fa-download text-xs"></i> Download
+                   </a>`
+                : `<span class="text-xs text-[#4a5568] font-medium">Not uploaded</span>`}
+        </div>`;
+    }).join('');
+
+    openModal('modal-docs');
+};
+
+/* ── STATUS MODAL ── */
+window.openStatusModal = (uid) => {
+    const client = allClients.find(c => c.uid === uid);
+    if (!client) return;
+    const fullName = `${client.firstName||''} ${client.lastName||''}`.trim() || client.email;
+
+    // Pre-populate dropdown with THIS client's current status
+    document.getElementById('modal-status-title').textContent = `Update Status — ${fullName}`;
+    document.getElementById('modal-status-subtitle').textContent = `Client: ${client.email || uid}  ·  Current: ${STATUS_LABELS[client.status] || client.status}`;
+    document.getElementById('status-target-uid').value       = uid;
+    document.getElementById('status-select').value           = client.status || 'payment_confirmed';
+    // Reset any previous save feedback
+    document.getElementById('status-save-ok').classList.add('hidden');
+    document.getElementById('status-save-error').classList.add('hidden');
+    // Re-enable save button in case it was left disabled from a previous save
+    const saveBtn = document.getElementById('save-status-btn');
+    if (saveBtn) { saveBtn.disabled = false; saveBtn.innerHTML = 'Save Status'; }
+
+    openModal('modal-status');
+};
+
+/* ── SAVE STATUS ── */
+window.saveClientStatus = async () => {
+    const uid    = document.getElementById('status-target-uid').value;
+    const status = document.getElementById('status-select').value;
+    const btn    = document.getElementById('save-status-btn');
+    const okEl   = document.getElementById('status-save-ok');
+    const errEl  = document.getElementById('status-save-error');
+
+    btn.innerHTML = '<i class="fa-solid fa-circle-notch spin"></i> Saving…';
+    btn.disabled  = true;
+    okEl.classList.add('hidden');
+    errEl.classList.add('hidden');
+
+    const updateData = {
+        status,
+        statusUpdatedAt: new Date().toISOString(),
+    };
+    // Set timestamp for specific milestones
+    const tsMap = {
+        documents_uploaded: 'documentsUploadedAt',
+        strategy_built:     'strategyBuiltAt',
+        submitted:          'submittedAt',
+    };
+    if (tsMap[status]) updateData[tsMap[status]] = new Date().toISOString();
+
+    try {
+        await updateDoc(doc(db, 'clients', uid), updateData);
+        okEl.classList.remove('hidden');
+    } catch(e) {
+        errEl.textContent = 'Error saving status. Please try again.';
+        errEl.classList.remove('hidden');
+    } finally {
+        btn.innerHTML = 'Save Status';
+        btn.disabled  = false;
+    }
+};
+
+/* ── MODAL HELPERS ── */
+function openModal(id) {
+    const el = document.getElementById(id);
+    el.style.display = 'flex';      // inline style — highest specificity, wins always
+    el.classList.add('modal-open'); // class for any CSS hooks
+    document.body.style.overflow = 'hidden';
+}
+window.closeModal = (id) => {
+    const el = document.getElementById(id);
+    el.style.display = 'none';         // inline none — guaranteed hidden
+    el.classList.remove('modal-open');
+    document.body.style.overflow = 'auto';
+};
+window.closeModalIfOverlay = (e, id) => { if (e.target === document.getElementById(id)) closeModal(id); };
+
+/* ── UTILS ── */
+function formatDate(iso) {
+    if (!iso) return '—';
+    try { return new Date(iso).toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' }); }
+    catch { return iso; }
+}
+function escHtml(str) {
+    return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ════════════════════════════════════════════════════════════
+   BLOG MANAGEMENT
+════════════════════════════════════════════════════════════ */
+
+let allBlogPosts   = [];
+let unsubBlogList  = null;
+
+/* ── TOP-LEVEL TAB SWITCHER ── */
+window.switchAdminTab = (name) => {
+    document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.admin-pane').forEach(p => p.classList.remove('active'));
+    document.getElementById(`atab-${name}`).classList.add('active');
+    document.getElementById(`apane-${name}`).classList.add('active');
+
+    // Lazy-load blog list when tab first opens
+    if (name === 'blog' && allBlogPosts.length === 0) {
+        loadAllBlogPosts();
+    }
+};
+
+/* ── BLOG SUB-TABS ── */
+window.switchBlogTab = (name) => {
+    document.querySelectorAll('.blog-subtab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.blog-pane').forEach(p => p.classList.remove('active'));
+    document.getElementById(`btab-${name}`).classList.add('active');
+    document.getElementById(`bpane-${name}`).classList.add('active');
+    if (name === 'new') document.getElementById('bf-publish-label').textContent = document.getElementById('bf-id').value ? 'Save Changes' : 'Publish Now';
+};
+
+/* ── LOAD ALL POSTS (drafts + published) ── */
+async function loadAllBlogPosts() {
+    try {
+        if (unsubBlogList) unsubBlogList();
+        unsubBlogList = onSnapshot(
+            query(collection(db, 'blog_posts'), orderBy('createdAt', 'desc')),
+            (snap) => {
+                allBlogPosts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                renderBlogTable();
+            },
+            (err) => {
+                console.error('[GVJ Admin Blog] Listener error:', err);
+                document.getElementById('blog-tbody').innerHTML = `<tr><td colspan="6" class="text-center py-8 text-red-400 text-sm">Could not load posts: ${escHtml(err.message)}</td></tr>`;
+            }
+        );
+    } catch(e) {
+        console.error(e);
+    }
+}
+
+function renderBlogTable() {
+    const tbody = document.getElementById('blog-tbody');
+    if (allBlogPosts.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="text-center py-12 text-[#4a5568] text-sm">
+            <i class="fa-solid fa-feather-pointed mr-2"></i>No blog posts yet. Click "New Post" or "Seed Samples" to get started.
+        </td></tr>`;
+        return;
+    }
+    tbody.innerHTML = allBlogPosts.map(p => {
+        const statusCls   = p.status === 'published' ? 'blog-status-published' : 'blog-status-draft';
+        const statusLabel = p.status === 'published' ? 'Published' : 'Draft';
+        const date        = p.publishedAt || p.createdAt;
+        return `<tr>
+            <td class="font-semibold text-white text-sm max-w-xs"><div class="truncate">${escHtml(p.title || 'Untitled')}</div><div class="text-[#4a5568] text-[11px] mt-0.5 truncate">${escHtml(p.slug || '')}</div></td>
+            <td class="text-sm hidden md:table-cell">${escHtml(p.category || '—')}</td>
+            <td class="text-sm hidden md:table-cell">${escHtml(p.author || '—')}</td>
+            <td><span class="blog-status-badge ${statusCls}">${statusLabel}</span></td>
+            <td class="text-[#7a8899] text-xs hidden lg:table-cell">${date ? formatDate(date) : '—'}</td>
+            <td>
+                <div class="flex gap-1.5 flex-wrap">
+                    <button class="btn-blue btn-sm rounded-lg text-xs" onclick="editPost('${p.id}')" title="Edit"><i class="fa-solid fa-pen text-xs"></i></button>
+                    <button class="btn-sm rounded-lg text-xs" style="background:${p.status==='published'?'rgba(234,179,8,0.15)':'rgba(34,197,94,0.15)'}; color:${p.status==='published'?'#facc15':'#4ade80'}; border:1px solid ${p.status==='published'?'rgba(234,179,8,0.3)':'rgba(34,197,94,0.3)'}; padding:6px 10px;" onclick="togglePublish('${p.id}')" title="${p.status==='published'?'Unpublish':'Publish'}">
+                        <i class="fa-solid ${p.status==='published'?'fa-eye-slash':'fa-eye'} text-xs"></i>
+                    </button>
+                    <button class="btn-sm rounded-lg text-xs" style="background:rgba(239,68,68,0.12); color:#f87171; border:1px solid rgba(239,68,68,0.3); padding:6px 10px;" onclick="deletePost('${p.id}','${escHtml(p.title||'').replace(/'/g,'')}')" title="Delete"><i class="fa-solid fa-trash text-xs"></i></button>
+                </div>
+            </td>
+        </tr>`;
+    }).join('');
+}
+
+/* ── AUTO-SLUG FROM TITLE ── */
+window.autoSlug = () => {
+    const slugField = document.getElementById('bf-slug');
+    // Only auto-generate when slug is empty or user hasn't manually edited it
+    if (slugField.dataset.manual !== 'true') {
+        const title = document.getElementById('bf-title').value;
+        slugField.value = title.toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-')
+            .substring(0, 70)
+            .replace(/^-|-$/g, '');
+    }
+};
+document.getElementById('bf-slug').addEventListener('input', function() { this.dataset.manual = 'true'; });
+
+/* ── CHAR COUNTER ── */
+window.updateCounter = (inputId, counterId, max) => {
+    const val = document.getElementById(inputId).value;
+    const el  = document.getElementById(counterId);
+    el.textContent = `${val.length} / ${max}`;
+    el.classList.toggle('over', val.length > max);
+};
+
+/* ── MARKDOWN TOOLBAR ── */
+window.mdInsert = (before, after) => {
+    const ta = document.getElementById('bf-body');
+    const s  = ta.selectionStart, e = ta.selectionEnd;
+    const sel = ta.value.substring(s, e);
+    ta.value  = ta.value.substring(0,s) + before + sel + after + ta.value.substring(e);
+    ta.focus();
+    ta.selectionStart = s + before.length;
+    ta.selectionEnd   = e + before.length;
+};
+
+/* ── PREVIEW ── */
+window.togglePreview = () => {
+    const prev = document.getElementById('bf-preview');
+    const body = document.getElementById('bf-body').value;
+    if (prev.classList.contains('hidden')) {
+        const html = (typeof marked !== 'undefined') ? marked.parse(body) : body;
+        document.getElementById('bf-preview-html').innerHTML = (typeof DOMPurify !== 'undefined') ? DOMPurify.sanitize(html) : html;
+        prev.classList.remove('hidden');
+    } else {
+        prev.classList.add('hidden');
+    }
+};
+
+/* ── SAVE POST (draft or published) ── */
+window.savePost = async (statusValue) => {
+    const errEl = document.getElementById('blog-form-error');
+    const okEl  = document.getElementById('blog-form-ok');
+    errEl.classList.add('hidden'); okEl.classList.add('hidden');
+
+    const data = {
+        title:          document.getElementById('bf-title').value.trim(),
+        slug:           document.getElementById('bf-slug').value.trim().toLowerCase(),
+        category:       document.getElementById('bf-category').value,
+        author:         document.getElementById('bf-author').value.trim() || 'GV&J Strategy Team',
+        heroImage:      document.getElementById('bf-hero').value.trim(),
+        excerpt:        document.getElementById('bf-excerpt').value.trim(),
+        body:           document.getElementById('bf-body').value,
+        tags:           document.getElementById('bf-tags').value.split(',').map(t => t.trim()).filter(Boolean),
+        ctaType:        document.getElementById('bf-cta').value,
+        seoTitle:       document.getElementById('bf-seo-title').value.trim(),
+        seoDescription: document.getElementById('bf-seo-desc').value.trim(),
+        status:         statusValue,
+        updatedAt:      new Date().toISOString(),
+    };
+
+    // Validate required
+    if (!data.title || !data.slug || !data.category || !data.heroImage || !data.excerpt || !data.body) {
+        errEl.textContent = 'Please fill in all required fields (Title, Slug, Category, Hero Image, Excerpt, Body).';
+        errEl.classList.remove('hidden');
+        return;
+    }
+    if (data.excerpt.length > 200)         { errEl.textContent = 'Excerpt must be 200 characters or fewer.'; errEl.classList.remove('hidden'); return; }
+    if (data.seoDescription.length > 160)  { errEl.textContent = 'SEO description must be 160 characters or fewer.'; errEl.classList.remove('hidden'); return; }
+
+    // Defaults
+    if (!data.seoTitle)       data.seoTitle       = data.title;
+    if (!data.seoDescription) data.seoDescription = data.excerpt;
+
+    // Convert markdown → HTML
+    if (typeof marked !== 'undefined') {
+        const raw   = marked.parse(data.body);
+        data.bodyHtml = (typeof DOMPurify !== 'undefined') ? DOMPurify.sanitize(raw) : raw;
+    } else {
+        data.bodyHtml = data.body;
+    }
+
+    const btn = statusValue === 'draft' ? document.getElementById('bf-save-draft') : document.getElementById('bf-publish');
+    const originalLabel = btn.innerHTML;
+    btn.innerHTML = '<i class="fa-solid fa-circle-notch spin"></i> Saving…';
+    btn.disabled  = true;
+
+    try {
+        const editingId = document.getElementById('bf-id').value;
+        if (editingId) {
+            // Update existing
+            await updateDoc(doc(db, 'blog_posts', editingId), data);
+            okEl.textContent = 'Post updated successfully.';
+        } else {
+            // New
+            data.createdAt = new Date().toISOString();
+            if (statusValue === 'published') data.publishedAt = new Date().toISOString();
+            await addDoc(collection(db, 'blog_posts'), data);
+            okEl.textContent = statusValue === 'published' ? 'Post published successfully!' : 'Post saved as draft.';
+        }
+
+        // If newly publishing an existing draft, set publishedAt
+        if (editingId && statusValue === 'published') {
+            const existing = allBlogPosts.find(p => p.id === editingId);
+            if (!existing?.publishedAt) {
+                await updateDoc(doc(db, 'blog_posts', editingId), { publishedAt: new Date().toISOString() });
+            }
+        }
+
+        okEl.classList.remove('hidden');
+        setTimeout(() => { resetForm(); switchBlogTab('list'); }, 1200);
+    } catch(e) {
+        console.error('[GVJ Admin Blog] Save error:', e);
+        errEl.textContent = `Could not save post: ${e.message}`;
+        errEl.classList.remove('hidden');
+    } finally {
+        btn.innerHTML = originalLabel;
+        btn.disabled  = false;
+    }
+};
+
+/* ── EDIT EXISTING POST ── */
+window.editPost = (id) => {
+    const p = allBlogPosts.find(x => x.id === id);
+    if (!p) return;
+    document.getElementById('bf-id').value          = id;
+    document.getElementById('bf-title').value       = p.title || '';
+    document.getElementById('bf-slug').value        = p.slug || '';
+    document.getElementById('bf-slug').dataset.manual = 'true';
+    document.getElementById('bf-category').value    = p.category || '';
+    document.getElementById('bf-author').value      = p.author || 'GV&J Strategy Team';
+    document.getElementById('bf-hero').value        = p.heroImage || '';
+    document.getElementById('bf-excerpt').value     = p.excerpt || '';
+    document.getElementById('bf-body').value        = p.body || '';
+    document.getElementById('bf-tags').value        = (p.tags || []).join(', ');
+    document.getElementById('bf-cta').value         = p.ctaType || 'quickscan';
+    document.getElementById('bf-seo-title').value   = p.seoTitle || '';
+    document.getElementById('bf-seo-desc').value    = p.seoDescription || '';
+    updateCounter('bf-excerpt','bf-excerpt-count',200);
+    updateCounter('bf-seo-desc','bf-seo-desc-count',160);
+    document.getElementById('bf-publish-label').textContent = 'Save & Publish';
+    switchBlogTab('new');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+window.cancelEdit = () => { resetForm(); switchBlogTab('list'); };
+
+function resetForm() {
+    ['bf-id','bf-title','bf-slug','bf-hero','bf-excerpt','bf-body','bf-tags','bf-seo-title','bf-seo-desc'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('bf-author').value   = 'GV&J Strategy Team';
+    document.getElementById('bf-category').value = '';
+    document.getElementById('bf-cta').value      = 'quickscan';
+    document.getElementById('bf-slug').dataset.manual = 'false';
+    document.getElementById('bf-preview').classList.add('hidden');
+    document.getElementById('bf-publish-label').textContent = 'Publish Now';
+    updateCounter('bf-excerpt','bf-excerpt-count',200);
+    updateCounter('bf-seo-desc','bf-seo-desc-count',160);
+}
+
+/* ── TOGGLE PUBLISH ── */
+window.togglePublish = async (id) => {
+    const p = allBlogPosts.find(x => x.id === id);
+    if (!p) return;
+    const newStatus = p.status === 'published' ? 'draft' : 'published';
+    const update    = { status: newStatus, updatedAt: new Date().toISOString() };
+    if (newStatus === 'published' && !p.publishedAt) update.publishedAt = new Date().toISOString();
+    try {
+        await updateDoc(doc(db, 'blog_posts', id), update);
+        console.log('[GVJ Admin Blog] Status toggled:', id, '→', newStatus);
+    } catch(e) {
+        console.error(e);
+    }
+};
+
+/* ── DELETE ── */
+window.deletePost = async (id, title) => {
+    if (!confirm(`Delete "${title}" permanently? This cannot be undone.`)) return;
+    try {
+        await deleteDoc(doc(db, 'blog_posts', id));
+        console.log('[GVJ Admin Blog] Deleted:', id);
+    } catch(e) {
+        console.error(e);
+    }
+};
+
+/* ════════════════════════════════════════════════════════════
+   SAMPLE POST SEEDER
+════════════════════════════════════════════════════════════ */
+
+const SAMPLE_POSTS = [
+    {
+        title: "Why Your Schengen Visa Was Refused From Nigeria (And How to Fix It in 2026)",
+        slug:  "schengen-refusal-nigeria-2026",
+        category: "Africa Residents",
+        author: "GV&J Strategy Team",
+        heroImage: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=2400&auto=format&fit=crop",
+        excerpt: "The five most common reasons Nigerian applicants are refused — and exactly what to fix before re-applying. Forensic analysis from a London consultancy.",
+        tags: ["schengen", "nigeria", "refusal", "source of funds", "africa"],
+        ctaType: "quickscan",
+        seoTitle: "Schengen Visa Refused from Nigeria? 5 Real Reasons (2026 Guide)",
+        seoDescription: "London visa consultancy breaks down the five most common Schengen refusal triggers for Nigerian applicants — and exactly how to fix each one.",
+        body: `Every week, we see the same pattern. A professional applicant from Lagos, Abuja, or Port Harcourt receives a refusal letter for a Schengen visa they should have been approved for. The financial profile is strong. The documentation looks complete. And yet — refused.
+
+After auditing hundreds of refusal letters, we've identified the five issues that cause more than 80% of Nigerian Schengen refusals. None of them are about whether you can afford the trip. They are about whether you can **prove** it convincingly to a sceptical Entry Clearance Officer.
+
+## 1. Source of Funds — The Number One Killer
+
+A balance of £8,000 in your account means nothing if the ECO cannot trace where it came from. Schengen embassies are trained to spot what they call "funds parking" — money deposited shortly before the application to artificially inflate the balance.
+
+If you have a large deposit in the last 90 days, you **must** explain it with documentary evidence: salary slips, business invoices, property sale agreements, sponsor declarations. Without this, the ECO assumes the funds are borrowed. Refusal is almost guaranteed.
+
+> A Nigerian applicant with £12,000 in savings was refused for Spain in 2024 because two deposits of £4,500 in the previous 60 days had no documented origin. The funds were entirely legitimate — proceeds from a property sale. But the deeds and bank transfers were not in the file. After we re-prepared the application with full source-of-funds documentation, the second application was approved within 14 days.
+
+## 2. Funds Parking Triggers
+
+Here is the rule most agents won't tell you: if your bank balance is more than four times your declared monthly income, and you have less than 3–6 months of statement history at that level, the ECO will treat it as a red flag.
+
+The fix is not to inflate income or backdate documents. The fix is to **build the financial profile over time**. We typically recommend a 3 to 6 month "Profile Rehabilitation" plan for applicants whose finances look strong on paper but lack the supporting narrative.
+
+## 3. Family Ties to Home Country
+
+Schengen embassies want one thing above everything else: **proof you will return**. For Nigerian applicants in particular, this is treated with extreme scepticism.
+
+Strong ties include:
+
+- **Property ownership** in Nigeria with original deeds
+- **Active business** with registered CAC documents
+- **Stable employment** with letters from the employer confirming approved leave
+- **Family responsibilities** — children in school, ageing parents, dependants
+- **Investments** — fixed deposits, shares, or property held long-term
+
+Weak files mention "I have family in Nigeria" without proof. Strong files attach the documents.
+
+## 4. Travel History — The Hidden Multiplier
+
+A Nigerian passport with stamps from the UK, USA, Canada, or Schengen countries is treated very differently from one with no travel history. The first international Schengen visa is the hardest to obtain.
+
+If you have a history of compliance — short visits, returns on time, no overstays — make this **prominent in your cover letter**. Photocopies of every used visa, every entry and exit stamp, every approved e-visa. The ECO is looking for a pattern of trustworthy behaviour.
+
+If this is genuinely your first international visa, consider starting with an easier visa first — Morocco, Tunisia, the UAE, or even a regional Schengen state like Greece — before applying for the high-refusal countries like France or Germany.
+
+## 5. Documentation Quality
+
+The most overlooked cause of refusal is also the most fixable: how your documents look.
+
+- No screenshots. Bank statements must be official PDF downloads from your banking app, with the bank's logo and the full transaction list.
+- No translations from random websites. If a document is in a local language, use a sworn translator.
+- No grainy passport scans. The bio-data page must show all four corners with no glare and no shadow.
+- No missing pages. Three months of bank statements means **all** three months, not the summary page.
+
+Embassies receive thousands of applications a week. Files that look unprofessional are rejected faster than files that look forensic. This is not unfair — it is simply how the system works.
+
+## The Path Forward
+
+If you've been refused once, the worst thing you can do is re-apply with the same file. The refusal is now on record. The next ECO will be even more sceptical.
+
+The correct approach is:
+
+1. **Get the refusal letter in writing** — request it formally if it wasn't issued.
+2. **Audit the file** — identify exactly which of the five issues above caused the refusal.
+3. **Rebuild from scratch** — address every flag with documentary evidence.
+4. **Submit through a different consular route** if appropriate — the same case can succeed in Greece or Spain that failed in France or Germany.
+
+You only get one chance to make a good first impression. Every refusal makes the next application harder. Do it right the first time.`,
+    },
+    {
+        title: "Schengen Visa from the UK: Spain vs Greece — Which Is Easier to Get in 2026?",
+        slug:  "schengen-uk-spain-vs-greece-2026",
+        category: "UK Residents",
+        author: "GV&J Strategy Team",
+        heroImage: "https://images.unsplash.com/photo-1509840841025-9088ba78a826?q=80&w=2400&auto=format&fit=crop",
+        excerpt: "Which Schengen route gives UK residents the fastest, cleanest visa in 2026? Direct comparison of Spain and Greece on appointments, approvals, and cost.",
+        tags: ["schengen", "uk", "spain", "greece", "2026"],
+        ctaType: "calculator",
+        seoTitle: "Spain vs Greece Schengen Visa from UK — 2026 Comparison",
+        seoDescription: "Direct comparison of Spain and Greece Schengen visas for UK residents in 2026 — appointment times, approval rates, financial thresholds, and processing speed.",
+        body: `For UK residents who need a Schengen visa — typically Nigerians, Indians, Pakistanis, and other non-EU passport holders living in the UK — the question every season is the same: **which country is easiest to apply through?**
+
+For 2026, two routes consistently outperform the rest: **Spain** and **Greece**. Both have higher approval rates, shorter waiting times, and more reasonable financial thresholds than France, Germany, or Italy. But they are not equally easy. Here is the direct comparison.
+
+## Appointment Availability
+
+This is where most applications die before they even begin. You cannot apply without an appointment, and the appointment portals are notoriously gridlocked.
+
+**Spain (BLS International — London)**
+Spain reopened its London centres in mid-2024 after a long period of difficulty. As of early 2026, appointments are typically available within **2 to 4 weeks** during off-peak months, stretching to 6 to 8 weeks in summer. Tier-list booking is now in effect — premium fast-track slots are available at extra cost.
+
+**Greece (BLS International — London)**
+Greece has historically been the easier route. Appointments are usually available within **1 to 3 weeks** year-round. There is no premium tier needed — the standard slot is the fast slot. This is the single biggest advantage Greece holds.
+
+**Verdict:** Greece wins on appointments by a clear margin.
+
+## Approval Rates
+
+Approval data is not officially published per consulate, but our internal data from London applications over the past 18 months gives a reliable picture.
+
+- **Spain:** ~92% approval rate for properly prepared cases. Higher scrutiny on tourism applications without family ties in Spain.
+- **Greece:** ~94% approval rate for properly prepared cases. Slightly more lenient on first-time travellers.
+
+Both numbers are excellent. The differentiator is preparation, not the country.
+
+**Verdict:** Marginal advantage to Greece, but the gap is small.
+
+## Financial Thresholds (2026)
+
+These are the official daily minimum amounts you must demonstrate.
+
+| Country  | Daily Rate | 7-Day Trip | 14-Day Trip |
+|----------|-----------|-----------|------------|
+| Spain    | €100/day, €900 minimum | £774 | £1,204 |
+| Greece   | €50/day, €300 minimum   | £301 | £602   |
+
+The Greek thresholds are roughly **half** what Spain requires. For applicants on more modest budgets, Greece is significantly more accessible. Note that Spain's €900 minimum applies regardless of how short the trip is.
+
+**Verdict:** Greece wins decisively on financial thresholds.
+
+## Processing Time
+
+Once your file is submitted, how long until decision?
+
+- **Spain:** 7 to 15 working days for standard processing. Premium expedited service can return decisions in 3 to 5 working days at additional cost.
+- **Greece:** 10 to 15 working days standard. No premium expedited tier currently offered for London.
+
+**Verdict:** Spain has the edge if you need an emergency turnaround. Otherwise broadly equal.
+
+## Documentation Stringency
+
+Both countries require the same core documents — passport, bank statements, employment letter, accommodation, travel insurance, itinerary. The differences are in **what triggers a flag**.
+
+**Spain** scrutinises:
+
+- Source of funds for any deposit over €3,000 in the last 90 days
+- Accommodation booking authenticity — they sometimes verify with the hotel
+- Return ticket evidence — preferring confirmed bookings over reservations
+
+**Greece** scrutinises:
+
+- 6-month bank statement history — they want continuity, not snapshots
+- Employment letter wording — they expect specific dates of approved leave
+- Whether you've travelled before — first-time travellers get harder scrutiny
+
+Both countries accept verified flight reservations (dummy tickets) provided they're from a legitimate provider. Neither requires a fully paid ticket before approval.
+
+## When to Choose Spain
+
+Choose Spain if:
+
+- You're a higher earner with comfortable savings (£1,500+ accessible)
+- You can afford the premium fast-track if needed
+- Your trip is genuinely focused on Spanish destinations
+- You have a history of approved Schengen visas
+
+## When to Choose Greece
+
+Choose Greece if:
+
+- You're on a more modest budget (£600–£1,500 accessible)
+- This is your first Schengen application from the UK
+- Your appointment timeline is tight
+- You want the highest probability of approval first try
+
+## The Strategic Move
+
+Here is what most agents won't tell you: **Schengen visas issued by any member state allow you to travel within the entire 27-country area**, provided your stay in the issuing country represents the majority or first port of entry.
+
+This means if you obtain a Greek visa, you can still visit Paris, Barcelona, Amsterdam, Berlin — as long as Greece is your main destination or first entry point. Many of our UK clients use Greece as their "gateway country" for exactly this reason: easier visa, full Schengen access.
+
+If you're unsure which route fits your financial profile, our free Readiness Check will model both against the 2026 thresholds in under 60 seconds.`,
+    },
+    {
+        title: "Dummy Tickets for Visa Applications — What They Are and Why You Need One",
+        slug:  "dummy-tickets-visa-applications-guide",
+        category: "General Visa Strategy",
+        author: "GV&J Strategy Team",
+        heroImage: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2400&auto=format&fit=crop",
+        excerpt: "What is a dummy ticket, is it legal, and why is buying a real flight before visa approval the most expensive mistake applicants make? Full guide.",
+        tags: ["dummy ticket", "flight reservation", "visa", "schengen"],
+        ctaType: "whatsapp",
+        seoTitle: "Dummy Ticket for Visa: What It Is and Why You Need One (2026)",
+        seoDescription: "What is a dummy ticket, why embassies accept them, and the financial risk of buying real flights before visa approval. London consultancy guide.",
+        body: `Every visa applicant eventually faces the same question: **the embassy wants proof of a return flight, but I don't have my visa yet. Do I really need to buy a non-refundable £600 ticket I might lose if I'm refused?**
+
+The answer is no. The professional, legal, and globally accepted solution is a **flight reservation** — also known as a dummy ticket. Most applicants have never been told they exist.
+
+## What Is a Dummy Ticket?
+
+A dummy ticket is a verifiable, real booking reference for a flight that is **held but not paid in full**. It's issued by a travel agent or specialist provider through the same airline reservation systems used by every legitimate booking. The reservation is valid for a limited time — typically 5 to 14 days — and contains:
+
+- A real Passenger Name Record (PNR) you can check on the airline's website
+- A complete itinerary with flight numbers, dates, times, and routes
+- Your name as it appears on your passport
+- Confirmation of seat hold
+
+If the embassy attempts to verify the booking, it will check out as legitimate. The only thing absent is the final payment. Once your visa is approved, you either pay to convert the reservation into a real ticket, or you let it lapse and book a different flight that better suits your finalised plans.
+
+## Why Do Embassies Accept Them?
+
+Embassies require proof of onward travel to confirm two things: your intention to leave at the end of your authorised stay, and that you have a realistic travel plan. A flight reservation proves both.
+
+What embassies do not require is that you have paid for the ticket. They are visa-issuing authorities, not airlines. Their concern is whether your application is genuine, not whether you've yet committed thousands of pounds to a non-refundable booking.
+
+This is why flight reservations are accepted by:
+
+- All 27 Schengen member states
+- The UK Standard Visitor Visa
+- The Canadian Temporary Resident Visa
+- The Australian eVisitor and Tourist Visa
+- Most other major destinations
+
+The practice has been standard in the visa industry for over two decades.
+
+## The Financial Risk of Real Tickets
+
+Here is the trap that catches thousands of applicants every year:
+
+> "I'll just buy the real ticket. It looks better, and I'll get the visa anyway, so what's the risk?"
+
+The risk is significant. Schengen approval rates for genuinely well-prepared cases hover around 90–95%, depending on the consulate. That means even excellent applications face a 5–10% rejection rate. If you've spent £600 on a non-refundable flight before applying, and you are refused, you lose the entire amount.
+
+Worse: refused applicants often try to rush a second application to use the booked dates. Rushed second applications are almost always weaker than the first. The result is a refusal on top of a refusal, plus the lost flight cost, plus the lost trip.
+
+**Never book non-refundable flights before you hold the physical visa sticker in your passport.** This is the single most consistent rule we give every client.
+
+## How to Get a Legitimate Dummy Ticket
+
+Not all dummy tickets are created equal. The market is unfortunately full of providers who issue fake PNRs that don't verify with the airline. If an embassy checks a forged reservation, you face an automatic refusal and a potential 10-year ban for document fraud.
+
+A legitimate dummy ticket must:
+
+1. **Be issued through a real GDS** — Amadeus, Sabre, or Travelport — not invented on a template
+2. **Have a verifiable PNR** that the airline's website can confirm
+3. **Be issued by a registered travel agency** — not a Telegram seller or random WhatsApp contact
+4. **Be valid for at least 7 days** from issue
+5. **Be in your exact passport name** with correct route, dates, and class
+
+A proper reservation costs between £20 and £60 depending on route complexity and validity period. Anyone offering a "dummy ticket" for £5 is selling you a forgery.
+
+## When You Need a Real Ticket Instead
+
+There are a small number of situations where a real ticket is actually required:
+
+- Some embassies (Italy in particular) occasionally request a fully paid ticket for first-time applicants from certain nationalities
+- Once your visa is approved, the embassy may ask for proof of confirmed onward travel before you receive the physical visa
+- Border officers at entry sometimes ask to see the actual ticket, not the reservation
+
+For these situations, you can always convert your reservation into a real ticket after approval. The wait time between approval and travel is usually sufficient to do this calmly without panic-booking.
+
+## The Right Order of Operations
+
+This is the professional sequence used by every well-prepared applicant:
+
+1. Build your financial and documentation profile fully
+2. Obtain travel insurance that meets the Schengen €30,000 minimum
+3. Reserve your accommodation — refundable bookings until visa approved
+4. Get your flight reservation (dummy ticket) for the embassy file
+5. Submit your application
+6. Wait for the decision — do not book anything non-refundable
+7. After approval, pay for the real flight, finalise the hotel, get excited
+
+If you have a specific question about your case — whether to use a reservation, when to book real flights, how to handle embassy requests — message us directly. Our consultants will give you a straight answer with no upsell.`,
+    },
+];
+
+window.seedSamplePosts = async () => {
+    const btn  = document.getElementById('seed-btn');
+    const stat = document.getElementById('seed-status');
+    btn.innerHTML = '<i class="fa-solid fa-circle-notch spin"></i> Inserting…';
+    btn.disabled  = true;
+    stat.classList.add('hidden');
+
+    let success = 0, skipped = 0, errors = 0;
+    const now = new Date();
+
+    for (const post of SAMPLE_POSTS) {
+        try {
+            // Skip if slug already exists
+            const existing = allBlogPosts.find(p => p.slug === post.slug);
+            if (existing) { skipped++; continue; }
+
+            const data = {
+                ...post,
+                status:      'published',
+                createdAt:   now.toISOString(),
+                publishedAt: now.toISOString(),
+                updatedAt:   now.toISOString(),
+            };
+            // Convert markdown to HTML
+            if (typeof marked !== 'undefined') {
+                const raw  = marked.parse(data.body);
+                data.bodyHtml = (typeof DOMPurify !== 'undefined') ? DOMPurify.sanitize(raw) : raw;
+            } else {
+                data.bodyHtml = data.body;
+            }
+            await addDoc(collection(db, 'blog_posts'), data);
+            success++;
+        } catch(e) {
+            console.error('[GVJ Seed] Error inserting', post.slug, e);
+            errors++;
+        }
+    }
+
+    let msg = '';
+    if (success > 0) msg += `✓ ${success} post${success>1?'s':''} inserted. `;
+    if (skipped > 0) msg += `${skipped} already existed. `;
+    if (errors > 0)  msg += `✗ ${errors} failed.`;
+
+    stat.textContent = msg.trim();
+    stat.className   = 'mt-4 text-sm font-bold ' + (errors > 0 ? 'text-red-400' : 'text-green-400');
+    stat.classList.remove('hidden');
+
+    btn.innerHTML = '<i class="fa-solid fa-seedling"></i> Seed 3 Sample Posts';
+    btn.disabled  = false;
+};
+
+/* Initialise excerpt/SEO counters at 0 */
+window.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('bf-excerpt-count')) {
+        updateCounter('bf-excerpt','bf-excerpt-count',200);
+        updateCounter('bf-seo-desc','bf-seo-desc-count',160);
+    }
+});
+</script>
+
+</body>
+</html>

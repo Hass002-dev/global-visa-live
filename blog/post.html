@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO tags populated dynamically by JS -->
+    <title id="page-title">Loading article… | Global Visa &amp; Journeys</title>
+    <meta id="meta-description" name="description" content="">
+
+    <!-- OG tags -->
+    <meta id="og-title"       property="og:title"       content="">
+    <meta id="og-description"  property="og:description" content="">
+    <meta id="og-image"       property="og:image"       content="">
+    <meta id="og-url"         property="og:url"         content="">
+    <meta                     property="og:type"        content="article">
+    <meta                     property="og:site_name"   content="Global Visa &amp; Journeys">
+
+    <!-- Twitter cards -->
+    <meta                     name="twitter:card"        content="summary_large_image">
+    <meta id="tw-title"       name="twitter:title"       content="">
+    <meta id="tw-description" name="twitter:description" content="">
+    <meta id="tw-image"       name="twitter:image"       content="">
+
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../output.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Marked.js for markdown→HTML conversion -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- DOMPurify to sanitise the rendered HTML -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+
+    <!-- GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1EZM399KT"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-Q1EZM399KT');</script>
+
+    <style>
+        :root {
+            --bg-primary:#080c10; --bg-secondary:#0f1419; --bg-card:#131920;
+            --border-surface:#1e2730; --brand-gold:#c9a84c; --brand-gold-light:#e8c97a;
+            --brand-gold-dim:#8a6f2e; --text-primary:#eef2f7; --text-secondary:#7a8899;
+            --text-muted:#4a5568; --green-accent:#22c55e; --whatsapp:#25d366;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            font-weight: 450;
+        }
+        h1,h2,h3,h4 { font-family: 'Cormorant Garamond', serif; }
+
+        body::before {
+            content:''; position:fixed; inset:0;
+            background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events:none; z-index:0; opacity:0.4;
+        }
+
+        .text-gold { color: var(--brand-gold); }
+        .nav-scrolled { background: rgba(8,12,16,0.98) !important; box-shadow: 0 2px 20px rgba(0,0,0,0.5); }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--brand-gold) 0%, var(--brand-gold-light) 100%);
+            color: #080c10; font-weight: 800; text-transform: uppercase; letter-spacing: 0.07em;
+            transition: all 0.3s; border: none; cursor: pointer;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            text-decoration: none;
+        }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,168,76,0.35); }
+
+        .btn-outline-gold {
+            border: 1.5px solid var(--brand-gold); color: var(--brand-gold);
+            font-weight: 700; transition: all 0.3s; background: transparent;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none;
+        }
+        .btn-outline-gold:hover { background: linear-gradient(135deg, var(--brand-gold), var(--brand-gold-light)); color: #080c10; transform: translateY(-1px); }
+
+        /* hero */
+        .post-hero {
+            min-height: 500px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            padding: 60px 0 50px;
+        }
+        .post-hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(to bottom, rgba(8,12,16,0.5) 0%, rgba(8,12,16,0.85) 70%, rgba(8,12,16,1) 100%);
+        }
+        .post-hero > div { position: relative; z-index: 1; }
+
+        .category-pill {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: var(--brand-gold); color: #080c10;
+            font-size: 0.7rem; font-weight: 800; padding: 5px 14px;
+            border-radius: 999px; text-transform: uppercase; letter-spacing: 0.08em;
+        }
+
+        /* Article body — full prose styling */
+        .article-body {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1.075rem;
+            line-height: 1.85;
+            color: #c9d1d9;
+            font-weight: 450;
+        }
+        .article-body p   { margin: 0 0 1.4em; }
+        .article-body h2  {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 2em 0 0.7em;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+        .article-body h3  {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.55rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 1.8em 0 0.6em;
+            line-height: 1.3;
+        }
+        .article-body h4  {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 1.6em 0 0.5em;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .article-body a {
+            color: var(--brand-gold);
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 3px;
+            transition: color 0.2s;
+        }
+        .article-body a:hover { color: var(--brand-gold-light); }
+        .article-body ul, .article-body ol { margin: 0 0 1.4em 1.6em; }
+        .article-body li  { margin-bottom: 0.55em; }
+        .article-body ul li { list-style: disc; }
+        .article-body ol li { list-style: decimal; }
+        .article-body strong { color: #fff; font-weight: 700; }
+        .article-body em { color: var(--brand-gold-light); font-style: italic; }
+        .article-body blockquote {
+            border-left: 3px solid var(--brand-gold);
+            padding: 6px 0 6px 22px;
+            margin: 1.8em 0;
+            font-style: italic;
+            color: #e6ecf3;
+        }
+        .article-body img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin: 1.5em 0;
+            border: 1px solid var(--border-surface);
+        }
+        .article-body code {
+            background: var(--bg-card);
+            border: 1px solid var(--border-surface);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.92em;
+            color: var(--brand-gold-light);
+        }
+        .article-body hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--brand-gold-dim), transparent);
+            margin: 2.5em 0;
+        }
+
+        .tag-pill {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 5px 13px;
+            border-radius: 999px;
+            border: 1px solid rgba(201,168,76,0.4);
+            color: var(--brand-gold);
+            background: rgba(201,168,76,0.05);
+            margin: 0 6px 6px 0;
+            transition: all 0.2s;
+        }
+        .tag-pill:hover { background: rgba(201,168,76,0.15); }
+
+        /* CTA cards */
+        .cta-card { border-radius: 16px; padding: 32px; margin: 50px 0; text-align: center; }
+        .cta-card.gold   { background: linear-gradient(135deg, rgba(201,168,76,0.10) 0%, rgba(8,12,16,0) 100%); border: 1px solid var(--brand-gold); }
+        .cta-card.green  { background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.4); }
+        .cta-card.blue   { background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.4); }
+
+        /* related posts */
+        .related-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-surface);
+            border-top: 2px solid var(--brand-gold);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+        }
+        .related-card:hover { transform: translateY(-4px); border-color: var(--brand-gold-light); }
+        .related-card-image { aspect-ratio: 16/9; background-size: cover; background-position: center; }
+
+        /* whatsapp */
+        @keyframes ringShake { 0%,75%,100%{transform:rotate(0) scale(1)} 77%,81%,85%,89%{transform:rotate(-14deg) scale(1.08)} 79%,83%,87%{transform:rotate(14deg) scale(1.08)} }
+        .whatsapp-float {
+            position: fixed; width: 58px; height: 58px;
+            bottom: 28px; right: 28px;
+            background: var(--whatsapp); color: #fff;
+            border-radius: 50%; font-size: 28px;
+            box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+            z-index: 999;
+            display: flex; align-items: center; justify-content: center;
+            animation: ringShake 5s infinite;
+            transition: transform 0.2s;
+            text-decoration: none;
+        }
+        .whatsapp-float:hover { animation: none; transform: scale(1.12); }
+
+        .spin { animation: spin 0.8s linear infinite; display: inline-block; }
+        @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+        .gold-divider { height: 1px; background: linear-gradient(to right, transparent, var(--brand-gold-dim), transparent); }
+
+        @media (max-width: 768px) {
+            .tawk-min-container { bottom: 100px !important; }
+            .post-hero { min-height: 380px; padding: 40px 0 30px; }
+            .article-body { font-size: 1rem; line-height: 1.75; }
+            .article-body h2 { font-size: 1.7rem; }
+            .article-body h3 { font-size: 1.35rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav" class="bg-[#080c10]/90 backdrop-blur-md border-b border-[#1e2730] fixed w-full z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-20 items-center">
+            <a href="../index.html" class="flex items-center space-x-3">
+                <img src="../Updated Logo.png" alt="GV&J Logo" class="h-11 w-11 object-contain rounded-md" onerror="this.style.display='none'">
+                <div class="flex flex-col leading-none">
+                    <span class="text-xl md:text-2xl font-black tracking-tight hidden md:block" style="font-family:'Cormorant Garamond',serif; letter-spacing:0.02em;">
+                        <span class="text-gold">GLOBAL VISA</span> <span class="text-white">&amp; JOURNEYS</span>
+                    </span>
+                    <span class="text-xl font-black tracking-tight md:hidden" style="font-family:'Cormorant Garamond',serif;">GV<span class="text-gold">&amp;</span>J</span>
+                </div>
+            </a>
+            <div class="flex items-center space-x-3 md:space-x-5">
+                <a href="../index.html" class="text-[#7a8899] hover:text-white font-semibold transition text-sm hidden md:block">Home</a>
+                <a href="../about.html" class="text-[#7a8899] hover:text-white font-semibold transition text-sm hidden md:block">About</a>
+                <a href="../calculator.html" class="text-xs md:text-sm text-[#7a8899] hover:text-white font-semibold transition flex items-center gap-1">
+                    <i class="fa-solid fa-calculator text-gold text-xs"></i> Readiness Check
+                </a>
+                <a href="index.html" class="text-[#7a8899] hover:text-white font-semibold transition text-sm hidden md:block">Insights</a>
+                <a href="https://wa.me/447511219482" target="_blank" class="btn-outline-gold px-3 py-2 md:px-4 rounded-lg text-xs md:text-sm">
+                    <i class="fa-brands fa-whatsapp text-xs"></i>
+                    <span class="hidden md:inline">WhatsApp HQ</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Loading -->
+<div id="loading-state" class="min-h-screen flex items-center justify-center relative z-10">
+    <div class="text-center">
+        <i class="fa-solid fa-circle-notch spin text-3xl text-gold mb-3 block"></i>
+        <p class="text-[#7a8899] font-medium">Loading article…</p>
+    </div>
+</div>
+
+<!-- Article container -->
+<article id="article-container" class="hidden relative z-10 pt-20">
+
+    <!-- HERO -->
+    <header id="post-hero" class="post-hero">
+        <div class="max-w-3xl mx-auto px-4 w-full">
+            <span id="hero-category" class="category-pill mb-5"></span>
+            <h1 id="hero-title" class="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-5 leading-[1.1]"></h1>
+            <div class="flex flex-wrap items-center gap-4 text-sm text-[#adb8c4] font-medium">
+                <span class="flex items-center gap-2"><i class="fa-solid fa-user-tie text-gold text-xs"></i> <span id="hero-author"></span></span>
+                <span class="flex items-center gap-2"><i class="fa-solid fa-calendar text-gold text-xs"></i> <span id="hero-date"></span></span>
+                <span class="flex items-center gap-2"><i class="fa-solid fa-clock text-gold text-xs"></i> <span id="hero-readtime"></span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- BODY -->
+    <div class="max-w-3xl mx-auto px-4 py-12">
+        <div id="article-body" class="article-body"></div>
+
+        <!-- TAGS -->
+        <div id="tags-container" class="mt-12 pt-8 border-t border-[#1e2730]">
+            <p class="text-[#7a8899] text-xs font-bold uppercase tracking-widest mb-3">Tags</p>
+            <div id="tags-list"></div>
+        </div>
+
+        <!-- CTA -->
+        <div id="cta-container"></div>
+    </div>
+
+    <!-- RELATED -->
+    <section id="related-section" class="hidden bg-[#0f1419] border-t border-[#1e2730] py-16">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="text-center mb-10">
+                <span class="text-gold text-xs tracking-widest uppercase font-bold">Continue Reading</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mt-2">Related Articles</h2>
+            </div>
+            <div id="related-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+        </div>
+    </section>
+</article>
+
+<!-- FOOTER -->
+<footer class="bg-[#080c10] text-[#7a8899] relative z-10 border-t border-[#1e2730] py-12">
+    <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-8">
+        <div>
+            <span class="text-white text-xl font-black" style="font-family:'Cormorant Garamond',serif;">GLOBAL VISA <span class="text-gold">&amp;</span> JOURNEYS</span>
+            <p class="mt-3 text-sm font-medium">A forensic travel consultancy bridging complex bureaucratic compliance and seamless travel logistics.</p>
+        </div>
+        <div>
+            <h4 class="text-white font-bold mb-3 text-sm uppercase tracking-wider">Contact</h4>
+            <ul class="space-y-2 text-sm font-medium">
+                <li><i class="fa-solid fa-envelope text-gold mr-2"></i> office@globalvisajourneys.com</li>
+                <li><i class="fa-brands fa-whatsapp text-green-400 mr-2"></i> +44 7511 219482</li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="text-white font-bold mb-3 text-sm uppercase tracking-wider">Navigate</h4>
+            <ul class="space-y-2 text-sm font-medium">
+                <li><a href="../index.html" class="hover:text-white transition">Home</a></li>
+                <li><a href="../about.html" class="hover:text-white transition">About</a></li>
+                <li><a href="index.html" class="hover:text-white transition">All Articles</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="gold-divider mx-auto max-w-7xl mt-8"></div>
+    <p class="text-[#4a5568] text-xs text-center pt-6 font-medium">&copy; 2026 Global Visa &amp; Journeys Ltd. Registered in England &amp; Wales (No: 16959031).</p>
+</footer>
+
+<a href="https://wa.me/447511219482" target="_blank" class="whatsapp-float">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<!-- JSON-LD schema injected here -->
+<script id="schema-jsonld" type="application/ld+json"></script>
+
+
+<!-- FIREBASE -->
+<script type="module">
+import { initializeApp }                              from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, query, where,
+         limit, getDocs, orderBy }                    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey:"AIzaSyCcoyBXRITTblrH0XcaLGMjftUttXYLtj4",
+    authDomain:"global-visa-journeys.firebaseapp.com",
+    projectId:"global-visa-journeys",
+    storageBucket:"global-visa-journeys.firebasestorage.app",
+    messagingSenderId:"381217766164",
+    appId:"1:381217766164:web:1cb70fbc26332f5a8d6001"
+};
+
+const app = initializeApp(firebaseConfig);
+const db  = getFirestore(app);
+
+const QUICKSCAN_URL = "https://book.stripe.com/28E4gygLremKd0Ogx50sU00";
+const WA_LINK       = "https://wa.me/447511219482";
+
+window.addEventListener('scroll', () => {
+    document.getElementById('main-nav').classList.toggle('nav-scrolled', window.scrollY > 50);
+});
+
+/* ── LOAD POST ── */
+async function loadPost() {
+    const params = new URLSearchParams(window.location.search);
+    const slug   = params.get('slug');
+
+    if (!slug) { window.location.href = 'index.html'; return; }
+    console.log('[GVJ Post] Loading slug:', slug);
+
+    try {
+        const q = query(
+            collection(db, 'blog_posts'),
+            where('slug', '==', slug),
+            where('status', '==', 'published'),
+            limit(1)
+        );
+        const snap = await getDocs(q);
+        if (snap.empty) {
+            console.warn('[GVJ Post] No published post matches slug:', slug);
+            window.location.href = 'index.html';
+            return;
+        }
+
+        const post = { id: snap.docs[0].id, ...snap.docs[0].data() };
+        renderPost(post);
+        loadRelated(post);
+
+    } catch (err) {
+        console.error('[GVJ Post] Load error:', err);
+        window.location.href = 'index.html';
+    }
+}
+
+/* ── RENDER ── */
+function renderPost(p) {
+    // SEO
+    const fullTitle = `${p.seoTitle || p.title} | Global Visa & Journeys`;
+    document.getElementById('page-title').textContent      = fullTitle;
+    document.getElementById('meta-description').setAttribute('content', p.seoDescription || p.excerpt || '');
+    document.getElementById('og-title').setAttribute('content', p.seoTitle || p.title);
+    document.getElementById('og-description').setAttribute('content', p.seoDescription || p.excerpt || '');
+    document.getElementById('og-image').setAttribute('content', p.heroImage || '');
+    document.getElementById('og-url').setAttribute('content', window.location.href);
+    document.getElementById('tw-title').setAttribute('content', p.seoTitle || p.title);
+    document.getElementById('tw-description').setAttribute('content', p.seoDescription || p.excerpt || '');
+    document.getElementById('tw-image').setAttribute('content', p.heroImage || '');
+
+    // Hero
+    document.getElementById('post-hero').style.backgroundImage = `url('${p.heroImage}')`;
+    document.getElementById('hero-category').textContent       = p.category || 'Visa Strategy';
+    document.getElementById('hero-title').textContent          = p.title;
+    document.getElementById('hero-author').textContent         = p.author || 'GV&J Strategy Team';
+    document.getElementById('hero-date').textContent           = formatDate(p.publishedAt);
+
+    // Body — prefer pre-converted bodyHtml; fallback to client-side conversion
+    let html = '';
+    if (p.bodyHtml) {
+        html = p.bodyHtml;
+    } else if (p.body && typeof marked !== 'undefined') {
+        html = marked.parse(p.body);
+    } else {
+        html = `<p>${p.body || ''}</p>`;
+    }
+    // Sanitise before rendering
+    if (typeof DOMPurify !== 'undefined') html = DOMPurify.sanitize(html);
+    document.getElementById('article-body').innerHTML = html;
+
+    // Read time
+    const wordCount = (p.body || p.bodyHtml || '').replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
+    const readMin   = Math.max(1, Math.round(wordCount / 220));
+    document.getElementById('hero-readtime').textContent = `${readMin} min read`;
+
+    // Tags
+    if (p.tags && p.tags.length) {
+        document.getElementById('tags-list').innerHTML =
+            p.tags.map(t => `<span class="tag-pill">${escapeHtml(t)}</span>`).join('');
+    } else {
+        document.getElementById('tags-container').classList.add('hidden');
+    }
+
+    // CTA
+    document.getElementById('cta-container').innerHTML = renderCTA(p.ctaType);
+
+    // Schema.org JSON-LD
+    const schema = {
+        "@context":   "https://schema.org",
+        "@type":      "Article",
+        "headline":   p.title,
+        "image":      [p.heroImage],
+        "datePublished": p.publishedAt,
+        "dateModified":  p.updatedAt || p.publishedAt,
+        "author":     { "@type": "Organization", "name": p.author || "Global Visa & Journeys Ltd" },
+        "publisher":  {
+            "@type": "Organization",
+            "name":  "Global Visa & Journeys Ltd",
+            "logo":  { "@type": "ImageObject", "url": "https://globalvisajourneys.com/Updated%20Logo.png" }
+        },
+        "description": p.seoDescription || p.excerpt
+    };
+    document.getElementById('schema-jsonld').textContent = JSON.stringify(schema);
+
+    // Reveal
+    document.getElementById('loading-state').classList.add('hidden');
+    document.getElementById('article-container').classList.remove('hidden');
+}
+
+function renderCTA(type) {
+    if (type === 'quickscan') {
+        return `<div class="cta-card gold">
+            <i class="fa-solid fa-magnifying-glass-chart text-3xl text-gold mb-3 block"></i>
+            <h3 class="text-2xl md:text-3xl font-bold text-white mb-3">Stop Visa Refusals Before They Happen</h3>
+            <p class="text-[#adb8c4] mb-6 max-w-md mx-auto font-medium">Our QuickScan Audit forensically reviews your file in 48 hours — for less than the cost of one rejected embassy fee.</p>
+            <a href="${QUICKSCAN_URL}" target="_blank" class="btn-gold px-8 py-3.5 rounded-full text-sm">Book QuickScan — £39.99</a>
+        </div>`;
+    }
+    if (type === 'whatsapp') {
+        return `<div class="cta-card green">
+            <i class="fa-brands fa-whatsapp text-3xl text-green-400 mb-3 block"></i>
+            <h3 class="text-2xl md:text-3xl font-bold text-white mb-3">Speak to a Strategist</h3>
+            <p class="text-[#adb8c4] mb-6 max-w-md mx-auto font-medium">Have a specific question about your case? Message our London team directly on WhatsApp.</p>
+            <a href="${WA_LINK}" target="_blank" class="px-8 py-3.5 rounded-full text-sm font-bold inline-flex items-center gap-2" style="background:#25D366;color:#fff;">
+                <i class="fa-brands fa-whatsapp text-lg"></i> Chat on WhatsApp
+            </a>
+        </div>`;
+    }
+    if (type === 'calculator') {
+        return `<div class="cta-card blue">
+            <i class="fa-solid fa-calculator text-3xl text-blue-400 mb-3 block"></i>
+            <h3 class="text-2xl md:text-3xl font-bold text-white mb-3">Are You Financially Ready?</h3>
+            <p class="text-[#adb8c4] mb-6 max-w-md mx-auto font-medium">Check your bank balance against the 2026 Schengen thresholds in under 60 seconds. Free, no commitment.</p>
+            <a href="../calculator.html" class="px-8 py-3.5 rounded-full text-sm font-bold inline-flex items-center gap-2" style="background:#38bdf8;color:#080c10;">
+                <i class="fa-solid fa-bolt"></i> Run Readiness Check
+            </a>
+        </div>`;
+    }
+    return '';
+}
+
+/* ── RELATED ── */
+async function loadRelated(post) {
+    if (!post.category) return;
+    try {
+        const q = query(
+            collection(db, 'blog_posts'),
+            where('category', '==', post.category),
+            where('status',   '==', 'published'),
+            orderBy('publishedAt', 'desc'),
+            limit(4)
+        );
+        const snap = await getDocs(q);
+        const others = snap.docs
+            .map(d => ({ id: d.id, ...d.data() }))
+            .filter(p => p.slug !== post.slug)
+            .slice(0, 3);
+
+        if (others.length === 0) return;
+
+        document.getElementById('related-grid').innerHTML = others.map(p => `
+            <a href="post.html?slug=${encodeURIComponent(p.slug)}" class="related-card">
+                <div class="related-card-image" style="background-image:url('${escapeHtml(p.heroImage)}')"></div>
+                <div class="p-5">
+                    <h4 class="text-lg font-bold text-white leading-snug mb-2" style="font-family:'Cormorant Garamond',serif;">${escapeHtml(p.title)}</h4>
+                    <p class="text-gold text-xs font-bold uppercase tracking-wider">Read <i class="fa-solid fa-arrow-right text-[10px] ml-0.5"></i></p>
+                </div>
+            </a>
+        `).join('');
+        document.getElementById('related-section').classList.remove('hidden');
+    } catch (e) {
+        console.error('[GVJ Post] Related load error:', e);
+    }
+}
+
+/* ── HELPERS ── */
+function formatDate(iso) {
+    if (!iso) return '';
+    try { return new Date(iso).toLocaleDateString('en-GB', { day:'2-digit', month:'long', year:'numeric' }); }
+    catch { return iso; }
+}
+function escapeHtml(s) {
+    return String(s || '').replace(/[<>"']/g, c => ({'<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+loadPost();
+</script>
+
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
+    (function(){var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;s1.src='https://embed.tawk.to/69ab4b7560e0031c3443b1b0/1jj2htghu';
+    s1.charset='UTF-8';s1.setAttribute('crossorigin','*');s0.parentNode.insertBefore(s1,s0);})();
+</script>
+
+
+<!-- Mobile Bottom Nav -->
+<style>
+#mobile-bottom-nav { display: none; }
+@media (max-width: 767px) {
+    #mobile-bottom-nav { display: block; }
+    .whatsapp-float { bottom: 90px !important; }
+    body { padding-bottom: 80px; }
+}
+</style>
+<nav id="mobile-bottom-nav" style="position:fixed; bottom:0; left:0; right:0; z-index:9998; background:#0f1419; border-top:1px solid #1e2730; -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); padding-bottom:env(safe-area-inset-bottom);">
+    <div style="display:flex;">
+        <a href="../index.html" class="mobile-nav-item" data-nav="home" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-house" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Home</span>
+        </a>
+        <a href="../calculator.html" class="mobile-nav-item" data-nav="readiness" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-clipboard-list" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Readiness</span>
+        </a>
+        <a href="../blog/index.html" class="mobile-nav-item" data-nav="insights" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-newspaper" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Insights</span>
+        </a>
+        <a href="../about.html" class="mobile-nav-item" data-nav="about" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-circle-info" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">About</span>
+        </a>
+        <a href="../index.html#faq" class="mobile-nav-item" data-nav="faq" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-circle-question" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">FAQ</span>
+        </a>
+    </div>
+</nav>
+<script>
+(function(){
+    var p = window.location.pathname;
+    var active = {
+        home:      (p.endsWith('/index.html') || p === '/') && !p.includes('/blog/'),
+        readiness: p.endsWith('/calculator.html'),
+        insights:  p.includes('/blog/'),
+        about:     p.endsWith('/about.html'),
+        faq:       false
+    };
+    document.querySelectorAll('.mobile-nav-item').forEach(function(el){
+        if(active[el.getAttribute('data-nav')]) el.style.color = '#c9a84c';
+    });
+})();
+</script>
+
+</body>
+</html>
