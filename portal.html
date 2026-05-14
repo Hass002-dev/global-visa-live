@@ -232,6 +232,68 @@
 
     <div class="max-w-5xl mx-auto px-4 py-10 space-y-8">
 
+        <!-- ── PROFILE COMPLETION PROMPT ── -->
+        <div id="profile-card" class="hidden rounded-2xl p-6 md:p-8" style="background:#0f1419; border:1.5px solid var(--brand-gold);">
+            <div class="flex items-start gap-4 mb-5">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(201,168,76,0.12); border:1px solid rgba(201,168,76,0.3);">
+                    <i class="fa-solid fa-user-pen" style="color:var(--brand-gold); font-size:18px;"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white">Complete Your Profile</h2>
+                    <p class="text-[#7a8899] text-sm mt-1 font-medium">Please complete your details so we can personalise your experience.</p>
+                </div>
+            </div>
+            <div class="grid sm:grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label class="input-label" for="profile-firstname">First Name</label>
+                    <input type="text" id="profile-firstname" class="gvj-input" placeholder="Your first name">
+                </div>
+                <div>
+                    <label class="input-label" for="profile-lastname">Last Name</label>
+                    <input type="text" id="profile-lastname" class="gvj-input" placeholder="Your last name">
+                </div>
+                <div>
+                    <label class="input-label" for="profile-phone">WhatsApp Number (with country code)</label>
+                    <input type="tel" id="profile-phone" class="gvj-input" placeholder="+44 7700 000000">
+                </div>
+                <div>
+                    <label class="input-label" for="profile-destination">Destination Country</label>
+                    <select id="profile-destination" class="gvj-input">
+                        <option value="" disabled selected>Select destination…</option>
+                        <option>Spain</option>
+                        <option>France</option>
+                        <option>Greece</option>
+                        <option>Germany</option>
+                        <option>Netherlands</option>
+                        <option>Italy</option>
+                        <option>Other Schengen</option>
+                        <option>Morocco</option>
+                        <option>EU Study</option>
+                        <option>EU Work</option>
+                    </select>
+                </div>
+                <div class="sm:col-span-2">
+                    <label class="input-label" for="profile-package">Package Purchased</label>
+                    <select id="profile-package" class="gvj-input">
+                        <option value="" disabled selected>Select package…</option>
+                        <option>Spain Premium £200</option>
+                        <option>Greece Priority £175</option>
+                        <option>France &amp; Netherlands £200</option>
+                        <option>Other Schengen £200</option>
+                        <option>Morocco E-Visa £89</option>
+                        <option>Full Access Strategy</option>
+                        <option>QuickScan Audit £39.99</option>
+                        <option>Refusal Recovery</option>
+                        <option>Student Visa Placement</option>
+                    </select>
+                </div>
+            </div>
+            <div id="profile-save-msg" class="hidden mb-3 text-sm font-bold"></div>
+            <button type="button" onclick="saveProfile()" id="profile-save-btn" class="btn-gold px-6 py-3 rounded-xl text-sm">
+                <i class="fa-solid fa-floppy-disk mr-1"></i> Save Profile
+            </button>
+        </div>
+
         <!-- ── SECTION 1: APPLICATION STATUS TRACKER ── -->
         <div class="bg-[#0f1419] border border-[#1e2730] rounded-2xl p-6 md:p-8">
             <h2 class="text-2xl font-bold text-white mb-2">Your Application Status</h2>
@@ -304,7 +366,7 @@
             <h2 class="text-2xl font-bold text-white mb-1">Additional Documents</h2>
             <p class="text-[#7a8899] text-sm mb-5 font-medium">Have other supporting documents? Upload them here — label each one so we know what it is.</p>
 
-            <div id="additional-doc-cards" class="space-y-3"></div>
+            <div id="additional-doc-cards" class="grid md:grid-cols-3 gap-4"></div>
 
             <button type="button" onclick="addAdditionalDocCard()"
                     class="mt-4 flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition"
@@ -572,6 +634,7 @@ function renderDashboard() {
     const firstName = clientData.firstName || clientData.email?.split('@')[0] || 'Client';
     document.getElementById('dash-firstname').textContent = firstName;
 
+    renderProfileCard();
     renderStageTracker(clientData.status || 'payment_confirmed');
     renderDocGrid();
 }
@@ -670,10 +733,9 @@ function renderDocGrid() {
     document.getElementById('doc-progress-text').textContent = `${uploadedRequired} of ${total} required`;
     document.getElementById('doc-progress-bar').style.width = `${Math.round((uploadedRequired / total) * 100)}%`;
 
-    // All docs done?
+    // All docs done? (auto-advance happens in checkAndAdvanceStatus after each upload)
     if (uploadedRequired >= total) {
         document.getElementById('docs-all-done').classList.remove('hidden');
-        autoAdvanceStatus();
     } else {
         document.getElementById('docs-all-done').classList.add('hidden');
     }
@@ -848,7 +910,55 @@ async function checkAndAdvanceStatus(uid) {
     }
 }
 
-/* autoAdvanceStatus replaced by checkAndAdvanceStatus above */
+/* ── PROFILE COMPLETION CARD ── */
+function renderProfileCard() {
+    const missing = !clientData.firstName || !clientData.lastName || !clientData.phone;
+    const card = document.getElementById('profile-card');
+    if (!missing) { card.classList.add('hidden'); return; }
+
+    document.getElementById('profile-firstname').value   = clientData.firstName   || '';
+    document.getElementById('profile-lastname').value    = clientData.lastName    || '';
+    document.getElementById('profile-phone').value       = clientData.phone       || '';
+    document.getElementById('profile-destination').value = clientData.destination || '';
+    document.getElementById('profile-package').value     = clientData.package     || '';
+    card.classList.remove('hidden');
+}
+
+window.saveProfile = async () => {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const firstName   = document.getElementById('profile-firstname').value.trim();
+    const lastName    = document.getElementById('profile-lastname').value.trim();
+    const phone       = document.getElementById('profile-phone').value.trim();
+    const destination = document.getElementById('profile-destination').value;
+    const pkg         = document.getElementById('profile-package').value;
+    const btn         = document.getElementById('profile-save-btn');
+    const msgEl       = document.getElementById('profile-save-msg');
+
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-circle-notch spin mr-1"></i> Saving…';
+    msgEl.classList.add('hidden');
+
+    try {
+        const updates = {};
+        if (firstName)   updates.firstName   = firstName;
+        if (lastName)    updates.lastName    = lastName;
+        if (phone)       updates.phone       = phone;
+        if (destination) updates.destination = destination;
+        if (pkg)         updates.package     = pkg;
+
+        await updateDoc(doc(db, 'clients', user.uid), updates);
+        // onSnapshot fires → renderDashboard() → renderProfileCard() hides the card
+    } catch (err) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-floppy-disk mr-1"></i> Save Profile';
+        msgEl.textContent = 'Save failed. Please try again.';
+        msgEl.style.color = '#ef4444';
+        msgEl.classList.remove('hidden');
+        console.error('[GVJ Profile] Save error:', err);
+    }
+};
 
 /* ── HELPERS ── */
 function showMsg(el, msg) {
@@ -885,36 +995,38 @@ window.addAdditionalDocCard = function() {
     card.className = 'doc-card';
     card.id = cardId;
     card.innerHTML = `
-        <div style="display:flex; align-items:flex-start; gap:12px; margin-bottom:12px;">
-            <div style="flex:1;">
-                <label class="input-label" for="${cardId}-label">Document Label</label>
-                <input type="text" id="${cardId}-label" class="gvj-input"
-                       placeholder="e.g. Sponsor Letter, Second Bank Account, Property Deed…"
-                       style="padding:10px 14px; font-size:14px;">
+        <div class="flex items-start justify-between gap-2 mb-2">
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2)">
+                <i class="fa-solid fa-file-plus text-xs" style="color:var(--brand-gold)"></i>
             </div>
             <button type="button" onclick="removeAdditionalCard('${cardId}')" title="Remove"
-                    style="flex-shrink:0; background:none; border:none; cursor:pointer; color:var(--text-muted); padding:4px; margin-top:22px; transition:color 0.2s;"
+                    style="background:none;border:none;cursor:pointer;color:var(--text-muted);padding:2px;transition:color 0.2s;line-height:1;"
                     onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='var(--text-muted)'">
-                <i class="fa-solid fa-xmark" style="font-size:18px;"></i>
+                <i class="fa-solid fa-xmark" style="font-size:15px;"></i>
             </button>
         </div>
-        <div style="display:flex; align-items:center; gap:12px;">
-            <button type="button" onclick="triggerAdditionalUpload('${cardId}')" id="${cardId}-upload-btn"
-                    class="btn-gold px-4 py-2.5 rounded-lg text-xs flex-shrink-0">
-                <i class="fa-solid fa-cloud-arrow-up mr-1"></i>Choose File
-            </button>
-            <span id="${cardId}-filename" class="text-[#4a5568] text-xs font-medium truncate">No file selected</span>
+        <label class="input-label" for="${cardId}-label" style="margin-bottom:4px;">Document Label</label>
+        <input type="text" id="${cardId}-label" class="gvj-input"
+               placeholder="e.g. Sponsor Letter, Second Bank Account…"
+               style="padding:9px 12px; font-size:13px; margin-bottom:8px;">
+        <p class="text-[#7a8899] text-xs leading-relaxed mb-3 font-medium">PDF, JPG, PNG or HEIC · Max 10MB</p>
+        <p id="${cardId}-not-uploaded" class="text-red-400 text-xs font-bold mb-3">
+            <i class="fa-solid fa-circle-xmark mr-1"></i>Not Uploaded
+        </p>
+        <div id="${cardId}-success" class="hidden bg-green-900/15 border border-green-800/30 rounded-lg px-3 py-2 mb-3">
+            <p id="${cardId}-success-name" class="text-green-400 text-xs font-bold truncate"></p>
+            <p id="${cardId}-success-date" class="text-[#4a5568] text-[10px] mt-0.5"></p>
         </div>
-        <div id="${cardId}-progress" class="hidden" style="margin-top:10px;">
+        <button type="button" onclick="triggerAdditionalUpload('${cardId}')" id="${cardId}-upload-btn"
+                class="w-full py-2.5 rounded-lg text-xs font-bold btn-gold">
+            <i class="fa-solid fa-cloud-arrow-up mr-1"></i>Upload
+        </button>
+        <div id="${cardId}-progress" class="hidden mt-2">
             <div class="h-1.5 bg-[#080c10] rounded-full overflow-hidden">
                 <div class="h-full rounded-full transition-all duration-200" id="${cardId}-bar"
-                     style="width:0%; background:var(--brand-gold);"></div>
+                     style="width:0%; background:var(--brand-gold)"></div>
             </div>
-            <p id="${cardId}-pct" style="font-size:10px; color:var(--text-secondary); margin-top:4px;">Uploading…</p>
-        </div>
-        <div id="${cardId}-success" class="hidden" style="margin-top:10px; background:rgba(34,197,94,0.08); border:1px solid rgba(34,197,94,0.25); border-radius:8px; padding:8px 12px;">
-            <p id="${cardId}-success-name" style="color:#22c55e; font-size:12px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"></p>
-            <p id="${cardId}-success-date" style="color:var(--text-muted); font-size:10px; margin-top:2px;"></p>
+            <p id="${cardId}-pct" class="text-[10px] text-[#7a8899] mt-1">Uploading…</p>
         </div>`;
     container.appendChild(card);
 };
@@ -977,9 +1089,8 @@ document.getElementById('file-input-additional').addEventListener('change', asyn
     pct.style.color = 'var(--text-secondary)';
     pct.style.fontWeight = '500';
 
-    const safeLabel    = label.replace(/[^a-zA-Z0-9._-]/g, '_');
     const safeFilename = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-    const storagePath  = `clients/${uid}/additional/${safeLabel}-${safeFilename}`;
+    const storagePath  = `clients/${uid}/additional/${Date.now()}-${safeFilename}`;
 
     const storageRef = ref(storage, storagePath);
     const uploadTask = uploadBytesResumable(storageRef, file);
