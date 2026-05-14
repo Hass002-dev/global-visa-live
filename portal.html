@@ -299,6 +299,22 @@
             </p>
         </div>
 
+        <!-- ── SECTION 2b: ADDITIONAL DOCUMENTS ── -->
+        <div class="bg-[#0f1419] border border-[#1e2730] rounded-2xl p-6 md:p-8">
+            <h2 class="text-2xl font-bold text-white mb-1">Additional Documents</h2>
+            <p class="text-[#7a8899] text-sm mb-5 font-medium">Have other supporting documents? Upload them here — label each one so we know what it is.</p>
+
+            <div id="additional-doc-cards" class="space-y-3"></div>
+
+            <button type="button" onclick="addAdditionalDocCard()"
+                    class="mt-4 flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition"
+                    style="border:1.5px solid var(--brand-gold); color:var(--brand-gold); background:transparent;"
+                    onmouseover="this.style.background='rgba(201,168,76,0.08)'"
+                    onmouseout="this.style.background='transparent'">
+                <i class="fa-solid fa-plus"></i> Add Document
+            </button>
+        </div>
+
         <!-- ── SECTION 3: CONTACT SUPPORT ── -->
         <div class="bg-[#0f1419] border border-[#1e2730] rounded-2xl p-6">
             <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -324,8 +340,9 @@
     </footer>
 </div>
 
-<!-- Hidden file input -->
-<input type="file" id="file-input-global" accept=".pdf,.jpg,.jpeg,.png,.heic" class="hidden">
+<!-- Hidden file inputs -->
+<input type="file" id="file-input-global"     accept=".pdf,.jpg,.jpeg,.png,.heic" class="hidden">
+<input type="file" id="file-input-additional" accept=".pdf,.jpg,.jpeg,.png,.heic" class="hidden">
 
 <!-- WhatsApp float -->
 <a href="https://wa.me/447511219482" class="whatsapp-float" target="_blank">
@@ -343,7 +360,7 @@ import { getAuth, signInWithEmailAndPassword,
          onAuthStateChanged,
          setPersistence, browserLocalPersistence }    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getFirestore, doc, getDoc,
-         setDoc, updateDoc, onSnapshot }              from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+         setDoc, updateDoc, onSnapshot, arrayUnion }  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { getStorage, ref, uploadBytesResumable,
          getDownloadURL }                             from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
@@ -854,6 +871,184 @@ function formatDate(iso) {
     if (!iso) return '';
     try { return new Date(iso).toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' }); }
     catch { return iso; }
+}
+
+/* ── ADDITIONAL DOCUMENTS ── */
+let additionalCardCount   = 0;
+let activeAdditionalCard  = null;
+
+window.addAdditionalDocCard = function() {
+    const container = document.getElementById('additional-doc-cards');
+    const cardId    = 'add-doc-' + (++additionalCardCount);
+
+    const card = document.createElement('div');
+    card.className = 'doc-card';
+    card.id = cardId;
+    card.innerHTML = `
+        <div style="display:flex; align-items:flex-start; gap:12px; margin-bottom:12px;">
+            <div style="flex:1;">
+                <label class="input-label" for="${cardId}-label">Document Label</label>
+                <input type="text" id="${cardId}-label" class="gvj-input"
+                       placeholder="e.g. Sponsor Letter, Second Bank Account, Property Deed…"
+                       style="padding:10px 14px; font-size:14px;">
+            </div>
+            <button type="button" onclick="removeAdditionalCard('${cardId}')" title="Remove"
+                    style="flex-shrink:0; background:none; border:none; cursor:pointer; color:var(--text-muted); padding:4px; margin-top:22px; transition:color 0.2s;"
+                    onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='var(--text-muted)'">
+                <i class="fa-solid fa-xmark" style="font-size:18px;"></i>
+            </button>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+            <button type="button" onclick="triggerAdditionalUpload('${cardId}')" id="${cardId}-upload-btn"
+                    class="btn-gold px-4 py-2.5 rounded-lg text-xs flex-shrink-0">
+                <i class="fa-solid fa-cloud-arrow-up mr-1"></i>Choose File
+            </button>
+            <span id="${cardId}-filename" class="text-[#4a5568] text-xs font-medium truncate">No file selected</span>
+        </div>
+        <div id="${cardId}-progress" class="hidden" style="margin-top:10px;">
+            <div class="h-1.5 bg-[#080c10] rounded-full overflow-hidden">
+                <div class="h-full rounded-full transition-all duration-200" id="${cardId}-bar"
+                     style="width:0%; background:var(--brand-gold);"></div>
+            </div>
+            <p id="${cardId}-pct" style="font-size:10px; color:var(--text-secondary); margin-top:4px;">Uploading…</p>
+        </div>
+        <div id="${cardId}-success" class="hidden" style="margin-top:10px; background:rgba(34,197,94,0.08); border:1px solid rgba(34,197,94,0.25); border-radius:8px; padding:8px 12px;">
+            <p id="${cardId}-success-name" style="color:#22c55e; font-size:12px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"></p>
+            <p id="${cardId}-success-date" style="color:var(--text-muted); font-size:10px; margin-top:2px;"></p>
+        </div>`;
+    container.appendChild(card);
+};
+
+window.removeAdditionalCard = function(cardId) {
+    const card = document.getElementById(cardId);
+    if (card) card.remove();
+};
+
+window.triggerAdditionalUpload = function(cardId) {
+    if (!auth.currentUser) return;
+    const labelInput = document.getElementById(`${cardId}-label`);
+    const label      = labelInput ? labelInput.value.trim() : '';
+    if (!label) {
+        labelInput.style.borderColor = '#ef4444';
+        labelInput.focus();
+        setTimeout(() => { labelInput.style.borderColor = ''; }, 2000);
+        return;
+    }
+    activeAdditionalCard = { cardId, label };
+    const input = document.getElementById('file-input-additional');
+    input.value = '';
+    input.click();
+};
+
+document.getElementById('file-input-additional').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file || !activeAdditionalCard) return;
+
+    const { cardId, label } = activeAdditionalCard;
+    activeAdditionalCard = null;
+
+    const user = auth.currentUser;
+    if (!user) return;
+    const uid = user.uid;
+
+    const allowed = ['application/pdf','image/jpeg','image/png','image/heic','image/jpg'];
+    if (!allowed.includes(file.type)) {
+        showAdditionalError(cardId, 'Invalid file type. PDF or image (JPG, PNG, HEIC) only.');
+        return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+        showAdditionalError(cardId, 'File too large. Maximum size is 10MB.');
+        return;
+    }
+
+    const btn         = document.getElementById(`${cardId}-upload-btn`);
+    const progDiv     = document.getElementById(`${cardId}-progress`);
+    const bar         = document.getElementById(`${cardId}-bar`);
+    const pct         = document.getElementById(`${cardId}-pct`);
+    const filenameEl  = document.getElementById(`${cardId}-filename`);
+
+    filenameEl.textContent = file.name;
+    filenameEl.style.color = 'var(--text-secondary)';
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-circle-notch spin mr-1"></i>Uploading…';
+    progDiv.classList.remove('hidden');
+    bar.style.width = '0%';
+    pct.textContent = 'Starting upload…';
+    pct.style.color = 'var(--text-secondary)';
+    pct.style.fontWeight = '500';
+
+    const safeLabel    = label.replace(/[^a-zA-Z0-9._-]/g, '_');
+    const safeFilename = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+    const storagePath  = `clients/${uid}/additional/${safeLabel}-${safeFilename}`;
+
+    const storageRef = ref(storage, storagePath);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    let timedOut = false;
+    const timeoutHandle = setTimeout(() => {
+        timedOut = true;
+        uploadTask.cancel();
+        showAdditionalError(cardId, 'Upload timed out. Please check your connection and try again.');
+    }, 30000);
+
+    uploadTask.on('state_changed',
+        (snap) => {
+            if (timedOut) return;
+            const progress = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+            bar.style.width = progress + '%';
+            pct.textContent = `Uploading… ${progress}%`;
+        },
+        (err) => {
+            clearTimeout(timeoutHandle);
+            if (timedOut) return;
+            let userMsg = 'Upload failed. Please try again.';
+            if (err.code === 'storage/unauthorized') userMsg = 'Upload failed: permission denied. Please contact support.';
+            else if (err.code === 'storage/canceled')  userMsg = 'Upload was cancelled.';
+            showAdditionalError(cardId, userMsg);
+        },
+        async () => {
+            clearTimeout(timeoutHandle);
+            if (timedOut) return;
+            try {
+                const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+                const uploadData  = {
+                    label,
+                    filename:   file.name,
+                    fileURL:    downloadURL,
+                    uploadedAt: new Date().toISOString(),
+                    path:       storagePath,
+                };
+                const clientDocRef = doc(db, 'clients', uid);
+                await updateDoc(clientDocRef, {
+                    additionalDocuments: arrayUnion(uploadData),
+                });
+
+                // Success state
+                progDiv.classList.add('hidden');
+                document.getElementById(`${cardId}-success`).classList.remove('hidden');
+                document.getElementById(`${cardId}-success-name`).textContent = file.name;
+                document.getElementById(`${cardId}-success-date`).textContent = formatDate(uploadData.uploadedAt);
+                btn.innerHTML = '<i class="fa-solid fa-check mr-1"></i>Uploaded';
+                btn.style.cssText = 'background:transparent; border:1px solid rgba(34,197,94,0.3); color:#22c55e; padding:8px 16px; border-radius:8px; font-size:12px; font-weight:700; cursor:default;';
+                btn.disabled = true;
+                const labelInput = document.getElementById(`${cardId}-label`);
+                if (labelInput) { labelInput.disabled = true; labelInput.style.opacity = '0.6'; }
+                const cardEl = document.getElementById(cardId);
+                if (cardEl) cardEl.classList.add('uploaded');
+            } catch (err) {
+                showAdditionalError(cardId, 'File uploaded but save failed. Please contact support.');
+            }
+        }
+    );
+});
+
+function showAdditionalError(cardId, message) {
+    const pct = document.getElementById(`${cardId}-pct`);
+    const btn = document.getElementById(`${cardId}-upload-btn`);
+    const progDiv = document.getElementById(`${cardId}-progress`);
+    if (progDiv) progDiv.classList.remove('hidden');
+    if (pct) { pct.textContent = message; pct.style.color = '#ef4444'; pct.style.fontWeight = '700'; }
+    if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up mr-1"></i>Retry'; }
 }
 
 </script>

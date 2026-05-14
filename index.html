@@ -1599,13 +1599,6 @@
         }, 50);
     }
 
-    // ── MODALS ──
-    function toggleModal(id) {
-        const el = document.getElementById(id);
-        el.classList.toggle('hidden');
-        document.body.style.overflow = el.classList.contains('hidden') ? 'auto' : 'hidden';
-    }
-
     function openLegalModal(id) {
         document.getElementById(id).classList.remove('hidden');
         document.body.style.overflow = 'hidden';

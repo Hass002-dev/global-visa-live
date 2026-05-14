@@ -381,10 +381,10 @@
                 <a href="index.html" class="text-[#7a8899] hover:text-white font-semibold transition text-sm hidden md:block">Home</a>
                 <a href="about.html" class="text-[#7a8899] hover:text-white font-semibold transition text-sm hidden md:block">About</a>
                 <a href="blog/index.html" class="text-[#7a8899] hover:text-white font-semibold transition text-sm hidden md:block">Insights</a>
-                <button onclick="toggleModal('portal-modal')" class="border border-[#1e2730] hover:border-[#c9a84c] text-[#7a8899] hover:text-[#c9a84c] transition px-3 py-2 md:px-4 rounded-lg text-xs md:text-sm font-bold flex items-center gap-2">
+                <a href="portal.html" class="border border-[#1e2730] hover:border-[#c9a84c] text-[#7a8899] hover:text-[#c9a84c] transition px-3 py-2 md:px-4 rounded-lg text-xs md:text-sm font-bold flex items-center gap-2">
                     <i class="fa-solid fa-lock text-xs"></i>
                     <span class="hidden md:inline">Client Portal</span><span class="md:hidden">Portal</span>
-                </button>
+                </a>
             </div>
         </div>
     </div>
@@ -875,25 +875,6 @@
     <i class="fa-brands fa-whatsapp"></i>
 </a>
 
-<!-- CLIENT PORTAL MODAL -->
-<div id="portal-modal" class="hidden fixed inset-0 bg-black/95 flex items-center justify-center p-4 z-[10000]">
-    <div class="bg-[#0f1419] border w-full max-w-md rounded-2xl p-8 text-center relative shadow-2xl" style="border-color:var(--brand-gold); box-shadow:0 0 40px rgba(201,168,76,0.2)">
-        <button onclick="toggleModal('portal-modal')" class="absolute top-4 right-4 text-[#7a8899] hover:text-white text-xl w-8 h-8 flex items-center justify-center rounded-full hover:bg-[#1e2730] transition">&times;</button>
-        <div class="w-16 h-16 bg-[#080c10] rounded-2xl mx-auto flex items-center justify-center mb-6" style="border:1px solid rgba(201,168,76,0.3)">
-            <i class="fa-solid fa-lock text-2xl" style="color:var(--brand-gold)"></i>
-        </div>
-        <h2 class="text-2xl font-bold text-white mb-2" style="font-family:'Cormorant Garamond',serif;">Secure Client Portal</h2>
-        <p class="text-sm text-[#7a8899] mb-6 font-medium">Enter the Access PIN from your receipt email.</p>
-        <div id="portal-error" class="hidden text-red-400 text-xs font-bold mb-4 bg-red-900/20 border border-red-800 rounded-lg px-4 py-2">
-            <i class="fa-solid fa-circle-exclamation mr-1"></i> Incorrect PIN. Please try again.
-        </div>
-        <input type="password" id="portal-pin" placeholder="Enter PIN" class="gvj-input mb-4 text-center tracking-[0.4em] text-lg" onkeydown="if(event.key==='Enter') unlockPortal()">
-        <button onclick="unlockPortal()" class="w-full btn-gold py-3 rounded-xl text-sm">Access Portal</button>
-        <p class="text-xs text-[#7a8899] mt-4 flex items-center justify-center gap-2 font-medium">
-            <i class="fa-solid fa-shield-halved text-green-400"></i> GDPR compliant · 256-bit encrypted
-        </p>
-    </div>
-</div>
 
 
 <!-- ══════════════════════════════════════════════════════════ -->
@@ -944,19 +925,6 @@
         document.getElementById('main-nav').classList.toggle('nav-scrolled', window.scrollY > 50);
     });
 
-    function toggleModal(id) {
-        const el = document.getElementById(id);
-        el.classList.toggle('hidden');
-        document.body.style.overflow = el.classList.contains('hidden') ? 'auto' : 'hidden';
-    }
-    document.getElementById('portal-modal').addEventListener('click', function(e) {
-        if (e.target === this) { this.classList.add('hidden'); document.body.style.overflow = 'auto'; }
-    });
-    function unlockPortal() {
-        const pin = document.getElementById('portal-pin').value.trim();
-        if (pin === "GVJ2026") { window.location.href = "portal.html"; }
-        else { document.getElementById('portal-error').classList.remove('hidden'); document.getElementById('portal-pin').value = ''; }
-    }
 
     /* ═══════════════════════════════════════════════════════
        TAB SWITCHER
