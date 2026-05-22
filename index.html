@@ -1516,25 +1516,6 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // NEWSLETTER
-    const newsBtn = document.getElementById('newsletter-btn');
-    const newsInput = document.getElementById('newsletter-email');
-    const newsSuccess = document.getElementById('newsletter-success');
-    if (newsBtn) {
-        newsBtn.addEventListener('click', async () => {
-            const email = newsInput.value.trim();
-            if (!email || !email.includes('@')) { newsInput.style.borderColor = 'red'; return; }
-            newsBtn.textContent = "Joining...";
-            newsBtn.disabled = true;
-            try {
-                await addDoc(collection(db, "newsletter_subs"), { email, source: "footer_signup", timestamp: new Date() });
-                newsSuccess.classList.remove('hidden');
-                newsInput.value = "";
-            } catch (e) { console.error(e); }
-            finally { newsBtn.textContent = "Subscribe"; newsBtn.disabled = false; }
-        });
-    }
-
     // ENQUIRY FORM
     const enqForm = document.getElementById('enquiry-form');
     const enqBtn = document.getElementById('enq-btn');
@@ -1563,6 +1544,67 @@
             }
         });
     }
+</script>
+
+<!-- NEWSLETTER — Mailchimp -->
+<script>
+(function () {
+    var newsBtn = document.getElementById('newsletter-btn');
+    var newsInput = document.getElementById('newsletter-email');
+    var newsSuccess = document.getElementById('newsletter-success');
+
+    function showNewsError(msg) {
+        var errEl = document.getElementById('newsletter-error');
+        if (!errEl) {
+            errEl = document.createElement('p');
+            errEl.id = 'newsletter-error';
+            errEl.className = 'text-red-400 text-xs font-bold';
+            newsSuccess.insertAdjacentElement('afterend', errEl);
+        }
+        errEl.textContent = msg;
+        errEl.style.display = 'block';
+        newsSuccess.classList.add('hidden');
+    }
+
+    function hideNewsError() {
+        var errEl = document.getElementById('newsletter-error');
+        if (errEl) errEl.style.display = 'none';
+    }
+
+    if (newsBtn) {
+        newsBtn.addEventListener('click', async function () {
+            var email = newsInput.value.trim();
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                newsInput.style.borderColor = '#ef4444';
+                return;
+            }
+            newsInput.style.borderColor = '';
+            hideNewsError();
+            newsSuccess.classList.add('hidden');
+            newsBtn.textContent = 'Joining';
+            newsBtn.disabled = true;
+            try {
+                var res = await fetch('https://gvj-mailchimp.office-c5d.workers.dev/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email })
+                });
+                if (res.ok) {
+                    newsSuccess.innerHTML = '<i class="fa-solid fa-circle-check mr-1"></i> You are on the list.';
+                    newsSuccess.classList.remove('hidden');
+                    newsInput.value = '';
+                } else {
+                    showNewsError('Something went wrong. Please try again.');
+                }
+            } catch (e) {
+                showNewsError('Something went wrong. Please try again.');
+            } finally {
+                newsBtn.textContent = 'Subscribe';
+                newsBtn.disabled = false;
+            }
+        });
+    }
+})();
 </script>
 
 <script>
