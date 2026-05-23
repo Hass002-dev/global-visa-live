@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Finder | Global Visa &amp; Journeys London</title>
+    <meta name="description" content="Find your ideal UK or European university in 60 seconds. Answer 5 questions and get personalised university matches based on your grades, budget, and subject. Student placement from £79.">
+    <link rel="canonical" href="https://globalvisajourneys.com/student.html">
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <link rel="stylesheet" href="./output.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1EZM399KT"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-Q1EZM399KT');
+    </script>
+
+    <style>
+        :root {
+            --bg-primary: #080c10;
+            --bg-secondary: #0f1419;
+            --bg-card: #131920;
+            --border-surface: #1e2730;
+            --border-subtle: #252e38;
+            --brand-gold: #c9a84c;
+            --brand-gold-light: #e8c97a;
+            --brand-gold-dim: #8a6f2e;
+            --text-primary: #eef2f7;
+            --text-secondary: #7a8899;
+            --text-muted: #4a5568;
+            --green-accent: #22c55e;
+            --whatsapp: #25d366;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            font-weight: 450;
+        }
+
+        h1, h2, h3, h4, .brand-font { font-family: 'Cormorant Garamond', serif; }
+        p, li, span, a, label, input, textarea { font-weight: 450; }
+
+        .text-gold { color: var(--brand-gold); }
+        .border-gold { border-color: var(--brand-gold); }
+        .bg-card { background-color: var(--bg-card); }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        /* ── HERO ── */
+        .student-hero {
+            background:
+                radial-gradient(ellipse 80% 60% at 50% -10%, rgba(201,168,76,0.13) 0%, rgba(8,12,16,0) 70%),
+                #080c10;
+        }
+
+        /* ── BUTTONS ── */
+        .btn-gold {
+            background: linear-gradient(135deg, var(--brand-gold) 0%, var(--brand-gold-light) 100%);
+            color: #080c10;
+            font-weight: 800;
+            font-family: 'DM Sans', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            text-align: center;
+            cursor: pointer;
+        }
+        .btn-gold::after { content: ''; position: absolute; inset: 0; background: white; opacity: 0; transition: opacity 0.3s; }
+        .btn-gold:hover::after { opacity: 0.1; }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,168,76,0.35); }
+
+        .btn-outline-gold {
+            border: 1.5px solid var(--brand-gold);
+            color: var(--brand-gold);
+            font-weight: 700;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s ease;
+            background: transparent;
+            display: inline-block;
+            text-align: center;
+        }
+        .btn-outline-gold:hover {
+            background: linear-gradient(135deg, var(--brand-gold), var(--brand-gold-light));
+            color: #080c10;
+            transform: translateY(-1px);
+        }
+
+        /* ── ANIMATIONS ── */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .fade-in-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* ── NAV ── */
+        .nav-scrolled {
+            background: rgba(8,12,16,0.98) !important;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+        }
+
+        /* ── GOLD DIVIDER ── */
+        .gold-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--brand-gold-dim), transparent);
+        }
+
+        /* ── WHATSAPP FLOAT ── */
+        @keyframes ringShake {
+            0%, 75%, 100% { transform: rotate(0) scale(1); }
+            77%, 81%, 85%, 89% { transform: rotate(-14deg) scale(1.08); }
+            79%, 83%, 87% { transform: rotate(14deg) scale(1.08); }
+        }
+        .whatsapp-float {
+            position: fixed;
+            width: 58px; height: 58px;
+            bottom: 28px; right: 28px;
+            background: var(--whatsapp);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 28px;
+            box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+            z-index: 999;
+            display: flex; align-items: center; justify-content: center;
+            animation: ringShake 5s infinite;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .whatsapp-float:hover { animation: none; transform: scale(1.12); box-shadow: 0 6px 28px rgba(37,211,102,0.6); }
+
+        /* ── TRUST BADGES ── */
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-surface);
+            border-radius: 8px;
+            padding: 12px 16px;
+            transition: border-color 0.3s;
+        }
+        .trust-badge:hover { border-color: var(--brand-gold-dim); }
+
+        /* ── SCROLLBAR ── */
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: var(--bg-primary); border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--border-subtle); border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+        /* ── QUIZ ── */
+        .quiz-step { display: none; animation: quizFadeIn 0.4s ease; }
+        .quiz-step.active { display: block; }
+        @keyframes quizFadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+        .quiz-option {
+            background: var(--bg-card);
+            border: 2px solid var(--border-surface);
+            border-radius: 14px;
+            padding: 18px 20px;
+            cursor: pointer;
+            transition: all 0.25s;
+            text-align: left;
+            width: 100%;
+            color: var(--text-primary);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        .quiz-option:hover { border-color: var(--brand-gold-dim); background: #0f1419; }
+        .quiz-option.selected {
+            border-color: var(--brand-gold);
+            background: rgba(201,168,76,0.08);
+            color: var(--brand-gold);
+            font-weight: 700;
+        }
+
+        .progress-bar-track {
+            background: var(--border-surface);
+            border-radius: 999px;
+            height: 6px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--brand-gold), var(--brand-gold-light));
+            border-radius: 999px;
+            transition: width 0.4s ease;
+        }
+
+        /* ── RESULTS ── */
+        #results-section { display: none; }
+        .uni-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-surface);
+            border-radius: 12px;
+            padding: 18px 20px;
+            transition: border-color 0.3s;
+        }
+        .uni-card:hover { border-color: var(--brand-gold-dim); }
+
+        /* ── FAQ ── */
+        .faq-item { border-bottom: 1px solid var(--border-surface); }
+        .faq-question {
+            width: 100%;
+            text-align: left;
+            padding: 20px 0;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: color 0.3s;
+        }
+        .faq-question:hover { color: var(--brand-gold); }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            font-weight: 450;
+        }
+        .faq-answer.open { max-height: 400px; padding-bottom: 20px; }
+        .faq-icon { transition: transform 0.3s; color: var(--brand-gold); font-size: 0.85rem; }
+        .faq-icon.rotated { transform: rotate(180deg); }
+
+        /* ── IMAGE CAROUSEL ── */
+        .carousel-wrap { position: relative; overflow: hidden; border-radius: 16px; }
+        .carousel-slides { display: flex; transition: transform 0.5s ease; }
+        .carousel-slide { min-width: 100%; }
+        .carousel-slide img { width: 100%; height: 240px; object-fit: cover; display: block; }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(8,12,16,0.7);
+            border: 1px solid var(--border-surface);
+            color: var(--text-primary);
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.75rem;
+            transition: background 0.2s, border-color 0.2s;
+            z-index: 2;
+        }
+        .carousel-btn:hover { background: rgba(201,168,76,0.2); border-color: var(--brand-gold); color: var(--brand-gold); }
+        .carousel-btn.prev { left: 10px; }
+        .carousel-btn.next { right: 10px; }
+        .carousel-dots { display: flex; justify-content: center; gap: 6px; padding: 10px 0 4px; }
+        .carousel-dot {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--border-subtle);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+        .carousel-dot.active { background: var(--brand-gold); width: 20px; border-radius: 4px; }
+
+        /* ── PRICING CARD ── */
+        .pricing-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-surface);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.4); }
+        .pricing-card.featured {
+            border-color: var(--brand-gold);
+            box-shadow: 0 0 40px rgba(201,168,76,0.12);
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- NAVIGATION                                                 -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<nav id="main-nav" class="bg-[#080c10]/90 backdrop-blur-md border-b border-[#1e2730] fixed w-full z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-20 items-center">
+            <div class="flex items-center space-x-3">
+                <img src="./Updated Logo.png" alt="GV&J Logo" class="h-11 w-11 object-contain rounded-md" width="44" height="44" loading="eager" onerror="this.style.display='none'">
+                <div class="flex flex-col leading-none">
+                    <span class="text-xl md:text-2xl font-black tracking-tight hidden md:block" style="font-family:'Cormorant Garamond',serif; letter-spacing:0.02em;">
+                        <span class="text-gold">GLOBAL VISA</span> <span class="text-white">&amp; JOURNEYS</span>
+                    </span>
+                    <span class="text-xl font-black tracking-tight md:hidden" style="font-family:'Cormorant Garamond',serif;">GV<span class="text-gold">&amp;</span>J</span>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3 md:space-x-5">
+                <a href="index.html" class="text-[#7a8899] hover:text-white font-semibold transition text-sm hidden md:block">Home</a>
+                <a href="index.html#faq" class="text-sm text-[#7a8899] hover:text-white font-semibold transition hidden md:block">FAQ</a>
+                <a href="about.html" class="text-sm text-[#7a8899] hover:text-white font-semibold transition hidden md:block">About</a>
+                <a href="blog/index.html" class="text-sm text-[#7a8899] hover:text-white font-semibold transition hidden md:block">Insights</a>
+                <a href="/refusal.html" class="text-sm text-[#7a8899] hover:text-white font-semibold transition hidden md:block">Refusal Recovery</a>
+                <a href="calculator.html" class="text-xs md:text-sm text-[#7a8899] hover:text-white font-semibold transition flex items-center gap-1">
+                    <i class="fa-solid fa-calculator text-gold text-xs"></i> Readiness Check
+                </a>
+                <a href="portal.html" class="btn-outline-gold px-3 py-2 md:px-4 rounded-lg text-xs md:text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-lock text-xs"></i>
+                    <span class="hidden md:inline">Client Portal</span><span class="md:hidden">Portal</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- HERO                                                       -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<header class="student-hero min-h-[70vh] flex items-center justify-center text-center px-4 pt-28 pb-16 relative z-10">
+    <div class="max-w-3xl fade-in-up visible">
+        <div class="inline-flex items-center gap-2 bg-[#0f1419]/80 backdrop-blur-sm border border-[#1e2730] rounded-full px-5 py-1.5 mb-8">
+            <i class="fa-solid fa-graduation-cap text-gold text-xs"></i>
+            <span class="text-gold text-xs font-bold tracking-widest uppercase">Student Placement · UK &amp; Europe</span>
+        </div>
+        <h1 class="text-5xl md:text-7xl font-black text-white mb-6 leading-[1.05]" style="font-family:'Cormorant Garamond',serif;">
+            Find Your University<br>
+            <em class="text-gold">in 60 Seconds.</em>
+        </h1>
+        <p class="text-lg md:text-xl text-[#adb8c4] mb-4 max-w-2xl mx-auto font-medium leading-relaxed">
+            Answer 5 questions and we will match you to the right university and country for your specific profile, grades, and budget.
+        </p>
+        <p class="text-sm text-[#7a8899] font-semibold tracking-wide">
+            <i class="fa-solid fa-arrow-down text-gold mr-2 animate-bounce"></i>
+            Scroll down to start the quiz
+        </p>
+    </div>
+</header>
+
+<div class="gold-divider mx-auto max-w-5xl px-4"></div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- INTERACTIVE QUIZ                                           -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section id="quiz-section" class="py-20 bg-[#080c10] relative z-10">
+    <div class="max-w-2xl mx-auto px-4">
+
+        <!-- Progress -->
+        <div class="mb-10" id="quiz-progress-wrap">
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-xs font-bold uppercase tracking-widest text-[#7a8899]">Your Profile</span>
+                <span id="step-counter" class="text-xs font-bold text-gold">Step 1 of 5</span>
+            </div>
+            <div class="progress-bar-track">
+                <div class="progress-bar-fill" id="progress-fill" style="width: 20%;"></div>
+            </div>
+        </div>
+
+        <!-- Step 1: Grades -->
+        <div class="quiz-step active" id="step-1">
+            <h2 class="text-2xl md:text-3xl font-black text-white mb-8" style="font-family:'Cormorant Garamond',serif;">What are your current grades or results?</h2>
+            <div class="flex flex-col gap-3">
+                <button type="button" class="quiz-option" data-q="grades" data-val="excellent" onclick="selectOption(this)">
+                    <span class="font-bold">Excellent</span> <span class="text-[#7a8899] font-normal">— Distinctions or A grades</span>
+                </button>
+                <button type="button" class="quiz-option" data-q="grades" data-val="good" onclick="selectOption(this)">
+                    <span class="font-bold">Good</span> <span class="text-[#7a8899] font-normal">— B and C grades or Merit</span>
+                </button>
+                <button type="button" class="quiz-option" data-q="grades" data-val="average" onclick="selectOption(this)">
+                    <span class="font-bold">Average</span> <span class="text-[#7a8899] font-normal">— D and E grades or Pass</span>
+                </button>
+                <button type="button" class="quiz-option" data-q="grades" data-val="pending" onclick="selectOption(this)">
+                    <span class="font-bold">Still in school</span> <span class="text-[#7a8899] font-normal">— or awaiting results</span>
+                </button>
+            </div>
+            <div class="mt-8 flex justify-end">
+                <button type="button" id="next-1" class="btn-gold px-8 py-3.5 rounded-full text-sm hidden" onclick="goToStep(2)">Next <i class="fa-solid fa-arrow-right ml-2"></i></button>
+            </div>
+        </div>
+
+        <!-- Step 2: English -->
+        <div class="quiz-step" id="step-2">
+            <h2 class="text-2xl md:text-3xl font-black text-white mb-8" style="font-family:'Cormorant Garamond',serif;">Do you have an English language test score?</h2>
+            <div class="flex flex-col gap-3">
+                <button type="button" class="quiz-option" data-q="english" data-val="ielts_high" onclick="selectOption(this)">Yes — IELTS 6.5 or above</button>
+                <button type="button" class="quiz-option" data-q="english" data-val="ielts_low" onclick="selectOption(this)">Yes — IELTS 5.5 to 6.0</button>
+                <button type="button" class="quiz-option" data-q="english" data-val="toefl" onclick="selectOption(this)">Yes — TOEFL 80 or above</button>
+                <button type="button" class="quiz-option" data-q="english" data-val="pte" onclick="selectOption(this)">Yes — PTE Academic 58 or above</button>
+                <button type="button" class="quiz-option" data-q="english" data-val="willing" onclick="selectOption(this)">No — but willing to take a test</button>
+                <button type="button" class="quiz-option" data-q="english" data-val="native" onclick="selectOption(this)">No — native English speaker</button>
+                <button type="button" class="quiz-option" data-q="english" data-val="non_english" onclick="selectOption(this)">No — applying to non-English taught programme</button>
+            </div>
+            <div class="mt-8 flex justify-between">
+                <button type="button" class="btn-outline-gold px-6 py-3 rounded-full text-sm" onclick="goToStep(1)"><i class="fa-solid fa-arrow-left mr-2"></i> Back</button>
+                <button type="button" id="next-2" class="btn-gold px-8 py-3.5 rounded-full text-sm hidden" onclick="goToStep(3)">Next <i class="fa-solid fa-arrow-right ml-2"></i></button>
+            </div>
+        </div>
+
+        <!-- Step 3: Budget -->
+        <div class="quiz-step" id="step-3">
+            <h2 class="text-2xl md:text-3xl font-black text-white mb-8" style="font-family:'Cormorant Garamond',serif;">What is your annual budget for tuition AND living?</h2>
+            <div class="flex flex-col gap-3">
+                <button type="button" class="quiz-option" data-q="budget" data-val="under10" onclick="selectOption(this)">Under £10,000 per year</button>
+                <button type="button" class="quiz-option" data-q="budget" data-val="10to15" onclick="selectOption(this)">£10,000 to £15,000 per year</button>
+                <button type="button" class="quiz-option" data-q="budget" data-val="15to20" onclick="selectOption(this)">£15,000 to £20,000 per year</button>
+                <button type="button" class="quiz-option" data-q="budget" data-val="over20" onclick="selectOption(this)">£20,000 or more per year</button>
+            </div>
+            <div class="mt-8 flex justify-between">
+                <button type="button" class="btn-outline-gold px-6 py-3 rounded-full text-sm" onclick="goToStep(2)"><i class="fa-solid fa-arrow-left mr-2"></i> Back</button>
+                <button type="button" id="next-3" class="btn-gold px-8 py-3.5 rounded-full text-sm hidden" onclick="goToStep(4)">Next <i class="fa-solid fa-arrow-right ml-2"></i></button>
+            </div>
+        </div>
+
+        <!-- Step 4: Subject -->
+        <div class="quiz-step" id="step-4">
+            <h2 class="text-2xl md:text-3xl font-black text-white mb-8" style="font-family:'Cormorant Garamond',serif;">What do you want to study?</h2>
+            <div class="grid grid-cols-2 gap-3">
+                <button type="button" class="quiz-option" data-q="subject" data-val="business" onclick="selectOption(this)">Business or Finance</button>
+                <button type="button" class="quiz-option" data-q="subject" data-val="computing" onclick="selectOption(this)">Computing or IT</button>
+                <button type="button" class="quiz-option" data-q="subject" data-val="engineering" onclick="selectOption(this)">Engineering</button>
+                <button type="button" class="quiz-option" data-q="subject" data-val="medicine" onclick="selectOption(this)">Medicine, Nursing or Health</button>
+                <button type="button" class="quiz-option" data-q="subject" data-val="law" onclick="selectOption(this)">Law</button>
+                <button type="button" class="quiz-option" data-q="subject" data-val="science" onclick="selectOption(this)">Science</button>
+                <button type="button" class="quiz-option" data-q="subject" data-val="arts" onclick="selectOption(this)">Arts or Humanities</button>
+                <button type="button" class="quiz-option" data-q="subject" data-val="other" onclick="selectOption(this)">Other</button>
+            </div>
+            <div class="mt-8 flex justify-between">
+                <button type="button" class="btn-outline-gold px-6 py-3 rounded-full text-sm" onclick="goToStep(3)"><i class="fa-solid fa-arrow-left mr-2"></i> Back</button>
+                <button type="button" id="next-4" class="btn-gold px-8 py-3.5 rounded-full text-sm hidden" onclick="goToStep(5)">Next <i class="fa-solid fa-arrow-right ml-2"></i></button>
+            </div>
+        </div>
+
+        <!-- Step 5: Destination -->
+        <div class="quiz-step" id="step-5">
+            <h2 class="text-2xl md:text-3xl font-black text-white mb-8" style="font-family:'Cormorant Garamond',serif;">Where would you prefer to study?</h2>
+            <div class="flex flex-col gap-3">
+                <button type="button" class="quiz-option" data-q="destination" data-val="uk" onclick="selectOption(this)">🇬🇧 United Kingdom only</button>
+                <button type="button" class="quiz-option" data-q="destination" data-val="eu" onclick="selectOption(this)">🇪🇺 Europe only (Germany, Poland, Netherlands)</button>
+                <button type="button" class="quiz-option" data-q="destination" data-val="both" onclick="selectOption(this)">🌍 Open to both — show me the best option</button>
+            </div>
+            <div class="mt-8 flex justify-between">
+                <button type="button" class="btn-outline-gold px-6 py-3 rounded-full text-sm" onclick="goToStep(4)"><i class="fa-solid fa-arrow-left mr-2"></i> Back</button>
+                <button type="button" id="next-5" class="btn-gold px-8 py-3.5 rounded-full text-sm hidden" onclick="showResults()">See My Matches <i class="fa-solid fa-arrow-right ml-2"></i></button>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- RESULTS                                                    -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section id="results-section" class="py-20 bg-[#0f1419] border-y border-[#1e2730] relative z-10">
+    <div class="max-w-3xl mx-auto px-4">
+
+        <div class="text-center mb-10">
+            <div class="inline-flex items-center gap-2 bg-[#080c10]/80 border border-gold/30 rounded-full px-5 py-1.5 mb-4">
+                <i class="fa-solid fa-check-circle text-gold text-xs"></i>
+                <span class="text-gold text-xs font-bold tracking-widest uppercase">Personalised Results</span>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-black text-white" style="font-family:'Cormorant Garamond',serif;">Your University Matches</h2>
+        </div>
+
+        <!-- Results card -->
+        <div class="bg-[#080c10] border border-[#c9a84c] rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(201,168,76,0.15)] mb-8">
+            <div class="bg-[#c9a84c]/10 border-b border-[#c9a84c]/30 px-6 py-4 flex items-center gap-3">
+                <i class="fa-solid fa-university text-gold text-xl"></i>
+                <h3 class="font-black text-white text-lg" style="font-family:'Cormorant Garamond',serif;">Your Personalised University Matches</h3>
+            </div>
+            <div class="p-6 md:p-8">
+                <p id="results-intro" class="text-[#adb8c4] text-sm mb-6 leading-relaxed font-medium"></p>
+                <div id="results-unis" class="flex flex-col gap-3 mb-6"></div>
+                <div id="results-cost" class="bg-[#0f1419] border border-[#1e2730] rounded-xl px-5 py-4 text-sm text-[#adb8c4] font-medium mb-2">
+                    <i class="fa-solid fa-sterling-sign text-gold mr-2"></i>
+                    <span id="results-cost-text"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Disclaimer -->
+        <p class="text-[#7a8899] text-sm text-center leading-relaxed mb-8 max-w-xl mx-auto">
+            These are indicative matches based on your answers. Our Student Profile Assessment gives you a complete personalised shortlist, honest assessment of your approval chances, and full cost breakdown — delivered within 48 hours.
+        </p>
+
+        <!-- CTAs -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-5">
+            <a href="https://buy.stripe.com/9B63cu1Qxa6u7GucgP0sU0d" target="_blank" rel="noopener" class="btn-gold px-8 py-4 rounded-full text-sm shadow-[0_0_30px_rgba(201,168,76,0.25)]">
+                Book Student Profile Assessment — £79
+            </a>
+            <a href="https://wa.me/447511219482" target="_blank" rel="noopener" class="btn-outline-gold px-8 py-4 rounded-full text-sm flex items-center justify-center gap-2">
+                <i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp Us First
+            </a>
+        </div>
+        <p class="text-center text-xs text-[#7a8899] font-medium">
+            Not ready to book yet? Fill in our detailed intake form and we will contact you within 24 hours — free of charge.<br>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScXma6eK8rvqCp1kjHLaLOO16LTtcOaVHALkNLDcZ46UED3zA/viewform" target="_blank" rel="noopener" class="text-gold font-semibold hover:underline">Complete the intake form →</a>
+        </p>
+
+        <div class="mt-8 text-center">
+            <button type="button" onclick="retakeQuiz()" class="text-[#7a8899] hover:text-gold transition text-sm font-semibold"><i class="fa-solid fa-rotate-left mr-2"></i>Retake the quiz</button>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- WHY STUDY ABROAD                                           -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="py-24 bg-[#080c10] border-b border-[#1e2730] relative z-10">
+    <div class="max-w-7xl mx-auto px-4">
+
+        <div class="text-center mb-14 fade-in-up">
+            <span class="text-gold text-xs tracking-widest uppercase font-bold">UK &amp; Europe</span>
+            <h2 class="text-4xl font-bold text-white mt-2" style="font-family:'Cormorant Garamond',serif;">Why Study With Our Guidance</h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+
+            <!-- UK Graduate Route -->
+            <div class="bg-[#0f1419] border border-[#1e2730] rounded-2xl overflow-hidden hover:border-[#c9a84c]/50 transition fade-in-up">
+                <div class="carousel-wrap" id="carousel-uk">
+                    <div class="carousel-slides" id="slides-uk">
+                        <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&auto=format&fit=crop" alt="UK university campus" loading="lazy"></div>
+                        <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&auto=format&fit=crop" alt="London skyline" loading="lazy"></div>
+                        <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop" alt="Student in library" loading="lazy"></div>
+                        <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&auto=format&fit=crop" alt="Graduation ceremony" loading="lazy"></div>
+                    </div>
+                    <button type="button" class="carousel-btn prev" onclick="carouselMove('uk', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button type="button" class="carousel-btn next" onclick="carouselMove('uk', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+                    <div class="carousel-dots" id="dots-uk"></div>
+                </div>
+                <div class="p-6">
+                    <div class="w-12 h-12 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-passport text-xl text-gold"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">2-Year Work Visa Included</h3>
+                    <p class="text-[#7a8899] text-sm leading-relaxed">Every UK degree comes with the Graduate Route Visa — 2 years to work freely in the UK after graduation. No job offer required.</p>
+                </div>
+            </div>
+
+            <!-- EU Affordable -->
+            <div class="bg-[#0f1419] border border-[#1e2730] rounded-2xl overflow-hidden hover:border-[#c9a84c]/50 transition fade-in-up">
+                <div class="carousel-wrap" id="carousel-eu">
+                    <div class="carousel-slides" id="slides-eu">
+                        <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1560969184-10fe8719e047?w=800&auto=format&fit=crop" alt="Berlin Brandenburg Gate" loading="lazy"></div>
+                        <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=800&auto=format&fit=crop" alt="Amsterdam canals" loading="lazy"></div>
+                        <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1551867633-194f125bddfa?w=800&auto=format&fit=crop" alt="Budapest Parliament" loading="lazy"></div>
+                    </div>
+                    <button type="button" class="carousel-btn prev" onclick="carouselMove('eu', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button type="button" class="carousel-btn next" onclick="carouselMove('eu', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+                    <div class="carousel-dots" id="dots-eu"></div>
+                </div>
+                <div class="p-6">
+                    <div class="w-12 h-12 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-coins text-xl text-gold"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">Study in Europe From £8,000/Year</h3>
+                    <p class="text-[#7a8899] text-sm leading-relaxed">Germany, Poland, and Hungary offer world-class degrees at a fraction of UK costs. Many programmes taught fully in English.</p>
+                </div>
+            </div>
+
+            <!-- GVJ Manages Everything -->
+            <div class="bg-[#0f1419] border border-[#1e2730] rounded-2xl overflow-hidden hover:border-[#c9a84c]/50 transition fade-in-up">
+                <div class="carousel-wrap" id="carousel-life">
+                    <div class="carousel-slides" id="slides-life">
+                        <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&auto=format&fit=crop" alt="Students in classroom" loading="lazy"></div>
+                        <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&auto=format&fit=crop" alt="Campus life" loading="lazy"></div>
+                        <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&auto=format&fit=crop" alt="Graduation celebration" loading="lazy"></div>
+                    </div>
+                    <button type="button" class="carousel-btn prev" onclick="carouselMove('life', -1)"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button type="button" class="carousel-btn next" onclick="carouselMove('life', 1)"><i class="fa-solid fa-chevron-right"></i></button>
+                    <div class="carousel-dots" id="dots-life"></div>
+                </div>
+                <div class="p-6">
+                    <div class="w-12 h-12 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-clipboard-check text-xl text-gold"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">We Handle the Entire Process</h3>
+                    <p class="text-[#7a8899] text-sm leading-relaxed">University applications, personal statement, visa, financial evidence preparation. You focus on preparing for your studies.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- PRICING                                                    -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="py-24 bg-[#0f1419] border-b border-[#1e2730] relative z-10">
+    <div class="max-w-5xl mx-auto px-4">
+
+        <div class="text-center mb-14 fade-in-up">
+            <span class="text-gold text-xs tracking-widest uppercase font-bold">Transparent Pricing</span>
+            <h2 class="text-4xl font-bold text-white mt-2" style="font-family:'Cormorant Garamond',serif;">Choose Your Service</h2>
+            <p class="text-[#7a8899] text-sm mt-4 font-medium">All placements begin with the Profile Assessment. This is how we make sure we only take on cases we can genuinely help.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-7">
+
+            <!-- Card 1: Profile Assessment -->
+            <div class="pricing-card flex flex-col">
+                <div class="p-7 border-b border-[#1e2730]">
+                    <p class="text-xs text-[#7a8899] uppercase tracking-widest font-bold mb-2">Entry Point</p>
+                    <h3 class="text-xl font-black text-white mb-1" style="font-family:'Cormorant Garamond',serif;">Student Profile Assessment</h3>
+                    <div class="mt-4">
+                        <span class="text-4xl font-black text-white" style="font-family:'Cormorant Garamond',serif;">£79</span>
+                        <span class="text-sm text-[#7a8899] ml-1">one-off</span>
+                    </div>
+                </div>
+                <div class="p-7 flex flex-col flex-grow">
+                    <p class="text-[#adb8c4] text-sm mb-6 leading-relaxed flex-grow">Honest review of your grades, English level, and budget. Personalised university shortlist and realistic verdict on your options. Delivered within 48 hours.</p>
+                    <a href="https://buy.stripe.com/9B63cu1Qxa6u7GucgP0sU0d" target="_blank" rel="noopener" class="btn-gold py-3 rounded-xl text-sm w-full">Book Now</a>
+                </div>
+            </div>
+
+            <!-- Card 2: Standard Placement (Featured) -->
+            <div class="pricing-card featured flex flex-col">
+                <div class="p-7 border-b border-[#c9a84c]/30 relative">
+                    <div class="absolute top-4 right-4 bg-gold text-[#080c10] text-[10px] font-black px-3 py-1 rounded-full tracking-widest uppercase">Most Popular</div>
+                    <p class="text-xs text-gold uppercase tracking-widest font-bold mb-2">Full Service</p>
+                    <h3 class="text-xl font-black text-white mb-1" style="font-family:'Cormorant Garamond',serif;">Standard Placement</h3>
+                    <div class="mt-4">
+                        <span class="text-4xl font-black text-white" style="font-family:'Cormorant Garamond',serif;">£350</span>
+                        <span class="text-sm text-[#7a8899] ml-1">+ assessment</span>
+                    </div>
+                </div>
+                <div class="p-7 flex flex-col flex-grow">
+                    <p class="text-[#adb8c4] text-sm mb-6 leading-relaxed flex-grow">Applications to 5 universities, personal statement writing, offer management, and university selection advice.</p>
+                    <a href="https://wa.me/447511219482?text=Hi%2C%20I%20am%20interested%20in%20student%20placement%20services%20with%20Global%20Visa%20%26%20Journeys" target="_blank" rel="noopener" class="btn-gold py-3 rounded-xl text-sm w-full flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-base"></i> Get Started — WhatsApp Us
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 3: Premium + Visa -->
+            <div class="pricing-card flex flex-col">
+                <div class="p-7 border-b border-[#1e2730]">
+                    <p class="text-xs text-[#7a8899] uppercase tracking-widest font-bold mb-2">Elite</p>
+                    <h3 class="text-xl font-black text-white mb-1" style="font-family:'Cormorant Garamond',serif;">Premium Placement + Visa</h3>
+                    <div class="mt-4">
+                        <span class="text-4xl font-black text-white" style="font-family:'Cormorant Garamond',serif;">£599</span>
+                        <span class="text-sm text-[#7a8899] ml-1">+ assessment</span>
+                    </div>
+                </div>
+                <div class="p-7 flex flex-col flex-grow">
+                    <p class="text-[#adb8c4] text-sm mb-6 leading-relaxed flex-grow">Everything in Standard plus complete student visa application management, financial evidence preparation, and pre-departure briefing.</p>
+                    <a href="https://wa.me/447511219482?text=Hi%2C%20I%20am%20interested%20in%20student%20placement%20services%20with%20Global%20Visa%20%26%20Journeys" target="_blank" rel="noopener" class="w-full bg-[#25D366] text-white py-3 rounded-xl font-bold text-sm text-center hover:bg-[#128C7E] transition flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp"></i> Get Started — WhatsApp Us
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- FAQ                                                        -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section id="faq" class="py-24 bg-[#080c10] border-b border-[#1e2730] relative z-10 scroll-mt-20">
+    <div class="max-w-3xl mx-auto px-4">
+
+        <div class="text-center mb-14 fade-in-up">
+            <span class="text-gold text-xs tracking-widest uppercase font-bold">Common Questions</span>
+            <h2 class="text-4xl font-bold text-white mt-2" style="font-family:'Cormorant Garamond',serif;">Student FAQ</h2>
+        </div>
+
+        <div class="fade-in-up">
+            <div class="faq-item">
+                <button type="button" class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How much does it cost to study in the UK?</span>
+                    <i class="fa-solid fa-chevron-down faq-icon"></i>
+                </button>
+                <div class="faq-answer">
+                    Total first year costs range from £14,000 for budget universities outside London to £35,000 for London universities. This includes tuition, living costs, visa fees, and the GVJ service fee. We give you a full personalised cost breakdown in the Profile Assessment.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Can I study in Europe if I cannot afford UK fees?</span>
+                    <i class="fa-solid fa-chevron-down faq-icon"></i>
+                </button>
+                <div class="faq-answer">
+                    Absolutely. Germany charges almost no tuition — approximately £300 in admin fees per year. Poland and Hungary offer full English programmes from £2,000–£4,000 per year in tuition. Total annual costs including living can be as low as £8,000–£12,000.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-question" onclick="toggleFAQ(this)">
+                    <span>What happens after I graduate from a UK university?</span>
+                    <i class="fa-solid fa-chevron-down faq-icon"></i>
+                </button>
+                <div class="faq-answer">
+                    You automatically qualify for the UK Graduate Route Visa — 2 years of work in the UK for undergraduates and Masters graduates, 3 years for PhDs. No job offer required. This is one of the strongest post-study work visas in the world.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Do I need IELTS to apply?</span>
+                    <i class="fa-solid fa-chevron-down faq-icon"></i>
+                </button>
+                <div class="faq-answer">
+                    Most UK and EU universities require an English test. IELTS, TOEFL, and PTE Academic are all accepted. If you do not have a score yet we advise you on the minimum score needed for your target universities and the best way to prepare.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How long does the application process take?</span>
+                    <i class="fa-solid fa-chevron-down faq-icon"></i>
+                </button>
+                <div class="faq-answer">
+                    From paying for the Profile Assessment to receiving university offers typically takes 4–8 weeks. The student visa process takes a further 3–6 weeks after accepting an offer. We recommend starting at least 6 months before your intended start date.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button type="button" class="faq-question" onclick="toggleFAQ(this)">
+                    <span>What if no suitable university is found for me?</span>
+                    <i class="fa-solid fa-chevron-down faq-icon"></i>
+                </button>
+                <div class="faq-answer">
+                    This is extremely rare given we have access to thousands of programmes. However if after a thorough search no suitable programme is found we will refund £200 of your placement fee. The Profile Assessment fee is non-refundable as the assessment work has been completed.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- FINAL CTA                                                  -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="py-24 bg-[#0f1419] relative z-10">
+    <div class="max-w-3xl mx-auto px-4 text-center fade-in-up">
+        <div class="gold-divider mb-12 max-w-xs mx-auto"></div>
+        <span class="text-gold text-xs tracking-widest uppercase font-bold">Start Today</span>
+        <h2 class="text-4xl md:text-5xl font-black text-white mt-3 mb-4" style="font-family:'Cormorant Garamond',serif;">Ready to Start Your<br>University Journey?</h2>
+        <p class="text-[#7a8899] text-lg mb-10 font-medium">Take the quiz above or book your Profile Assessment now. We respond within 24 hours.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a href="https://buy.stripe.com/9B63cu1Qxa6u7GucgP0sU0d" target="_blank" rel="noopener" class="w-full sm:w-auto btn-gold px-10 py-4 rounded-full text-sm shadow-[0_0_30px_rgba(201,168,76,0.25)]">
+                Book Assessment — £79
+            </a>
+            <a href="https://wa.me/447511219482" target="_blank" rel="noopener" class="w-full sm:w-auto bg-[#25D366] text-white px-10 py-4 rounded-full font-bold text-sm hover:bg-[#128C7E] transition flex items-center justify-center gap-2">
+                <i class="fa-brands fa-whatsapp text-xl"></i> WhatsApp Us
+            </a>
+        </div>
+        <div class="gold-divider mt-12 max-w-xs mx-auto"></div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- FOOTER                                                     -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<footer class="bg-[#080c10] text-[#7a8899] relative z-10">
+    <div class="border-b border-[#1e2730] py-8">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="trust-badge">
+                    <i class="fa-solid fa-building-columns text-gold text-xl flex-shrink-0"></i>
+                    <div><p class="text-white text-xs font-bold">Companies House</p><p class="text-[#7a8899] text-[11px] font-medium">Reg. No. 16959031</p></div>
+                </div>
+                <div class="trust-badge">
+                    <i class="fa-solid fa-shield-halved text-green-400 text-xl flex-shrink-0"></i>
+                    <div><p class="text-white text-xs font-bold">PI Insured</p><p class="text-[#7a8899] text-[11px] font-medium">Professional Indemnity</p></div>
+                </div>
+                <div class="trust-badge">
+                    <i class="fa-brands fa-stripe text-[#635BFF] text-2xl flex-shrink-0"></i>
+                    <div><p class="text-white text-xs font-bold">Secure Payments</p><p class="text-[#7a8899] text-[11px] font-medium">Powered by Stripe</p></div>
+                </div>
+                <div class="trust-badge">
+                    <i class="fa-solid fa-lock text-blue-400 text-xl flex-shrink-0"></i>
+                    <div><p class="text-white text-xs font-bold">GDPR Compliant</p><p class="text-[#7a8899] text-[11px] font-medium">256-bit Encrypted</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="py-14">
+        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-4 gap-10">
+            <div class="col-span-1 md:col-span-2">
+                <span class="text-white text-2xl font-black" style="font-family:'Cormorant Garamond',serif;">GLOBAL VISA <span class="text-gold">&amp;</span> JOURNEYS</span>
+                <p class="mt-4 text-sm leading-relaxed max-w-sm font-medium">A forensic travel consultancy bridging complex bureaucratic compliance and seamless travel logistics. Registered in England &amp; Wales.</p>
+                <div class="mt-6 flex gap-3 flex-wrap">
+                    <a href="https://facebook.com/globalvisajourneys" target="_blank" class="text-[#7a8899] hover:text-gold transition w-9 h-9 rounded-full border border-[#1e2730] flex items-center justify-center hover:border-gold"><i class="fa-brands fa-facebook text-sm"></i></a>
+                    <a href="https://instagram.com/globalvisajourneysltd" target="_blank" class="text-[#7a8899] hover:text-gold transition w-9 h-9 rounded-full border border-[#1e2730] flex items-center justify-center hover:border-gold"><i class="fa-brands fa-instagram text-sm"></i></a>
+                    <a href="https://wa.me/447511219482" target="_blank" class="text-[#7a8899] hover:text-green-400 transition w-9 h-9 rounded-full border border-[#1e2730] flex items-center justify-center hover:border-green-400"><i class="fa-brands fa-whatsapp text-sm"></i></a>
+                    <a href="https://whatsapp.com/channel/0029VbCDSSWEquiHjVOXqp2f" target="_blank" class="text-white hover:text-[#25D366] transition flex items-center gap-2 bg-[#25D366]/10 border border-[#25D366]/30 rounded-full px-4 h-9 text-xs font-bold hover:bg-[#25D366]/20 hover:border-[#25D366]/60"><i class="fa-brands fa-whatsapp text-[#25D366]"></i> Follow Our Channel</a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-5 text-sm tracking-wider uppercase">Quick Contact</h4>
+                <ul class="space-y-3 text-sm font-medium">
+                    <li class="flex items-start gap-2"><i class="fa-solid fa-envelope text-gold mt-0.5 flex-shrink-0"></i> office@globalvisajourneys.com</li>
+                    <li class="flex items-start gap-2"><i class="fa-solid fa-phone text-gold mt-0.5 flex-shrink-0"></i> 0204 628 1692 (UK Office)</li>
+                    <li class="flex items-start gap-2"><a href="https://wa.me/447511219482" target="_blank" class="hover:text-white transition flex items-start gap-2"><i class="fa-brands fa-whatsapp text-green-400 mt-0.5 flex-shrink-0"></i> +44 7511 219482</a></li>
+                    <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot text-gold mt-0.5 flex-shrink-0"></i> 71-75 Shelton Street, London WC2H 9JQ</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-5 text-sm tracking-wider uppercase">Compliance Alerts</h4>
+                <p class="text-xs mb-4 leading-relaxed font-medium">Don't let a lump sum error ban you. Join our alert list for visa rule updates.</p>
+                <div class="flex flex-col gap-2">
+                    <input id="newsletter-email" type="email" placeholder="Email Address" class="bg-[#0f1419] border border-[#1e2730] text-white px-3 py-2.5 rounded-lg text-sm focus:outline-none focus:border-gold transition placeholder:text-[#4a5568] font-medium">
+                    <button id="newsletter-btn" type="button" class="btn-gold px-4 py-2.5 rounded-lg text-xs text-[#080c10]">Subscribe</button>
+                    <p id="newsletter-success" class="hidden text-green-400 text-xs font-bold"><i class="fa-solid fa-circle-check mr-1"></i> You're on the list.</p>
+                </div>
+                <div class="mt-8 flex gap-4 text-xs font-semibold">
+                    <button type="button" onclick="openLegalModal('scopeModal')" class="hover:text-gold transition border-r border-[#1e2730] pr-4">Engagement Letter</button>
+                    <button type="button" onclick="openLegalModal('termsModal')" class="hover:text-gold transition">Terms &amp; Conditions</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="gold-divider mx-auto max-w-7xl"></div>
+    <div class="max-w-7xl mx-auto px-4 py-8 text-center text-xs">
+        <p class="text-[#4a5568] font-medium">&copy; 2026 Global Visa &amp; Journeys Ltd. Registered in England &amp; Wales (No: 16959031).</p>
+        <p class="mt-2 text-[#2d3748]">Global Visa &amp; Journeys Ltd is a travel consultancy, not a Tour Operator. We do not sell flight-inclusive packages and are not ATOL holders.</p>
+    </div>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/447511219482" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- LEGAL MODALS                                               -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div id="scopeModal" class="hidden fixed inset-0 z-[10000] bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-4xl bg-[#080c10] rounded-2xl border border-[#1e2730] shadow-2xl flex flex-col max-h-[90vh]">
+        <div class="flex items-center justify-between p-6 border-b border-[#1e2730] flex-shrink-0">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-shield-halved text-2xl text-gold"></i>
+                <div><h3 class="text-white font-bold text-lg" style="font-family:'Cormorant Garamond',serif;">Engagement Letter &amp; Scope</h3><p class="text-[10px] uppercase tracking-widest text-[#7a8899] font-semibold">Global Visa &amp; Journeys Ltd</p></div>
+            </div>
+            <button type="button" onclick="closeLegalModal('scopeModal')" class="text-[#7a8899] hover:text-white w-8 h-8 rounded-full bg-[#0f1419] border border-[#1e2730] flex items-center justify-center transition"><i class="fa-solid fa-xmark text-sm"></i></button>
+        </div>
+        <div class="p-6 overflow-y-auto custom-scrollbar text-sm text-[#7a8899] flex-1 font-medium">
+            <p class="mb-6 leading-relaxed">This document outlines the professional services, limitations, and terms provided by Global Visa &amp; Journeys Ltd (the Consultant) to clients concerning Schengen and EU Visa Applications.</p>
+            <h4 class="text-white font-bold mb-3">1. Scope of Engagement</h4>
+            <ul class="space-y-3 mb-6 pl-1">
+                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-gold mt-1 text-xs"></i><span><strong class="text-[#c9d1d9]">Forensic Document Audit:</strong> Review of financial statements and supporting documents against Schengen visa officer standards.</span></li>
+                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-gold mt-1 text-xs"></i><span><strong class="text-[#c9d1d9]">Strategic Narrative Construction:</strong> Drafting expert cover letters and addressing high-risk factors.</span></li>
+                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-gold mt-1 text-xs"></i><span><strong class="text-[#c9d1d9]">Application Management:</strong> Guided completion and submission of the official Visa Application Form.</span></li>
+            </ul>
+            <div class="bg-red-900/10 border-l-4 border-red-500 p-4 rounded-r-lg">
+                <h4 class="text-red-400 font-bold mb-2 text-sm"><i class="fa-solid fa-triangle-exclamation mr-2"></i>No Guarantee of Visa or University Offer</h4>
+                <p class="text-red-200/80 text-sm">The issuance of a visa and decisions on university offers are the sole prerogative of Government and academic authorities. Our fee is for professional preparation and strategy. <strong>We offer absolutely NO guarantee of outcome.</strong></p>
+            </div>
+        </div>
+        <div class="p-4 border-t border-[#1e2730] bg-[#0f1419] rounded-b-2xl flex justify-end flex-shrink-0">
+            <button type="button" onclick="closeLegalModal('scopeModal')" class="bg-[#080c10] text-[#7a8899] hover:text-white border border-[#1e2730] hover:border-[#4a5568] transition px-6 py-2 rounded-lg text-sm font-semibold">Close Document</button>
+        </div>
+    </div>
+</div>
+
+<div id="termsModal" class="hidden fixed inset-0 z-[10000] bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-4xl bg-[#080c10] rounded-2xl border border-[#1e2730] shadow-2xl flex flex-col max-h-[90vh]">
+        <div class="flex items-center justify-between p-6 border-b border-[#1e2730] flex-shrink-0">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-scale-balanced text-2xl text-gold"></i>
+                <div><h3 class="text-white font-bold text-lg" style="font-family:'Cormorant Garamond',serif;">Terms &amp; Conditions</h3><p class="text-[10px] uppercase tracking-widest text-[#7a8899] font-semibold">Global Visa &amp; Journeys Ltd</p></div>
+            </div>
+            <button type="button" onclick="closeLegalModal('termsModal')" class="text-[#7a8899] hover:text-white w-8 h-8 rounded-full bg-[#0f1419] border border-[#1e2730] flex items-center justify-center transition"><i class="fa-solid fa-xmark text-sm"></i></button>
+        </div>
+        <div class="p-6 overflow-y-auto custom-scrollbar text-sm text-[#7a8899] flex-1 font-medium">
+            <p class="mb-6 leading-relaxed">These Terms and Conditions govern all services provided by Global Visa &amp; Journeys Ltd.</p>
+            <h4 class="text-white font-bold mb-3">1. Definitions and Acceptance</h4>
+            <ul class="space-y-2 mb-6 pl-1">
+                <li><i class="fa-solid fa-angle-right text-[#38bdf8] mr-2"></i><strong class="text-[#c9d1d9]">The Consultant:</strong> Global Visa &amp; Journeys Ltd, registered in England and Wales (No. 16959031).</li>
+                <li><i class="fa-solid fa-angle-right text-[#38bdf8] mr-2"></i><strong class="text-[#c9d1d9]">Acceptance:</strong> By proceeding with payment or submitting documents, you agree to these Terms.</li>
+            </ul>
+            <h4 class="text-white font-bold mb-3 mt-6">2. Fees &amp; Non-Refund Policy</h4>
+            <ul class="space-y-2 mb-6 pl-1">
+                <li><i class="fa-solid fa-angle-right text-[#38bdf8] mr-2"></i>All fees are due in full prior to commencement of work.</li>
+                <div class="bg-red-900/10 border-l-2 border-red-500 pl-4 py-3 my-3 rounded-r">
+                    <li class="text-red-200/90"><i class="fa-solid fa-lock text-red-400 mr-2"></i><strong class="text-red-400 block text-xs uppercase tracking-wider mb-1">Strict Non-Refundable Clause</strong>Fees are NON-REFUNDABLE once work has commenced, regardless of outcome.</li>
+                </div>
+            </ul>
+            <h4 class="text-white font-bold mb-3 mt-6">3. Limitation of Liability</h4>
+            <div class="bg-[#0f1419] border border-[#1e2730] p-5 rounded-xl mb-6">
+                <ul class="space-y-3">
+                    <li><i class="fa-solid fa-shield text-[#7a8899] mr-2"></i><strong class="text-white">Maximum Liability:</strong> Limited to the total consulting fee paid.</li>
+                    <li><i class="fa-solid fa-shield text-[#7a8899] mr-2"></i><strong class="text-white">Consequential Damages:</strong> Zero liability for lost opportunities or emotional distress from rejection or delays.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="p-4 border-t border-[#1e2730] bg-[#0f1419] rounded-b-2xl flex justify-end flex-shrink-0">
+            <button type="button" onclick="closeLegalModal('termsModal')" class="bg-[#080c10] text-[#7a8899] hover:text-white border border-[#1e2730] hover:border-[#4a5568] transition px-6 py-2 rounded-lg text-sm font-semibold">Close Document</button>
+        </div>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SCRIPTS                                                    -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<script>
+    // ── NAV SCROLL ──
+    window.addEventListener('scroll', function() {
+        var nav = document.getElementById('main-nav');
+        if (window.scrollY > 50) nav.classList.add('nav-scrolled');
+        else nav.classList.remove('nav-scrolled');
+    });
+
+    // ── LEGAL MODALS ──
+    function openLegalModal(id) {
+        document.getElementById(id).classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeLegalModal(id) {
+        document.getElementById(id).classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+    ['scopeModal','termsModal'].forEach(function(id) {
+        document.getElementById(id).addEventListener('click', function(e) {
+            if (e.target === this) { this.classList.add('hidden'); document.body.style.overflow = 'auto'; }
+        });
+    });
+
+    // ── FAQ ──
+    function toggleFAQ(btn) {
+        var answer = btn.nextElementSibling;
+        var icon = btn.querySelector('.faq-icon');
+        var isOpen = answer.classList.contains('open');
+        document.querySelectorAll('.faq-answer').forEach(function(a) { a.classList.remove('open'); });
+        document.querySelectorAll('.faq-icon').forEach(function(i) { i.classList.remove('rotated'); });
+        if (!isOpen) { answer.classList.add('open'); icon.classList.add('rotated'); }
+    }
+
+    // ── SCROLL ANIMATIONS ──
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.fade-in-up').forEach(function(el) { observer.observe(el); });
+
+    // ── QUIZ ──
+    var answers = {};
+
+    function selectOption(el) {
+        var q = el.getAttribute('data-q');
+        var step = el.closest('.quiz-step');
+        step.querySelectorAll('.quiz-option').forEach(function(o) { o.classList.remove('selected'); });
+        el.classList.add('selected');
+        answers[q] = el.getAttribute('data-val');
+        var stepId = step.id.replace('step-', '');
+        var nextBtn = document.getElementById('next-' + stepId);
+        if (nextBtn) nextBtn.classList.remove('hidden');
+    }
+
+    function goToStep(n) {
+        document.querySelectorAll('.quiz-step').forEach(function(s) { s.classList.remove('active'); });
+        document.getElementById('step-' + n).classList.add('active');
+        var pct = (n / 5) * 100;
+        document.getElementById('progress-fill').style.width = pct + '%';
+        document.getElementById('step-counter').textContent = 'Step ' + n + ' of 5';
+        document.getElementById('quiz-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showResults() {
+        document.getElementById('quiz-section').style.display = 'none';
+        var rs = document.getElementById('results-section');
+        rs.style.display = 'block';
+
+        var budget = answers.budget;
+        var dest = answers.destination;
+        var subject = answers.subject;
+
+        var intro = '';
+        var unis = [];
+        var cost = '';
+
+        // Medicine override
+        if (subject === 'medicine' && (budget === 'under10' || budget === '10to15')) {
+            intro = 'Hungary offers world-class Medicine programmes in English at a fraction of UK costs. Based on your subject and budget, this is your strongest route.';
+            unis = [
+                { flag: '🇭🇺', name: 'University of Pécs', country: 'Hungary' },
+                { flag: '🇭🇺', name: 'University of Debrecen', country: 'Hungary' },
+                { flag: '🇭🇺', name: 'Semmelweis University', country: 'Hungary' }
+            ];
+            cost = 'Estimated annual cost: £10,000–£14,000 (tuition + living)';
+        } else if (budget === 'under10') {
+            intro = 'Based on your budget, EU universities offer the best value. Germany and Poland deliver world-class education with minimal tuition fees.';
+            unis = [
+                { flag: '🇩🇪', name: 'TU Berlin', country: 'Germany' },
+                { flag: '🇵🇱', name: 'University of Warsaw', country: 'Poland' },
+                { flag: '🇵🇱', name: 'Jagiellonian University', country: 'Poland' }
+            ];
+            cost = 'Estimated annual cost: £8,000–£10,000 (tuition + living)';
+        } else if (budget === '10to15' && dest === 'uk') {
+            intro = 'Within your budget there are strong UK universities outside London with excellent graduate outcomes and clear pathways to the Graduate Route Visa.';
+            unis = [
+                { flag: '🇬🇧', name: 'University of Bolton', country: 'England' },
+                { flag: '🇬🇧', name: 'University of Bedfordshire', country: 'England' },
+                { flag: '🇬🇧', name: 'Teesside University', country: 'England' }
+            ];
+            cost = 'Estimated annual cost: £14,000–£16,000';
+        } else if (budget === '10to15' && (dest === 'eu' || dest === 'both')) {
+            intro = 'Poland and Hungary offer strong English-taught programmes that fit your budget comfortably, with lower living costs than the UK.';
+            unis = [
+                { flag: '🇵🇱', name: 'University of Warsaw', country: 'Poland' },
+                { flag: '🇭🇺', name: 'University of Debrecen', country: 'Hungary' },
+                { flag: '🇵🇱', name: 'Jagiellonian University', country: 'Poland' }
+            ];
+            cost = 'Estimated annual cost: £10,000–£14,000';
+        } else if (budget === '15to20' && dest === 'eu') {
+            intro = 'With your budget you can access excellent European universities with English-taught programmes and lower overall costs than UK equivalents.';
+            unis = [
+                { flag: '🇵🇱', name: 'University of Warsaw', country: 'Poland' },
+                { flag: '🇩🇪', name: 'TU Berlin', country: 'Germany' },
+                { flag: '🇳🇱', name: 'University of Amsterdam', country: 'Netherlands' }
+            ];
+            cost = 'Estimated annual cost: £12,000–£17,000';
+        } else if (budget === '15to20' && (dest === 'uk' || dest === 'both')) {
+            intro = 'Mid-range UK universities offer strong teaching quality, graduate route visa access, and good employment outcomes within your budget.';
+            unis = [
+                { flag: '🇬🇧', name: 'Coventry University', country: 'England' },
+                { flag: '🇬🇧', name: 'University of Portsmouth', country: 'England' },
+                { flag: '🇬🇧', name: 'Northumbria University', country: 'England' }
+            ];
+            cost = 'Estimated annual cost: £16,000–£19,000';
+        } else if (budget === 'over20' && dest === 'eu') {
+            intro = 'With your budget you have access to the very best European universities, including Russell Group equivalents in the Netherlands and Germany.';
+            unis = [
+                { flag: '🇳🇱', name: 'University of Amsterdam', country: 'Netherlands' },
+                { flag: '🇩🇪', name: 'TU Munich', country: 'Germany' },
+                { flag: '🇧🇪', name: 'KU Leuven', country: 'Belgium' }
+            ];
+            cost = 'Estimated annual cost: £15,000–£22,000';
+        } else {
+            // over20 UK or both
+            intro = 'Your budget opens the door to strong, well-regarded UK universities with excellent graduate employment rates and full Graduate Route Visa access.';
+            unis = [
+                { flag: '🇬🇧', name: 'University of Birmingham', country: 'England' },
+                { flag: '🇬🇧', name: 'University of Leeds', country: 'England' },
+                { flag: '🇬🇧', name: 'Brunel University London', country: 'England' }
+            ];
+            cost = 'Estimated annual cost: £20,000–£28,000';
+        }
+
+        // If "both" destination and not already handled, show side-by-side note
+        if (dest === 'both' && budget !== 'under10' && budget !== '10to15' && !(subject === 'medicine' && (budget === 'under10' || budget === '10to15'))) {
+            intro = 'Since you are open to both regions, we have matched you to the strongest UK option. A full Profile Assessment will also present the best EU alternative side by side for comparison.';
+        }
+
+        document.getElementById('results-intro').textContent = intro;
+        var uniHtml = '';
+        unis.forEach(function(u) {
+            uniHtml += '<div class="uni-card flex items-center gap-4"><span class="text-2xl">' + u.flag + '</span><div><p class="font-bold text-white text-sm">' + u.name + '</p><p class="text-[#7a8899] text-xs font-medium">' + u.country + '</p></div></div>';
+        });
+        document.getElementById('results-unis').innerHTML = uniHtml;
+        document.getElementById('results-cost-text').textContent = cost;
+        rs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function retakeQuiz() {
+        answers = {};
+        document.getElementById('results-section').style.display = 'none';
+        document.getElementById('quiz-section').style.display = 'block';
+        document.querySelectorAll('.quiz-step').forEach(function(s) { s.classList.remove('active'); });
+        document.getElementById('step-1').classList.add('active');
+        document.querySelectorAll('.quiz-option').forEach(function(o) { o.classList.remove('selected'); });
+        document.querySelectorAll('[id^="next-"]').forEach(function(b) { b.classList.add('hidden'); });
+        document.getElementById('progress-fill').style.width = '20%';
+        document.getElementById('step-counter').textContent = 'Step 1 of 5';
+        document.getElementById('quiz-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // ── IMAGE CAROUSELS ──
+    var carousels = {};
+
+    function initCarousel(id) {
+        var slidesEl = document.getElementById('slides-' + id);
+        var dotsEl = document.getElementById('dots-' + id);
+        var count = slidesEl.children.length;
+        carousels[id] = { index: 0, count: count, timer: null };
+
+        for (var i = 0; i < count; i++) {
+            var dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('data-i', i);
+            dot.setAttribute('data-id', id);
+            dot.addEventListener('click', function() {
+                carouselGoTo(this.getAttribute('data-id'), parseInt(this.getAttribute('data-i')));
+            });
+            dotsEl.appendChild(dot);
+        }
+        carouselAutoPlay(id);
+    }
+
+    function carouselGoTo(id, idx) {
+        var c = carousels[id];
+        c.index = (idx + c.count) % c.count;
+        document.getElementById('slides-' + id).style.transform = 'translateX(-' + (c.index * 100) + '%)';
+        document.getElementById('dots-' + id).querySelectorAll('.carousel-dot').forEach(function(d, i) {
+            d.classList.toggle('active', i === c.index);
+        });
+    }
+
+    function carouselMove(id, dir) {
+        clearInterval(carousels[id].timer);
+        carouselGoTo(id, carousels[id].index + dir);
+        carouselAutoPlay(id);
+    }
+
+    function carouselAutoPlay(id) {
+        clearInterval(carousels[id].timer);
+        carousels[id].timer = setInterval(function() {
+            carouselGoTo(id, carousels[id].index + 1);
+        }, 4000);
+    }
+
+    initCarousel('uk');
+    initCarousel('eu');
+    initCarousel('life');
+</script>
+
+<!-- NEWSLETTER — Mailchimp Workers proxy -->
+<script>
+(function () {
+    var newsBtn = document.getElementById('newsletter-btn');
+    var newsInput = document.getElementById('newsletter-email');
+    var newsSuccess = document.getElementById('newsletter-success');
+    function showNewsError(msg) {
+        var errEl = document.getElementById('newsletter-error');
+        if (!errEl) {
+            errEl = document.createElement('p');
+            errEl.id = 'newsletter-error';
+            errEl.className = 'text-red-400 text-xs font-bold';
+            newsSuccess.insertAdjacentElement('afterend', errEl);
+        }
+        errEl.textContent = msg;
+        errEl.style.display = 'block';
+        newsSuccess.classList.add('hidden');
+    }
+    function hideNewsError() {
+        var errEl = document.getElementById('newsletter-error');
+        if (errEl) errEl.style.display = 'none';
+    }
+    if (newsBtn) {
+        newsBtn.addEventListener('click', async function () {
+            var email = newsInput.value.trim();
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { newsInput.style.borderColor = '#ef4444'; return; }
+            newsInput.style.borderColor = '';
+            hideNewsError();
+            newsSuccess.classList.add('hidden');
+            newsBtn.textContent = 'Joining';
+            newsBtn.disabled = true;
+            try {
+                var res = await fetch('https://gvj-mailchimp.office-c5d.workers.dev/', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email }) });
+                if (res.ok) { newsSuccess.innerHTML = '<i class="fa-solid fa-circle-check mr-1"></i> You are on the list.'; newsSuccess.classList.remove('hidden'); newsInput.value = ''; }
+                else { showNewsError('Something went wrong. Please try again.'); }
+            } catch (e) { showNewsError('Something went wrong. Please try again.'); }
+            finally { newsBtn.textContent = 'Subscribe'; newsBtn.disabled = false; }
+        });
+    }
+})();
+</script>
+
+<!-- Tawk.to live chat -->
+<style>@media (max-width: 768px) { .tawk-min-container { bottom: 165px !important; } }</style>
+<script type="text/javascript">
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function(){
+        var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+        s1.async = true;
+        s1.src = 'https://embed.tawk.to/69ab4b7560e0031c3443b1b0/1jj2htghu';
+        s1.charset = 'UTF-8';
+        s1.setAttribute('crossorigin', '*');
+        s0.parentNode.insertBefore(s1, s0);
+    })();
+</script>
+
+<!-- Mobile Bottom Nav -->
+<style>
+#mobile-bottom-nav { display: none; }
+@media (max-width: 767px) {
+    #mobile-bottom-nav { display: block; }
+    .whatsapp-float { bottom: 90px !important; }
+    body { padding-bottom: 80px; }
+}
+</style>
+<nav id="mobile-bottom-nav" style="position:fixed; bottom:0; left:0; right:0; z-index:9998; background:#0f1419; border-top:1px solid #1e2730; -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); padding-bottom:env(safe-area-inset-bottom);">
+    <div style="display:flex;">
+        <a href="index.html" class="mobile-nav-item" data-nav="home" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-house" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Home</span>
+        </a>
+        <a href="calculator.html" class="mobile-nav-item" data-nav="readiness" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-clipboard-list" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Readiness</span>
+        </a>
+        <a href="blog/index.html" class="mobile-nav-item" data-nav="insights" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-newspaper" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Insights</span>
+        </a>
+        <a href="about.html" class="mobile-nav-item" data-nav="about" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-circle-info" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">About</span>
+        </a>
+        <a href="index.html#faq" class="mobile-nav-item" data-nav="faq" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-circle-question" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">FAQ</span>
+        </a>
+    </div>
+</nav>
+<script>
+(function(){
+    var p = window.location.pathname;
+    var active = {
+        home:      (p.endsWith('/index.html') || p === '/') && !p.includes('/blog/'),
+        readiness: p.endsWith('/calculator.html'),
+        insights:  p.includes('/blog/'),
+        about:     p.endsWith('/about.html'),
+        faq:       false
+    };
+    document.querySelectorAll('.mobile-nav-item').forEach(function(el){
+        if (active[el.getAttribute('data-nav')]) el.style.color = '#c9a84c';
+    });
+})();
+</script>
+
+</body>
+</html>
