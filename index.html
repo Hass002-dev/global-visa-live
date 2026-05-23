@@ -7,6 +7,7 @@
 
     <!-- CHANGE 2: Updated meta description — sharper, more keyword-rich -->
     <meta name="description" content="London's specialist Schengen visa consultancy for UK and African residents. Forensic document audits, appointment booking, cover letters, and full case management. Rated 5★ by clients across 12+ countries.">
+    <link rel="canonical" href="https://globalvisajourneys.com/">
 
     <!-- FAVICON -->
     <link rel="icon" type="image/x-icon" href="./favicon.ico">
@@ -1831,6 +1832,10 @@
             }
         });
     });
+
+    // Open modal if page loaded with #scopeModal or #termsModal hash
+    const hashMap = { '#scopeModal': 'scopeModal', '#termsModal': 'termsModal' };
+    if (hashMap[window.location.hash]) openLegalModal(hashMap[window.location.hash]);
 
 
     // ── SCROLL ANIMATIONS ──
