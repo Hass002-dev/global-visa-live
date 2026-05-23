@@ -18,8 +18,13 @@
     <!-- FONTS: Cormorant Garamond (luxury display) + DM Sans (refined body) -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- FONT AWESOME -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- HERO IMAGE PRELOAD — fetch before CSS is parsed to cut LCP -->
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800&auto=format&fit=crop" media="(max-width: 767px)">
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1920&auto=format&fit=crop" media="(min-width: 768px)">
+
+    <!-- FONT AWESOME — async to avoid render-blocking -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 
     <!-- GOOGLE ANALYTICS 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1EZM399KT"></script>
@@ -89,14 +94,18 @@
         .hero-bg {
             background-image:
                 linear-gradient(to bottom, rgba(8,12,16,0.97) 0%, rgba(8,12,16,0.75) 50%, rgba(8,12,16,0.97) 100%),
-                url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2674&auto=format&fit=crop');
+                url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
+            background-attachment: scroll;
         }
-        /* background-attachment:fixed breaks on iOS Safari — use scroll on mobile */
-        @media (max-width: 767px) {
-            .hero-bg { background-attachment: scroll; }
+        @media (min-width: 768px) {
+            .hero-bg {
+                background-image:
+                    linear-gradient(to bottom, rgba(8,12,16,0.97) 0%, rgba(8,12,16,0.75) 50%, rgba(8,12,16,0.97) 100%),
+                    url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1920&auto=format&fit=crop');
+                background-attachment: fixed;
+            }
         }
 
         /* ── BUTTONS ── */
@@ -554,7 +563,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-20 items-center">
             <div class="flex items-center space-x-3">
-                <img src="./Updated Logo.png" alt="GV&J Logo" class="h-11 w-11 object-contain rounded-md" onerror="this.style.display='none'">
+                <img src="./Updated Logo.png" alt="GV&J Logo" class="h-11 w-11 object-contain rounded-md" width="44" height="44" loading="eager" onerror="this.style.display='none'">
                 <div class="flex flex-col leading-none">
                     <span class="text-xl md:text-2xl font-black tracking-tight hidden md:block" style="font-family:'Cormorant Garamond',serif; letter-spacing:0.02em;">
                         <span class="text-gold">GLOBAL VISA</span> <span class="text-white">&amp; JOURNEYS</span>
@@ -1226,7 +1235,7 @@
             <!-- Card 1 -->
             <div class="bg-[#080c10] border border-[#1e2730] rounded-2xl overflow-hidden flex flex-col hover:border-gold/50 hover:-translate-y-1 transition duration-300 group">
                 <div class="approval-img-wrap">
-                    <img src="./Approval 1 Emma.jpeg" alt="Visa approval — Emmanuel A." class="transition duration-500 group-hover:scale-105">
+                    <img src="./Approval 1 Emma.jpeg" alt="Visa approval — Emmanuel A." class="transition duration-500 group-hover:scale-105" width="400" height="280" loading="lazy">
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
                 <div class="flex gap-0.5 mb-3">
@@ -1253,7 +1262,7 @@
             <!-- Card 2 -->
             <div class="bg-[#080c10] border border-[#1e2730] rounded-2xl overflow-hidden flex flex-col hover:border-gold/50 hover:-translate-y-1 transition duration-300 group">
                 <div class="approval-img-wrap">
-                    <img src="./Approval Lass.JPG" alt="Visa approval — Lass" class="transition duration-500 group-hover:scale-105">
+                    <img src="./Approval Lass.JPG" alt="Visa approval — Lass" class="transition duration-500 group-hover:scale-105" width="400" height="280" loading="lazy">
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
                 <div class="flex gap-0.5 mb-3">
@@ -1280,7 +1289,7 @@
             <!-- Card 3 -->
             <div class="bg-[#080c10] border border-[#1e2730] rounded-2xl overflow-hidden flex flex-col hover:border-gold/50 hover:-translate-y-1 transition duration-300 group">
                 <div class="approval-img-wrap">
-                    <img src="./Approval Lin.jpeg" alt="Visa approval — Linda B." class="transition duration-500 group-hover:scale-105">
+                    <img src="./Approval Lin.jpeg" alt="Visa approval — Linda B." class="transition duration-500 group-hover:scale-105" width="400" height="280" loading="lazy">
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
                 <div class="flex gap-0.5 mb-3">
@@ -1307,7 +1316,7 @@
             <!-- Card 4 -->
             <div class="bg-[#080c10] border border-[#1e2730] rounded-2xl overflow-hidden flex flex-col hover:border-gold/50 hover:-translate-y-1 transition duration-300 group">
                 <div class="approval-img-wrap">
-                    <img src="./Approval Hass.JPG" alt="Visa approval — Hass S." class="transition duration-500 group-hover:scale-105">
+                    <img src="./Approval Hass.JPG" alt="Visa approval — Hass S." class="transition duration-500 group-hover:scale-105" width="400" height="280" loading="lazy">
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
                 <div class="flex gap-0.5 mb-3">
