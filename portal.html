@@ -742,9 +742,14 @@ function renderDocGrid() {
 
 /* ── TRIGGER FILE UPLOAD ── */
 window.triggerUpload = (categoryId) => {
-    // Always re-read currentUser at click time — never rely on closure
-    if (!auth.currentUser) {
-        console.error('[GVJ Upload] No authenticated user. Cannot upload.');
+    // Auth guard — show visible card error, never fail silently
+    const user = auth.currentUser;
+    if (!user) {
+        const progDiv = document.getElementById(`upload-progress-${categoryId}`);
+        const pct     = document.getElementById(`upload-pct-${categoryId}`);
+        if (progDiv) progDiv.classList.remove('hidden');
+        if (pct) { pct.textContent = 'Session expired. Please log in again.'; pct.style.color = '#ef4444'; pct.style.fontWeight = '700'; }
+        console.error('[GVJ Upload] No authenticated user at trigger time — category:', categoryId);
         return;
     }
     activeUploadCategory = categoryId;
@@ -755,98 +760,97 @@ window.triggerUpload = (categoryId) => {
 
 /* ── INLINE ERROR HELPER FOR UPLOAD CARDS ── */
 function showUploadError(catId, message) {
-    const pct = document.getElementById(`upload-pct-${catId}`);
-    const btn = document.getElementById(`upload-btn-${catId}`);
+    const progDiv = document.getElementById(`upload-progress-${catId}`);
+    const pct     = document.getElementById(`upload-pct-${catId}`);
+    const btn     = document.getElementById(`upload-btn-${catId}`);
+    if (progDiv) progDiv.classList.remove('hidden');  // ensure error text is visible
     if (pct) { pct.textContent = message; pct.style.color = '#ef4444'; pct.style.fontWeight = '700'; }
     if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up mr-1"></i>Retry Upload'; }
-    console.error(`[GVJ Upload] Error on category "${catId}":`, message);
+    console.error(`[GVJ Upload] ERROR — category "${catId}":`, message);
 }
 
 document.getElementById('file-input-global').addEventListener('change', async (e) => {
     const file = e.target.files[0];
     if (!file || !activeUploadCategory) return;
 
-    /* Bug 2 fix — always read UID fresh from auth.currentUser, never from stale closure */
+    // Auth guard — show visible card error if session expired
     const user = auth.currentUser;
     if (!user) {
-        console.error('[GVJ Upload] auth.currentUser is null at upload time. User may have been signed out.');
+        showUploadError(activeUploadCategory, 'Session expired. Please log in again.');
+        console.error('[GVJ Upload] auth.currentUser is null at upload time — category:', activeUploadCategory);
         return;
     }
-    const uid = user.uid;
-    console.log('[GVJ Upload] Starting upload for UID:', uid, '| Category:', activeUploadCategory, '| File:', file.name, '| Size:', file.size, 'bytes');
 
-    /* ── Validate file type and size ── */
+    const uid   = user.uid;  // always from auth.currentUser.uid — never a stale variable
+    const catId = activeUploadCategory;
+
+    console.log(`[GVJ Upload] Upload starting for ${catId} — UID: ${uid} | file: ${file.name} | size: ${file.size} bytes`);
+
+    // Validate type and size before touching the UI
     const allowed = ['application/pdf','image/jpeg','image/png','image/heic','image/jpg'];
     if (!allowed.includes(file.type)) {
-        showUploadError(activeUploadCategory, 'Invalid file type. Please upload a PDF or image (JPG, PNG, HEIC).');
+        showUploadError(catId, 'Invalid file type. Please upload a PDF or image (JPG, PNG, HEIC).');
         return;
     }
     if (file.size > 10 * 1024 * 1024) {
-        showUploadError(activeUploadCategory, 'File too large. Maximum file size is 10MB.');
+        showUploadError(catId, 'File too large. Maximum file size is 10MB.');
         return;
     }
 
-    const catId   = activeUploadCategory;
     const btn     = document.getElementById(`upload-btn-${catId}`);
     const progDiv = document.getElementById(`upload-progress-${catId}`);
     const bar     = document.getElementById(`upload-bar-${catId}`);
     const pct     = document.getElementById(`upload-pct-${catId}`);
 
-    /* Reset any previous error state */
     if (pct) { pct.style.color = 'var(--text-secondary)'; pct.style.fontWeight = '500'; }
+    if (btn)     { btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-circle-notch spin mr-1"></i>Uploading…'; }
+    if (progDiv) progDiv.classList.remove('hidden');
+    if (bar)     bar.style.width = '0%';
+    if (pct)     pct.textContent = 'Starting upload…';
 
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fa-solid fa-circle-notch spin mr-1"></i>Uploading…';
-    progDiv.classList.remove('hidden');
-    bar.style.width = '0%';
-    pct.textContent = 'Starting upload…';
-
-    /* Bug 2 fix — correct storage path using live UID */
+    // Storage path: /clients/[uid]/[categoryId]/[filename]
     const safeFilename = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
     const storagePath  = `clients/${uid}/${catId}/${safeFilename}`;
-    console.log('[GVJ Upload] Storage path:', storagePath);
+    console.log(`[GVJ Upload] Storage path: ${storagePath}`);
 
     const storageRef = ref(storage, storagePath);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
-    /* ── 30-second timeout ── */
     let timedOut = false;
     const timeoutHandle = setTimeout(() => {
         timedOut = true;
         uploadTask.cancel();
         showUploadError(catId, 'Upload timed out. Please check your connection and try again.');
-        console.error('[GVJ Upload] Upload timed out after 30 seconds for category:', catId);
+        console.error(`[GVJ Upload] ERROR — category "${catId}": timed out after 30s`);
     }, 30000);
 
     uploadTask.on('state_changed',
-        /* Progress handler */
         (snap) => {
             if (timedOut) return;
             const progress = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
-            bar.style.width = progress + '%';
-            pct.textContent = `Uploading… ${progress}%`;
-            console.log(`[GVJ Upload] Progress — ${catId}: ${progress}% (${snap.bytesTransferred}/${snap.totalBytes} bytes)`);
+            if (bar) bar.style.width = progress + '%';
+            if (pct) pct.textContent = `Uploading… ${progress}%`;
         },
-        /* Error handler */
         (err) => {
             clearTimeout(timeoutHandle);
-            if (timedOut) return; // Timeout already handled
+            if (timedOut) return;
             let userMsg = 'Upload failed. Please try again.';
-            if (err.code === 'storage/unauthorized')    userMsg = 'Upload failed: permission denied. Please contact support.';
-            else if (err.code === 'storage/canceled')   userMsg = 'Upload was cancelled.';
-            else if (err.code === 'storage/unknown')    userMsg = 'Upload failed: unknown error. Please check your connection.';
+            if (err.code === 'storage/unauthorized')     userMsg = 'Upload failed: permission denied. Please contact support.';
+            else if (err.code === 'storage/canceled')    userMsg = 'Upload was cancelled.';
+            else if (err.code === 'storage/unknown')     userMsg = 'Upload failed: unknown error. Please check your connection.';
             else if (err.code === 'storage/quota-exceeded') userMsg = 'Upload failed: storage quota exceeded. Please contact support.';
             showUploadError(catId, userMsg);
-            console.error('[GVJ Upload] Firebase Storage error:', err.code, err.message);
+            console.error(`[GVJ Upload] ERROR — category "${catId}": ${err.code} — ${err.message}`);
         },
-        /* Success handler */
         async () => {
             clearTimeout(timeoutHandle);
             if (timedOut) return;
 
+            console.log(`[GVJ Upload] Upload complete — ${catId}`);
+
             try {
                 const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-                console.log('[GVJ Upload] Success! Download URL:', downloadURL);
+                console.log(`[GVJ Upload] Download URL obtained — ${catId}:`, downloadURL);
 
                 const uploadData = {
                     filename:   file.name,
@@ -855,27 +859,28 @@ document.getElementById('file-input-global').addEventListener('change', async (e
                     path:       storagePath,
                 };
 
-                /* Bug 3 fix — update Firestore at correct path with all required fields */
                 const clientDocRef = doc(db, 'clients', uid);
                 await updateDoc(clientDocRef, {
                     [`documents.${catId}`]: uploadData,
                 });
-                console.log('[GVJ Upload] Firestore updated — documents.' + catId, uploadData);
+                console.log(`[GVJ Upload] Firestore updated — documents.${catId}`);
 
-                /* Check if all 8 required docs are now uploaded and auto-advance status */
                 await checkAndAdvanceStatus(uid);
 
-                pct.textContent = 'Uploaded successfully!';
-                pct.style.color = '#22c55e';
-                pct.style.fontWeight = '700';
-                btn.innerHTML = '<i class="fa-solid fa-check mr-1"></i>Uploaded';
+                // Success UI
+                if (pct) { pct.textContent = 'Uploaded successfully!'; pct.style.color = '#22c55e'; pct.style.fontWeight = '700'; }
+                if (btn) btn.innerHTML = '<i class="fa-solid fa-check mr-1"></i>Uploaded';
+
+                // Reset file input so Replace works immediately
+                e.target.value = '';
+
                 setTimeout(() => {
-                    progDiv.classList.add('hidden');
-                    btn.disabled = false;
+                    if (progDiv) progDiv.classList.add('hidden');
+                    if (btn)     btn.disabled = false;
                 }, 2500);
 
             } catch (firestoreErr) {
-                console.error('[GVJ Upload] Firestore update failed after successful upload:', firestoreErr);
+                console.error(`[GVJ Upload] ERROR — category "${catId}": Firestore update failed — ${firestoreErr.code || ''} ${firestoreErr.message}`);
                 showUploadError(catId, 'File uploaded but record save failed. Please contact support.');
             }
         }
