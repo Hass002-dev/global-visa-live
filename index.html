@@ -371,6 +371,25 @@
         .pricing-card .card-body {
             padding: 20px 28px 28px;
         }
+
+        /* Approval image containers */
+        .approval-img-wrap {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
+        }
+        @media (min-width: 768px) {
+            .approval-img-wrap { height: 280px; }
+        }
+        .approval-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
     </style>
 
 <script type="application/ld+json">
@@ -1205,8 +1224,8 @@
 
             <!-- Card 1 -->
             <div class="bg-[#080c10] border border-[#1e2730] rounded-2xl overflow-hidden flex flex-col hover:border-gold/50 hover:-translate-y-1 transition duration-300 group">
-                <div class="h-44 overflow-hidden flex-shrink-0">
-                    <img src="./Approval 1 Emma.jpeg" alt="Visa approval — Emmanuel A." class="w-full h-full object-cover object-top transition duration-500 group-hover:scale-105">
+                <div class="approval-img-wrap">
+                    <img src="./Approval 1 Emma.jpeg" alt="Visa approval — Emmanuel A." class="transition duration-500 group-hover:scale-105">
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
                 <div class="flex gap-0.5 mb-3">
@@ -1232,8 +1251,8 @@
 
             <!-- Card 2 -->
             <div class="bg-[#080c10] border border-[#1e2730] rounded-2xl overflow-hidden flex flex-col hover:border-gold/50 hover:-translate-y-1 transition duration-300 group">
-                <div class="h-44 overflow-hidden flex-shrink-0">
-                    <img src="./Approval Lass.JPG" alt="Visa approval — Lass" class="w-full h-full object-cover object-top transition duration-500 group-hover:scale-105">
+                <div class="approval-img-wrap">
+                    <img src="./Approval Lass.JPG" alt="Visa approval — Lass" class="transition duration-500 group-hover:scale-105">
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
                 <div class="flex gap-0.5 mb-3">
@@ -1259,8 +1278,8 @@
 
             <!-- Card 3 -->
             <div class="bg-[#080c10] border border-[#1e2730] rounded-2xl overflow-hidden flex flex-col hover:border-gold/50 hover:-translate-y-1 transition duration-300 group">
-                <div class="h-44 overflow-hidden flex-shrink-0">
-                    <img src="./Approval Lin.jpeg" alt="Visa approval — Linda B." class="w-full h-full object-cover object-top transition duration-500 group-hover:scale-105">
+                <div class="approval-img-wrap">
+                    <img src="./Approval Lin.jpeg" alt="Visa approval — Linda B." class="transition duration-500 group-hover:scale-105">
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
                 <div class="flex gap-0.5 mb-3">
@@ -1286,8 +1305,8 @@
 
             <!-- Card 4 -->
             <div class="bg-[#080c10] border border-[#1e2730] rounded-2xl overflow-hidden flex flex-col hover:border-gold/50 hover:-translate-y-1 transition duration-300 group">
-                <div class="h-44 overflow-hidden flex-shrink-0">
-                    <img src="./Approval Hass.JPG" alt="Visa approval — Hass S." class="w-full h-full object-cover object-top transition duration-500 group-hover:scale-105">
+                <div class="approval-img-wrap">
+                    <img src="./Approval Hass.JPG" alt="Visa approval — Hass S." class="transition duration-500 group-hover:scale-105">
                 </div>
                 <div class="p-6 flex flex-col flex-grow">
                 <div class="flex gap-0.5 mb-3">
