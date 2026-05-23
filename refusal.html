@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visa Refusal Recovery | Global Visa &amp; Journeys London</title>
+    <meta name="description" content="Refused a Schengen or UK visa? Our forensic Refusal Recovery system diagnoses the exact cause and rebuilds your application for approval. From £99. Results in 48 hours.">
+    <link rel="canonical" href="https://globalvisajourneys.com/refusal.html">
+
+    <!-- FAVICON -->
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+
+    <!-- TAILWIND CSS -->
+    <link rel="stylesheet" href="./output.css">
+
+    <!-- FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FONT AWESOME — async to avoid render-blocking -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+
+    <!-- GOOGLE ANALYTICS 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1EZM399KT"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-Q1EZM399KT');
+    </script>
+
+    <style>
+        :root {
+            --bg-primary: #080c10;
+            --bg-secondary: #0f1419;
+            --bg-card: #131920;
+            --border-surface: #1e2730;
+            --border-subtle: #252e38;
+            --brand-gold: #c9a84c;
+            --brand-gold-light: #e8c97a;
+            --brand-gold-dim: #8a6f2e;
+            --text-primary: #eef2f7;
+            --text-secondary: #7a8899;
+            --text-muted: #4a5568;
+            --green-accent: #22c55e;
+            --blue-accent: #38bdf8;
+            --whatsapp: #25d366;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            font-weight: 450;
+        }
+
+        h1, h2, h3, h4, .brand-font {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        p, li, span, a, label, input, textarea { font-weight: 450; }
+
+        /* ── UTILITY ── */
+        .text-gold { color: var(--brand-gold); }
+        .text-gold-light { color: var(--brand-gold-light); }
+        .border-gold { border-color: var(--brand-gold); }
+        .bg-card { background-color: var(--bg-card); }
+
+        /* ── NOISE TEXTURE ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        /* ── HERO — CSS gradient only, no external image for fast LCP ── */
+        .refusal-hero {
+            background:
+                radial-gradient(ellipse 80% 60% at 50% -10%, rgba(201,168,76,0.13) 0%, rgba(8,12,16,0) 70%),
+                #080c10;
+        }
+
+        /* ── BUTTONS ── */
+        .btn-gold {
+            background: linear-gradient(135deg, var(--brand-gold) 0%, var(--brand-gold-light) 100%);
+            color: #080c10;
+            font-weight: 800;
+            font-family: 'DM Sans', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-gold::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: white;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .btn-gold:hover::after { opacity: 0.1; }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,168,76,0.35); }
+
+        .btn-outline-gold {
+            border: 1.5px solid var(--brand-gold);
+            color: var(--brand-gold);
+            font-weight: 700;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+        .btn-outline-gold:hover {
+            background: linear-gradient(135deg, var(--brand-gold), var(--brand-gold-light));
+            color: #080c10;
+            transform: translateY(-1px);
+        }
+
+        /* ── ANIMATIONS ── */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .fade-in-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* ── TRUST BADGES ── */
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-surface);
+            border-radius: 8px;
+            padding: 12px 16px;
+            transition: border-color 0.3s;
+        }
+        .trust-badge:hover { border-color: var(--brand-gold-dim); }
+
+        /* ── WHATSAPP FLOAT ── */
+        @keyframes ringShake {
+            0%, 75%, 100% { transform: rotate(0) scale(1); }
+            77%, 81%, 85%, 89% { transform: rotate(-14deg) scale(1.08); }
+            79%, 83%, 87% { transform: rotate(14deg) scale(1.08); }
+        }
+        .whatsapp-float {
+            position: fixed;
+            width: 58px; height: 58px;
+            bottom: 28px; right: 28px;
+            background: var(--whatsapp);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 28px;
+            box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+            z-index: 999;
+            display: flex; align-items: center; justify-content: center;
+            animation: ringShake 5s infinite;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .whatsapp-float:hover {
+            animation: none;
+            transform: scale(1.12);
+            box-shadow: 0 6px 28px rgba(37,211,102,0.6);
+        }
+
+        /* ── NAV SCROLL EFFECT ── */
+        .nav-scrolled {
+            background: rgba(8,12,16,0.98) !important;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+        }
+
+        /* ── GOLD DIVIDER ── */
+        .gold-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--brand-gold-dim), transparent);
+        }
+
+        /* ── SCROLLBAR ── */
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: var(--bg-primary); border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--border-subtle); border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+        /* ── FAQ ACCORDION ── */
+        .faq-item { border-bottom: 1px solid var(--border-surface); }
+        .faq-question {
+            width: 100%;
+            text-align: left;
+            padding: 20px 0;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: color 0.3s;
+        }
+        .faq-question:hover { color: var(--brand-gold); }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            font-weight: 450;
+        }
+        .faq-answer.open { max-height: 400px; padding-bottom: 20px; }
+        .faq-icon { transition: transform 0.3s; color: var(--brand-gold); font-size: 0.85rem; }
+        .faq-icon.rotated { transform: rotate(180deg); }
+
+        /* ── STAGE CARDS ── */
+        .stage-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-surface);
+            border-left: 3px solid var(--brand-gold);
+            border-radius: 12px;
+            padding: 28px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .stage-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+        }
+        .stage-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--brand-gold);
+            line-height: 1;
+            opacity: 0.4;
+        }
+
+        /* ── REASON CARDS ── */
+        .reason-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-surface);
+            border-radius: 12px;
+            padding: 24px;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+        .reason-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+            border-color: var(--brand-gold-dim);
+        }
+
+        /* ── STAT ITEMS ── */
+        .stat-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--brand-gold);
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+
+        /* ── CASE STUDY ── */
+        .case-card {
+            background: linear-gradient(135deg, #131920 0%, #0f1419 100%);
+            border: 1px solid var(--border-surface);
+            border-top: 3px solid var(--brand-gold);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        /* ── EES WARNING ── */
+        .ees-warning {
+            background: #0a0f14;
+            border: 1px solid var(--border-surface);
+            border-left: 4px solid var(--brand-gold);
+            border-radius: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- NAVIGATION                                                 -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<nav id="main-nav" class="bg-[#080c10]/90 backdrop-blur-md border-b border-[#1e2730] fixed w-full z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-20 items-center">
+            <div class="flex items-center space-x-3">
+                <img src="./Updated Logo.png" alt="GV&J Logo" class="h-11 w-11 object-contain rounded-md" width="44" height="44" loading="eager" onerror="this.style.display='none'">
+                <div class="flex flex-col leading-none">
+                    <span class="text-xl md:text-2xl font-black tracking-tight hidden md:block" style="font-family:'Cormorant Garamond',serif; letter-spacing:0.02em;">
+                        <span class="text-gold">GLOBAL VISA</span> <span class="text-white">&amp; JOURNEYS</span>
+                    </span>
+                    <span class="text-xl font-black tracking-tight md:hidden" style="font-family:'Cormorant Garamond',serif;">GV<span class="text-gold">&amp;</span>J</span>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3 md:space-x-5">
+                <a href="index.html" class="text-[#7a8899] hover:text-white font-semibold transition text-sm hidden md:block">Home</a>
+                <a href="index.html#faq" class="text-sm text-[#7a8899] hover:text-white font-semibold transition hidden md:block">FAQ</a>
+                <a href="about.html" class="text-sm text-[#7a8899] hover:text-white font-semibold transition hidden md:block">About</a>
+                <a href="blog/index.html" class="text-sm text-[#7a8899] hover:text-white font-semibold transition hidden md:block">Insights</a>
+                <a href="calculator.html" class="text-xs md:text-sm text-[#7a8899] hover:text-white font-semibold transition flex items-center gap-1">
+                    <i class="fa-solid fa-calculator text-gold text-xs"></i> Readiness Check
+                </a>
+                <a href="portal.html" class="btn-outline-gold px-3 py-2 md:px-4 rounded-lg text-xs md:text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-lock text-xs"></i>
+                    <span class="hidden md:inline">Client Portal</span><span class="md:hidden">Portal</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- HERO                                                       -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<header class="refusal-hero min-h-[90vh] flex items-center justify-center text-center px-4 pt-24 pb-20 relative z-10">
+    <div class="max-w-4xl fade-in-up visible">
+
+        <div class="inline-flex items-center gap-2 bg-red-950/40 backdrop-blur-sm border border-red-900/50 rounded-full px-5 py-1.5 mb-8">
+            <i class="fa-solid fa-circle-exclamation text-red-400 text-xs"></i>
+            <span class="text-red-300 text-xs font-bold tracking-widest uppercase">Visa Refusal Recovery · London</span>
+        </div>
+
+        <h1 class="text-5xl md:text-7xl font-black text-white mb-6 leading-[1.05]" style="font-family:'Cormorant Garamond',serif;">
+            Your Visa Was Refused.<br>
+            <em class="text-gold">That Is Not The End.</em>
+        </h1>
+
+        <p class="text-lg md:text-xl text-[#adb8c4] mb-10 max-w-2xl mx-auto font-medium leading-relaxed">
+            Most refusals are recoverable — if you know exactly what went wrong and how to fix it. Our forensic Refusal Recovery system has helped clients refused by France, Spain, and Greece get approved on reapplication.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+            <a href="https://book.stripe.com/28E4gygLremKd0Ogx50sU00" target="_blank" rel="noopener" class="w-full sm:w-auto btn-gold px-8 py-4 rounded-full text-sm shadow-[0_0_30px_rgba(201,168,76,0.25)]">
+                Start Refusal Diagnosis — £99
+            </a>
+            <a href="https://wa.me/447511219482" target="_blank" rel="noopener" class="w-full sm:w-auto bg-[#25D366] text-white px-8 py-4 rounded-full font-bold text-sm hover:bg-[#128C7E] transition shadow-lg flex items-center justify-center gap-2">
+                <i class="fa-brands fa-whatsapp text-xl"></i> WhatsApp Us Now
+            </a>
+        </div>
+
+        <p class="text-[#4a5568] text-xs font-semibold tracking-wide">
+            Registered in England &amp; Wales No. 16959031 &nbsp;·&nbsp; Results delivered within 48 hours
+        </p>
+
+    </div>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- STAT BANNER                                                -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="bg-[#0a0f14] border-y border-[#1e2730] py-10 relative z-10">
+    <div class="max-w-4xl mx-auto px-4">
+        <div class="grid grid-cols-3 gap-4 md:gap-10 text-center">
+
+            <div class="fade-in-up">
+                <div class="stat-number">46%</div>
+                <div class="stat-label">of Nigerian Schengen applications refused in 2026</div>
+            </div>
+
+            <div class="fade-in-up" style="transition-delay:0.1s;">
+                <div class="stat-number">48hrs</div>
+                <div class="stat-label">Refusal Diagnosis delivered</div>
+            </div>
+
+            <div class="fade-in-up" style="transition-delay:0.2s;">
+                <div class="stat-number">£99</div>
+                <div class="stat-label">Starting price — no large upfront fees</div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- 4-STAGE RECOVERY SYSTEM                                    -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section id="stages" class="py-20 bg-[#080c10] relative z-10">
+    <div class="max-w-6xl mx-auto px-4">
+
+        <div class="text-center mb-14 fade-in-up">
+            <span class="text-gold font-bold tracking-widest uppercase text-xs border border-gold/40 px-4 py-1.5 rounded-full">The Recovery System</span>
+            <h2 class="text-4xl font-bold text-white mt-4" style="font-family:'Cormorant Garamond',serif;">How We Recover Your Application</h2>
+            <p class="text-[#7a8899] mt-4 max-w-xl mx-auto text-sm font-medium">We break the process into stages so you never face one large fee upfront</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6 fade-in-up">
+
+            <!-- Stage 1 -->
+            <div class="stage-card">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="stage-number">01</div>
+                    <div class="bg-[#0f1419] border border-[#1e2730] rounded-full px-4 py-1.5">
+                        <span class="text-white font-black text-lg" style="font-family:'Cormorant Garamond',serif;">£99</span>
+                    </div>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">Refusal Diagnosis</h3>
+                <p class="text-[#7a8899] text-sm leading-relaxed mb-6">We read your official refusal letter, identify the exact refusal code, and diagnose the real root cause. You receive a full written report within 48 hours explaining exactly what went wrong and exactly what to do next.</p>
+                <a href="https://book.stripe.com/28E4gygLremKd0Ogx50sU00" target="_blank" rel="noopener" class="btn-gold inline-flex items-center gap-2 px-6 py-3 rounded-lg text-xs">
+                    <i class="fa-solid fa-magnifying-glass"></i> Start Now
+                </a>
+            </div>
+
+            <!-- Stage 2 -->
+            <div class="stage-card">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="stage-number">02</div>
+                    <div class="bg-[#0f1419] border border-[#1e2730] rounded-full px-4 py-1.5">
+                        <span class="text-[#7a8899] font-semibold text-xs">Included in Stage 1</span>
+                    </div>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">Recovery Strategy</h3>
+                <p class="text-[#7a8899] text-sm leading-relaxed">Your diagnosis report includes a complete 60 or 90-day recovery plan — which documents to fix, how long to wait, which country to reapply to, and every checkpoint on the road to approval.</p>
+            </div>
+
+            <!-- Stage 3 -->
+            <div class="stage-card">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="stage-number">03</div>
+                    <div class="bg-[#0f1419] border border-[#1e2730] rounded-full px-4 py-1.5">
+                        <span class="text-white font-black text-lg" style="font-family:'Cormorant Garamond',serif;">£149</span>
+                    </div>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">Document Rebuild</h3>
+                <p class="text-[#7a8899] text-sm leading-relaxed mb-4">We physically rebuild your document set — fixing bank statement issues, strengthening ties to home country, rewriting your cover letter, and preparing the explanation letters that make the difference between another refusal and an approval.</p>
+                <div class="inline-flex items-center gap-2 bg-[#0f1419] border border-[#1e2730] rounded-full px-3 py-1.5">
+                    <i class="fa-solid fa-scissors text-gold text-xs"></i>
+                    <span class="text-[#7a8899] text-xs font-semibold">Split into 2 payments of £75 available</span>
+                </div>
+            </div>
+
+            <!-- Stage 4 -->
+            <div class="stage-card">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="stage-number">04</div>
+                    <div class="bg-[#0f1419] border border-[#1e2730] rounded-full px-4 py-1.5">
+                        <span class="text-white font-black text-lg" style="font-family:'Cormorant Garamond',serif;">From £175</span>
+                    </div>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">Reapplication</h3>
+                <p class="text-[#7a8899] text-sm leading-relaxed">Full application management using your rebuilt documents — cover letter with a dedicated refusal address section, complete itinerary, VFS appointment strategy, and submission. We only reapply when we are genuinely confident.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- COMMON REFUSAL REASONS                                     -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="py-20 bg-[#0a0f14] border-y border-[#1e2730] relative z-10">
+    <div class="max-w-6xl mx-auto px-4">
+
+        <div class="text-center mb-14 fade-in-up">
+            <span class="text-gold font-bold tracking-widest uppercase text-xs border border-gold/40 px-4 py-1.5 rounded-full">Refusal Codes</span>
+            <h2 class="text-4xl font-bold text-white mt-4" style="font-family:'Cormorant Garamond',serif;">Why Was Your Application Refused?</h2>
+            <p class="text-[#7a8899] mt-4 max-w-xl mx-auto text-sm font-medium">Understanding the real reason behind your refusal code is the first step to recovery</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 fade-in-up">
+
+            <!-- Bank Statements -->
+            <div class="reason-card">
+                <div class="w-12 h-12 rounded-xl bg-[#1a2030] flex items-center justify-center mb-4">
+                    <i class="fa-solid fa-building-columns text-gold text-xl"></i>
+                </div>
+                <div class="inline-flex items-center gap-1.5 bg-red-950/30 border border-red-900/40 rounded-full px-2.5 py-1 mb-3">
+                    <span class="text-red-400 text-[10px] font-bold uppercase tracking-wide">Code A3</span>
+                </div>
+                <h3 class="text-base font-bold text-white mb-2" style="font-family:'Cormorant Garamond',serif;">Bank Statement Issues</h3>
+                <p class="text-[#7a8899] text-sm leading-relaxed">Funds parking, income inconsistency, or a balance that drops to zero after the application period. The most common cause of West African refusals — and fully fixable with the right waiting strategy.</p>
+            </div>
+
+            <!-- Weak Ties -->
+            <div class="reason-card">
+                <div class="w-12 h-12 rounded-xl bg-[#1a2030] flex items-center justify-center mb-4">
+                    <i class="fa-solid fa-house text-gold text-xl"></i>
+                </div>
+                <div class="inline-flex items-center gap-1.5 bg-red-950/30 border border-red-900/40 rounded-full px-2.5 py-1 mb-3">
+                    <span class="text-red-400 text-[10px] font-bold uppercase tracking-wide">Code A6</span>
+                </div>
+                <h3 class="text-base font-bold text-white mb-2" style="font-family:'Cormorant Garamond',serif;">Weak Ties to Home Country</h3>
+                <p class="text-[#7a8899] text-sm leading-relaxed">The officer was not convinced you would return after your trip. No property, no dependants, no strong employment — nothing tying you to your home country.</p>
+            </div>
+
+            <!-- Unclear Purpose -->
+            <div class="reason-card">
+                <div class="w-12 h-12 rounded-xl bg-[#1a2030] flex items-center justify-center mb-4">
+                    <i class="fa-solid fa-circle-question text-gold text-xl"></i>
+                </div>
+                <div class="inline-flex items-center gap-1.5 bg-red-950/30 border border-red-900/40 rounded-full px-2.5 py-1 mb-3">
+                    <span class="text-red-400 text-[10px] font-bold uppercase tracking-wide">Code A2</span>
+                </div>
+                <h3 class="text-base font-bold text-white mb-2" style="font-family:'Cormorant Garamond',serif;">Unclear Purpose of Visit</h3>
+                <p class="text-[#7a8899] text-sm leading-relaxed">Your travel itinerary was too vague or your stated reason for visiting did not match your financial profile or personal circumstances.</p>
+            </div>
+
+            <!-- Document Issues -->
+            <div class="reason-card">
+                <div class="w-12 h-12 rounded-xl bg-[#1a2030] flex items-center justify-center mb-4">
+                    <i class="fa-solid fa-triangle-exclamation text-gold text-xl"></i>
+                </div>
+                <div class="inline-flex items-center gap-1.5 bg-red-950/30 border border-red-900/40 rounded-full px-2.5 py-1 mb-3">
+                    <span class="text-red-400 text-[10px] font-bold uppercase tracking-wide">Code A1</span>
+                </div>
+                <h3 class="text-base font-bold text-white mb-2" style="font-family:'Cormorant Garamond',serif;">Document Issues</h3>
+                <p class="text-[#7a8899] text-sm leading-relaxed">The officer flagged a document as suspicious, incomplete, or inconsistent. This is the most serious code and requires careful handling before reapplication.</p>
+            </div>
+
+            <!-- No Travel History -->
+            <div class="reason-card">
+                <div class="w-12 h-12 rounded-xl bg-[#1a2030] flex items-center justify-center mb-4">
+                    <i class="fa-solid fa-passport text-gold text-xl"></i>
+                </div>
+                <div class="inline-flex items-center gap-1.5 bg-[#1a2030] border border-[#252e38] rounded-full px-2.5 py-1 mb-3">
+                    <span class="text-[#7a8899] text-[10px] font-bold uppercase tracking-wide">First-Time Traveller</span>
+                </div>
+                <h3 class="text-base font-bold text-white mb-2" style="font-family:'Cormorant Garamond',serif;">No Travel History</h3>
+                <p class="text-[#7a8899] text-sm leading-relaxed">First-time travellers face higher scrutiny. No previous stamps means no track record of returning home. This requires a strategic build before reapplying.</p>
+            </div>
+
+            <!-- Agent Errors -->
+            <div class="reason-card">
+                <div class="w-12 h-12 rounded-xl bg-[#1a2030] flex items-center justify-center mb-4">
+                    <i class="fa-solid fa-user-slash text-gold text-xl"></i>
+                </div>
+                <div class="inline-flex items-center gap-1.5 bg-[#1a2030] border border-[#252e38] rounded-full px-2.5 py-1 mb-3">
+                    <span class="text-[#7a8899] text-[10px] font-bold uppercase tracking-wide">Previous Agent</span>
+                </div>
+                <h3 class="text-base font-bold text-white mb-2" style="font-family:'Cormorant Garamond',serif;">Previous Agent Errors</h3>
+                <p class="text-[#7a8899] text-sm leading-relaxed">Many clients come to us after another agent submitted an application that was poorly prepared. A refusal from a previous agent is recoverable — but must be handled differently from a fresh application.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- WHY GVJ DIFFERENT                                          -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="py-20 bg-[#080c10] relative z-10">
+    <div class="max-w-6xl mx-auto px-4">
+
+        <div class="text-center mb-14 fade-in-up">
+            <span class="text-gold font-bold tracking-widest uppercase text-xs border border-gold/40 px-4 py-1.5 rounded-full">Why GVJ</span>
+            <h2 class="text-4xl font-bold text-white mt-4" style="font-family:'Cormorant Garamond',serif;">Why Clients Choose GVJ After A Refusal</h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 fade-in-up">
+
+            <div class="text-center p-8 bg-[#0f1419] border border-[#1e2730] rounded-2xl transition duration-300 hover:border-[#8a6f2e]">
+                <div class="w-14 h-14 rounded-full bg-[#1a2030] flex items-center justify-center mx-auto mb-6">
+                    <i class="fa-solid fa-microscope text-gold text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-4" style="font-family:'Cormorant Garamond',serif;">Forensic Approach</h3>
+                <p class="text-[#7a8899] text-sm leading-relaxed">We do not just resubmit your application. We read your documents the same way an officer reads them — identifying every flag before it reaches the embassy.</p>
+            </div>
+
+            <div class="text-center p-8 bg-[#0f1419] border border-[#1e2730] rounded-2xl transition duration-300 hover:border-[#8a6f2e]">
+                <div class="w-14 h-14 rounded-full bg-[#1a2030] flex items-center justify-center mx-auto mb-6">
+                    <i class="fa-solid fa-layer-group text-gold text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-4" style="font-family:'Cormorant Garamond',serif;">Staged Payments</h3>
+                <p class="text-[#7a8899] text-sm leading-relaxed">You never face one large fee upfront. Start with the £99 Diagnosis. Every subsequent stage is only committed to once you have seen the plan and agreed with it.</p>
+            </div>
+
+            <div class="text-center p-8 bg-[#0f1419] border border-[#1e2730] rounded-2xl transition duration-300 hover:border-[#8a6f2e]">
+                <div class="w-14 h-14 rounded-full bg-[#1a2030] flex items-center justify-center mx-auto mb-6">
+                    <i class="fa-solid fa-scale-balanced text-gold text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-4" style="font-family:'Cormorant Garamond',serif;">Honest About Chances</h3>
+                <p class="text-[#7a8899] text-sm leading-relaxed">We never reapply until your profile is genuinely ready. If you need 60 more days to fix your bank statements — we tell you that, even if it means waiting.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- CASE STUDY                                                 -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="py-20 bg-[#0a0f14] border-y border-[#1e2730] relative z-10">
+    <div class="max-w-4xl mx-auto px-4">
+
+        <div class="text-center mb-12 fade-in-up">
+            <span class="text-gold font-bold tracking-widest uppercase text-xs border border-gold/40 px-4 py-1.5 rounded-full">Case Study</span>
+            <h2 class="text-4xl font-bold text-white mt-4" style="font-family:'Cormorant Garamond',serif;">Refused Once. Approved On Reapplication.</h2>
+            <p class="text-[#7a8899] mt-4 max-w-xl mx-auto text-sm font-medium">Scenario based on a composite of common cases we handle. Details anonymised.</p>
+        </div>
+
+        <div class="case-card fade-in-up">
+            <div class="p-6 md:p-8">
+
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="inline-flex items-center gap-2 bg-red-950/30 border border-red-900/40 rounded-full px-4 py-1.5">
+                        <span class="text-red-400 text-xs font-bold uppercase tracking-wide">Refusal Recovery Case</span>
+                    </div>
+                    <span class="text-2xl" role="img" aria-label="France flag">🇫🇷</span>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+
+                    <div class="bg-[#0f1419] border border-[#1e2730] rounded-xl p-5">
+                        <div class="flex items-center gap-2 mb-3">
+                            <i class="fa-solid fa-xmark text-red-400"></i>
+                            <span class="text-[#7a8899] text-xs font-bold uppercase tracking-wide">Original Refusal</span>
+                        </div>
+                        <p class="text-[#adb8c4] text-sm leading-relaxed">Three unexplained cash deposits totalling £1,500 appearing two weeks before the application — flagged as funds parking under Code A3.</p>
+                    </div>
+
+                    <div class="bg-[#0f1419] border border-[#1e2730] rounded-xl p-5">
+                        <div class="flex items-center gap-2 mb-3">
+                            <i class="fa-solid fa-briefcase text-gold"></i>
+                            <span class="text-[#7a8899] text-xs font-bold uppercase tracking-wide">What GVJ Did</span>
+                        </div>
+                        <ul class="space-y-2">
+                            <li class="flex items-start gap-2 text-[#adb8c4] text-xs leading-relaxed"><i class="fa-solid fa-check text-gold mt-0.5 text-[10px] flex-shrink-0"></i> Issued full Refusal Diagnosis</li>
+                            <li class="flex items-start gap-2 text-[#adb8c4] text-xs leading-relaxed"><i class="fa-solid fa-check text-gold mt-0.5 text-[10px] flex-shrink-0"></i> Advised 60-day waiting period with no large deposits</li>
+                            <li class="flex items-start gap-2 text-[#adb8c4] text-xs leading-relaxed"><i class="fa-solid fa-check text-gold mt-0.5 text-[10px] flex-shrink-0"></i> Prepared new statement summary showing clean consistent history</li>
+                            <li class="flex items-start gap-2 text-[#adb8c4] text-xs leading-relaxed"><i class="fa-solid fa-check text-gold mt-0.5 text-[10px] flex-shrink-0"></i> Rewrote cover letter with dedicated refusal address section</li>
+                            <li class="flex items-start gap-2 text-[#adb8c4] text-xs leading-relaxed"><i class="fa-solid fa-check text-gold mt-0.5 text-[10px] flex-shrink-0"></i> Reapplied to Greece instead of France</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-[#0f1419] border border-[#1e2730] rounded-xl p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-2 mb-3">
+                                <i class="fa-solid fa-flag-checkered text-green-400"></i>
+                                <span class="text-[#7a8899] text-xs font-bold uppercase tracking-wide">Result</span>
+                            </div>
+                            <div class="flex items-center gap-2 mb-4">
+                                <span class="text-green-400 font-black text-2xl" style="font-family:'Cormorant Garamond',serif;">APPROVED</span>
+                                <span class="text-xl" role="img" aria-label="check mark">✅</span>
+                            </div>
+                        </div>
+                        <div class="bg-green-950/20 border border-green-900/30 rounded-lg p-3">
+                            <p class="text-green-400 text-xs font-bold">Timeline</p>
+                            <p class="text-[#adb8c4] text-sm font-semibold mt-0.5">90 days from refusal to approval</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- EES WARNING                                                -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="py-20 bg-[#080c10] relative z-10">
+    <div class="max-w-4xl mx-auto px-4">
+        <div class="ees-warning p-8 md:p-12 fade-in-up">
+
+            <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-xl bg-[#1a2030] flex items-center justify-center flex-shrink-0 mt-1">
+                    <i class="fa-solid fa-satellite-dish text-gold text-xl"></i>
+                </div>
+                <div>
+                    <div class="inline-flex items-center gap-2 bg-red-950/30 border border-red-900/40 rounded-full px-3 py-1 mb-4">
+                        <i class="fa-solid fa-circle-exclamation text-red-400 text-xs"></i>
+                        <span class="text-red-400 text-[10px] font-bold uppercase tracking-wide">EU Entry Exit System 2026</span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4" style="font-family:'Cormorant Garamond',serif;">One Refusal Is Now On Your Permanent Record</h2>
+                    <p class="text-[#adb8c4] text-base leading-relaxed mb-8">
+                        The EU's Entry Exit System went live in 2026. Every Schengen refusal is now permanently visible to all 29 Schengen countries. Every future application you make anywhere in Europe will show this refusal. This is why acting quickly and correctly after a refusal has never been more important.
+                    </p>
+                    <a href="https://book.stripe.com/28E4gygLremKd0Ogx50sU00" target="_blank" rel="noopener" class="btn-gold inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm">
+                        <i class="fa-solid fa-magnifying-glass"></i> Get Your Refusal Diagnosis — £99
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- FAQ                                                        -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section id="faq" class="py-20 bg-[#0a0f14] border-y border-[#1e2730] relative z-10">
+    <div class="max-w-3xl mx-auto px-4">
+
+        <div class="text-center mb-14 fade-in-up">
+            <span class="text-gold font-bold tracking-widest uppercase text-xs border border-gold/40 px-4 py-1.5 rounded-full">FAQ</span>
+            <h2 class="text-4xl font-bold text-white mt-4" style="font-family:'Cormorant Garamond',serif;">Common Questions About Refusal Recovery</h2>
+        </div>
+
+        <div class="fade-in-up">
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    How long after a refusal should I wait before reapplying?
+                    <i class="fa-solid fa-chevron-down faq-icon"></i>
+                </button>
+                <div class="faq-answer">
+                    It depends entirely on your refusal code. For bank statement issues (A3) we typically recommend 60-90 days to build a clean statement history. For ties to home country (A6) it depends on what evidence can be built. Our Refusal Diagnosis tells you the exact timeline for your specific situation.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Should I reapply to the same country that refused me?
+                    <i class="fa-solid fa-chevron-down faq-icon"></i>
+                </button>
+                <div class="faq-answer">
+                    Not always. Sometimes switching to a country with a lower rejection rate — like Portugal or Greece — is the stronger strategic move, especially if your first refusal was from France or Spain. Your Refusal Diagnosis will include a country strategy recommendation.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Can I appeal my refusal?
+                    <i class="fa-solid fa-chevron-down faq-icon"></i>
+                </button>
+                <div class="faq-answer">
+                    Appeals are possible for some refusal codes but are rarely the most effective route. The success rate of Schengen visa appeals is low. In most cases rebuilding your application and reapplying is faster and more likely to succeed than an appeal. We assess appeal viability as part of the Refusal Diagnosis.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    What if I don't have my refusal letter?
+                    <i class="fa-solid fa-chevron-down faq-icon"></i>
+                </button>
+                <div class="faq-answer">
+                    We can still help. Even without the official letter we can run a forensic review of your documents and identify the most likely reasons for refusal based on your profile. A refusal letter helps but is not essential to start the process.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Will a previous refusal always affect future applications?
+                    <i class="fa-solid fa-chevron-down faq-icon"></i>
+                </button>
+                <div class="faq-answer">
+                    Under the EU Entry Exit System (2026) yes — all Schengen refusals are now permanently on your digital record. But a refusal does not prevent future approvals. Many of our clients have been refused once or even twice and achieved approval on reapplication. The key is addressing the specific issues correctly.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    Do you guarantee approval on reapplication?
+                    <i class="fa-solid fa-chevron-down faq-icon"></i>
+                </button>
+                <div class="faq-answer">
+                    No legitimate consultancy can guarantee a visa outcome — the final decision always rests with the embassy. What we guarantee is that your reapplication will be the strongest possible version of your profile, that every identified issue will be addressed, and that we will only reapply when we are genuinely confident your case is ready.
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- FINAL CTA                                                  -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="py-20 bg-[#080c10] relative z-10">
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="gold-divider mb-16"></div>
+
+        <div class="text-center fade-in-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-4" style="font-family:'Cormorant Garamond',serif;">Ready to Start Your Recovery?</h2>
+            <p class="text-[#7a8899] text-lg mb-10 max-w-xl mx-auto font-medium">Start with the Refusal Diagnosis — £99. No large upfront fees. Full written report within 48 hours.</p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+                <a href="https://book.stripe.com/28E4gygLremKd0Ogx50sU00" target="_blank" rel="noopener" class="w-full sm:w-auto btn-gold px-8 py-4 rounded-full text-sm shadow-[0_0_30px_rgba(201,168,76,0.25)]">
+                    Start Refusal Diagnosis — £99
+                </a>
+                <a href="https://wa.me/447511219482" target="_blank" rel="noopener" class="w-full sm:w-auto btn-outline-gold px-8 py-4 rounded-full text-sm flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp"></i> WhatsApp Us First
+                </a>
+            </div>
+
+            <!-- Trust badges -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
+                <div class="trust-badge">
+                    <i class="fa-solid fa-building-columns text-gold text-xl flex-shrink-0"></i>
+                    <div>
+                        <p class="text-white text-xs font-bold">Companies House</p>
+                        <p class="text-[#7a8899] text-[11px] font-medium">Reg. No. 16959031</p>
+                    </div>
+                </div>
+                <div class="trust-badge">
+                    <i class="fa-solid fa-shield-halved text-green-400 text-xl flex-shrink-0"></i>
+                    <div>
+                        <p class="text-white text-xs font-bold">PI Insured</p>
+                        <p class="text-[#7a8899] text-[11px] font-medium">Professional Indemnity</p>
+                    </div>
+                </div>
+                <div class="trust-badge">
+                    <i class="fa-brands fa-stripe text-[#635BFF] text-2xl flex-shrink-0"></i>
+                    <div>
+                        <p class="text-white text-xs font-bold">Secure Payments</p>
+                        <p class="text-[#7a8899] text-[11px] font-medium">Powered by Stripe</p>
+                    </div>
+                </div>
+                <div class="trust-badge">
+                    <i class="fa-solid fa-lock text-blue-400 text-xl flex-shrink-0"></i>
+                    <div>
+                        <p class="text-white text-xs font-bold">GDPR Compliant</p>
+                        <p class="text-[#7a8899] text-[11px] font-medium">256-bit Encrypted</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- FOOTER                                                     -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<footer class="bg-[#080c10] text-[#7a8899] relative z-10">
+
+    <!-- Trust badges strip -->
+    <div class="border-b border-[#1e2730] py-8">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="trust-badge">
+                    <i class="fa-solid fa-building-columns text-gold text-xl flex-shrink-0"></i>
+                    <div>
+                        <p class="text-white text-xs font-bold">Companies House</p>
+                        <p class="text-[#7a8899] text-[11px] font-medium">Reg. No. 16959031</p>
+                    </div>
+                </div>
+                <div class="trust-badge">
+                    <i class="fa-solid fa-shield-halved text-green-400 text-xl flex-shrink-0"></i>
+                    <div>
+                        <p class="text-white text-xs font-bold">PI Insured</p>
+                        <p class="text-[#7a8899] text-[11px] font-medium">Professional Indemnity</p>
+                    </div>
+                </div>
+                <div class="trust-badge">
+                    <i class="fa-brands fa-stripe text-[#635BFF] text-2xl flex-shrink-0"></i>
+                    <div>
+                        <p class="text-white text-xs font-bold">Secure Payments</p>
+                        <p class="text-[#7a8899] text-[11px] font-medium">Powered by Stripe</p>
+                    </div>
+                </div>
+                <div class="trust-badge">
+                    <i class="fa-solid fa-lock text-blue-400 text-xl flex-shrink-0"></i>
+                    <div>
+                        <p class="text-white text-xs font-bold">GDPR Compliant</p>
+                        <p class="text-[#7a8899] text-[11px] font-medium">256-bit Encrypted</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main footer columns -->
+    <div class="py-14">
+        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-4 gap-10">
+
+            <div class="col-span-1 md:col-span-2">
+                <span class="text-white text-2xl font-black" style="font-family:'Cormorant Garamond',serif;">GLOBAL VISA <span class="text-gold">&amp;</span> JOURNEYS</span>
+                <p class="mt-4 text-sm leading-relaxed max-w-sm font-medium">A forensic travel consultancy bridging complex bureaucratic compliance and seamless travel logistics. Registered in England &amp; Wales.</p>
+                <div class="mt-6 flex gap-3 flex-wrap">
+                    <a href="https://facebook.com/globalvisajourneys" target="_blank" rel="noopener" class="text-[#7a8899] hover:text-gold transition w-9 h-9 rounded-full border border-[#1e2730] flex items-center justify-center hover:border-gold">
+                        <i class="fa-brands fa-facebook text-sm"></i>
+                    </a>
+                    <a href="https://instagram.com/globalvisajourneysltd" target="_blank" rel="noopener" class="text-[#7a8899] hover:text-gold transition w-9 h-9 rounded-full border border-[#1e2730] flex items-center justify-center hover:border-gold">
+                        <i class="fa-brands fa-instagram text-sm"></i>
+                    </a>
+                    <a href="https://wa.me/447511219482" target="_blank" rel="noopener" class="text-[#7a8899] hover:text-green-400 transition w-9 h-9 rounded-full border border-[#1e2730] flex items-center justify-center hover:border-green-400">
+                        <i class="fa-brands fa-whatsapp text-sm"></i>
+                    </a>
+                    <a href="https://whatsapp.com/channel/0029VbCDSSWEquiHjVOXqp2f" target="_blank" rel="noopener" class="text-white hover:text-[#25D366] transition flex items-center gap-2 bg-[#25D366]/10 border border-[#25D366]/30 rounded-full px-4 h-9 text-xs font-bold hover:bg-[#25D366]/20 hover:border-[#25D366]/60">
+                        <i class="fa-brands fa-whatsapp text-[#25D366]"></i> Follow Our Channel
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-5 text-sm tracking-wider uppercase">Quick Contact</h4>
+                <ul class="space-y-3 text-sm font-medium">
+                    <li class="flex items-start gap-2"><i class="fa-solid fa-envelope text-gold mt-0.5 flex-shrink-0"></i> office@globalvisajourneys.com</li>
+                    <li class="flex items-start gap-2"><i class="fa-solid fa-phone text-gold mt-0.5 flex-shrink-0"></i> 0204 628 1692 (UK Office)</li>
+                    <li class="flex items-start gap-2">
+                        <a href="https://wa.me/447511219482" target="_blank" rel="noopener" class="hover:text-white transition flex items-start gap-2">
+                            <i class="fa-brands fa-whatsapp text-green-400 mt-0.5 flex-shrink-0"></i> +44 7511 219482
+                        </a>
+                    </li>
+                    <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot text-gold mt-0.5 flex-shrink-0"></i> 71-75 Shelton Street, London WC2H 9JQ</li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-5 text-sm tracking-wider uppercase">Compliance Alerts</h4>
+                <p class="text-xs mb-4 leading-relaxed font-medium">Don't let a lump sum error ban you. Join our alert list for visa rule updates.</p>
+                <div class="flex flex-col gap-2">
+                    <input id="newsletter-email" type="email" placeholder="Email Address" class="bg-[#0f1419] border border-[#1e2730] text-white px-3 py-2.5 rounded-lg text-sm focus:outline-none focus:border-gold transition placeholder:text-[#4a5568] font-medium">
+                    <button id="newsletter-btn" type="button" class="btn-gold px-4 py-2.5 rounded-lg text-xs text-[#080c10]">Subscribe</button>
+                    <p id="newsletter-success" class="hidden text-green-400 text-xs font-bold"><i class="fa-solid fa-circle-check mr-1"></i> You're on the list.</p>
+                </div>
+                <div class="mt-8 flex gap-4 text-xs font-semibold">
+                    <button onclick="openLegalModal('scopeModal')" class="hover:text-gold transition border-r border-[#1e2730] pr-4">Engagement Letter</button>
+                    <button onclick="openLegalModal('termsModal')" class="hover:text-gold transition">Terms &amp; Conditions</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="gold-divider mx-auto max-w-7xl"></div>
+
+    <div class="max-w-7xl mx-auto px-4 py-8 text-center text-xs">
+        <p class="text-[#4a5568] font-medium">&copy; 2026 Global Visa &amp; Journeys Ltd. Registered in England &amp; Wales (No: 16959031).</p>
+        <p class="mt-2 text-[#2d3748]">Global Visa &amp; Journeys Ltd is a travel consultancy, not a Tour Operator. We do not sell flight-inclusive packages and are not ATOL holders.</p>
+    </div>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/447511219482" class="whatsapp-float" target="_blank" rel="noopener" title="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- LEGAL MODALS                                               -->
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<!-- Engagement Letter Modal -->
+<div id="scopeModal" class="hidden fixed inset-0 z-[10000] bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-4xl bg-[#080c10] rounded-2xl border border-[#1e2730] shadow-2xl flex flex-col max-h-[90vh]">
+        <div class="flex items-center justify-between p-6 border-b border-[#1e2730] flex-shrink-0">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-shield-halved text-2xl text-gold"></i>
+                <div>
+                    <h3 class="text-white font-bold text-lg" style="font-family:'Cormorant Garamond',serif;">Engagement Letter &amp; Scope</h3>
+                    <p class="text-[10px] uppercase tracking-widest text-[#7a8899] font-semibold">Global Visa &amp; Journeys Ltd</p>
+                </div>
+            </div>
+            <button onclick="closeLegalModal('scopeModal')" class="text-[#7a8899] hover:text-white w-8 h-8 rounded-full bg-[#0f1419] border border-[#1e2730] flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+        </div>
+        <div class="p-6 overflow-y-auto custom-scrollbar text-sm text-[#7a8899] flex-1 font-medium">
+            <p class="mb-6 leading-relaxed">This document outlines the professional services, limitations, and terms provided by Global Visa &amp; Journeys Ltd (the Consultant) to clients concerning Schengen and EU Visa Applications.</p>
+            <h4 class="text-white font-bold mb-3">1. Scope of Engagement</h4>
+            <ul class="space-y-3 mb-6 pl-1">
+                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-gold mt-1 text-xs"></i><span><strong class="text-[#c9d1d9]">Forensic Document Audit:</strong> Review of financial statements and supporting documents against Schengen visa officer standards.</span></li>
+                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-gold mt-1 text-xs"></i><span><strong class="text-[#c9d1d9]">Strategic Narrative Construction:</strong> Drafting expert cover letters and addressing high-risk factors (e.g. lump sums, previous refusals).</span></li>
+                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-gold mt-1 text-xs"></i><span><strong class="text-[#c9d1d9]">Application Management:</strong> Guided completion and submission of the official Visa Application Form.</span></li>
+            </ul>
+            <div class="bg-[#0f1419] border-l-4 border-gold p-4 mb-6 rounded-r-lg">
+                <h4 class="text-gold font-bold mb-2 text-sm">2. Appointment Booking &amp; Portal Limitations</h4>
+                <p class="text-[#c9d1d9] mb-3 text-sm">We aggressively monitor VFS Global, BLS International, and TLScontact portals to secure appointments. We do <strong>not</strong> own or control these government servers.</p>
+                <ul class="space-y-2 text-sm">
+                    <li><i class="fa-solid fa-xmark text-red-400 mr-2"></i>We do <strong>NOT</strong> guarantee a specific appointment timeline.</li>
+                    <li><i class="fa-solid fa-check text-green-400 mr-2"></i>We <strong>DO</strong> guarantee continuous effort and strategic pivots.</li>
+                </ul>
+            </div>
+            <h4 class="text-white font-bold mb-3">3. Exclusions</h4>
+            <ul class="space-y-2 mb-6 opacity-80">
+                <li><i class="fa-solid fa-xmark text-red-400 mr-2"></i><strong class="text-white">Legal Representation:</strong> We do not attend court appeals or administrative reviews.</li>
+                <li><i class="fa-solid fa-xmark text-red-400 mr-2"></i><strong class="text-white">Document Authentication:</strong> We do not verify the legality of documents provided. Fraudulent documents result in immediate termination.</li>
+            </ul>
+            <div class="bg-red-900/10 border-l-4 border-red-500 p-4 rounded-r-lg">
+                <h4 class="text-red-400 font-bold mb-2 text-sm"><i class="fa-solid fa-triangle-exclamation mr-2"></i>5. No Guarantee of Visa Approval</h4>
+                <p class="text-red-200/80 text-sm">The issuance of a visa is the sole prerogative of the Government Authority. Our fee is for professional preparation and strategy. <strong>We offer absolutely NO guarantee that a visa will be approved.</strong></p>
+            </div>
+        </div>
+        <div class="p-4 border-t border-[#1e2730] bg-[#0f1419] rounded-b-2xl flex justify-end flex-shrink-0">
+            <button onclick="closeLegalModal('scopeModal')" class="bg-[#080c10] text-[#7a8899] hover:text-white border border-[#1e2730] hover:border-[#4a5568] transition px-6 py-2 rounded-lg text-sm font-semibold">Close Document</button>
+        </div>
+    </div>
+</div>
+
+<!-- Terms & Conditions Modal -->
+<div id="termsModal" class="hidden fixed inset-0 z-[10000] bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-4xl bg-[#080c10] rounded-2xl border border-[#1e2730] shadow-2xl flex flex-col max-h-[90vh]">
+        <div class="flex items-center justify-between p-6 border-b border-[#1e2730] flex-shrink-0">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-scale-balanced text-2xl text-gold"></i>
+                <div>
+                    <h3 class="text-white font-bold text-lg" style="font-family:'Cormorant Garamond',serif;">Terms &amp; Conditions</h3>
+                    <p class="text-[10px] uppercase tracking-widest text-[#7a8899] font-semibold">Global Visa &amp; Journeys Ltd</p>
+                </div>
+            </div>
+            <button onclick="closeLegalModal('termsModal')" class="text-[#7a8899] hover:text-white w-8 h-8 rounded-full bg-[#0f1419] border border-[#1e2730] flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+        </div>
+        <div class="p-6 overflow-y-auto custom-scrollbar text-sm text-[#7a8899] flex-1 font-medium">
+            <p class="mb-6 leading-relaxed">These Terms and Conditions govern all services provided by Global Visa &amp; Journeys Ltd.</p>
+            <h4 class="text-white font-bold mb-3">1. Definitions and Acceptance</h4>
+            <ul class="space-y-2 mb-6 pl-1">
+                <li><i class="fa-solid fa-angle-right text-[#38bdf8] mr-2"></i><strong class="text-[#c9d1d9]">The Consultant:</strong> Global Visa &amp; Journeys Ltd, registered in England and Wales (No. 16959031).</li>
+                <li><i class="fa-solid fa-angle-right text-[#38bdf8] mr-2"></i><strong class="text-[#c9d1d9]">Acceptance:</strong> By proceeding with payment or submitting documents, you agree to these Terms.</li>
+            </ul>
+            <h4 class="text-white font-bold mb-3 mt-6">2. Fees &amp; Non-Refund Policy</h4>
+            <ul class="space-y-2 mb-6 pl-1">
+                <li><i class="fa-solid fa-angle-right text-[#38bdf8] mr-2"></i>All fees are due in full prior to commencement of work.</li>
+                <div class="bg-red-900/10 border-l-2 border-red-500 pl-4 py-3 my-3 rounded-r">
+                    <li class="text-red-200/90"><i class="fa-solid fa-lock text-red-400 mr-2"></i><strong class="text-red-400 block text-xs uppercase tracking-wider mb-1">Strict Non-Refundable Clause</strong>Fees are NON-REFUNDABLE once work has commenced, regardless of visa outcome or embassy delays.</li>
+                </div>
+            </ul>
+            <h4 class="text-white font-bold mb-3 mt-6">3. Limitation of Liability</h4>
+            <div class="bg-[#0f1419] border border-[#1e2730] p-5 rounded-xl mb-6">
+                <ul class="space-y-3">
+                    <li><i class="fa-solid fa-shield text-[#7a8899] mr-2"></i><strong class="text-white">Maximum Liability:</strong> Limited to the total consulting fee paid.</li>
+                    <li><i class="fa-solid fa-shield text-[#7a8899] mr-2"></i><strong class="text-white">Travel Risks:</strong> Do not purchase non-refundable tickets until you hold the physical visa sticker.</li>
+                    <li><i class="fa-solid fa-shield text-[#7a8899] mr-2"></i><strong class="text-white">Consequential Damages:</strong> Zero liability for lost flights, hotels, events, or emotional distress from refusal or embassy delay.</li>
+                </ul>
+            </div>
+            <h4 class="text-white font-bold mb-3 mt-6">4. Termination</h4>
+            <ul class="space-y-2 mb-6 pl-1">
+                <li><i class="fa-solid fa-angle-right text-red-400 mr-2"></i><strong class="text-[#c9d1d9]">Fraudulent Activity:</strong> Immediate termination, no refund.</li>
+                <li><i class="fa-solid fa-angle-right text-gold mr-2"></i><strong class="text-[#c9d1d9]">Right of Refusal:</strong> We may decline unviable cases; any unearned fees will be returned.</li>
+            </ul>
+            <h4 class="text-white font-bold mb-3 mt-6">5. Intellectual Property &amp; Data Privacy</h4>
+            <ul class="space-y-2 mb-6 pl-1">
+                <li><i class="fa-solid fa-angle-right text-gold mr-2"></i>All strategy documents, narratives, and calculators are the exclusive IP of Global Visa &amp; Journeys Ltd.</li>
+                <li><i class="fa-solid fa-angle-right text-gold mr-2"></i>Client data is processed under UK GDPR on secure, encrypted servers solely for visa application purposes.</li>
+            </ul>
+        </div>
+        <div class="p-4 border-t border-[#1e2730] bg-[#0f1419] rounded-b-2xl flex justify-end flex-shrink-0">
+            <button onclick="closeLegalModal('termsModal')" class="bg-[#080c10] text-[#7a8899] hover:text-white border border-[#1e2730] hover:border-[#4a5568] transition px-6 py-2 rounded-lg text-sm font-semibold">Close Document</button>
+        </div>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SCRIPTS                                                    -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<script>
+    window.addEventListener('scroll', () => {
+        const nav = document.getElementById('main-nav');
+        if (window.scrollY > 50) nav.classList.add('nav-scrolled');
+        else nav.classList.remove('nav-scrolled');
+    });
+
+    function openLegalModal(id) {
+        document.getElementById(id).classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLegalModal(id) {
+        document.getElementById(id).classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+
+    ['scopeModal','termsModal'].forEach(id => {
+        document.getElementById(id).addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    });
+
+    function toggleFAQ(btn) {
+        const answer = btn.nextElementSibling;
+        const icon = btn.querySelector('.faq-icon');
+        const isOpen = answer.classList.contains('open');
+        document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+        document.querySelectorAll('.faq-icon').forEach(i => i.classList.remove('rotated'));
+        if (!isOpen) {
+            answer.classList.add('open');
+            icon.classList.add('rotated');
+        }
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+</script>
+
+<script>
+(function () {
+    var newsBtn = document.getElementById('newsletter-btn');
+    var newsInput = document.getElementById('newsletter-email');
+    var newsSuccess = document.getElementById('newsletter-success');
+
+    function showNewsError(msg) {
+        var errEl = document.getElementById('newsletter-error');
+        if (!errEl) {
+            errEl = document.createElement('p');
+            errEl.id = 'newsletter-error';
+            errEl.className = 'text-red-400 text-xs font-bold';
+            newsSuccess.insertAdjacentElement('afterend', errEl);
+        }
+        errEl.textContent = msg;
+        errEl.style.display = 'block';
+        newsSuccess.classList.add('hidden');
+    }
+
+    function hideNewsError() {
+        var errEl = document.getElementById('newsletter-error');
+        if (errEl) errEl.style.display = 'none';
+    }
+
+    if (newsBtn) {
+        newsBtn.addEventListener('click', async function () {
+            var email = newsInput.value.trim();
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                newsInput.style.borderColor = '#ef4444';
+                return;
+            }
+            newsInput.style.borderColor = '';
+            hideNewsError();
+            newsSuccess.classList.add('hidden');
+            newsBtn.textContent = 'Joining';
+            newsBtn.disabled = true;
+            try {
+                var res = await fetch('https://gvj-mailchimp.office-c5d.workers.dev/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email })
+                });
+                if (res.ok) {
+                    newsSuccess.innerHTML = '<i class="fa-solid fa-circle-check mr-1"></i> You are on the list.';
+                    newsSuccess.classList.remove('hidden');
+                    newsInput.value = '';
+                } else {
+                    showNewsError('Something went wrong. Please try again.');
+                }
+            } catch (e) {
+                showNewsError('Something went wrong. Please try again.');
+            } finally {
+                newsBtn.textContent = 'Subscribe';
+                newsBtn.disabled = false;
+            }
+        });
+    }
+})();
+</script>
+
+<!-- Tawk.to live chat -->
+<style>
+    @media (max-width: 768px) {
+        .tawk-min-container { bottom: 165px !important; }
+    }
+</style>
+<script type="text/javascript">
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function(){
+        var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+        s1.async = true;
+        s1.src = 'https://embed.tawk.to/69ab4b7560e0031c3443b1b0/1jj2htghu';
+        s1.charset = 'UTF-8';
+        s1.setAttribute('crossorigin', '*');
+        s0.parentNode.insertBefore(s1, s0);
+    })();
+</script>
+
+<!-- Mobile Bottom Nav -->
+<style>
+#mobile-bottom-nav { display: none; }
+@media (max-width: 767px) {
+    #mobile-bottom-nav { display: block; }
+    .whatsapp-float { bottom: 90px !important; }
+    body { padding-bottom: 80px; }
+}
+</style>
+<nav id="mobile-bottom-nav" style="position:fixed; bottom:0; left:0; right:0; z-index:9998; background:#0f1419; border-top:1px solid #1e2730; -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); padding-bottom:env(safe-area-inset-bottom);">
+    <div style="display:flex;">
+        <a href="index.html" class="mobile-nav-item" data-nav="home" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-house" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Home</span>
+        </a>
+        <a href="calculator.html" class="mobile-nav-item" data-nav="readiness" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-clipboard-list" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Readiness</span>
+        </a>
+        <a href="blog/index.html" class="mobile-nav-item" data-nav="insights" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-newspaper" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Insights</span>
+        </a>
+        <a href="about.html" class="mobile-nav-item" data-nav="about" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-circle-info" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">About</span>
+        </a>
+        <a href="index.html#faq" class="mobile-nav-item" data-nav="faq" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-circle-question" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">FAQ</span>
+        </a>
+    </div>
+</nav>
+<script>
+(function(){
+    var p = window.location.pathname;
+    var active = {
+        home:      (p.endsWith('/index.html') || p === '/') && !p.includes('/blog/'),
+        readiness: p.endsWith('/calculator.html'),
+        insights:  p.includes('/blog/'),
+        about:     p.endsWith('/about.html'),
+        faq:       false
+    };
+    document.querySelectorAll('.mobile-nav-item').forEach(function(el){
+        if(active[el.getAttribute('data-nav')]) el.style.color = '#c9a84c';
+    });
+})();
+</script>
+
+</body>
+</html>
