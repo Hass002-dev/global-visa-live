@@ -1559,9 +1559,9 @@
 
     <!-- Main footer columns -->
     <div class="py-14">
-        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-4 gap-10">
+        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-3 lg:grid-cols-6 gap-8">
 
-            <div class="col-span-1 md:col-span-2">
+            <div class="col-span-1 md:col-span-3 lg:col-span-2">
                 <span class="text-white text-2xl font-black" style="font-family:'Cormorant Garamond',serif;">GLOBAL VISA <span class="text-gold">&amp;</span> JOURNEYS</span>
                 <p class="mt-4 text-sm leading-relaxed max-w-sm font-medium">A forensic travel consultancy bridging complex bureaucratic compliance and seamless travel logistics. Registered in England &amp; Wales.</p>
                 <div class="mt-6 flex gap-3 flex-wrap">
@@ -1579,6 +1579,28 @@
                         <i class="fa-brands fa-whatsapp text-[#25D366]"></i> Follow Our Channel
                     </a>
                 </div>
+            </div>
+
+            <!-- Services -->
+            <div>
+                <h4 class="text-white font-bold mb-5 text-sm tracking-wider uppercase">Services</h4>
+                <ul class="space-y-2 text-sm font-medium">
+                    <li><a href="calculator.html" class="hover:text-gold transition">Schengen Visa</a></li>
+                    <li><a href="refusal.html" class="hover:text-gold transition">Refusal Recovery</a></li>
+                    <li><a href="student.html" class="hover:text-gold transition">Study Abroad</a></li>
+                    <li><a href="https://buy.stripe.com/cNieVc3YFemK6Cq80z0sU05" target="_blank" rel="noopener" class="hover:text-gold transition">Flight Reservation</a></li>
+                </ul>
+            </div>
+
+            <!-- Resources -->
+            <div>
+                <h4 class="text-white font-bold mb-5 text-sm tracking-wider uppercase">Resources</h4>
+                <ul class="space-y-2 text-sm font-medium">
+                    <li><a href="blog/index.html" class="hover:text-gold transition">Visa Blog</a></li>
+                    <li><a href="calculator.html" class="hover:text-gold transition">Visa Calculator</a></li>
+                    <li><a href="portal.html" class="hover:text-gold transition">Client Portal</a></li>
+                    <li><a href="about.html" class="hover:text-gold transition">About Us</a></li>
+                </ul>
             </div>
 
             <div>
@@ -1991,9 +2013,9 @@
             <i class="fa-solid fa-circle-info" style="font-size:18px; line-height:1;"></i>
             <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">About</span>
         </a>
-        <a href="index.html#faq" class="mobile-nav-item" data-nav="faq" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
-            <i class="fa-solid fa-circle-question" style="font-size:18px; line-height:1;"></i>
-            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">FAQ</span>
+        <a href="student.html" class="mobile-nav-item" data-nav="study" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-graduation-cap" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Study</span>
         </a>
     </div>
 </nav>
@@ -2005,7 +2027,7 @@
         readiness: p.endsWith('/calculator.html'),
         insights:  p.includes('/blog/'),
         about:     p.endsWith('/about.html'),
-        faq:       false
+        study:     p.endsWith('/student.html')
     };
     document.querySelectorAll('.mobile-nav-item').forEach(function(el){
         if(active[el.getAttribute('data-nav')]) el.style.color = '#c9a84c';
