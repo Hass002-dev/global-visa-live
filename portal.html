@@ -396,9 +396,61 @@
     </div>
 
     <!-- Footer -->
-    <footer class="border-t border-[#1e2730] py-6 text-center relative z-10">
-        <p class="text-[#4a5568] text-xs font-medium">&copy; 2026 Global Visa &amp; Journeys Ltd. Registered in England &amp; Wales (No: 16959031).</p>
-        <p class="text-[#2d3748] text-xs mt-1">Not a Tour Operator. Not ATOL registered. GDPR compliant. 256-bit encrypted.</p>
+    <footer class="bg-[#080c10] text-[#7a8899] relative z-10 border-t border-[#1e2730]">
+
+        <div class="py-14">
+            <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-3 lg:grid-cols-6 gap-8">
+
+                <div class="col-span-1 md:col-span-3 lg:col-span-2">
+                    <span class="text-white text-2xl font-black" style="font-family:'Cormorant Garamond',serif;">GLOBAL VISA <span class="text-gold">&amp;</span> JOURNEYS</span>
+                    <p class="mt-4 text-sm leading-relaxed max-w-sm font-medium">A forensic travel consultancy bridging complex bureaucratic compliance and seamless travel logistics. Registered in England &amp; Wales.</p>
+                </div>
+
+                <!-- Services -->
+                <div>
+                    <h4 class="text-white font-bold mb-5 text-sm tracking-wider uppercase">Services</h4>
+                    <ul class="space-y-2 text-sm font-medium">
+                        <li><a href="calculator.html" class="hover:text-gold transition">Schengen Visa</a></li>
+                        <li><a href="refusal.html" class="hover:text-gold transition">Refusal Recovery</a></li>
+                        <li><a href="student.html" class="hover:text-gold transition">Study Abroad</a></li>
+                        <li><a href="https://buy.stripe.com/cNieVc3YFemK6Cq80z0sU05" target="_blank" rel="noopener" class="hover:text-gold transition">Flight Reservation</a></li>
+                    </ul>
+                </div>
+
+                <!-- Resources -->
+                <div>
+                    <h4 class="text-white font-bold mb-5 text-sm tracking-wider uppercase">Resources</h4>
+                    <ul class="space-y-2 text-sm font-medium">
+                        <li><a href="blog/index.html" class="hover:text-gold transition">Visa Blog</a></li>
+                        <li><a href="calculator.html" class="hover:text-gold transition">Visa Calculator</a></li>
+                        <li><a href="portal.html" class="hover:text-gold transition">Client Portal</a></li>
+                        <li><a href="about.html" class="hover:text-gold transition">About Us</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-5 text-sm tracking-wider uppercase">Quick Contact</h4>
+                    <ul class="space-y-3 text-sm font-medium">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-envelope text-gold mt-0.5 flex-shrink-0"></i> office@globalvisajourneys.com</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-phone text-gold mt-0.5 flex-shrink-0"></i> 0204 628 1692 (UK Office)</li>
+                        <li class="flex items-start gap-2">
+                            <a href="https://wa.me/447511219482" target="_blank" rel="noopener" class="hover:text-white transition flex items-start gap-2">
+                                <i class="fa-brands fa-whatsapp text-green-400 mt-0.5 flex-shrink-0"></i> +44 7511 219482
+                            </a>
+                        </li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot text-gold mt-0.5 flex-shrink-0"></i> 71-75 Shelton Street, London WC2H 9JQ</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="gold-divider mx-auto max-w-7xl"></div>
+
+        <div class="max-w-7xl mx-auto px-4 py-8 text-center text-xs">
+            <p class="text-[#4a5568] font-medium">&copy; 2026 Global Visa &amp; Journeys Ltd. Registered in England &amp; Wales (No: 16959031).</p>
+            <p class="mt-2 text-[#2d3748]">Global Visa &amp; Journeys Ltd is a travel consultancy, not a Tour Operator. We do not sell flight-inclusive packages and are not ATOL holders.</p>
+        </div>
     </footer>
 </div>
 
@@ -1219,9 +1271,9 @@ async function handleAdditionalFileChange(e, cardId) {
             <i class="fa-solid fa-circle-info" style="font-size:18px; line-height:1;"></i>
             <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">About</span>
         </a>
-        <a href="index.html#faq" class="mobile-nav-item" data-nav="faq" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
-            <i class="fa-solid fa-circle-question" style="font-size:18px; line-height:1;"></i>
-            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">FAQ</span>
+        <a href="student.html" class="mobile-nav-item" data-nav="study" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-graduation-cap" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Study</span>
         </a>
     </div>
 </nav>
@@ -1233,7 +1285,7 @@ async function handleAdditionalFileChange(e, cardId) {
         readiness: p.endsWith('/calculator.html'),
         insights:  p.includes('/blog/'),
         about:     p.endsWith('/about.html'),
-        faq:       false
+        study: p.endsWith('/student.html')
     };
     document.querySelectorAll('.mobile-nav-item').forEach(function(el){
         if(active[el.getAttribute('data-nav')]) el.style.color = '#c9a84c';
