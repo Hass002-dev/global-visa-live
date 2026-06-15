@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,7 @@
     <meta name="description" content="Check your Schengen visa financial readiness instantly. Our forensic calculator checks your balance against 2026 embassy thresholds and flags every risk before you apply.">
     <link rel="canonical" href="https://globalvisajourneys.com/calculator.html">
 
-    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg">
     <link rel="stylesheet" href="./output.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -382,6 +382,8 @@
                 <a href="index.html" class="text-[#7a8899] hover:text-white font-semibold transition text-sm hidden md:block">Home</a>
                 <a href="about.html" class="text-[#7a8899] hover:text-white font-semibold transition text-sm hidden md:block">About</a>
                 <a href="blog/index.html" class="text-[#7a8899] hover:text-white font-semibold transition text-sm hidden md:block">Insights</a>
+                <a href="refusal.html" class="text-[#7a8899] hover:text-white font-semibold transition text-sm hidden md:block">Refusal Recovery</a>
+                <a href="index.html#faq" class="text-[#7a8899] hover:text-white font-semibold transition text-sm hidden md:block">FAQ</a>
                 <a href="portal.html" class="border border-[#1e2730] hover:border-[#c9a84c] text-[#7a8899] hover:text-[#c9a84c] transition px-3 py-2 md:px-4 rounded-lg text-xs md:text-sm font-bold flex items-center gap-2">
                     <i class="fa-solid fa-lock text-xs"></i>
                     <span class="hidden md:inline">Client Portal</span><span class="md:hidden">Portal</span>
@@ -854,6 +856,20 @@
             <div class="col-span-1 md:col-span-3 lg:col-span-2">
                 <span class="text-white text-2xl font-black" style="font-family:'Cormorant Garamond',serif;">GLOBAL VISA <span class="text-gold">&amp;</span> JOURNEYS</span>
                 <p class="mt-4 text-sm leading-relaxed max-w-sm font-medium">A forensic travel consultancy bridging complex bureaucratic compliance and seamless travel logistics. Registered in England &amp; Wales.</p>
+                <div class="mt-6 flex gap-3 flex-wrap">
+                    <a href="https://facebook.com/globalvisajourneys" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="text-[#7a8899] hover:text-gold transition w-9 h-9 rounded-full border border-[#1e2730] flex items-center justify-center hover:border-gold">
+                        <i class="fa-brands fa-facebook text-sm"></i>
+                    </a>
+                    <a href="https://instagram.com/globalvisajourneysltd" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="text-[#7a8899] hover:text-gold transition w-9 h-9 rounded-full border border-[#1e2730] flex items-center justify-center hover:border-gold">
+                        <i class="fa-brands fa-instagram text-sm"></i>
+                    </a>
+                    <a href="https://wa.me/447511219482" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="text-[#7a8899] hover:text-green-400 transition w-9 h-9 rounded-full border border-[#1e2730] flex items-center justify-center hover:border-green-400">
+                        <i class="fa-brands fa-whatsapp text-sm"></i>
+                    </a>
+                    <a href="https://whatsapp.com/channel/0029VbCDSSWEquiHjVOXqp2f" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#25D366] transition flex items-center gap-2 bg-[#25D366]/10 border border-[#25D366]/30 rounded-full px-4 h-9 text-xs font-bold hover:bg-[#25D366]/20 hover:border-[#25D366]/60">
+                        <i class="fa-brands fa-whatsapp text-[#25D366]"></i> Follow Our Channel
+                    </a>
+                </div>
             </div>
 
             <!-- Services -->
@@ -884,12 +900,24 @@
                     <li class="flex items-start gap-2"><i class="fa-solid fa-envelope text-gold mt-0.5 flex-shrink-0"></i> office@globalvisajourneys.com</li>
                     <li class="flex items-start gap-2"><i class="fa-solid fa-phone text-gold mt-0.5 flex-shrink-0"></i> 0204 628 1692 (UK Office)</li>
                     <li class="flex items-start gap-2">
-                        <a href="https://wa.me/447511219482" target="_blank" class="hover:text-white transition flex items-start gap-2">
+                        <a href="https://wa.me/447511219482" target="_blank" rel="noopener noreferrer" class="hover:text-white transition flex items-start gap-2">
                             <i class="fa-brands fa-whatsapp text-green-400 mt-0.5 flex-shrink-0"></i> +44 7511 219482
                         </a>
                     </li>
                     <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot text-gold mt-0.5 flex-shrink-0"></i> 71-75 Shelton Street, London WC2H 9JQ</li>
                 </ul>
+            </div>
+
+            <!-- Compliance Alerts / Newsletter -->
+            <div>
+                <h4 class="text-white font-bold mb-5 text-sm tracking-wider uppercase">Compliance Alerts</h4>
+                <p class="text-xs leading-relaxed mb-4">Get visa rule updates and refusal-pattern intel direct to your inbox.</p>
+                <div class="flex flex-col gap-2">
+                    <input type="email" id="newsletter-email" aria-label="Email address" placeholder="Your email" class="bg-[#0f1419] border border-[#1e2730] text-[#eef2f7] text-xs px-3 py-2.5 rounded-lg focus:outline-none focus:border-[#c9a84c] placeholder-[#4a5568]">
+                    <button type="button" id="newsletter-btn" onclick="subscribeNewsletter()" class="btn-gold py-2.5 rounded-lg text-xs font-bold w-full">Subscribe</button>
+                </div>
+                <p id="newsletter-success" class="hidden text-green-400 text-xs mt-2">Subscribed! Welcome aboard.</p>
+                <p id="newsletter-error" class="hidden text-red-400 text-xs mt-2">Something went wrong. Please try again.</p>
             </div>
 
         </div>
@@ -904,9 +932,46 @@
 </footer>
 
 <!-- FLOATING WHATSAPP -->
-<a href="https://wa.me/447511219482" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+<a href="https://wa.me/447511219482" class="whatsapp-float" target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
     <i class="fa-brands fa-whatsapp"></i>
 </a>
+
+<script>
+window.subscribeNewsletter = async () => {
+    const email = document.getElementById('newsletter-email').value.trim();
+    const btn = document.getElementById('newsletter-btn');
+    const ok = document.getElementById('newsletter-success');
+    const err = document.getElementById('newsletter-error');
+    ok.classList.add('hidden'); err.classList.add('hidden');
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        err.classList.remove('hidden');
+        err.textContent = 'Please enter a valid email address.';
+        return;
+    }
+    btn.textContent = '…';
+    btn.disabled = true;
+    try {
+        const res = await fetch('https://gvj-mailchimp.office-c5d.workers.dev/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+        });
+        if (res.ok) {
+            ok.classList.remove('hidden');
+            document.getElementById('newsletter-email').value = '';
+        } else {
+            err.classList.remove('hidden');
+            err.textContent = 'Something went wrong. Please try again.';
+        }
+    } catch(e) {
+        err.classList.remove('hidden');
+        err.textContent = 'Something went wrong. Please try again.';
+    } finally {
+        btn.textContent = 'Subscribe';
+        btn.disabled = false;
+    }
+};
+</script>
 
 
 

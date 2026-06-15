@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,7 @@
     <meta name="description" content="Forensic visa strategy guides written by London consultants. Real refusal triggers, real solutions for Schengen and EU visa applications.">
     <link rel="canonical" href="https://globalvisajourneys.com/blog/">
 
-    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <link rel="stylesheet" href="../output.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -361,7 +361,7 @@
 <script type="module">
 import { initializeApp }                              from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, collection, query, where,
-         orderBy, getDocs, addDoc }                   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+         orderBy, getDocs }                           from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey:            "AIzaSyCcoyBXRITTblrH0XcaLGMjftUttXYLtj4",
@@ -499,15 +499,17 @@ window.subscribeNewsletter = async () => {
     btn.innerHTML = '<i class="fa-solid fa-circle-notch spin"></i>';
     btn.disabled  = true;
     try {
-        await addDoc(collection(db, 'newsletter_subs'), {
-            email, source: 'blog_signup', timestamp: new Date().toISOString()
+        const res = await fetch('https://gvj-mailchimp.office-c5d.workers.dev/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
         });
+        if (!res.ok) throw new Error('Server error');
         ok.classList.remove('hidden');
         document.getElementById('news-email').value = '';
     } catch(e) {
         err.textContent = 'Could not subscribe. Please try again.';
         err.classList.remove('hidden');
-        console.error(e);
     } finally {
         btn.innerHTML = 'Subscribe';
         btn.disabled  = false;
