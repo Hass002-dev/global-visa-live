@@ -1,4 +1,60 @@
-﻿<!DOCTYPE html>
+﻿<!--
+==========================================================================
+HOW TO ADD A NEW BLOG POST
+==========================================================================
+
+1. Write the post in admin.html (converts Markdown → HTML automatically).
+   Copy the generated bodyHtml and all metadata from admin.html.
+
+2. In Firebase (admin.html or Firestore console), publish the new post.
+   The post must have these fields:
+     slug        — clean URL slug, e.g. "my-post-title-2026"
+     title       — full article title
+     seoTitle    — title for <title> tag (can be same as title)
+     seoDescription — meta description (~155 chars)
+     excerpt     — short summary for blog card
+     category    — one of: "General Visa Strategy" | "UK Residents" | "Africa Residents"
+     author      — e.g. "GVJ Strategy Team"
+     heroImage   — Unsplash CDN URL (use ?q=80&w=1600&auto=format&fit=crop)
+     publishedAt — ISO date string, e.g. "2026-09-01T10:00:00Z"
+     ctaType     — one of: "quickscan" | "whatsapp" | "calculator"
+     bodyHtml    — the pre-converted HTML body (from admin.html)
+     status      — "published"
+
+3. Create a static HTML file at blog/{slug}.html by copying any existing
+   static post file (e.g. schengen-refusal-nigeria-2026.html) and updating:
+     — <title> tag
+     — <meta name="description">
+     — <link rel="canonical">
+     — og:title, og:description, og:image, og:url meta tags
+     — <script type="application/ld+json"> schema block
+     — post-hero background-image URL
+     — .category-pill text
+     — h1 title text
+     — author, date, read time in the header
+     — <div class="article-body"> content (paste bodyHtml here)
+     — tags section (if any)
+     — CTA block (copy the correct one from ctaHtml() in gen-posts.js)
+
+4. Add the new post card link to blog/index.html — it's added automatically
+   by Firebase at runtime (no manual card needed — the JS renders from DB).
+   The card link format is: <slug>.html (already updated).
+
+5. Add the new URL to sitemap.xml:
+     <url>
+       <loc>https://www.globalvisajourneys.com/blog/{slug}.html</loc>
+       <lastmod>YYYY-MM-DD</lastmod>
+       <changefreq>monthly</changefreq>
+       <priority>0.8</priority>
+     </url>
+
+6. Commit and push to GitHub (deploys to GitHub Pages automatically).
+
+NOTE: blog/post.html is kept as a redirect file only — it forwards
+      ?slug= and old ?id= URLs to the correct static .html file.
+==========================================================================
+-->
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -468,7 +524,7 @@ function renderCard(p) {
     const date = p.publishedAt ? formatDate(p.publishedAt) : '';
     const safe = (s) => String(s || '').replace(/[<>"']/g, c => ({'<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     return `
-    <a href="post.html?slug=${encodeURIComponent(p.slug || '')}" class="post-card no-underline">
+    <a href="${p.slug || 'index'}.html" class="post-card no-underline">
         <div class="post-card-image-wrap">
             <div class="post-card-image" style="background-image:url('${safe(p.heroImage)}')"></div>
             ${p.category ? `<span class="category-badge">${safe(p.category)}</span>` : ''}

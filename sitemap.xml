@@ -4,7 +4,7 @@
   <!-- Core Pages -->
   <url>
     <loc>https://www.globalvisajourneys.com/</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-08-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -23,67 +23,125 @@
     <priority>0.9</priority>
   </url>
 
+  <url>
+    <loc>https://www.globalvisajourneys.com/refusal.html</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.globalvisajourneys.com/partnership.html</loc>
+    <lastmod>2026-08-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- Blog Index -->
   <url>
     <loc>https://www.globalvisajourneys.com/blog/index.html</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-08-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Blog Posts — Individual Articles -->
+  <!-- Blog Posts — Static Individual Files -->
   <url>
-    <loc>https://www.globalvisajourneys.com/blog/post.html?id=613wZqSYzHtYZBSGMJTC</loc>
-    <lastmod>2026-05-23</lastmod>
+    <loc>https://www.globalvisajourneys.com/blog/schengen-visa-fees-2026-real-cost-nigeria-ghana-uk.html</loc>
+    <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.globalvisajourneys.com/blog/post.html?id=TmKoqwyMrQGJixnphgrF</loc>
-    <lastmod>2026-05-23</lastmod>
+    <loc>https://www.globalvisajourneys.com/blog/ees-biometric-checks-september-2026-schengen-visa-holders.html</loc>
+    <lastmod>2026-08-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.globalvisajourneys.com/blog/post.html?id=YgEMmUAehfeXGF0K3BYU</loc>
-    <lastmod>2026-05-23</lastmod>
+    <loc>https://www.globalvisajourneys.com/blog/schengen-visa-flight-reservation-rules-2026.html</loc>
+    <lastmod>2026-07-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.globalvisajourneys.com/blog/post.html?id=bIBgDT2SLIhMLbHaR5eu</loc>
-    <lastmod>2026-05-23</lastmod>
+    <loc>https://www.globalvisajourneys.com/blog/multi-entry-schengen-visa-nigeria-ghana-2026.html</loc>
+    <lastmod>2026-07-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.globalvisajourneys.com/blog/post.html?id=qN7TgAUxcKwiM4XyEYBs</loc>
-    <lastmod>2026-05-23</lastmod>
+    <loc>https://www.globalvisajourneys.com/blog/schengen-visa-appointment-delays-summer-2026.html</loc>
+    <lastmod>2026-07-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.globalvisajourneys.com/blog/post.html?id=easiest-schengen-visa-country-w</loc>
-    <lastmod>2026-05-23</lastmod>
+    <loc>https://www.globalvisajourneys.com/blog/schengen-visa-cover-letter-2026-nigeria-ghana.html</loc>
+    <lastmod>2026-06-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-<url>
-  <loc>https://www.globalvisajourneys.com/refusal.html</loc>
-  <lastmod>2026-05-30</lastmod>
-  <changefreq>monthly</changefreq>
-  <priority>0.9</priority>
-</url>
 
   <url>
-    <loc>https://www.globalvisajourneys.com/partnership.html</loc>
-    <lastmod>2026-07-23</lastmod>
+    <loc>https://www.globalvisajourneys.com/blog/italy-schengen-visa-online-application-2026.html</loc>
+    <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <url>
+    <loc>https://www.globalvisajourneys.com/blog/schengen-visa-bank-statement-requirements-2026.html</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.globalvisajourneys.com/blog/schengen-90-180-day-rule-ees-2026-west-africa.html</loc>
+    <lastmod>2026-05-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.globalvisajourneys.com/blog/easiest-schengen-visa-country-west-africans-2026.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.globalvisajourneys.com/blog/schengen-visa-uk-non-british-passport-2026.html</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.globalvisajourneys.com/blog/dummy-tickets-visa-applications-guide.html</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.globalvisajourneys.com/blog/schengen-uk-spain-vs-greece-2026.html</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.globalvisajourneys.com/blog/schengen-refusal-nigeria-2026.html</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>
