@@ -3,6 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 301-equivalent redirect: ?slug= and ?id= → static post file -->
+    <script>
+    (function(){
+      var p = new URLSearchParams(window.location.search);
+      var slug = p.get('slug') || p.get('id');
+      /* map old Firestore doc IDs to their slugs */
+      var idMap = {
+        '613wZqSYzHtYZBSGMJTC': 'schengen-refusal-nigeria-2026',
+        'TmKoqwyMrQGJixnphgrF': 'schengen-uk-spain-vs-greece-2026',
+        'qN7TgAUxcKwiM4XyEYBs': 'dummy-tickets-visa-applications-guide',
+        'bIBgDT2SLIhMLbHaR5eu': 'schengen-visa-uk-non-british-passport-2026',
+        'YgEMmUAehfeXGF0K3BYU': 'schengen-90-180-day-rule-ees-2026-west-africa',
+        'easiest-schengen-visa-country-w': 'easiest-schengen-visa-country-west-africans-2026'
+      };
+      if (slug && idMap[slug]) slug = idMap[slug];
+      if (slug) {
+        window.location.replace(slug + '.html');
+      } else {
+        window.location.replace('index.html');
+      }
+    })();
+    </script>
     <!-- SEO tags populated dynamically by JS -->
     <title id="page-title">Loading article… | Global Visa &amp; Journeys</title>
     <meta id="meta-description" name="description" content="">
@@ -639,7 +661,7 @@ async function loadRelated(post) {
         if (others.length === 0) return;
 
         document.getElementById('related-grid').innerHTML = others.map(p => `
-            <a href="post.html?slug=${encodeURIComponent(p.slug)}" class="related-card">
+            <a href="${p.slug}.html" class="related-card">
                 <div class="related-card-image" style="background-image:url('${escapeHtml(p.heroImage)}')"></div>
                 <div class="p-5">
                     <h4 class="text-lg font-bold text-white leading-snug mb-2" style="font-family:'Cormorant Garamond',serif;">${escapeHtml(p.title)}</h4>
