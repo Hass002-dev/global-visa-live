@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complaints Policy | Global Visa &amp; Journeys London</title>
-    <meta name="description" content="How to raise a complaint with Global Visa &amp; Journeys Ltd, our three-step complaints process, and what happens if you are not satisfied with our response.">
-    <link rel="canonical" href="https://www.globalvisajourneys.com/complaints-policy.html">
+    <title>Real Flight Booking Request | Global Visa &amp; Journeys London</title>
+    <meta name="description" content="Request real flight bookings through Global Visa &amp; Journeys. We source and book confirmed flights on your behalf. Custom pricing confirmed via WhatsApp.">
+    <link rel="canonical" href="https://www.globalvisajourneys.com/real-flights.html">
 
     <link rel="icon" type="image/svg+xml" href="./favicon.svg">
     <link rel="stylesheet" href="./output.css">
@@ -40,10 +40,9 @@
         * { box-sizing: border-box; }
         body { font-family: 'DM Sans', sans-serif; background-color: var(--bg-primary); color: var(--text-primary); overflow-x: hidden; font-weight: 450; }
         h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; }
-        p, li, span, a, label, input, textarea { font-weight: 450; }
+        p, li, span, a, label, input, textarea, select { font-weight: 450; }
         .text-gold { color: var(--brand-gold); }
         .border-gold { border-color: var(--brand-gold); }
-        .bg-card { background-color: var(--bg-card); }
         body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; opacity: 0.4; }
         .btn-gold { background: linear-gradient(135deg, var(--brand-gold) 0%, var(--brand-gold-light) 100%); color: #080c10; font-weight: 800; font-family: 'DM Sans', sans-serif; text-transform: uppercase; letter-spacing: 0.08em; transition: all 0.3s ease; position: relative; overflow: hidden; }
         .btn-gold::after { content: ''; position: absolute; inset: 0; background: white; opacity: 0; transition: opacity 0.3s; }
@@ -51,32 +50,43 @@
         .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,168,76,0.35); }
         .btn-outline-gold { border: 1.5px solid var(--brand-gold); color: var(--brand-gold); font-weight: 700; font-family: 'DM Sans', sans-serif; transition: all 0.3s ease; background: transparent; }
         .btn-outline-gold:hover { background: linear-gradient(135deg, var(--brand-gold), var(--brand-gold-light)); color: #080c10; transform: translateY(-1px); }
-        .trust-badge { display: flex; align-items: center; gap: 10px; background: var(--bg-card); border: 1px solid var(--border-surface); border-radius: 8px; padding: 12px 16px; transition: border-color 0.3s; }
-        .trust-badge:hover { border-color: var(--brand-gold-dim); }
         .gold-divider { height: 1px; background: linear-gradient(to right, transparent, var(--brand-gold-dim), transparent); }
         @keyframes ringShake { 0%, 75%, 100% { transform: rotate(0) scale(1); } 77%, 81%, 85%, 89% { transform: rotate(-14deg) scale(1.08); } 79%, 83%, 87% { transform: rotate(14deg) scale(1.08); } }
         .whatsapp-float { position: fixed; width: 58px; height: 58px; bottom: 28px; right: 28px; background: var(--whatsapp); color: #fff; border-radius: 50%; font-size: 28px; box-shadow: 0 4px 20px rgba(37,211,102,0.45); z-index: 999; display: flex; align-items: center; justify-content: center; animation: ringShake 5s infinite; transition: transform 0.2s, box-shadow 0.2s; }
         .whatsapp-float:hover { animation: none; transform: scale(1.12); box-shadow: 0 6px 28px rgba(37,211,102,0.6); }
         .nav-scrolled { background: rgba(8,12,16,0.98) !important; box-shadow: 0 2px 20px rgba(0,0,0,0.5); }
 
-        .policy-article h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 700; color: #eef2f7; margin-bottom: 0.5rem; line-height: 1.15; }
-        .policy-article .meta { color: #c9a84c; font-size: 0.82rem; margin-bottom: 2.5rem; line-height: 1.7; }
-        .policy-article h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 700; color: #eef2f7; margin-top: 2.5rem; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid #1e2730; }
-        .policy-article p { color: #7a8899; line-height: 1.8; margin-bottom: 0.75rem; font-size: 0.9rem; }
-        .policy-article ul { color: #7a8899; line-height: 1.8; margin-bottom: 0.75rem; padding-left: 1.25rem; font-size: 0.9rem; }
-        .policy-article li { margin-bottom: 0.35rem; list-style-type: disc; }
-        .policy-article strong { color: #c9d1d9; }
-        .policy-article a { color: #c9a84c; }
-        .policy-article a:hover { color: #e8c97a; }
+        /* Form styles */
+        .form-label { display: block; font-size: 0.82rem; font-weight: 700; color: #adb8c4; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 6px; }
+        .form-input, .form-select {
+            width: 100%;
+            background: #0f1419;
+            border: 1px solid #1e2730;
+            color: #eef2f7;
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 450;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        .form-input:focus, .form-select:focus { border-color: var(--brand-gold); box-shadow: 0 0 0 3px rgba(201,168,76,0.12); }
+        .form-input::placeholder { color: #4a5568; }
+        .form-input.error, .form-select.error { border-color: #ef4444; }
+        .form-select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%237a8899' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px; padding-right: 36px; }
+        .form-select option { background: #0f1419; color: #eef2f7; }
+        .form-note { font-size: 0.78rem; color: #7a8899; margin-top: 5px; }
+        .form-group { margin-bottom: 20px; }
+        .date-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        @media (max-width: 480px) { .date-row { grid-template-columns: 1fr; } }
+        .form-card { background: #0f1419; border: 1px solid #1e2730; border-radius: 16px; padding: 32px; }
 
-        .step-block { display: flex; gap: 16px; margin-bottom: 16px; }
-        .step-num { flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #c9a84c, #e8c97a); color: #080c10; font-weight: 800; font-family: 'DM Sans', sans-serif; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; margin-top: 2px; }
-        .step-content {}
-        .step-label { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #c9d1d9; margin-bottom: 4px; }
-        .step-text { font-size: 0.88rem; color: #7a8899; line-height: 1.65; }
-
-        .contact-block { background: #0f1419; border: 1px solid #1e2730; border-radius: 8px; padding: 14px 18px; margin-bottom: 8px; font-size: 0.88rem; color: #7a8899; }
-        .contact-block strong { color: #c9d1d9; }
+        /* State panels */
+        #form-panel, #success-panel, #error-panel { }
+        #success-panel, #error-panel { display: none; }
 
         #mobile-bottom-nav { display: none; }
         @media (max-width: 767px) { #mobile-bottom-nav { display: block; } .whatsapp-float { bottom: 90px !important; } body { padding-bottom: 80px; } }
@@ -114,80 +124,148 @@
 </nav>
 
 <main class="pt-32 pb-24 bg-[#080c10] min-h-screen relative z-10">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6">
 
         <a href="index.html" class="inline-flex items-center gap-2 text-[#7a8899] hover:text-gold transition text-sm font-semibold mb-10">
             <i class="fa-solid fa-arrow-left text-xs"></i> Back to Home
         </a>
 
-        <article class="policy-article">
-            <h1>Complaints Policy</h1>
-            <p class="meta">
-                Global Visa &amp; Journeys Ltd &mdash; Registered in England &amp; Wales (No. 16959031)<br>
-                GVJ is committed to providing a professional, honest, and high-quality service to every client. This policy explains how to raise a complaint and what to expect from us in response.
-            </p>
+        <div class="mb-10">
+            <span class="text-gold font-bold tracking-widest uppercase text-xs">Travel Desk</span>
+            <h1 class="text-4xl md:text-5xl font-bold text-white mt-2" style="font-family:'Cormorant Garamond',serif;">Real Flight Booking Request</h1>
+            <p class="text-[#7a8899] mt-4 text-sm font-medium leading-relaxed">For embassies requiring confirmed tickets, or clients ready to book after visa approval. Fill in the details below — we'll confirm your options and custom pricing on WhatsApp within a few hours.</p>
+        </div>
 
-            <h2>1. How to Raise a Complaint</h2>
-            <p>Complaints can be raised through any of the following channels:</p>
-            <div class="contact-block"><strong>Email:</strong> office@globalvisajourneys.com <span style="color:#7a8899; font-size:0.8rem;">(preferred — creates a written record)</span></div>
-            <div class="contact-block"><strong>WhatsApp:</strong> +44 7511 219482</div>
-            <div class="contact-block"><strong>In writing:</strong> 71-75 Shelton Street, Covent Garden, London WC2H 9JQ</div>
-            <p style="margin-top:1rem;">When raising a complaint, please include:</p>
-            <ul>
-                <li>Your full name and the service you purchased</li>
-                <li>The date of purchase or the case reference, if known</li>
-                <li>A clear description of the issue</li>
-                <li>What outcome you are seeking</li>
-            </ul>
+        <!-- ── FORM PANEL ── -->
+        <div id="form-panel">
+            <div class="form-card">
+                <form id="flight-form" novalidate>
 
-            <h2>2. Our Complaints Process</h2>
-            <div class="step-block">
-                <div class="step-num">1</div>
-                <div class="step-content">
-                    <div class="step-label">Acknowledgement — within 2 working days</div>
-                    <div class="step-text">We will confirm receipt of your complaint in writing within 2 working days, along with an estimated timeframe for resolution.</div>
-                </div>
+                    <div class="form-group">
+                        <label class="form-label" for="fullName">Full Name</label>
+                        <input class="form-input" type="text" id="fullName" name="fullName" placeholder="As it appears on your passport" required>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="form-group">
+                            <label class="form-label" for="departureCity">Departure City</label>
+                            <input class="form-input" type="text" id="departureCity" name="departureCity" placeholder="e.g. London" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="destinationCity">Destination City</label>
+                            <input class="form-input" type="text" id="destinationCity" name="destinationCity" placeholder="e.g. Paris" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="tripType">Trip Type</label>
+                        <select class="form-select" id="tripType" name="tripType" required>
+                            <option value="" disabled selected>Select trip type</option>
+                            <option value="One-Way">One-Way</option>
+                            <option value="Return">Return</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Travel Date(s)</label>
+                        <div class="date-row">
+                            <div>
+                                <input class="form-input" type="date" id="departureDate" name="departureDate" required>
+                                <p class="form-note">Departure date</p>
+                            </div>
+                            <div id="return-date-wrap">
+                                <input class="form-input" type="date" id="returnDate" name="returnDate">
+                                <p class="form-note">Return date (if return trip)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="form-group">
+                            <label class="form-label" for="passengers">Number of Passengers</label>
+                            <input class="form-input" type="number" id="passengers" name="passengers" placeholder="1" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="baggage">Baggage Allowance</label>
+                            <select class="form-select" id="baggage" name="baggage" required>
+                                <option value="" disabled selected>Select allowance</option>
+                                <option value="15kg">15kg</option>
+                                <option value="20kg">20kg</option>
+                                <option value="23kg">23kg</option>
+                                <option value="25kg">25kg</option>
+                                <option value="30kg">30kg</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="ticketType">Ticket Type</label>
+                        <select class="form-select" id="ticketType" name="ticketType" required>
+                            <option value="" disabled selected>Select ticket type</option>
+                            <option value="Refundable">Refundable</option>
+                            <option value="Non-Refundable">Non-Refundable</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="contactNumber">Contact Number</label>
+                        <input class="form-input" type="tel" id="contactNumber" name="contactNumber" placeholder="+44 7700 000000" required>
+                        <p class="form-note"><i class="fa-brands fa-whatsapp text-[#25d366] mr-1"></i>Please provide a WhatsApp-reachable number — we'll confirm your options and pricing there.</p>
+                    </div>
+
+                    <p id="form-error-msg" class="hidden text-red-400 text-sm font-semibold mb-4"><i class="fa-solid fa-circle-exclamation mr-1"></i> Please fill in all required fields.</p>
+
+                    <button type="submit" id="submit-btn" class="w-full btn-gold py-4 rounded-xl text-sm mt-2">
+                        Submit Flight Request
+                    </button>
+
+                </form>
             </div>
-            <div class="step-block">
-                <div class="step-num">2</div>
-                <div class="step-content">
-                    <div class="step-label">Investigation — within 5 working days</div>
-                    <div class="step-text">Your complaint will be reviewed directly by the Founder &amp; CEO of GVJ, who will examine your case file, any relevant correspondence, and the service as delivered. We may contact you for further clarification during this stage.</div>
-                </div>
-            </div>
-            <div class="step-block">
-                <div class="step-num">3</div>
-                <div class="step-content">
-                    <div class="step-label">Resolution — within 10 working days of the original complaint</div>
-                    <div class="step-text">We will provide a written response setting out our findings and, where applicable, any resolution offered. This may include a correction of service, a partial or full refund in line with our Refund Policy, or an explanation of why we consider the service to have been delivered correctly.<br><br>If a complaint is complex and requires more time to investigate fully, we will inform you and provide a revised timeframe.</div>
-                </div>
-            </div>
+        </div>
 
-            <h2>3. If You Are Not Satisfied With Our Response</h2>
-            <p>If you remain dissatisfied after our final response, you are entitled to escalate your complaint. As GVJ provides Schengen and European visa services and does not provide UK immigration advice, we are not regulated by the Office of the Immigration Services Commissioner (OISC). However, we take all complaints seriously and will always aim to reach a fair resolution directly with the client wherever possible.</p>
-            <p>For any dispute relating to payment or consumer rights, clients may also contact:</p>
-            <ul>
-                <li><strong>Citizens Advice Consumer Helpline:</strong> 0808 223 1133</li>
-                <li><strong>Trading Standards:</strong> via gov.uk/consumer-protection-rights</li>
-            </ul>
+        <!-- ── SUCCESS PANEL ── -->
+        <div id="success-panel">
+            <div class="form-card text-center">
+                <div class="w-16 h-16 rounded-full bg-green-500/10 border border-green-500/30 flex items-center justify-center mx-auto mb-6">
+                    <i class="fa-solid fa-circle-check text-green-400 text-3xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-white mb-3">Request Received</h2>
+                <p class="text-[#7a8899] text-sm leading-relaxed mb-8">Thank you! We'll confirm your flight options and pricing on WhatsApp shortly.</p>
+                <a href="https://wa.me/447511219482?text=Hi%2C%20I%20just%20submitted%20a%20flight%20reservation%20request%20and%20I%27d%20like%20to%20follow%20up."
+                   onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'flight_form_success_cta'})"
+                   target="_blank"
+                   class="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold px-8 py-4 rounded-xl transition text-sm">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                    Follow Up on WhatsApp
+                </a>
+            </div>
+        </div>
 
-            <h2>4. Our Commitment</h2>
-            <p>We treat every complaint as an opportunity to improve our service. No client will be treated less favourably for raising a genuine complaint, and all complaints are handled confidentially and professionally.</p>
-        </article>
+        <!-- ── ERROR PANEL ── -->
+        <div id="error-panel">
+            <div class="form-card text-center">
+                <div class="w-16 h-16 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center mx-auto mb-6">
+                    <i class="fa-solid fa-triangle-exclamation text-red-400 text-3xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-white mb-3">Submission Failed</h2>
+                <p class="text-[#7a8899] text-sm leading-relaxed mb-8">Something went wrong on our end. Please contact us directly on WhatsApp and we'll get your request sorted straight away.</p>
+                <a href="https://wa.me/447511219482?text=Hi%2C%20I%20just%20submitted%20a%20flight%20reservation%20request%20and%20I%27d%20like%20to%20follow%20up."
+                   onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'flight_form_error_cta'})"
+                   target="_blank"
+                   class="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold px-8 py-4 rounded-xl transition text-sm">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                    Contact Us on WhatsApp
+                </a>
+                <button onclick="document.getElementById('error-panel').style.display='none'; document.getElementById('form-panel').style.display='';" class="block mx-auto mt-4 text-[#7a8899] hover:text-gold text-sm transition">
+                    Try submitting again
+                </button>
+            </div>
+        </div>
+
     </div>
 </main>
 
-<footer class="bg-[#080c10] text-[#7a8899] relative z-10">
-    <div class="border-b border-[#1e2730] py-8">
-        <div class="max-w-5xl mx-auto px-4">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="trust-badge"><i class="fa-solid fa-building-columns text-gold text-xl flex-shrink-0"></i><div><p class="text-white text-xs font-bold">Companies House</p><p class="text-[#7a8899] text-[11px] font-medium">Reg. No. 16959031</p></div></div>
-                <div class="trust-badge"><i class="fa-solid fa-shield-halved text-green-400 text-xl flex-shrink-0"></i><div><p class="text-white text-xs font-bold">PI Insured</p><p class="text-[#7a8899] text-[11px] font-medium">Professional Indemnity</p></div></div>
-                <div class="trust-badge"><i class="fa-brands fa-stripe text-[#635BFF] text-2xl flex-shrink-0"></i><div><p class="text-white text-xs font-bold">Secure Payments</p><p class="text-[#7a8899] text-[11px] font-medium">Powered by Stripe</p></div></div>
-                <div class="trust-badge"><i class="fa-solid fa-lock text-blue-400 text-xl flex-shrink-0"></i><div><p class="text-white text-xs font-bold">GDPR Compliant</p><p class="text-[#7a8899] text-[11px] font-medium">256-bit Encrypted</p></div></div>
-            </div>
-        </div>
-    </div>
+<footer class="bg-[#080c10] border-t border-[#1e2730] text-[#7a8899] relative z-10">
     <div class="py-14">
         <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-3 lg:grid-cols-7 gap-8">
             <div class="col-span-1 md:col-span-3 lg:col-span-2">
@@ -234,7 +312,7 @@
                 <ul class="space-y-2 text-sm font-medium">
                     <li><a href="fee-list.html" class="hover:text-gold transition">Full Fee List</a></li>
                     <li><a href="refund-policy.html" class="hover:text-gold transition">Refund Policy</a></li>
-                    <li><a href="complaints-policy.html" class="text-gold font-bold transition">Complaints Policy</a></li>
+                    <li><a href="complaints-policy.html" class="hover:text-gold transition">Complaints Policy</a></li>
                     <li><a href="engagement-letter.html" class="hover:text-gold transition">Client Engagement Letter</a></li>
                 </ul>
             </div>
@@ -269,35 +347,119 @@
 </nav>
 
 <script>
+const FLIGHT_FORM_WEBHOOK_URL = "PLACEHOLDER_WEBHOOK_URL";
+
 window.addEventListener('scroll', () => {
     const nav = document.getElementById('main-nav');
     if (window.scrollY > 50) nav.classList.add('nav-scrolled');
     else nav.classList.remove('nav-scrolled');
 });
-</script>
-<script>
+
+(function () {
+    const form = document.getElementById('flight-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const formPanel = document.getElementById('form-panel');
+    const successPanel = document.getElementById('success-panel');
+    const errorPanel = document.getElementById('error-panel');
+    const errorMsg = document.getElementById('form-error-msg');
+    const tripTypeSelect = document.getElementById('tripType');
+    const returnDateWrap = document.getElementById('return-date-wrap');
+    const returnDateInput = document.getElementById('returnDate');
+
+    tripTypeSelect.addEventListener('change', function () {
+        if (this.value === 'Return') {
+            returnDateInput.required = true;
+            returnDateWrap.style.opacity = '1';
+        } else {
+            returnDateInput.required = false;
+            returnDateInput.value = '';
+            returnDateWrap.style.opacity = '0.4';
+        }
+    });
+    returnDateWrap.style.opacity = '0.4';
+
+    const requiredFields = ['fullName', 'departureCity', 'destinationCity', 'tripType', 'departureDate', 'passengers', 'baggage', 'ticketType', 'contactNumber'];
+
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        let valid = true;
+        requiredFields.forEach(id => {
+            const el = document.getElementById(id);
+            if (!el.value.trim()) {
+                el.classList.add('error');
+                valid = false;
+            } else {
+                el.classList.remove('error');
+            }
+        });
+        if (tripTypeSelect.value === 'Return' && !returnDateInput.value) {
+            returnDateInput.classList.add('error');
+            valid = false;
+        } else {
+            returnDateInput.classList.remove('error');
+        }
+        if (!valid) {
+            errorMsg.classList.remove('hidden');
+            return;
+        }
+        errorMsg.classList.add('hidden');
+
+        const payload = {
+            fullName: document.getElementById('fullName').value.trim(),
+            departureCity: document.getElementById('departureCity').value.trim(),
+            destinationCity: document.getElementById('destinationCity').value.trim(),
+            tripType: document.getElementById('tripType').value,
+            departureDate: document.getElementById('departureDate').value,
+            returnDate: document.getElementById('returnDate').value || null,
+            passengers: parseInt(document.getElementById('passengers').value, 10),
+            baggageAllowance: document.getElementById('baggage').value,
+            ticketType: document.getElementById('ticketType').value,
+            contactNumber: document.getElementById('contactNumber').value.trim(),
+            submittedAt: new Date().toISOString()
+        };
+
+        submitBtn.textContent = 'Sending…';
+        submitBtn.disabled = true;
+
+        try {
+            const res = await fetch(FLIGHT_FORM_WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            if (!res.ok) throw new Error('Non-OK response');
+            formPanel.style.display = 'none';
+            successPanel.style.display = '';
+            gtag('event', 'flight_form_submit', { page_title: document.title });
+        } catch (err) {
+            formPanel.style.display = 'none';
+            errorPanel.style.display = '';
+        }
+    });
+
+    form.querySelectorAll('.form-input, .form-select').forEach(el => {
+        el.addEventListener('input', () => el.classList.remove('error'));
+    });
+})();
+
 (function () {
     var newsBtn = document.getElementById('newsletter-btn');
     var newsInput = document.getElementById('newsletter-email');
     var newsSuccess = document.getElementById('newsletter-success');
-    function showNewsError(msg) { var errEl = document.getElementById('newsletter-error'); if (!errEl) { errEl = document.createElement('p'); errEl.id = 'newsletter-error'; errEl.className = 'text-red-400 text-xs font-bold'; newsSuccess.insertAdjacentElement('afterend', errEl); } errEl.textContent = msg; errEl.style.display = 'block'; newsSuccess.classList.add('hidden'); }
-    function hideNewsError() { var errEl = document.getElementById('newsletter-error'); if (errEl) errEl.style.display = 'none'; }
     if (newsBtn) {
         newsBtn.addEventListener('click', async function () {
             var email = newsInput.value.trim();
             if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { newsInput.style.borderColor = '#ef4444'; return; }
-            newsInput.style.borderColor = ''; hideNewsError(); newsSuccess.classList.add('hidden');
+            newsInput.style.borderColor = ''; newsSuccess.classList.add('hidden');
             newsBtn.textContent = 'Joining'; newsBtn.disabled = true;
             try {
-                var res = await fetch('https://gvj-mailchimp.office-c5d.workers.dev/', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email }) });
-                if (res.ok) { newsSuccess.innerHTML = '<i class="fa-solid fa-circle-check mr-1"></i> You are on the list.'; newsSuccess.classList.remove('hidden'); newsInput.value = ''; }
-                else { showNewsError('Something went wrong. Please try again.'); }
-            } catch (e) { showNewsError('Something went wrong. Please try again.'); }
-            finally { newsBtn.textContent = 'Subscribe'; newsBtn.disabled = false; }
+                await fetch('https://gvj-mailchimp.office-c5d.workers.dev/', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({email}) });
+                newsSuccess.classList.remove('hidden'); newsBtn.textContent = 'Subscribe'; newsBtn.disabled = false; newsInput.value = '';
+            } catch(e) { newsBtn.textContent = 'Subscribe'; newsBtn.disabled = false; }
         });
     }
 })();
 </script>
-
 </body>
 </html>
