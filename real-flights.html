@@ -347,7 +347,7 @@
 </nav>
 
 <script>
-const FLIGHT_FORM_WEBHOOK_URL = "PLACEHOLDER_WEBHOOK_URL";
+const FLIGHT_FORM_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbzt84Pp1uB-s6FxXICgfucjfydwHkfG5PfaxClwctyQZ7uOrff87nSdSlmdtMY95u3c1Q/exec";
 
 window.addEventListener('scroll', () => {
     const nav = document.getElementById('main-nav');
@@ -405,13 +405,14 @@ window.addEventListener('scroll', () => {
         }
         errorMsg.classList.add('hidden');
 
+        const depDate = document.getElementById('departureDate').value;
+        const retDate = document.getElementById('returnDate').value;
         const payload = {
             fullName: document.getElementById('fullName').value.trim(),
             departureCity: document.getElementById('departureCity').value.trim(),
             destinationCity: document.getElementById('destinationCity').value.trim(),
+            travelDates: retDate ? depDate + ' to ' + retDate : depDate,
             tripType: document.getElementById('tripType').value,
-            departureDate: document.getElementById('departureDate').value,
-            returnDate: document.getElementById('returnDate').value || null,
             passengers: parseInt(document.getElementById('passengers').value, 10),
             baggageAllowance: document.getElementById('baggage').value,
             ticketType: document.getElementById('ticketType').value,
