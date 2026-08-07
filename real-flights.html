@@ -424,12 +424,12 @@ window.addEventListener('scroll', () => {
         submitBtn.disabled = true;
 
         try {
-            const res = await fetch(FLIGHT_FORM_WEBHOOK_URL, {
+            await fetch(FLIGHT_FORM_WEBHOOK_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'text/plain' },
                 body: JSON.stringify(payload)
             });
-            if (!res.ok) throw new Error('Non-OK response');
             formPanel.style.display = 'none';
             successPanel.style.display = '';
             gtag('event', 'flight_form_submit', { page_title: document.title });
