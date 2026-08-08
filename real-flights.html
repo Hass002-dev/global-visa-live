@@ -431,11 +431,11 @@ window.addEventListener('scroll', () => {
                 body: JSON.stringify(payload)
             });
             formPanel.style.display = 'none';
-            successPanel.style.display = '';
+            successPanel.style.display = 'block';
             gtag('event', 'flight_form_submit', { page_title: document.title });
         } catch (err) {
             formPanel.style.display = 'none';
-            errorPanel.style.display = '';
+            errorPanel.style.display = 'block';
         }
     });
 
