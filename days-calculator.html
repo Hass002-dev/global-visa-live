@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schengen 90/180 Day Calculator | Global Visa &amp; Journeys London</title>
+    <meta name="description" content="Calculate your remaining Schengen days using the rolling 90/180 day rule. Enter your past trips to see exactly how many days you have left — and check if a future trip is safe.">
+    <link rel="canonical" href="https://www.globalvisajourneys.com/days-calculator.html">
+
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+    <link rel="stylesheet" href="./output.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1EZM399KT"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-Q1EZM399KT');
+    </script>
+
+    <style>
+        :root {
+            --bg-primary: #080c10;
+            --bg-secondary: #0f1419;
+            --bg-card: #131920;
+            --border-surface: #1e2730;
+            --border-subtle: #252e38;
+            --brand-gold: #c9a84c;
+            --brand-gold-light: #e8c97a;
+            --brand-gold-dim: #8a6f2e;
+            --text-primary: #eef2f7;
+            --text-secondary: #7a8899;
+            --text-muted: #4a5568;
+            --whatsapp: #25d366;
+        }
+
+        * { box-sizing: border-box; }
+        body { font-family: 'DM Sans', sans-serif; background-color: var(--bg-primary); color: var(--text-primary); overflow-x: hidden; font-weight: 450; }
+        h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; }
+        p, li, span, a, label, input, select { font-weight: 450; }
+        .text-gold { color: var(--brand-gold); }
+
+        body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; opacity: 0.4; }
+
+        /* NAV */
+        .nav-scrolled { background: rgba(8,12,16,0.98) !important; box-shadow: 0 2px 20px rgba(0,0,0,0.5); }
+
+        /* BUTTONS */
+        .btn-gold { background: linear-gradient(135deg, var(--brand-gold) 0%, var(--brand-gold-light) 100%); color: #080c10; font-weight: 800; font-family: 'DM Sans', sans-serif; text-transform: uppercase; letter-spacing: 0.08em; transition: all 0.3s ease; display: inline-block; cursor: pointer; border: none; }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,168,76,0.35); }
+        .btn-outline-gold { border: 1.5px solid var(--brand-gold); color: var(--brand-gold); background: transparent; font-weight: 700; font-family: 'DM Sans', sans-serif; transition: all 0.3s ease; cursor: pointer; }
+        .btn-outline-gold:hover { background: var(--brand-gold); color: #080c10; }
+
+        /* CALC CARDS */
+        .calc-card { background: var(--bg-card); border: 1px solid var(--border-surface); border-top: 3px solid var(--brand-gold); border-radius: 16px; padding: 24px; }
+
+        /* FORM INPUTS */
+        .form-input { width: 100%; background: var(--bg-secondary); border: 1px solid var(--border-surface); color: var(--text-primary); padding: 10px 14px; border-radius: 10px; font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 450; transition: border-color 0.2s; outline: none; }
+        .form-input:focus { border-color: var(--brand-gold); }
+        .form-input:disabled { opacity: 0.35; cursor: not-allowed; }
+        input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.6); cursor: pointer; }
+
+        /* FIELD LABELS */
+        .field-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); display: block; margin-bottom: 6px; }
+
+        /* TRIP ROWS */
+        .trip-row { background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 16px; margin-bottom: 10px; }
+        .trip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        @media (max-width: 580px) { .trip-grid { grid-template-columns: 1fr; } }
+        .remove-btn { background: transparent; border: 1px solid var(--border-surface); color: var(--text-muted); border-radius: 8px; padding: 5px 12px; cursor: pointer; font-size: 12px; font-weight: 600; font-family: 'DM Sans', sans-serif; transition: all 0.2s; line-height: 1.5; }
+        .remove-btn:hover { border-color: #ef4444; color: #ef4444; }
+
+        /* PROGRESS BAR */
+        .progress-track { background: var(--border-surface); border-radius: 999px; height: 14px; overflow: hidden; }
+        .progress-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--brand-gold), var(--brand-gold-light)); transition: width 0.6s ease; min-width: 0; }
+        .progress-fill.over-limit { background: linear-gradient(90deg, #ef4444, #f97316); }
+
+        /* STAT DISPLAY */
+        .stat-giant { font-family: 'Cormorant Garamond', serif; font-size: 4rem; font-weight: 700; line-height: 1; }
+        .stat-caption { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); margin-top: 4px; }
+
+        /* STATUS ALERTS */
+        .overstay-alert { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25); border-left: 4px solid #ef4444; border-radius: 12px; padding: 16px 20px; }
+        .caution-alert { background: rgba(234,179,8,0.06); border: 1px solid rgba(234,179,8,0.2); border-left: 4px solid #eab308; border-radius: 12px; padding: 16px 20px; }
+        .safe-alert { background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.2); border-left: 4px solid #22c55e; border-radius: 12px; padding: 16px 20px; }
+
+        /* WHATSAPP FLOAT */
+        .whatsapp-float { position: fixed; bottom: 28px; right: 24px; z-index: 9997; width: 58px; height: 58px; background: var(--whatsapp); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 28px; text-decoration: none; box-shadow: 0 4px 20px rgba(37,211,102,0.4); transition: transform 0.2s; }
+        .whatsapp-float:hover { transform: scale(1.12); }
+
+        /* GOLD DIVIDER */
+        .gold-divider { height: 1px; background: linear-gradient(90deg, transparent, var(--brand-gold-dim), transparent); margin: 0 auto; }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav" class="bg-[#080c10]/90 backdrop-blur-md border-b border-[#1e2730] fixed w-full z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-20 items-center">
+            <div class="flex items-center space-x-3">
+                <img src="./Updated Logo.png" alt="GV&J Logo" class="h-11 w-11 object-contain rounded-md" width="44" height="44" loading="eager" onerror="this.style.display='none'">
+                <div class="flex flex-col leading-none">
+                    <span class="text-xl md:text-2xl font-black tracking-tight hidden md:block" style="font-family:'Cormorant Garamond',serif; letter-spacing:0.02em;"><span class="text-gold">GLOBAL VISA</span> <span class="text-white">&amp; JOURNEYS</span></span>
+                    <span class="text-xl font-black tracking-tight md:hidden" style="font-family:'Cormorant Garamond',serif;">GV<span class="text-gold">&amp;</span>J</span>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3 md:space-x-5">
+                <a href="index.html" class="text-[#7a8899] hover:text-white font-semibold transition text-sm hidden md:block">Home</a>
+                <a href="about.html" class="text-sm text-[#7a8899] hover:text-white font-semibold transition hidden md:block">About</a>
+                <a href="partnership.html" class="text-sm text-[#7a8899] hover:text-white font-semibold transition hidden md:block">Partners</a>
+                <a href="blog/index.html" class="text-sm text-[#7a8899] hover:text-white font-semibold transition hidden md:block">Insights</a>
+                <a href="refusal.html" class="text-sm text-[#7a8899] hover:text-white font-semibold transition hidden md:block">Refusal Recovery</a>
+                <a href="calculator.html" class="text-xs md:text-sm text-[#7a8899] hover:text-white font-semibold transition flex items-center gap-1">
+                    <i class="fa-solid fa-calculator text-gold text-xs"></i> Readiness Check
+                </a>
+                <a href="portal.html" class="btn-outline-gold px-3 py-2 md:px-4 rounded-lg text-xs md:text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-lock text-xs"></i>
+                    <span class="hidden md:inline">Client Portal</span><span class="md:hidden">Portal</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<header class="pt-36 pb-14 px-4 text-center bg-[#080c10] border-b border-[#1e2730] relative z-10">
+    <div class="max-w-2xl mx-auto">
+        <div class="inline-flex items-center gap-2 bg-[#0f1419]/80 border border-[#1e2730] rounded-full px-5 py-1.5 mb-6">
+            <i class="fa-solid fa-calendar-days text-gold text-xs"></i>
+            <span class="text-gold text-xs font-bold tracking-widest uppercase">Free Tool &middot; Rolling 180-Day Window</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-black text-white mb-4 leading-tight">Schengen 90/180<br><em class="text-gold">Day Calculator</em></h1>
+        <p class="text-[#7a8899] text-base md:text-lg font-medium leading-relaxed max-w-xl mx-auto">Enter your past Schengen trips to see exactly how many days you&rsquo;ve used and how many remain — using the official rolling 180-day window rule.</p>
+    </div>
+</header>
+
+<!-- MAIN CALCULATOR -->
+<section class="py-14 relative z-10">
+    <div class="max-w-2xl mx-auto px-4">
+
+        <!-- Reference Date -->
+        <div class="calc-card mb-6">
+            <h3 class="text-lg font-bold text-white mb-1">What date are you calculating for?</h3>
+            <p class="text-[#7a8899] text-sm mb-5 font-medium">Defaults to today. Change this to a future date to plan ahead — for example, the date you're planning to enter Schengen.</p>
+            <label class="field-label" for="refDate">Reference Date</label>
+            <input type="date" id="refDate" class="form-input" style="max-width: 220px;">
+        </div>
+
+        <!-- Trips -->
+        <div class="calc-card mb-6">
+            <h3 class="text-lg font-bold text-white mb-1">Your Schengen Trips</h3>
+            <p class="text-[#7a8899] text-sm mb-5 font-medium">Add every Schengen trip in the last 6+ months. Include trips that started before the 180-day window — they'll be clamped automatically. Both the entry and exit day count as full days.</p>
+            <div id="trips-container"></div>
+            <button id="add-trip-btn" type="button" class="mt-2 flex items-center gap-2 text-gold text-sm font-bold hover:text-[#e8c97a] transition">
+                <i class="fa-solid fa-plus-circle"></i> Add Another Trip
+            </button>
+        </div>
+
+        <!-- Calculate Button -->
+        <button id="calc-btn" type="button" class="btn-gold w-full py-4 rounded-xl text-sm mb-2">
+            <i class="fa-solid fa-calculator mr-2"></i> Calculate My Schengen Days
+        </button>
+        <p class="text-center text-[#4a5568] text-xs mb-8 font-medium">Results appear instantly below</p>
+
+        <!-- RESULTS (hidden until calculated) -->
+        <div id="results-section" style="display: none;">
+
+            <!-- Window label -->
+            <div class="text-center mb-5">
+                <p class="text-[#7a8899] text-xs font-bold uppercase tracking-widest mb-1">180-Day Rolling Window</p>
+                <p id="window-label" class="text-white font-semibold text-sm"></p>
+            </div>
+
+            <!-- Stats + Progress Bar -->
+            <div class="calc-card mb-6">
+                <div class="flex justify-around items-end mb-5">
+                    <div class="text-center">
+                        <div id="days-used-display" class="stat-giant text-white">0</div>
+                        <div class="stat-caption">Days Used</div>
+                    </div>
+                    <div class="text-[#4a5568] font-light mb-5" style="font-size: 1.5rem;">of 90</div>
+                    <div class="text-center">
+                        <div id="days-remaining-display" class="stat-giant" style="color: var(--brand-gold);">90</div>
+                        <div class="stat-caption">Days Remaining</div>
+                    </div>
+                </div>
+                <div class="progress-track mb-5">
+                    <div id="progress-fill" class="progress-fill" style="width: 0%;"></div>
+                </div>
+                <div id="status-alert"></div>
+            </div>
+
+            <!-- Planned Future Trip -->
+            <div class="calc-card mb-6">
+                <h3 class="text-lg font-bold text-white mb-1">Planning a Future Trip?</h3>
+                <p class="text-[#7a8899] text-sm mb-5 font-medium">Enter your planned dates. The calculator will show your Days Used and Remaining as of the <em>end</em> of that planned trip, using the rolling window anchored to your planned exit date — factoring in both your historical trips and the new one.</p>
+                <div class="trip-grid mb-4">
+                    <div>
+                        <label class="field-label" for="planned-entry">Planned Entry Date</label>
+                        <input type="date" id="planned-entry" class="form-input">
+                    </div>
+                    <div>
+                        <label class="field-label" for="planned-exit">Planned Exit Date</label>
+                        <input type="date" id="planned-exit" class="form-input">
+                    </div>
+                </div>
+                <button id="check-planned-btn" type="button" class="btn-outline-gold py-3 px-6 rounded-xl text-sm w-full">
+                    <i class="fa-solid fa-route mr-2"></i> Check This Planned Trip
+                </button>
+
+                <!-- Planned results -->
+                <div id="planned-results" style="display: none;" class="mt-6 pt-6 border-t border-[#1e2730]">
+                    <p id="planned-window-label" class="text-[#7a8899] text-xs font-bold uppercase tracking-widest mb-4"></p>
+                    <div class="flex justify-around items-end mb-4">
+                        <div class="text-center">
+                            <div id="planned-used-display" class="stat-giant text-white" style="font-size: 3rem;">0</div>
+                            <div class="stat-caption">Days Used</div>
+                        </div>
+                        <div class="text-[#4a5568] font-light mb-4" style="font-size: 1.25rem;">of 90</div>
+                        <div class="text-center">
+                            <div id="planned-remaining-display" class="stat-giant" style="font-size: 3rem; color: var(--brand-gold);">90</div>
+                            <div class="stat-caption">Remaining</div>
+                        </div>
+                    </div>
+                    <div id="planned-status-alert"></div>
+                </div>
+            </div>
+
+            <!-- WhatsApp CTA (conditional: shown when days < 20 or negative) -->
+            <div id="whatsapp-cta" style="display: none; background: rgba(37,211,102,0.05); border: 1px solid rgba(37,211,102,0.15);" class="text-center py-8 px-6 rounded-2xl mb-6">
+                <i class="fa-brands fa-whatsapp text-[#25d366] text-4xl mb-3 block"></i>
+                <p class="text-white font-bold mb-1">Not sure what this means for your situation?</p>
+                <p class="text-[#7a8899] text-sm mb-5 font-medium">Our team can review your specific case and advise on your options — no commitment required.</p>
+                <a href="https://wa.me/447511219482?text=Hi%2C%20I%20used%20the%2090%2F180%20day%20calculator%20and%20I%27d%20like%20some%20help%20understanding%20my%20situation."
+                   onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'days_calc_cta'})"
+                   target="_blank"
+                   class="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold px-8 py-4 rounded-xl transition text-sm">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                    Message Us on WhatsApp
+                </a>
+            </div>
+
+        </div><!-- /results-section -->
+
+        <!-- Disclaimer (always visible) -->
+        <div class="border border-[#1e2730] rounded-xl px-5 py-4 mt-4" style="background: rgba(201,168,76,0.03);">
+            <p class="text-[#7a8899] text-xs leading-relaxed font-medium">
+                <i class="fa-solid fa-circle-info text-gold mr-2"></i>
+                <strong class="text-[#adb8c4]">Estimate only.</strong> This calculator provides an estimate based on the standard 90/180 day rule. It does not account for special visa categories, exemptions, or country-specific agreements. For complex situations, always verify with official sources or speak to us directly.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-[#080c10] text-[#7a8899] border-t border-[#1e2730] relative z-10">
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div>
+                <span class="text-white text-2xl font-black" style="font-family:'Cormorant Garamond',serif;">GLOBAL VISA <span class="text-gold">&amp;</span> JOURNEYS</span>
+                <p class="mt-4 text-sm leading-relaxed font-medium">Specialist travel consultancy. Registered in England &amp; Wales (No. 16959031).</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-5 text-sm tracking-wider uppercase">Services</h4>
+                <ul class="space-y-2 text-sm font-medium">
+                    <li><a href="calculator.html" class="hover:text-gold transition">Schengen Visa</a></li>
+                    <li><a href="refusal.html" class="hover:text-gold transition">Refusal Recovery</a></li>
+                    <li><a href="student.html" class="hover:text-gold transition">Study Abroad</a></li>
+                    <li><a href="work.html" class="hover:text-gold transition">Work in Europe</a></li>
+                    <li><a href="real-flights.html" class="hover:text-gold transition">Flight Reservation</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-5 text-sm tracking-wider uppercase">Resources</h4>
+                <ul class="space-y-2 text-sm font-medium">
+                    <li><a href="blog/index.html" class="hover:text-gold transition">Visa Blog</a></li>
+                    <li><a href="calculator.html" class="hover:text-gold transition">Visa Calculator</a></li>
+                    <li><a href="portal.html" class="hover:text-gold transition">Client Portal</a></li>
+                    <li><a href="about.html" class="hover:text-gold transition">About Us</a></li>
+                    <li><a href="partnership.html" class="hover:text-gold transition">Partners</a></li>
+                    <li><a href="diy-toolkit.html" class="hover:text-gold transition">DIY Toolkit</a></li>
+                    <li><a href="days-calculator.html" style="color: var(--brand-gold);">Days Calculator</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-5 text-sm tracking-wider uppercase">Compliance</h4>
+                <ul class="space-y-2 text-sm font-medium">
+                    <li><a href="fee-list.html" class="hover:text-gold transition">Full Fee List</a></li>
+                    <li><a href="refund-policy.html" class="hover:text-gold transition">Refund Policy</a></li>
+                    <li><a href="complaints-policy.html" class="hover:text-gold transition">Complaints Policy</a></li>
+                    <li><a href="engagement-letter.html" class="hover:text-gold transition">Engagement Letter</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="gold-divider mx-auto max-w-7xl"></div>
+    <div class="py-6 text-center text-xs">
+        <p class="text-[#4a5568] font-medium">&copy; 2026 Global Visa &amp; Journeys Ltd. Registered in England &amp; Wales (No: 16959031).</p>
+    </div>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'floating_button'})" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<!-- MOBILE NAV -->
+<style>
+#mobile-bottom-nav { display: none; }
+@media (max-width: 767px) {
+    #mobile-bottom-nav { display: block; }
+    .whatsapp-float { bottom: 90px !important; }
+    body { padding-bottom: 80px; }
+}
+</style>
+<nav id="mobile-bottom-nav" style="position:fixed; bottom:0; left:0; right:0; z-index:9998; background:#0f1419; border-top:1px solid #1e2730; -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); padding-bottom:env(safe-area-inset-bottom);">
+    <div style="display:flex;">
+        <a href="index.html" class="mobile-nav-item" data-nav="home" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-house" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Home</span>
+        </a>
+        <a href="calculator.html" class="mobile-nav-item" data-nav="readiness" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-clipboard-list" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Readiness</span>
+        </a>
+        <a href="blog/index.html" class="mobile-nav-item" data-nav="insights" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-newspaper" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Insights</span>
+        </a>
+        <a href="about.html" class="mobile-nav-item" data-nav="about" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-circle-info" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">About</span>
+        </a>
+        <a href="student.html" class="mobile-nav-item" data-nav="study" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-graduation-cap" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Study</span>
+        </a>
+    </div>
+</nav>
+
+<script>
+// ── CALCULATION ENGINE ──
+
+function parseDate(str) {
+    var p = str.split('-').map(Number);
+    return new Date(p[0], p[1] - 1, p[2]);
+}
+
+function fmtDate(d) {
+    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+function countDaysInWindow(entry, exit, winStart, winEnd) {
+    var s = Math.max(entry.getTime(), winStart.getTime());
+    var e = Math.min(exit.getTime(), winEnd.getTime());
+    if (s > e) return 0;
+    return Math.round((e - s) / 86400000) + 1;
+}
+
+function calcSchengen(refDateStr, trips) {
+    var ref = parseDate(refDateStr);
+    // Rolling window: 180 days ending on ref (inclusive), so start = ref - 179 days
+    var winStart = new Date(ref.getFullYear(), ref.getMonth(), ref.getDate() - 179);
+    var total = 0;
+    trips.forEach(function(t) {
+        if (!t.entry) return;
+        var entry = parseDate(t.entry);
+        if (entry > ref) return; // skip trips that start after the reference date
+        var exit = t.exit ? parseDate(t.exit) : ref;
+        // Clamp exit to reference date if it extends beyond
+        if (exit > ref) exit = ref;
+        total += countDaysInWindow(entry, exit, winStart, ref);
+    });
+    return { total: total, remaining: 90 - total, winStart: winStart, winEnd: ref };
+}
+
+// ── INTERNAL TEST (verifies implementation before any user interaction) ──
+(function runTest() {
+    var r = calcSchengen('2026-06-01', [
+        { entry: '2026-01-01', exit: '2026-01-30' },
+        { entry: '2026-04-01', exit: '2026-04-15' }
+    ]);
+    var pass = (r.total === 45 && r.remaining === 45);
+    if (pass) {
+        console.log('[GVJ Days Calc] ✓ Test passed: ref 2026-06-01 | window ' + fmtDate(r.winStart) + ' – ' + fmtDate(r.winEnd) + ' | 45 days used, 45 remaining');
+    } else {
+        console.error('[GVJ Days Calc] ✗ Test FAILED: expected total=45 remaining=45, got total=' + r.total + ' remaining=' + r.remaining);
+    }
+})();
+
+// ── NAV SCROLL ──
+window.addEventListener('scroll', function() {
+    var nav = document.getElementById('main-nav');
+    if (window.scrollY > 50) nav.classList.add('nav-scrolled');
+    else nav.classList.remove('nav-scrolled');
+});
+
+// ── TRIP MANAGEMENT ──
+var tripCount = 0;
+
+function addTrip(entryVal, exitVal, stillIn) {
+    tripCount++;
+    var n = tripCount;
+    var container = document.getElementById('trips-container');
+    var div = document.createElement('div');
+    div.className = 'trip-row';
+    div.setAttribute('data-trip', n);
+    div.innerHTML =
+        '<div class="flex items-center justify-between mb-3">' +
+            '<span style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-secondary);">Trip ' + n + '</span>' +
+            (n > 1 ? '<button class="remove-btn" onclick="removeTrip(this)">Remove</button>' : '') +
+        '</div>' +
+        '<div class="trip-grid">' +
+            '<div>' +
+                '<label class="field-label">Entry Date</label>' +
+                '<input type="date" class="trip-entry form-input" value="' + (entryVal || '') + '">' +
+            '</div>' +
+            '<div>' +
+                '<label class="field-label">Exit Date</label>' +
+                '<input type="date" class="trip-exit form-input" value="' + (exitVal || '') + '"' + (stillIn ? ' disabled' : '') + '>' +
+                '<label class="flex items-center gap-2 mt-2 cursor-pointer">' +
+                    '<input type="checkbox" class="still-in" style="accent-color:var(--brand-gold); width:15px; height:15px;"' + (stillIn ? ' checked' : '') + '>' +
+                    '<span style="font-size:13px; color:var(--text-secondary); font-weight:500;">Still in Schengen</span>' +
+                '</label>' +
+            '</div>' +
+        '</div>';
+    container.appendChild(div);
+
+    var checkbox = div.querySelector('.still-in');
+    var exitInput = div.querySelector('.trip-exit');
+    checkbox.addEventListener('change', function() {
+        exitInput.disabled = this.checked;
+        if (this.checked) exitInput.value = '';
+    });
+}
+
+function removeTrip(btn) {
+    btn.closest('.trip-row').remove();
+    renumberTrips();
+}
+
+function renumberTrips() {
+    document.querySelectorAll('#trips-container .trip-row').forEach(function(row, i) {
+        var label = row.querySelector('span');
+        if (label) label.textContent = 'Trip ' + (i + 1);
+    });
+}
+
+document.getElementById('add-trip-btn').addEventListener('click', function() { addTrip(); });
+
+function getTrips() {
+    var trips = [];
+    document.querySelectorAll('#trips-container .trip-row').forEach(function(row) {
+        var entry = row.querySelector('.trip-entry').value;
+        var stillIn = row.querySelector('.still-in').checked;
+        var exitEl = row.querySelector('.trip-exit');
+        var exit = stillIn ? null : (exitEl.value || null);
+        trips.push({ entry: entry || null, exit: exit });
+    });
+    return trips;
+}
+
+// ── SET DEFAULT REFERENCE DATE TO TODAY ──
+(function() {
+    var today = new Date();
+    var y = today.getFullYear();
+    var m = String(today.getMonth() + 1).padStart(2, '0');
+    var d = String(today.getDate()).padStart(2, '0');
+    document.getElementById('refDate').value = y + '-' + m + '-' + d;
+    addTrip();
+})();
+
+// ── RENDER STATUS ALERT ──
+function renderAlert(container, remaining) {
+    var html;
+    if (remaining < 0) {
+        html = '<div class="overstay-alert"><div style="display:flex; align-items:flex-start; gap:12px;">' +
+            '<i class="fa-solid fa-triangle-exclamation" style="color:#f87171; font-size:18px; margin-top:2px; flex-shrink:0;"></i>' +
+            '<div><p style="color:#fca5a5; font-weight:700; font-size:14px; margin-bottom:4px;">Overstay Warning</p>' +
+            '<p style="color:rgba(254,202,202,0.8); font-size:14px; font-weight:500;">Based on these dates, the 90-day limit would be exceeded by <strong>' + Math.abs(remaining) + ' day' + (Math.abs(remaining) !== 1 ? 's' : '') + '</strong>. This is a serious breach of Schengen rules and can result in bans, fines, and future visa refusals. Please verify your dates carefully and speak to a professional.</p>' +
+            '</div></div></div>';
+    } else if (remaining < 20) {
+        html = '<div class="caution-alert"><div style="display:flex; align-items:flex-start; gap:12px;">' +
+            '<i class="fa-solid fa-triangle-exclamation" style="color:#fbbf24; font-size:18px; margin-top:2px; flex-shrink:0;"></i>' +
+            '<div><p style="color:#fde68a; font-weight:700; font-size:14px; margin-bottom:4px;">Running Low</p>' +
+            '<p style="color:#adb8c4; font-size:14px; font-weight:500;">You have only <strong>' + remaining + ' day' + (remaining !== 1 ? 's' : '') + '</strong> remaining. Plan any future travel carefully — a trip that seems short could still push you over the limit depending on your window.</p>' +
+            '</div></div></div>';
+    } else {
+        html = '<div class="safe-alert"><div style="display:flex; align-items:flex-start; gap:12px;">' +
+            '<i class="fa-solid fa-circle-check" style="color:#4ade80; font-size:18px; margin-top:2px; flex-shrink:0;"></i>' +
+            '<div><p style="color:#86efac; font-weight:700; font-size:14px; margin-bottom:4px;">Within Limit</p>' +
+            '<p style="color:#adb8c4; font-size:14px; font-weight:500;">You have <strong>' + remaining + ' day' + (remaining !== 1 ? 's' : '') + '</strong> remaining in the current 180-day window. Use the planned trip tool below to check whether any upcoming travel would keep you within the limit.</p>' +
+            '</div></div></div>';
+    }
+    container.innerHTML = html;
+}
+
+// ── MAIN CALCULATE ──
+document.getElementById('calc-btn').addEventListener('click', function() {
+    var refDateStr = document.getElementById('refDate').value;
+    if (!refDateStr) { alert('Please enter a reference date.'); return; }
+
+    var trips = getTrips();
+    if (!trips.some(function(t) { return t.entry; })) {
+        alert('Please enter at least one trip entry date.');
+        return;
+    }
+
+    var r = calcSchengen(refDateStr, trips);
+
+    document.getElementById('window-label').textContent = fmtDate(r.winStart) + ' – ' + fmtDate(r.winEnd);
+
+    document.getElementById('days-used-display').textContent = r.total;
+
+    var remEl = document.getElementById('days-remaining-display');
+    var dispRem = Math.max(0, r.remaining);
+    remEl.textContent = dispRem;
+    if (r.remaining < 0) remEl.style.color = '#ef4444';
+    else if (r.remaining < 20) remEl.style.color = '#eab308';
+    else remEl.style.color = 'var(--brand-gold)';
+
+    var fillEl = document.getElementById('progress-fill');
+    fillEl.style.width = Math.min(100, (r.total / 90) * 100) + '%';
+    if (r.total > 90) fillEl.classList.add('over-limit');
+    else fillEl.classList.remove('over-limit');
+
+    renderAlert(document.getElementById('status-alert'), r.remaining);
+
+    document.getElementById('whatsapp-cta').style.display = (r.remaining < 20) ? 'block' : 'none';
+
+    var resultsEl = document.getElementById('results-section');
+    resultsEl.style.display = 'block';
+    document.getElementById('planned-results').style.display = 'none';
+
+    resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    gtag('event', 'days_calc_calculate', { page_title: document.title });
+});
+
+// ── PLANNED TRIP CHECK ──
+document.getElementById('check-planned-btn').addEventListener('click', function() {
+    var refDateStr = document.getElementById('refDate').value;
+    var plannedEntry = document.getElementById('planned-entry').value;
+    var plannedExit = document.getElementById('planned-exit').value;
+
+    if (!plannedEntry || !plannedExit) {
+        alert('Please enter both a planned entry date and a planned exit date.');
+        return;
+    }
+    if (!refDateStr) {
+        alert('Please run the main calculation first (the reference date is required).');
+        return;
+    }
+
+    var existingTrips = getTrips();
+    var allTrips = existingTrips.concat([{ entry: plannedEntry, exit: plannedExit }]);
+
+    // Anchor rolling window to planned exit date
+    var r = calcSchengen(plannedExit, allTrips);
+
+    document.getElementById('planned-window-label').textContent =
+        '180-day window as of planned exit · ' + fmtDate(r.winStart) + ' – ' + fmtDate(r.winEnd);
+
+    document.getElementById('planned-used-display').textContent = r.total;
+
+    var remEl = document.getElementById('planned-remaining-display');
+    remEl.textContent = Math.max(0, r.remaining);
+    if (r.remaining < 0) remEl.style.color = '#ef4444';
+    else if (r.remaining < 20) remEl.style.color = '#eab308';
+    else remEl.style.color = 'var(--brand-gold)';
+
+    renderAlert(document.getElementById('planned-status-alert'), r.remaining);
+
+    if (r.remaining < 20) {
+        document.getElementById('whatsapp-cta').style.display = 'block';
+    }
+
+    document.getElementById('planned-results').style.display = 'block';
+    gtag('event', 'days_calc_planned_check', { page_title: document.title });
+});
+</script>
+
+</body>
+</html>
