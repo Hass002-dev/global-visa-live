@@ -719,6 +719,35 @@
 </section>
 
 <!-- ══════════════════════════════════════════════════════════ -->
+<!-- COMING SOON: VISA ROUTING CHECKER                          -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="py-12 border-b border-[#1e2730] relative z-10" style="background: linear-gradient(135deg, #080c10 0%, #0c1520 50%, #080c10 100%); border-top: 1px solid rgba(201,168,76,0.15); border-bottom: 1px solid rgba(201,168,76,0.15);">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+        <div class="inline-flex items-center gap-2 bg-[#c9a84c]/10 border border-[#c9a84c]/30 rounded-full px-4 py-1.5 mb-5">
+            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+            <span class="text-gold text-xs font-bold tracking-widest uppercase">Coming Soon &middot; December 2026</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-black text-white mb-3" style="font-family:'Cormorant Garamond',serif;">Coming This December: Our Visa Routing Checker</h2>
+        <p class="text-[#7a8899] text-base mb-8 max-w-xl mx-auto font-medium">Find exactly which embassy handles your visa application, based on real, verified research across West Africa. Launching December 2026.</p>
+        <div class="flex justify-center gap-8 mb-3">
+            <div class="text-center">
+                <div id="cd-days" class="text-6xl font-black text-gold" style="font-family:'Cormorant Garamond',serif; line-height:1;">—</div>
+                <div class="text-xs font-bold text-[#7a8899] uppercase tracking-widest mt-2">Days to Go</div>
+            </div>
+        </div>
+        <p class="text-[#4a5568] text-xs font-medium">Until December 31, 2026</p>
+    </div>
+</section>
+<script>
+(function(){
+    var target = new Date(2026, 11, 31);
+    var now = new Date(); now.setHours(0,0,0,0);
+    var days = Math.ceil((target - now) / 86400000);
+    document.getElementById('cd-days').textContent = days > 0 ? days : '0';
+})();
+</script>
+
+<!-- ══════════════════════════════════════════════════════════ -->
 <!-- ELIGIBILITY CHECK                                          -->
 <!-- ══════════════════════════════════════════════════════════ -->
 <section id="eligibility" class="py-20 bg-[#080c10] border-b border-[#1e2730] scroll-mt-20 relative z-10">
@@ -748,6 +777,12 @@
                     <i class="fa-solid fa-clipboard-list mr-2"></i> Fill Assessment Form
                 </a>
             </div>
+        </div>
+        <div class="mt-7 text-center">
+            <a href="days-calculator.html" class="inline-flex items-center gap-2 text-gold hover:text-[#e8c97a] text-sm font-bold transition">
+                <i class="fa-solid fa-calendar-days text-xs"></i>
+                Also: check your Schengen 90/180 day balance &rarr;
+            </a>
         </div>
     </div>
 </section>
@@ -1598,6 +1633,7 @@
                     <li><a href="portal.html" class="hover:text-gold transition">Client Portal</a></li>
                     <li><a href="about.html" class="hover:text-gold transition">About Us</a></li>
                     <li><a href="diy-toolkit.html" class="hover:text-gold transition">DIY Toolkit</a></li>
+                    <li><a href="days-calculator.html" class="hover:text-gold transition">Days Calculator</a></li>
                 </ul>
             </div>
 
