@@ -24,7 +24,7 @@
 
     <!-- FONT AWESOME — async to avoid render-blocking -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0" crossorigin="anonymous"></noscript>
 
     <!-- GOOGLE ANALYTICS 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1EZM399KT"></script>
@@ -1034,7 +1034,7 @@
                             <li><i class="fa-solid fa-check text-green-400 mr-2"></i>EU Study / Work Visa Support</li>
                         </ul>
                         <a href="https://wa.me/447511219482?text=I%20need%20a%20quote%20for%20Full%20Access%20Strategy" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'pricing_strategy_cta'})" target="_blank" class="w-full bg-[#25D366] text-white py-3 rounded-xl font-bold text-sm text-center hover:bg-[#128C7E] transition flex justify-center items-center gap-2">
-                            Get Quote <i class="fa-brands fa-whatsapp"></i>
+                            Get Quote <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
                         </a>
                     </div>
                 </div>
@@ -1064,7 +1064,7 @@
                             <li><i class="fa-solid fa-check text-green-400 mr-2"></i>Thorough Re-Application Build</li>
                         </ul>
                         <a href="https://wa.me/447511219482?text=I%20need%20help%20with%20a%20visa%20refusal%20recovery" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'pricing_refusal_cta'})" target="_blank" class="w-full bg-[#25D366] text-white py-3 rounded-xl font-bold text-sm text-center hover:bg-[#128C7E] transition flex justify-center items-center gap-2">
-                            Discuss My Case <i class="fa-brands fa-whatsapp"></i>
+                            Discuss My Case <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
                         </a>
                         <a href="refusal.html" class="block text-center text-xs font-bold mt-3 transition-all hover:underline" style="color: #c9a84c; text-decoration: none; letter-spacing: 0.01em;">Learn about our recovery process →</a>
                     </div>
@@ -1658,6 +1658,7 @@
                     <li><a href="refund-policy.html" class="hover:text-gold transition">Refund Policy</a></li>
                     <li><a href="complaints-policy.html" class="hover:text-gold transition">Complaints Policy</a></li>
                     <li><a href="engagement-letter.html" class="hover:text-gold transition">Client Engagement Letter</a></li>
+                <li><a href="privacy-policy.html" class="hover:text-gold transition">Privacy Policy</a></li>
                 </ul>
             </div>
 
@@ -1687,8 +1688,8 @@
 </footer>
 
 <!-- FLOATING WHATSAPP -->
-<a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'floating_button'})" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
-    <i class="fa-brands fa-whatsapp"></i>
+<a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'floating_button'})" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp" title="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
 </a>
 
 <!-- ══════════════════════════════════════════════════════════ -->
@@ -1955,7 +1956,7 @@
 
     // Close modals on backdrop click
     ['scopeModal','termsModal'].forEach(id => {
-        document.getElementById(id).addEventListener('click', function(e) {
+        document.getElementById(id)?.addEventListener('click', function(e) {
             if (e.target === this) {
                 this.classList.add('hidden');
                 document.body.style.overflow = 'auto';

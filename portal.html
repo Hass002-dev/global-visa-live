@@ -9,7 +9,7 @@
     <link rel="icon" type="image/svg+xml" href="./favicon.svg">
     <link rel="stylesheet" href="./output.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0" crossorigin="anonymous">
 
     <style>
         :root {
@@ -466,6 +466,7 @@
                         <li><a href="refund-policy.html" class="hover:text-gold transition">Refund Policy</a></li>
                         <li><a href="complaints-policy.html" class="hover:text-gold transition">Complaints Policy</a></li>
                         <li><a href="engagement-letter.html" class="hover:text-gold transition">Client Engagement Letter</a></li>
+                <li><a href="privacy-policy.html" class="hover:text-gold transition">Privacy Policy</a></li>
                     </ul>
                 </div>
 
@@ -497,8 +498,8 @@
 <input type="file" id="file-input-global" accept=".pdf,.jpg,.jpeg,.png,.heic" class="hidden">
 
 <!-- WhatsApp float -->
-<a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'floating_button'})" class="whatsapp-float" target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
-    <i class="fa-brands fa-whatsapp"></i>
+<a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'floating_button'})" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp" title="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
 </a>
 
 <script>
@@ -607,7 +608,7 @@ let unsubSnapshot = null;
 document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible') {
         const user = auth.currentUser;
-        console.log('[GVJ Portal] Tab became visible. Firebase currentUser:', user ? user.email : 'null');
+        // tab visibility restored — no PII logged
         // If user is still valid, do nothing — LOCAL persistence keeps them logged in.
         // Only the onAuthStateChanged listener handles actual auth state changes.
     }
@@ -629,9 +630,7 @@ onAuthStateChanged(auth, async (user) => {
     if (!authInitialised) {
         authInitialised = true;
         hideSplash();
-        console.log('[GVJ Portal] Auth state resolved on first fire. User:', user ? user.email : 'none');
     } else {
-        console.log('[GVJ Portal] Auth state changed. User:', user ? user.email : 'none (logged out)');
     }
 
     if (user) {
@@ -912,7 +911,7 @@ document.getElementById('file-input-global').addEventListener('change', async (e
     const uid   = user.uid;  // always from auth.currentUser.uid — never a stale variable
     const catId = activeUploadCategory;
 
-    console.log(`[GVJ Upload] Upload starting for ${catId} — UID: ${uid} | file: ${file.name} | size: ${file.size} bytes`);
+    // upload started — file type/size validated above
 
     // Validate type and size before touching the UI
     const allowed = ['application/pdf','image/jpeg','image/png','image/heic','image/jpg'];
@@ -939,7 +938,6 @@ document.getElementById('file-input-global').addEventListener('change', async (e
     // Storage path: /clients/[uid]/[categoryId]/[filename]
     const safeFilename = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
     const storagePath  = `clients/${uid}/${catId}/${safeFilename}`;
-    console.log(`[GVJ Upload] Storage path: ${storagePath}`);
 
     const storageRef = ref(storage, storagePath);
     const uploadTask = uploadBytesResumable(storageRef, file);
