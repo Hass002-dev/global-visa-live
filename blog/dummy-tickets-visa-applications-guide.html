@@ -235,5 +235,11 @@ window.subscribeNewsletter=async()=>{
   try{await fetch('https://gvj-mailchimp.office-c5d.workers.dev/',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:e})});ok.classList.remove('hidden');}catch(err){}finally{b.textContent='Subscribe';b.disabled=false;}
 };
 </script>
+<script>
+function gvjTogglePay(id, on) {
+    var el = document.getElementById(id);
+    if (el) el.setAttribute('aria-disabled', on ? 'false' : 'true');
+}
+</script>
 </body>
 </html>
