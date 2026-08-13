@@ -655,5 +655,11 @@ loadPosts();
 })();
 </script>
 
+<script>
+function gvjTogglePay(id, on) {
+    var el = document.getElementById(id);
+    if (el) el.setAttribute('aria-disabled', on ? 'false' : 'true');
+}
+</script>
 </body>
 </html>
