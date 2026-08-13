@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="./output.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0" crossorigin="anonymous"></noscript>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1EZM399KT"></script>
     <script>
@@ -305,8 +305,8 @@
 </footer>
 
 <!-- FLOATING WHATSAPP -->
-<a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'floating_button'})" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
-    <i class="fa-brands fa-whatsapp"></i>
+<a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'floating_button'})" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp" title="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
 </a>
 
 <!-- MOBILE NAV -->
@@ -417,12 +417,12 @@ function addTrip(entryVal, exitVal, stillIn) {
         '</div>' +
         '<div class="trip-grid">' +
             '<div>' +
-                '<label class="field-label">Entry Date</label>' +
-                '<input type="date" class="trip-entry form-input" value="' + (entryVal || '') + '">' +
+                '<label class="field-label" for="trip-entry-' + n + '">Entry Date</label>' +
+                '<input type="date" id="trip-entry-' + n + '" class="trip-entry form-input" value="' + (entryVal || '') + '">' +
             '</div>' +
             '<div>' +
-                '<label class="field-label">Exit Date</label>' +
-                '<input type="date" class="trip-exit form-input" value="' + (exitVal || '') + '"' + (stillIn ? ' disabled' : '') + '>' +
+                '<label class="field-label" for="trip-exit-' + n + '">Exit Date</label>' +
+                '<input type="date" id="trip-exit-' + n + '" class="trip-exit form-input" value="' + (exitVal || '') + '"' + (stillIn ? ' disabled' : '') + '>' +
                 '<label class="flex items-center gap-2 mt-2 cursor-pointer">' +
                     '<input type="checkbox" class="still-in" style="accent-color:var(--brand-gold); width:15px; height:15px;"' + (stillIn ? ' checked' : '') + '>' +
                     '<span style="font-size:13px; color:var(--text-secondary); font-weight:500;">Still in Schengen</span>' +

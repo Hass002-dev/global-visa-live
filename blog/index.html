@@ -66,7 +66,7 @@ NOTE: blog/post.html is kept as a redirect file only — it forwards
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <link rel="stylesheet" href="../output.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0" crossorigin="anonymous">
 
     <!-- GA4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1EZM399KT"></script>
@@ -410,6 +410,7 @@ NOTE: blog/post.html is kept as a redirect file only — it forwards
                     <li><a href="../refund-policy.html" class="hover:text-gold transition">Refund Policy</a></li>
                     <li><a href="../complaints-policy.html" class="hover:text-gold transition">Complaints Policy</a></li>
                     <li><a href="../engagement-letter.html" class="hover:text-gold transition">Client Engagement Letter</a></li>
+                <li><a href="../privacy-policy.html" class="hover:text-gold transition">Privacy Policy</a></li>
                 </ul>
             </div>
         </div>
@@ -419,8 +420,8 @@ NOTE: blog/post.html is kept as a redirect file only — it forwards
     <p class="text-[#4a5568] text-xs text-center py-6 font-medium">&copy; 2026 Global Visa &amp; Journeys Ltd. Registered in England &amp; Wales (No: 16959031).</p>
 </footer>
 
-<a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'floating_button'})" target="_blank" rel="noopener" class="whatsapp-float" title="Chat on WhatsApp">
-    <i class="fa-brands fa-whatsapp"></i>
+<a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'floating_button'})" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Chat on WhatsApp" title="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
 </a>
 
 
@@ -525,7 +526,7 @@ function renderCard(p) {
     const date = p.publishedAt ? formatDate(p.publishedAt) : '';
     const safe = (s) => String(s || '').replace(/[<>"']/g, c => ({'<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     return `
-    <a href="${p.slug || 'index'}.html" class="post-card no-underline">
+    <a href="${encodeURIComponent(p.slug || 'index')}.html" class="post-card no-underline">
         <div class="post-card-image-wrap">
             <div class="post-card-image" style="background-image:url('${safe(p.heroImage)}')"></div>
             ${p.category ? `<span class="category-badge">${safe(p.category)}</span>` : ''}

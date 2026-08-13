@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="./output.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0" crossorigin="anonymous"></noscript>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q1EZM399KT"></script>
     <script>
@@ -215,6 +215,9 @@
 
                     <p id="form-error-msg" class="hidden text-red-400 text-sm font-semibold mb-4"><i class="fa-solid fa-circle-exclamation mr-1"></i> Please fill in all required fields.</p>
 
+                    <!-- Honeypot: hidden from real users; bots fill it automatically -->
+                    <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
+
                     <button type="submit" id="submit-btn" class="w-full btn-gold py-4 rounded-xl text-sm mt-2">
                         Submit Flight Request
                     </button>
@@ -314,6 +317,7 @@
                     <li><a href="refund-policy.html" class="hover:text-gold transition">Refund Policy</a></li>
                     <li><a href="complaints-policy.html" class="hover:text-gold transition">Complaints Policy</a></li>
                     <li><a href="engagement-letter.html" class="hover:text-gold transition">Client Engagement Letter</a></li>
+                <li><a href="privacy-policy.html" class="hover:text-gold transition">Privacy Policy</a></li>
                 </ul>
             </div>
             <div>
@@ -334,7 +338,7 @@
     </div>
 </footer>
 
-<a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'floating_button'})" class="whatsapp-float" target="_blank" title="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+<a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'floating_button'})" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp" title="Chat on WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>
 
 <nav id="mobile-bottom-nav" style="position:fixed; bottom:0; left:0; right:0; z-index:9998; background:#0f1419; border-top:1px solid #1e2730; -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); padding-bottom:env(safe-area-inset-bottom);">
     <div style="display:flex;">
@@ -382,6 +386,13 @@ window.addEventListener('scroll', () => {
 
     form.addEventListener('submit', async function (e) {
         e.preventDefault();
+
+        // Honeypot: bots fill hidden fields, humans don't
+        if (form.elements['website'] && form.elements['website'].value) {
+            formPanel.style.display = 'none';
+            successPanel.style.display = 'block';
+            return;
+        }
 
         let valid = true;
         requiredFields.forEach(id => {
@@ -452,11 +463,11 @@ window.addEventListener('scroll', () => {
         newsBtn.addEventListener('click', async function () {
             var email = newsInput.value.trim();
             if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { newsInput.style.borderColor = '#ef4444'; return; }
-            newsInput.style.borderColor = ''; newsSuccess.classList.add('hidden');
+            newsInput.style.borderColor = ''; newsSuccess?.classList.add('hidden');
             newsBtn.textContent = 'Joining'; newsBtn.disabled = true;
             try {
                 await fetch('https://gvj-mailchimp.office-c5d.workers.dev/', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({email}) });
-                newsSuccess.classList.remove('hidden'); newsBtn.textContent = 'Subscribe'; newsBtn.disabled = false; newsInput.value = '';
+                newsSuccess?.classList.remove('hidden'); newsBtn.textContent = 'Subscribe'; newsBtn.disabled = false; newsInput.value = '';
             } catch(e) { newsBtn.textContent = 'Subscribe'; newsBtn.disabled = false; }
         });
     }
