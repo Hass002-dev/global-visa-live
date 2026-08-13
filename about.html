@@ -815,7 +815,8 @@
 
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <!-- Primary CTA: QuickScan -->
-            <a href="https://book.stripe.com/28E4gygLremKd0Ogx50sU00" target="_blank" class="w-full sm:w-auto btn-gold px-8 py-4 rounded-full text-sm shadow-[0_0_30px_rgba(201,168,76,0.3)]">
+            <label class="gvj-terms-label"><input type="checkbox" onchange="gvjTogglePay('pay-1',this.checked)"><span>I confirm I have read and accept GVJ's <a href="engagement-letter.html" target="_blank" rel="noopener">Client Engagement Letter and Terms &amp; Conditions</a>.</span></label>
+            <a href="https://book.stripe.com/28E4gygLremKd0Ogx50sU00" id="pay-1" target="_blank" class="w-full sm:w-auto btn-gold px-8 py-4 rounded-full text-sm shadow-[0_0_30px_rgba(201,168,76,0.3)] gvj-pay-gated" aria-disabled="true">
                 Start QuickScan Audit — £39.99
             </a>
             <a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'contact_cta'})" target="_blank" class="w-full sm:w-auto bg-[#25D366] text-white px-8 py-4 rounded-full font-bold text-sm hover:bg-[#128C7E] transition shadow-lg flex items-center justify-center gap-2">
@@ -1052,5 +1053,11 @@
 })();
 </script>
 
+<script>
+function gvjTogglePay(id, on) {
+    var el = document.getElementById(id);
+    if (el) el.setAttribute('aria-disabled', on ? 'false' : 'true');
+}
+</script>
 </body>
 </html>

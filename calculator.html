@@ -1361,7 +1361,8 @@ window.subscribeNewsletter = async () => {
                         <p class="text-[#7a8899] text-xs mt-0.5 font-medium">A senior strategist audits your full financial file and delivers a Fatal Flaws report within 48 hours — with an exact correction plan for every flag above.</p>
                     </div>
                 </div>
-                <a href="${QUICKSCAN_STRIPE}" target="_blank" class="w-full btn-gold py-3.5 rounded-xl text-sm block text-center mb-3">
+                <label class="gvj-terms-label"><input type="checkbox" id="calc-terms-cb" onchange="gvjTogglePay('calc-pay-btn',this.checked)"><span>I confirm I have read and accept GVJ's <a href="engagement-letter.html" target="_blank" rel="noopener">Client Engagement Letter and Terms &amp; Conditions</a>.</span></label>
+                <a href="${QUICKSCAN_STRIPE}" id="calc-pay-btn" target="_blank" class="w-full btn-gold py-3.5 rounded-xl text-sm block text-center mb-3 gvj-pay-gated" aria-disabled="true">
                     Book QuickScan Audit — £39.99 <i class="fa-solid fa-arrow-right"></i>
                 </a>
                 <a href="${WA}" target="_blank" class="block text-center text-[#7a8899] hover:text-white text-xs transition font-medium">
@@ -1577,5 +1578,11 @@ window.subscribeNewsletter = async () => {
 })();
 </script>
 
+<script>
+function gvjTogglePay(id, on) {
+    var el = document.getElementById(id);
+    if (el) el.setAttribute('aria-disabled', on ? 'false' : 'true');
+}
+</script>
 </body>
 </html>
