@@ -85,6 +85,9 @@
         .stage-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #c9a84c; margin-bottom: 4px; }
         .stage-text { font-size: 0.88rem; color: #7a8899; line-height: 1.6; }
 
+        .flight-refund-note { background:#0b1018; border:1px solid #1e2d40; border-left:3px solid #38bdf8; border-radius:0 8px 8px 0; padding:12px 16px; margin-bottom:12px; font-size:0.85rem; color:#7a8899; line-height:1.7; }
+        .stage-block.flight-stage-pass { background:#0b1a12; border-color:#1e3a24; }
+        .stage-block.flight-stage-fail { background:#1a0b0b; border-color:#3a1e1e; }
         #mobile-bottom-nav { display: none; }
         @media (max-width: 767px) {
             #mobile-bottom-nav { display: block; }
@@ -170,6 +173,19 @@
 
             <h2>5. Flight Reservations and Third-Party Bookings</h2>
             <p>Flight reservation fees are non-refundable once the reservation document has been issued and delivered, as this is an instant digital deliverable. Any third-party costs booked on a client's behalf (accommodation, insurance, transport) are subject to that third party's own cancellation terms, which will be disclosed to the client before booking.</p>
+
+            <h2>5A. Flight Reservation Refunds</h2>
+            <div class="flight-refund-note">
+                <strong style="color:#c9d1d9;">This section covers the Real Flight Reservation service only</strong> — where GVJ purchases or books actual flights on a client's behalf. These terms are separate from the visa application refund tiers above, because a real flight booking involves an immediate, non-recoverable third-party cost.
+            </div>
+            <div class="stage-block flight-stage-pass">
+                <div class="stage-label" style="color:#22c55e;">Before GVJ Has Purchased or Booked the Flight</div>
+                <div class="stage-text"><strong style="color:#c9d1d9;">Full refund.</strong> If you request a cancellation before we have placed any flight booking or purchase on your behalf, your full payment will be returned with no deductions.</div>
+            </div>
+            <div class="stage-block flight-stage-fail">
+                <div class="stage-label" style="color:#f87171;">After GVJ Has Purchased or Booked the Flight</div>
+                <div class="stage-text"><strong style="color:#c9d1d9;">No refund available.</strong> Once we have purchased or confirmed a flight reservation on your behalf, that cost has already been paid to a third-party airline or booking provider and is non-recoverable on our end — regardless of whether your travel plans change after booking. We will always confirm the booking with you in writing before proceeding, giving you a clear final opportunity to cancel before costs are committed.</div>
+            </div>
 
             <h2>6. What We Do Not Refund Under Any Circumstances</h2>
             <ul>

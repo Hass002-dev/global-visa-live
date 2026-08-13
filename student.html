@@ -524,7 +524,8 @@
 
         <!-- CTAs -->
         <div class="flex flex-col sm:flex-row gap-4 justify-center mb-5">
-            <a href="https://buy.stripe.com/9B63cu1Qxa6u7GucgP0sU0d" target="_blank" rel="noopener" class="btn-gold px-8 py-4 rounded-full text-sm shadow-[0_0_30px_rgba(201,168,76,0.25)]">
+            <label class="gvj-terms-label"><input type="checkbox" onchange="gvjTogglePay('pay-1',this.checked)"><span>I confirm I have read and accept GVJ's <a href="engagement-letter.html" target="_blank" rel="noopener">Client Engagement Letter and Terms &amp; Conditions</a>.</span></label>
+            <a href="https://buy.stripe.com/9B63cu1Qxa6u7GucgP0sU0d" id="pay-1" target="_blank" rel="noopener" class="btn-gold px-8 py-4 rounded-full text-sm shadow-[0_0_30px_rgba(201,168,76,0.25)] gvj-pay-gated" aria-disabled="true">
                 Book Student Profile Assessment — £79
             </a>
             <a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'quiz_cta'})" target="_blank" rel="noopener" class="btn-outline-gold px-8 py-4 rounded-full text-sm flex items-center justify-center gap-2">
@@ -651,7 +652,8 @@
                 </div>
                 <div class="p-7 flex flex-col flex-grow">
                     <p class="text-[#adb8c4] text-sm mb-6 leading-relaxed flex-grow">Honest review of your grades, English level, and budget. Personalised university shortlist and realistic verdict on your options. Delivered within 48 hours.</p>
-                    <a href="https://buy.stripe.com/9B63cu1Qxa6u7GucgP0sU0d" target="_blank" rel="noopener" class="btn-gold py-3 rounded-xl text-sm w-full">Book Now</a>
+                    <label class="gvj-terms-label"><input type="checkbox" onchange="gvjTogglePay('pay-2',this.checked)"><span>I confirm I have read and accept GVJ's <a href="engagement-letter.html" target="_blank" rel="noopener">Client Engagement Letter and Terms &amp; Conditions</a>.</span></label>
+                    <a href="https://buy.stripe.com/9B63cu1Qxa6u7GucgP0sU0d" id="pay-2" target="_blank" rel="noopener" class="btn-gold py-3 rounded-xl text-sm w-full gvj-pay-gated" aria-disabled="true">Book Now</a>
                 </div>
             </div>
 
@@ -776,7 +778,8 @@
         <h2 class="text-4xl md:text-5xl font-black text-white mt-3 mb-4" style="font-family:'Cormorant Garamond',serif;">Ready to Start Your<br>University Journey?</h2>
         <p class="text-[#7a8899] text-lg mb-10 font-medium">Take the quiz above or book your Profile Assessment now. We respond within 24 hours.</p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a href="https://buy.stripe.com/9B63cu1Qxa6u7GucgP0sU0d" target="_blank" rel="noopener" class="w-full sm:w-auto btn-gold px-10 py-4 rounded-full text-sm shadow-[0_0_30px_rgba(201,168,76,0.25)]">
+            <label class="gvj-terms-label"><input type="checkbox" onchange="gvjTogglePay('pay-3',this.checked)"><span>I confirm I have read and accept GVJ's <a href="engagement-letter.html" target="_blank" rel="noopener">Client Engagement Letter and Terms &amp; Conditions</a>.</span></label>
+            <a href="https://buy.stripe.com/9B63cu1Qxa6u7GucgP0sU0d" id="pay-3" target="_blank" rel="noopener" class="w-full sm:w-auto btn-gold px-10 py-4 rounded-full text-sm shadow-[0_0_30px_rgba(201,168,76,0.25)] gvj-pay-gated" aria-disabled="true">
                 Book Assessment — £79
             </a>
             <a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'bottom_cta'})" target="_blank" rel="noopener" class="w-full sm:w-auto bg-[#25D366] text-white px-10 py-4 rounded-full font-bold text-sm hover:bg-[#128C7E] transition flex items-center justify-center gap-2">
@@ -1326,5 +1329,11 @@
 })();
 </script>
 
+<script>
+function gvjTogglePay(id, on) {
+    var el = document.getElementById(id);
+    if (el) el.setAttribute('aria-disabled', on ? 'false' : 'true');
+}
+</script>
 </body>
 </html>

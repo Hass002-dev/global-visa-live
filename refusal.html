@@ -348,7 +348,8 @@
         </p>
 
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-            <a href="https://book.stripe.com/28E4gygLremKd0Ogx50sU00" target="_blank" rel="noopener" class="w-full sm:w-auto btn-gold px-8 py-4 rounded-full text-sm shadow-[0_0_30px_rgba(201,168,76,0.25)]">
+            <label class="gvj-terms-label"><input type="checkbox" onchange="gvjTogglePay('pay-1',this.checked)"><span>I confirm I have read and accept GVJ's <a href="engagement-letter.html" target="_blank" rel="noopener">Client Engagement Letter and Terms &amp; Conditions</a>.</span></label>
+            <a href="https://book.stripe.com/28E4gygLremKd0Ogx50sU00" id="pay-1" target="_blank" rel="noopener" class="w-full sm:w-auto btn-gold px-8 py-4 rounded-full text-sm shadow-[0_0_30px_rgba(201,168,76,0.25)] gvj-pay-gated" aria-disabled="true">
                 Start Refusal Diagnosis — £39.99
             </a>
             <a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'hero_cta'})" target="_blank" rel="noopener" class="w-full sm:w-auto bg-[#25D366] text-white px-8 py-4 rounded-full font-bold text-sm hover:bg-[#128C7E] transition shadow-lg flex items-center justify-center gap-2">
@@ -413,7 +414,8 @@
                 </div>
                 <h3 class="text-xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">Refusal Diagnosis</h3>
                 <p class="text-[#7a8899] text-sm leading-relaxed mb-6">We read your official refusal letter, identify the exact refusal code, and diagnose the real root cause. You receive a full written report within 48 hours explaining exactly what went wrong and exactly what to do next.</p>
-                <a href="https://book.stripe.com/28E4gygLremKd0Ogx50sU00" target="_blank" rel="noopener" class="btn-gold inline-flex items-center gap-2 px-6 py-3 rounded-lg text-xs">
+                <label class="gvj-terms-label"><input type="checkbox" onchange="gvjTogglePay('pay-2',this.checked)"><span>I confirm I have read and accept GVJ's <a href="engagement-letter.html" target="_blank" rel="noopener">Client Engagement Letter and Terms &amp; Conditions</a>.</span></label>
+                <a href="https://book.stripe.com/28E4gygLremKd0Ogx50sU00" id="pay-2" target="_blank" rel="noopener" class="btn-gold inline-flex items-center gap-2 px-6 py-3 rounded-lg text-xs gvj-pay-gated" aria-disabled="true">
                     <i class="fa-solid fa-magnifying-glass"></i> Start Now
                 </a>
             </div>
@@ -683,7 +685,8 @@
                     <p class="text-[#adb8c4] text-base leading-relaxed mb-8">
                         The EU's Entry Exit System went live in 2026. Every Schengen refusal is now permanently visible to all 29 Schengen countries. Every future application you make anywhere in Europe will show this refusal. This is why acting quickly and correctly after a refusal has never been more important.
                     </p>
-                    <a href="https://book.stripe.com/28E4gygLremKd0Ogx50sU00" target="_blank" rel="noopener" class="btn-gold inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm">
+                    <label class="gvj-terms-label"><input type="checkbox" onchange="gvjTogglePay('pay-3',this.checked)"><span>I confirm I have read and accept GVJ's <a href="engagement-letter.html" target="_blank" rel="noopener">Client Engagement Letter and Terms &amp; Conditions</a>.</span></label>
+                    <a href="https://book.stripe.com/28E4gygLremKd0Ogx50sU00" id="pay-3" target="_blank" rel="noopener" class="btn-gold inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm gvj-pay-gated" aria-disabled="true">
                         <i class="fa-solid fa-magnifying-glass"></i> Get Your Refusal Diagnosis — £39.99
                     </a>
                 </div>
@@ -782,7 +785,8 @@
             <p class="text-[#7a8899] text-lg mb-10 max-w-xl mx-auto font-medium">Start with the Refusal Diagnosis — £39.99. No large upfront fees. Full written report within 48 hours.</p>
 
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-                <a href="https://book.stripe.com/28E4gygLremKd0Ogx50sU00" target="_blank" rel="noopener" class="w-full sm:w-auto btn-gold px-8 py-4 rounded-full text-sm shadow-[0_0_30px_rgba(201,168,76,0.25)]">
+                <label class="gvj-terms-label"><input type="checkbox" onchange="gvjTogglePay('pay-4',this.checked)"><span>I confirm I have read and accept GVJ's <a href="engagement-letter.html" target="_blank" rel="noopener">Client Engagement Letter and Terms &amp; Conditions</a>.</span></label>
+                <a href="https://book.stripe.com/28E4gygLremKd0Ogx50sU00" id="pay-4" target="_blank" rel="noopener" class="w-full sm:w-auto btn-gold px-8 py-4 rounded-full text-sm shadow-[0_0_30px_rgba(201,168,76,0.25)] gvj-pay-gated" aria-disabled="true">
                     Start Refusal Diagnosis — £39.99
                 </a>
                 <a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'body_cta'})" target="_blank" rel="noopener" class="w-full sm:w-auto btn-outline-gold px-8 py-4 rounded-full text-sm flex items-center justify-center gap-2">
@@ -1248,5 +1252,11 @@
 })();
 </script>
 
+<script>
+function gvjTogglePay(id, on) {
+    var el = document.getElementById(id);
+    if (el) el.setAttribute('aria-disabled', on ? 'false' : 'true');
+}
+</script>
 </body>
 </html>

@@ -62,6 +62,10 @@
         .toolkit-card:hover { border-color: var(--brand-gold); }
         .toolkit-card-header { padding: 24px; border-bottom: 1px solid #1e2730; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to right, #0f1419, #080c10); }
 
+        .gvj-pay-gated[aria-disabled='true'] { opacity:0.42; pointer-events:none; filter:grayscale(25%); }
+        .gvj-terms-label { display:flex; align-items:flex-start; gap:8px; margin-bottom:10px; font-size:0.78rem; color:#7a8899; line-height:1.55; cursor:pointer; }
+        .gvj-terms-label input[type=checkbox] { margin-top:2px; flex-shrink:0; accent-color:#c9a84c; width:14px; height:14px; }
+        .gvj-terms-label a { color:#c9a84c; text-decoration:underline; }
         #mobile-bottom-nav { display: none; }
         @media (max-width: 767px) { #mobile-bottom-nav { display: block; } .whatsapp-float { bottom: 90px !important; } body { padding-bottom: 80px; } }
     </style>
@@ -130,7 +134,8 @@
                         <li><i class="fa-solid fa-check text-green-400 mr-2"></i><strong class="text-[#adb8c4]">Editable Templates</strong> — Explaining where your money came from and your ties at home</li>
                         <li><i class="fa-solid fa-check text-green-400 mr-2"></i><strong class="text-[#adb8c4]">Fatal Flaws Guide</strong> — official refusal prevention manual</li>
                     </ul>
-                    <a href="https://buy.stripe.com/7sYcN49iZfqOgd094D0sU01" target="_blank" class="block w-full text-center bg-[#080c10] border border-gold text-gold py-3 rounded-lg font-bold hover:bg-gold hover:text-[#080c10] transition text-sm">
+                    <label class="gvj-terms-label"><input type="checkbox" onchange="gvjTogglePay('pay-1',this.checked)"><span>I confirm I have read and accept GVJ's <a href="engagement-letter.html" target="_blank" rel="noopener">Client Engagement Letter and Terms &amp; Conditions</a>.</span></label>
+                    <a href="https://buy.stripe.com/7sYcN49iZfqOgd094D0sU01" id="pay-1" target="_blank" class="block w-full text-center bg-[#080c10] border border-gold text-gold py-3 rounded-lg font-bold hover:bg-gold hover:text-[#080c10] transition text-sm gvj-pay-gated" aria-disabled="true">
                         Download Toolkit <i class="fa-solid fa-download ml-2"></i>
                     </a>
                 </div>
@@ -154,7 +159,8 @@
                         <li><i class="fa-solid fa-check text-green-400 mr-2"></i><strong class="text-[#adb8c4]">Task tracking</strong> — never miss a document or signature</li>
                         <li><i class="fa-solid fa-check text-green-400 mr-2"></i><strong class="text-[#adb8c4]">Keeps everything in order</strong> so you're ready to submit</li>
                     </ul>
-                    <a href="https://buy.stripe.com/dRmcN4dzf0vU8Ky6Wv0sU02" target="_blank" class="block w-full text-center bg-[#080c10] border border-gold text-gold py-3 rounded-lg font-bold hover:bg-gold hover:text-[#080c10] transition text-sm">
+                    <label class="gvj-terms-label"><input type="checkbox" onchange="gvjTogglePay('pay-2',this.checked)"><span>I confirm I have read and accept GVJ's <a href="engagement-letter.html" target="_blank" rel="noopener">Client Engagement Letter and Terms &amp; Conditions</a>.</span></label>
+                    <a href="https://buy.stripe.com/dRmcN4dzf0vU8Ky6Wv0sU02" id="pay-2" target="_blank" class="block w-full text-center bg-[#080c10] border border-gold text-gold py-3 rounded-lg font-bold hover:bg-gold hover:text-[#080c10] transition text-sm gvj-pay-gated" aria-disabled="true">
                         Download Checklist <i class="fa-solid fa-download ml-2"></i>
                     </a>
                 </div>
@@ -277,6 +283,12 @@ window.addEventListener('scroll', () => {
         });
     }
 })();
+</script>
+<script>
+function gvjTogglePay(id, on) {
+    var el = document.getElementById(id);
+    if (el) el.setAttribute('aria-disabled', on ? 'false' : 'true');
+}
 </script>
 </body>
 </html>

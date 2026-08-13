@@ -136,7 +136,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   <i class="fa-solid fa-magnifying-glass-chart text-3xl text-gold mb-3 block"></i>
   <h3 class="text-2xl md:text-3xl font-bold text-white mb-3">Stop Visa Refusals Before They Happen</h3>
   <p class="text-[#adb8c4] mb-6 max-w-md mx-auto font-medium">Our QuickScan Audit forensically reviews your file in 48 hours — for less than the cost of one rejected embassy fee.</p>
-  <a href="https://book.stripe.com/28E4gygLremKd0Ogx50sU00" target="_blank" class="btn-gold px-8 py-3.5 rounded-full text-sm">Book QuickScan — £39.99</a>
+  <label class="gvj-terms-label" style="justify-content:center;"><input type="checkbox" onchange="gvjTogglePay('blog-pay-btn',this.checked)"><span>I confirm I have read and accept GVJ's <a href="../engagement-letter.html" target="_blank" rel="noopener">Client Engagement Letter and Terms &amp; Conditions</a>.</span></label>
+  <a href="https://book.stripe.com/28E4gygLremKd0Ogx50sU00" id="blog-pay-btn" target="_blank" class="btn-gold px-8 py-3.5 rounded-full text-sm gvj-pay-gated" aria-disabled="true">Book QuickScan — £39.99</a>
 </div>
   </div>
 
@@ -193,6 +194,12 @@ window.subscribeNewsletter=async()=>{
   b.textContent='…';b.disabled=true;
   try{await fetch('https://gvj-mailchimp.office-c5d.workers.dev/',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:e})});ok.classList.remove('hidden');}catch(err){}finally{b.textContent='Subscribe';b.disabled=false;}
 };
+</script>
+<script>
+function gvjTogglePay(id, on) {
+    var el = document.getElementById(id);
+    if (el) el.setAttribute('aria-disabled', on ? 'false' : 'true');
+}
 </script>
 </body>
 </html>
