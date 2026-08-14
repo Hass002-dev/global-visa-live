@@ -355,6 +355,12 @@
             .tab-btn { font-size: 0.7rem; padding: 14px 8px; }
         }
     </style>
+<style>
+.gvj-pay-gated[aria-disabled='true'] { opacity:0.42; pointer-events:none; filter:grayscale(25%); }
+.gvj-terms-label { display:flex; align-items:flex-start; gap:6px; margin-bottom:8px; font-size:0.68rem; color:#7a8899; line-height:1.5; cursor:pointer; }
+.gvj-terms-label input[type=checkbox] { margin-top:2px; flex-shrink:0; accent-color:#c9a84c; width:14px; height:14px; }
+.gvj-terms-label a { color:#c9a84c; text-decoration:underline; }
+</style>
 </head>
 <body>
 
@@ -1360,7 +1366,7 @@ window.subscribeNewsletter = async () => {
                 <a href="${QUICKSCAN_STRIPE}" id="calc-pay-btn" target="_blank" class="w-full btn-gold py-3.5 rounded-xl text-sm block text-center mb-3 gvj-pay-gated" aria-disabled="true">
                     Book QuickScan Audit — £39.99 <i class="fa-solid fa-arrow-right"></i>
                 </a>
-                <a href="${WA}" target="_blank" class="block text-center text-[#7a8899] hover:text-white text-xs transition font-medium">
+                <a href="${WA}?text=Hi%2C%20I%20just%20completed%20the%20Visa%20Readiness%20Check%20and%20I%27d%20like%20to%20speak%20to%20a%20strategist%20about%20my%20results." onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'calculator_results'})" target="_blank" class="block text-center text-[#7a8899] hover:text-white text-xs transition font-medium">
                     <i class="fa-brands fa-whatsapp mr-1"></i> Speak to a Strategist First
                 </a>
             </div>` : `

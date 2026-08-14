@@ -75,58 +75,67 @@
 
     /* ── Banner CSS ─────────────────────────────────────────────────────── */
     var BANNER_CSS = [
-        /* Outer wrapper — full-width anchor at bottom, pointer-events only on card */
+        /* Outer wrapper — full-width anchor at bottom, pointer-events only on card.
+           z-index 10000 ensures the banner sits above the mobile bottom nav (z-index 9998)
+           so users can always reach the consent buttons regardless of page layout. */
         '#gvj-cookie-banner{',
-            'position:fixed;bottom:0;left:0;right:0;z-index:9900;',
+            'position:fixed;bottom:0;left:0;right:0;z-index:10000;',
             'display:flex;justify-content:center;align-items:flex-end;',
             'pointer-events:none;',
         '}',
-        /* Card */
+        /* Mobile-first card — compact to minimise screen coverage */
         '#gvj-cookie-card{',
             'pointer-events:all;',
             'background:#0f1419;',
             'border:1px solid rgba(201,168,76,0.38);',
             'border-bottom:none;',
-            'border-radius:14px 14px 0 0;',
-            'box-shadow:0 -6px 40px rgba(0,0,0,0.6),0 0 0 1px rgba(201,168,76,0.06);',
-            'padding:18px 20px 22px;',
+            'border-radius:12px 12px 0 0;',
+            'box-shadow:0 -4px 30px rgba(0,0,0,0.55),0 0 0 1px rgba(201,168,76,0.06);',
+            'padding:10px 14px 14px;',
             'width:100%;max-width:680px;',
-            'display:flex;flex-direction:column;gap:14px;',
+            'display:flex;flex-direction:row;align-items:center;flex-wrap:wrap;gap:8px;',
         '}',
-        /* On screens >= 640 px, float the card above the bottom edge */
-        '@media(min-width:640px){',
-            '#gvj-cookie-banner{bottom:24px;padding:0 20px;}',
-            '#gvj-cookie-card{',
-                'border-bottom:1px solid rgba(201,168,76,0.38);',
-                'border-radius:14px;',
-            '}',
+        /* Typography — mobile */
+        '#gvj-cookie-card p{',
+            'flex:1;min-width:200px;',
+            'margin:0;font-size:0.74rem;line-height:1.5;color:#adb8c4;',
         '}',
-        /* Typography */
-        '#gvj-cookie-card p{margin:0;font-size:0.83rem;line-height:1.65;color:#adb8c4;}',
         '#gvj-cookie-card p a{color:#c9a84c;text-decoration:underline;}',
         '#gvj-cookie-card p a:hover{color:#e0c069;}',
         '#gvj-cookie-card strong{color:#eef2f7;}',
-        /* Buttons row */
-        '.gvj-cc-btns{display:flex;gap:10px;flex-wrap:wrap;}',
+        /* Buttons — side-by-side on mobile */
+        '.gvj-cc-btns{display:flex;gap:8px;flex-shrink:0;}',
         '#gvj-accept-all{',
-            'flex:1;min-width:130px;',
             'background:linear-gradient(135deg,#c9a84c 0%,#e0c069 100%);',
-            'color:#080c10;font-weight:800;font-size:0.78rem;',
-            'text-transform:uppercase;letter-spacing:0.07em;',
-            'border:none;border-radius:8px;padding:10px 18px;',
-            'cursor:pointer;transition:opacity .2s;',
+            'color:#080c10;font-weight:800;font-size:0.72rem;',
+            'text-transform:uppercase;letter-spacing:0.06em;',
+            'border:none;border-radius:7px;padding:8px 13px;',
+            'cursor:pointer;transition:opacity .2s;white-space:nowrap;',
         '}',
         '#gvj-accept-all:hover{opacity:0.88;}',
         '#gvj-necessary-only{',
-            'flex:1;min-width:130px;',
             'background:transparent;',
             'border:1px solid rgba(201,168,76,0.4);',
-            'color:#c9a84c;font-weight:700;font-size:0.78rem;',
-            'text-transform:uppercase;letter-spacing:0.07em;',
-            'border-radius:8px;padding:10px 18px;',
-            'cursor:pointer;transition:border-color .2s,color .2s;',
+            'color:#c9a84c;font-weight:700;font-size:0.72rem;',
+            'text-transform:uppercase;letter-spacing:0.06em;',
+            'border-radius:7px;padding:8px 13px;',
+            'cursor:pointer;transition:border-color .2s,color .2s;white-space:nowrap;',
         '}',
         '#gvj-necessary-only:hover{border-color:#c9a84c;color:#e0c069;}',
+        /* Desktop (≥640px) — larger card floating above the bottom edge */
+        '@media(min-width:640px){',
+            '#gvj-cookie-banner{bottom:24px;padding:0 20px;}',
+            '#gvj-cookie-card{',
+                'flex-direction:column;align-items:stretch;gap:14px;',
+                'border-bottom:1px solid rgba(201,168,76,0.38);',
+                'border-radius:14px;',
+                'padding:18px 20px 22px;',
+            '}',
+            '#gvj-cookie-card p{flex:none;min-width:0;font-size:0.83rem;line-height:1.65;}',
+            '.gvj-cc-btns{gap:10px;}',
+            '#gvj-accept-all{font-size:0.78rem;padding:10px 18px;flex:1;min-width:130px;}',
+            '#gvj-necessary-only{font-size:0.78rem;padding:10px 18px;flex:1;min-width:130px;}',
+        '}',
     ].join('');
 
     /* ── Inject banner into DOM ─────────────────────────────────────────── */
