@@ -521,8 +521,7 @@
 </nav>
 
 <script>
-/* ── Webhook URLs ─────────────────────────────────────────────────────── */
-const VISA_FLIGHT_WEBHOOK_URL = "PLACEHOLDER_WEBHOOK_URL";
+/* ── Webhook URL ─────────────────────────────────────────────────────── */
 const FLIGHT_FORM_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbyQdATecrjeGGP_HEkKC4JgwhDKH0-viLIxj_ubu68PrR1Kfr891nrE7tREninb3jvD/exec";
 
 /* ── Nav scroll ──────────────────────────────────────────────────────── */
@@ -605,7 +604,7 @@ function gvjTogglePay(id, on) {
         submitBtn.disabled = true;
 
         try {
-            await fetch(VISA_FLIGHT_WEBHOOK_URL, {
+            await fetch(FLIGHT_FORM_WEBHOOK_URL, {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: { 'Content-Type': 'text/plain;charset=utf-8' },
