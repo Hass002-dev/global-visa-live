@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real Flight Booking Request | Global Visa &amp; Journeys London</title>
-    <meta name="description" content="Request real flight bookings through Global Visa &amp; Journeys. We source and book confirmed flights on your behalf. Custom pricing confirmed via WhatsApp.">
+    <title>Flight Services | Global Visa &amp; Journeys London</title>
+    <meta name="description" content="Visa Flight Reservations for embassy submissions (£50, delivered in 24 hrs) and Real Flight Bookings arranged on your behalf. Fill in your details — we handle the rest.">
     <link rel="canonical" href="https://www.globalvisajourneys.com/real-flights.html">
 
     <link rel="icon" type="image/svg+xml" href="./favicon.svg">
@@ -79,9 +79,21 @@
         @media (max-width: 480px) { .date-row { grid-template-columns: 1fr; } }
         .form-card { background: #0f1419; border: 1px solid #1e2730; border-radius: 16px; padding: 32px; }
 
-        /* State panels */
-        #form-panel, #success-panel, #error-panel { }
-        #success-panel, #error-panel { display: none; }
+        /* Payment gate (consistent with site-wide pattern) */
+        .gvj-pay-gated[aria-disabled='true'] { opacity: 0.42; pointer-events: none; filter: grayscale(25%); }
+        .gvj-terms-label { display: flex; align-items: flex-start; gap: 6px; margin-bottom: 8px; font-size: 0.68rem; color: #7a8899; line-height: 1.5; cursor: pointer; }
+        .gvj-terms-label input[type=checkbox] { margin-top: 2px; flex-shrink: 0; accent-color: #c9a84c; width: 14px; height: 14px; }
+        .gvj-terms-label a { color: #c9a84c; text-decoration: underline; }
+
+        /* Free check-in add-on */
+        .addon-wrap { background: rgba(34,197,94,0.04); border: 1px solid rgba(34,197,94,0.22); border-radius: 10px; padding: 14px 16px; margin-bottom: 20px; }
+        .addon-label { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
+        .addon-label input[type=checkbox] { margin-top: 3px; flex-shrink: 0; accent-color: #c9a84c; width: 15px; height: 15px; cursor: pointer; }
+        .addon-label-text { font-size: 0.86rem; color: #c9d1d9; line-height: 1.5; }
+        .addon-subtext { font-size: 0.76rem; color: #7a8899; margin-top: 5px; display: block; }
+
+        /* Service section separators */
+        .service-badge { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; font-size: 0.72rem; font-weight: 800; flex-shrink: 0; }
 
         #mobile-bottom-nav { display: none; }
         @media (max-width: 767px) { #mobile-bottom-nav { display: block; } .whatsapp-float { bottom: 90px !important; } body { padding-bottom: 80px; } }
@@ -125,140 +137,301 @@
             <i class="fa-solid fa-arrow-left text-xs"></i> Back to Home
         </a>
 
-        <div class="mb-10">
+        <div class="mb-12">
             <span class="text-gold font-bold tracking-widest uppercase text-xs">Travel Desk</span>
-            <h1 class="text-4xl md:text-5xl font-bold text-white mt-2" style="font-family:'Cormorant Garamond',serif;">Real Flight Booking Request</h1>
-            <p class="text-[#7a8899] mt-4 text-sm font-medium leading-relaxed">For embassies requiring confirmed tickets, or clients ready to book after visa approval. Fill in the details below — we'll confirm your options and custom pricing on WhatsApp within a few hours.</p>
+            <h1 class="text-4xl md:text-5xl font-bold text-white mt-2" style="font-family:'Cormorant Garamond',serif;">Flight Services</h1>
+            <p class="text-[#7a8899] mt-4 text-sm font-medium leading-relaxed">Two services — pick the one that fits your situation. Visa Flight Reservation for embassy submission; Real Flight Booking for confirmed travel.</p>
         </div>
 
-        <!-- ── FORM PANEL ── -->
-        <div id="form-panel">
-            <div class="form-card">
-                <form id="flight-form" novalidate>
+        <!-- ═══════════════════════════════════════════════════════════
+             SERVICE 1 — VISA FLIGHT RESERVATION
+        ═══════════════════════════════════════════════════════════ -->
+        <section id="visa-flight" class="mb-4">
 
-                    <div class="form-group">
-                        <label class="form-label" for="fullName">Full Name</label>
-                        <input class="form-input" type="text" id="fullName" name="fullName" placeholder="As it appears on your passport" required>
-                    </div>
+            <div class="flex items-start gap-3 mb-6">
+                <span class="service-badge bg-green-500/10 border border-green-500/30 text-green-400 mt-1">1</span>
+                <div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-white" style="font-family:'Cormorant Garamond',serif;">Visa Flight Reservation <span class="text-gold">— £50</span></h2>
+                    <p class="text-[#7a8899] text-sm font-medium leading-relaxed mt-1">A real booking reference that Schengen embassies accept as proof of travel — without purchasing the actual ticket. Fill in your trip details below; once submitted you'll be taken to payment and your reservation will be delivered within 24 hours.</p>
+                </div>
+            </div>
 
-                    <div class="grid md:grid-cols-2 gap-4">
+            <!-- VF form panel -->
+            <div id="vf-form-panel">
+                <div class="form-card">
+                    <form id="vf-form" novalidate>
+
                         <div class="form-group">
-                            <label class="form-label" for="departureCity">Departure City</label>
-                            <input class="form-input" type="text" id="departureCity" name="departureCity" placeholder="e.g. London" required>
+                            <label class="form-label" for="vf-fullName">Full Name</label>
+                            <input class="form-input" type="text" id="vf-fullName" name="fullName" placeholder="As it appears on your passport" required>
                         </div>
-                        <div class="form-group">
-                            <label class="form-label" for="destinationCity">Destination City</label>
-                            <input class="form-input" type="text" id="destinationCity" name="destinationCity" placeholder="e.g. Paris" required>
-                        </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label class="form-label" for="tripType">Trip Type</label>
-                        <select class="form-select" id="tripType" name="tripType" required>
-                            <option value="" disabled selected>Select trip type</option>
-                            <option value="One-Way">One-Way</option>
-                            <option value="Return">Return</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Travel Date(s)</label>
-                        <div class="date-row">
-                            <div>
-                                <input class="form-input" type="date" id="departureDate" name="departureDate" required>
-                                <p class="form-note">Departure date</p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="form-group">
+                                <label class="form-label" for="vf-departureCity">Departure City</label>
+                                <input class="form-input" type="text" id="vf-departureCity" name="departureCity" placeholder="e.g. Lagos" required>
                             </div>
-                            <div id="return-date-wrap">
-                                <input class="form-input" type="date" id="returnDate" name="returnDate">
-                                <p class="form-note">Return date (if return trip)</p>
+                            <div class="form-group">
+                                <label class="form-label" for="vf-destinationCity">Destination City</label>
+                                <input class="form-input" type="text" id="vf-destinationCity" name="destinationCity" placeholder="e.g. Paris" required>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="grid md:grid-cols-2 gap-4">
                         <div class="form-group">
-                            <label class="form-label" for="passengers">Number of Passengers</label>
-                            <input class="form-input" type="number" id="passengers" name="passengers" placeholder="1" min="1" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="baggage">Baggage Allowance</label>
-                            <select class="form-select" id="baggage" name="baggage" required>
-                                <option value="" disabled selected>Select allowance</option>
-                                <option value="15kg">15kg</option>
-                                <option value="20kg">20kg</option>
-                                <option value="23kg">23kg</option>
-                                <option value="25kg">25kg</option>
-                                <option value="30kg">30kg</option>
+                            <label class="form-label" for="vf-tripType">Trip Type</label>
+                            <select class="form-select" id="vf-tripType" name="tripType" required>
+                                <option value="" disabled selected>Select trip type</option>
+                                <option value="One-Way">One-Way</option>
+                                <option value="Return">Return</option>
                             </select>
                         </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Travel Date(s)</label>
+                            <div class="date-row">
+                                <div>
+                                    <input class="form-input" type="date" id="vf-departureDate" name="departureDate" required>
+                                    <p class="form-note">Departure date</p>
+                                </div>
+                                <div id="vf-return-date-wrap">
+                                    <input class="form-input" type="date" id="vf-returnDate" name="returnDate">
+                                    <p class="form-note">Return date (if return trip)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="vf-passengers">Number of Passengers</label>
+                            <input class="form-input" type="number" id="vf-passengers" name="passengers" placeholder="1" min="1" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="vf-contactNumber">Contact Number</label>
+                            <input class="form-input" type="tel" id="vf-contactNumber" name="contactNumber" placeholder="+44 7700 000000" required>
+                            <p class="form-note"><i class="fa-brands fa-whatsapp text-[#25d366] mr-1"></i>Please provide a WhatsApp-reachable number — we'll send your reservation there.</p>
+                        </div>
+
+                        <p id="vf-form-error-msg" class="hidden text-red-400 text-sm font-semibold mb-4"><i class="fa-solid fa-circle-exclamation mr-1"></i> Please fill in all required fields.</p>
+
+                        <!-- Honeypot -->
+                        <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
+
+                        <button type="submit" id="vf-submit-btn" class="w-full btn-gold py-4 rounded-xl text-sm mt-2 flex items-center justify-center gap-2">
+                            Submit Details &amp; Proceed to Payment <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+
+                    </form>
+                </div>
+            </div>
+
+            <!-- VF payment panel (shown after form submit) -->
+            <div id="vf-payment-panel" style="display:none;">
+                <div class="form-card text-center">
+                    <div class="w-16 h-16 rounded-full bg-green-500/10 border border-green-500/30 flex items-center justify-center mx-auto mb-6">
+                        <i class="fa-solid fa-circle-check text-green-400 text-3xl"></i>
                     </div>
+                    <h2 class="text-2xl font-bold text-white mb-2">Details Received</h2>
+                    <p class="text-[#7a8899] text-sm leading-relaxed mb-7 max-w-sm mx-auto">Your trip details are in. Complete the £50 payment below to confirm your reservation — a tab should have opened automatically. Once payment is done, your visa flight reservation will be prepared and delivered within 24 hours. We'll confirm everything on WhatsApp.</p>
+                    <label class="gvj-terms-label" style="justify-content:center; max-width:420px; margin:0 auto 10px;">
+                        <input type="checkbox" onchange="gvjTogglePay('vf-pay-btn',this.checked)">
+                        <span>I confirm I have read and accept GVJ's <a href="engagement-letter.html" target="_blank" rel="noopener">Client Engagement Letter and Terms &amp; Conditions</a>.</span>
+                    </label>
+                    <a href="https://buy.stripe.com/cNieVc3YFemK6Cq80z0sU05" id="vf-pay-btn" target="_blank" onclick="gtag('event','visa_flight_payment_click',{'page_location':window.location.href,'page_title':document.title})" class="inline-flex items-center justify-center gap-2 w-full bg-[#25D366] hover:bg-[#128C7E] text-white font-bold px-8 py-4 rounded-xl transition text-sm mb-5 gvj-pay-gated" aria-disabled="true">
+                        <i class="fa-solid fa-lock text-xs"></i> Complete Payment — £50
+                    </a>
+                    <div class="gold-divider mb-5"></div>
+                    <a href="https://wa.me/447511219482?text=Hi%2C%20I%27ve%20just%20paid%20for%20my%20Visa%20Flight%20Reservation%20and%20submitted%20my%20details."
+                       onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'visa_flight_post_payment'})"
+                       target="_blank"
+                       class="inline-flex items-center gap-3 bg-[#25D366]/10 border border-[#25D366]/40 hover:bg-[#25D366]/20 text-[#25D366] font-bold px-6 py-3 rounded-xl transition text-sm">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> Confirm on WhatsApp
+                    </a>
+                </div>
+            </div>
 
-                    <div class="form-group">
-                        <label class="form-label" for="ticketType">Ticket Type</label>
-                        <select class="form-select" id="ticketType" name="ticketType" required>
-                            <option value="" disabled selected>Select ticket type</option>
-                            <option value="Refundable">Refundable</option>
-                            <option value="Non-Refundable">Non-Refundable</option>
-                        </select>
+            <!-- VF error panel -->
+            <div id="vf-error-panel" style="display:none;">
+                <div class="form-card text-center">
+                    <div class="w-16 h-16 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center mx-auto mb-6">
+                        <i class="fa-solid fa-triangle-exclamation text-red-400 text-3xl"></i>
                     </div>
-
-                    <div class="form-group">
-                        <label class="form-label" for="contactNumber">Contact Number</label>
-                        <input class="form-input" type="tel" id="contactNumber" name="contactNumber" placeholder="+44 7700 000000" required>
-                        <p class="form-note"><i class="fa-brands fa-whatsapp text-[#25d366] mr-1"></i>Please provide a WhatsApp-reachable number — we'll confirm your options and pricing there.</p>
-                    </div>
-
-                    <p id="form-error-msg" class="hidden text-red-400 text-sm font-semibold mb-4"><i class="fa-solid fa-circle-exclamation mr-1"></i> Please fill in all required fields.</p>
-
-                    <!-- Honeypot: hidden from real users; bots fill it automatically -->
-                    <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
-
-                    <button type="submit" id="submit-btn" class="w-full btn-gold py-4 rounded-xl text-sm mt-2">
-                        Submit Flight Request
+                    <h2 class="text-2xl font-bold text-white mb-3">Submission Failed</h2>
+                    <p class="text-[#7a8899] text-sm leading-relaxed mb-8">Something went wrong. Please contact us on WhatsApp and we'll take your reservation details directly.</p>
+                    <a href="https://wa.me/447511219482?text=Hi%2C%20I%27d%20like%20to%20order%20a%20Visa%20Flight%20Reservation."
+                       onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'visa_flight_error_cta'})"
+                       target="_blank"
+                       class="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold px-8 py-4 rounded-xl transition text-sm">
+                        <i class="fa-brands fa-whatsapp text-xl"></i>
+                        Order via WhatsApp
+                    </a>
+                    <button onclick="document.getElementById('vf-error-panel').style.display='none'; document.getElementById('vf-form-panel').style.display='';" class="block mx-auto mt-4 text-[#7a8899] hover:text-gold text-sm transition">
+                        Try submitting again
                     </button>
-
-                </form>
-            </div>
-        </div>
-
-        <!-- ── SUCCESS PANEL ── -->
-        <div id="success-panel">
-            <div class="form-card text-center">
-                <div class="w-16 h-16 rounded-full bg-green-500/10 border border-green-500/30 flex items-center justify-center mx-auto mb-6">
-                    <i class="fa-solid fa-circle-check text-green-400 text-3xl"></i>
                 </div>
-                <h2 class="text-2xl font-bold text-white mb-3">Request Received</h2>
-                <p class="text-[#7a8899] text-sm leading-relaxed mb-8">Thank you! We'll confirm your flight options and pricing on WhatsApp shortly.</p>
-                <a href="https://wa.me/447511219482?text=Hi%2C%20I%20just%20submitted%20a%20flight%20reservation%20request%20and%20I%27d%20like%20to%20follow%20up."
-                   onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'flight_form_success_cta'})"
-                   target="_blank"
-                   class="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold px-8 py-4 rounded-xl transition text-sm">
-                    <i class="fa-brands fa-whatsapp text-xl"></i>
-                    Follow Up on WhatsApp
-                </a>
             </div>
+
+        </section>
+
+        <!-- Section divider -->
+        <div class="my-14">
+            <div class="gold-divider"></div>
         </div>
 
-        <!-- ── ERROR PANEL ── -->
-        <div id="error-panel">
-            <div class="form-card text-center">
-                <div class="w-16 h-16 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center mx-auto mb-6">
-                    <i class="fa-solid fa-triangle-exclamation text-red-400 text-3xl"></i>
+        <!-- ═══════════════════════════════════════════════════════════
+             SERVICE 2 — REAL FLIGHT BOOKING
+        ═══════════════════════════════════════════════════════════ -->
+        <section id="real-flight">
+
+            <div class="flex items-start gap-3 mb-6">
+                <span class="service-badge bg-[#c9a84c]/10 border border-[#c9a84c]/30 text-gold mt-1">2</span>
+                <div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-white" style="font-family:'Cormorant Garamond',serif;">Real Flight Booking Request <span class="text-[#7a8899] text-xl">— Custom Price</span></h2>
+                    <p class="text-[#7a8899] text-sm font-medium leading-relaxed mt-1">For embassies requiring confirmed tickets, or clients ready to book after visa approval. Fill in the details below — we'll confirm your options and custom pricing on WhatsApp within a few hours.</p>
                 </div>
-                <h2 class="text-2xl font-bold text-white mb-3">Submission Failed</h2>
-                <p class="text-[#7a8899] text-sm leading-relaxed mb-8">Something went wrong on our end. Please contact us directly on WhatsApp and we'll get your request sorted straight away.</p>
-                <a href="https://wa.me/447511219482?text=Hi%2C%20I%20just%20submitted%20a%20flight%20reservation%20request%20and%20I%27d%20like%20to%20follow%20up."
-                   onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'flight_form_error_cta'})"
-                   target="_blank"
-                   class="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold px-8 py-4 rounded-xl transition text-sm">
-                    <i class="fa-brands fa-whatsapp text-xl"></i>
-                    Contact Us on WhatsApp
-                </a>
-                <button onclick="document.getElementById('error-panel').style.display='none'; document.getElementById('form-panel').style.display='';" class="block mx-auto mt-4 text-[#7a8899] hover:text-gold text-sm transition">
-                    Try submitting again
-                </button>
             </div>
-        </div>
+
+            <!-- RF form panel -->
+            <div id="rf-form-panel">
+                <div class="form-card">
+                    <form id="rf-form" novalidate>
+
+                        <div class="form-group">
+                            <label class="form-label" for="rf-fullName">Full Name</label>
+                            <input class="form-input" type="text" id="rf-fullName" name="fullName" placeholder="As it appears on your passport" required>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="form-group">
+                                <label class="form-label" for="rf-departureCity">Departure City</label>
+                                <input class="form-input" type="text" id="rf-departureCity" name="departureCity" placeholder="e.g. London" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="rf-destinationCity">Destination City</label>
+                                <input class="form-input" type="text" id="rf-destinationCity" name="destinationCity" placeholder="e.g. Paris" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="rf-tripType">Trip Type</label>
+                            <select class="form-select" id="rf-tripType" name="tripType" required>
+                                <option value="" disabled selected>Select trip type</option>
+                                <option value="One-Way">One-Way</option>
+                                <option value="Return">Return</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Travel Date(s)</label>
+                            <div class="date-row">
+                                <div>
+                                    <input class="form-input" type="date" id="rf-departureDate" name="departureDate" required>
+                                    <p class="form-note">Departure date</p>
+                                </div>
+                                <div id="rf-return-date-wrap">
+                                    <input class="form-input" type="date" id="rf-returnDate" name="returnDate">
+                                    <p class="form-note">Return date (if return trip)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="form-group">
+                                <label class="form-label" for="rf-passengers">Number of Passengers</label>
+                                <input class="form-input" type="number" id="rf-passengers" name="passengers" placeholder="1" min="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="rf-baggage">Baggage Allowance</label>
+                                <select class="form-select" id="rf-baggage" name="baggage" required>
+                                    <option value="" disabled selected>Select allowance</option>
+                                    <option value="15kg">15kg</option>
+                                    <option value="20kg">20kg</option>
+                                    <option value="23kg">23kg</option>
+                                    <option value="25kg">25kg</option>
+                                    <option value="30kg">30kg</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="rf-ticketType">Ticket Type</label>
+                            <select class="form-select" id="rf-ticketType" name="ticketType" required>
+                                <option value="" disabled selected>Select ticket type</option>
+                                <option value="Refundable">Refundable</option>
+                                <option value="Non-Refundable">Non-Refundable</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="rf-contactNumber">Contact Number</label>
+                            <input class="form-input" type="tel" id="rf-contactNumber" name="contactNumber" placeholder="+44 7700 000000" required>
+                            <p class="form-note"><i class="fa-brands fa-whatsapp text-[#25d366] mr-1"></i>Please provide a WhatsApp-reachable number — we'll confirm your options and pricing there.</p>
+                        </div>
+
+                        <!-- Free check-in add-on -->
+                        <div class="addon-wrap">
+                            <label class="addon-label" for="rf-checkIn">
+                                <input type="checkbox" id="rf-checkIn" name="checkIn">
+                                <span class="addon-label-text">
+                                    Would you like us to complete your online check-in for you, free of charge, closer to your travel date?
+                                    <em style="color:#7a8899; font-style:normal;">(Subject to each airline's own check-in rules and timing)</em>
+                                    <span class="addon-subtext"><i class="fa-solid fa-circle-check text-green-400 mr-1"></i>A free added touch — we'll handle it for you where the airline allows.</span>
+                                </span>
+                            </label>
+                        </div>
+
+                        <p id="rf-form-error-msg" class="hidden text-red-400 text-sm font-semibold mb-4"><i class="fa-solid fa-circle-exclamation mr-1"></i> Please fill in all required fields.</p>
+
+                        <!-- Honeypot: hidden from real users; bots fill it automatically -->
+                        <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
+
+                        <button type="submit" id="rf-submit-btn" class="w-full btn-gold py-4 rounded-xl text-sm mt-2">
+                            Submit Flight Request
+                        </button>
+
+                    </form>
+                </div>
+            </div>
+
+            <!-- RF success panel -->
+            <div id="rf-success-panel" style="display:none;">
+                <div class="form-card text-center">
+                    <div class="w-16 h-16 rounded-full bg-green-500/10 border border-green-500/30 flex items-center justify-center mx-auto mb-6">
+                        <i class="fa-solid fa-circle-check text-green-400 text-3xl"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-white mb-3">Request Received</h2>
+                    <p class="text-[#7a8899] text-sm leading-relaxed mb-8">Thank you! We'll confirm your flight options and pricing on WhatsApp shortly.</p>
+                    <a href="https://wa.me/447511219482?text=Hi%2C%20I%20just%20submitted%20a%20flight%20reservation%20request%20and%20I%27d%20like%20to%20follow%20up."
+                       onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'flight_form_success_cta'})"
+                       target="_blank"
+                       class="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold px-8 py-4 rounded-xl transition text-sm">
+                        <i class="fa-brands fa-whatsapp text-xl"></i>
+                        Follow Up on WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <!-- RF error panel -->
+            <div id="rf-error-panel" style="display:none;">
+                <div class="form-card text-center">
+                    <div class="w-16 h-16 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center mx-auto mb-6">
+                        <i class="fa-solid fa-triangle-exclamation text-red-400 text-3xl"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-white mb-3">Submission Failed</h2>
+                    <p class="text-[#7a8899] text-sm leading-relaxed mb-8">Something went wrong on our end. Please contact us directly on WhatsApp and we'll get your request sorted straight away.</p>
+                    <a href="https://wa.me/447511219482?text=Hi%2C%20I%20just%20submitted%20a%20flight%20reservation%20request%20and%20I%27d%20like%20to%20follow%20up."
+                       onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'flight_form_error_cta'})"
+                       target="_blank"
+                       class="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold px-8 py-4 rounded-xl transition text-sm">
+                        <i class="fa-brands fa-whatsapp text-xl"></i>
+                        Contact Us on WhatsApp
+                    </a>
+                    <button onclick="document.getElementById('rf-error-panel').style.display='none'; document.getElementById('rf-form-panel').style.display='';" class="block mx-auto mt-4 text-[#7a8899] hover:text-gold text-sm transition">
+                        Try submitting again
+                    </button>
+                </div>
+            </div>
+
+        </section>
 
     </div>
 </main>
@@ -283,7 +456,7 @@
                     <li><a href="refusal.html" class="hover:text-gold transition">Refusal Recovery</a></li>
                     <li><a href="student.html" class="hover:text-gold transition">Study Abroad</a></li>
                     <li><a href="work.html" class="hover:text-gold transition">Work in Europe</a></li>
-                    <li><a href="https://buy.stripe.com/cNieVc3YFemK6Cq80z0sU05" target="_blank" rel="noopener" class="hover:text-gold transition">Flight Reservation</a></li>
+                    <li><a href="real-flights.html" class="hover:text-gold transition">Flight Services</a></li>
                 </ul>
             </div>
             <div>
@@ -293,7 +466,8 @@
                     <li><a href="calculator.html" class="hover:text-gold transition">Visa Calculator</a></li>
                     <li><a href="portal.html" class="hover:text-gold transition">Client Portal</a></li>
                     <li><a href="about.html" class="hover:text-gold transition">About Us</a></li>
-                    <li><a href="diy-toolkit.html" class="hover:text-gold transition">DIY Toolkit</a></li><li><a href="days-calculator.html" class="hover:text-gold transition">Days Calculator</a></li>
+                    <li><a href="diy-toolkit.html" class="hover:text-gold transition">DIY Toolkit</a></li>
+                    <li><a href="days-calculator.html" class="hover:text-gold transition">Days Calculator</a></li>
                 </ul>
             </div>
             <div>
@@ -312,7 +486,8 @@
                     <li><a href="refund-policy.html" class="hover:text-gold transition">Refund Policy</a></li>
                     <li><a href="complaints-policy.html" class="hover:text-gold transition">Complaints Policy</a></li>
                     <li><a href="engagement-letter.html" class="hover:text-gold transition">Client Engagement Letter</a></li>
-                <li><a href="privacy-policy.html" class="hover:text-gold transition">Privacy Policy</a></li><li><a href="#" class="gvj-cookie-settings hover:text-gold transition">Cookie Settings</a></li>
+                    <li><a href="privacy-policy.html" class="hover:text-gold transition">Privacy Policy</a></li>
+                    <li><a href="#" class="gvj-cookie-settings hover:text-gold transition">Cookie Settings</a></li>
                 </ul>
             </div>
             <div>
@@ -346,43 +521,143 @@
 </nav>
 
 <script>
+/* ── Webhook URLs ─────────────────────────────────────────────────────── */
+const VISA_FLIGHT_WEBHOOK_URL = "PLACEHOLDER_WEBHOOK_URL";
 const FLIGHT_FORM_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbyQdATecrjeGGP_HEkKC4JgwhDKH0-viLIxj_ubu68PrR1Kfr891nrE7tREninb3jvD/exec";
 
+/* ── Nav scroll ──────────────────────────────────────────────────────── */
 window.addEventListener('scroll', () => {
     const nav = document.getElementById('main-nav');
     if (window.scrollY > 50) nav.classList.add('nav-scrolled');
     else nav.classList.remove('nav-scrolled');
 });
 
-(function () {
-    const form = document.getElementById('flight-form');
-    const submitBtn = document.getElementById('submit-btn');
-    const formPanel = document.getElementById('form-panel');
-    const successPanel = document.getElementById('success-panel');
-    const errorPanel = document.getElementById('error-panel');
-    const errorMsg = document.getElementById('form-error-msg');
-    const tripTypeSelect = document.getElementById('tripType');
-    const returnDateWrap = document.getElementById('return-date-wrap');
-    const returnDateInput = document.getElementById('returnDate');
+/* ── Payment gate toggle ─────────────────────────────────────────────── */
+function gvjTogglePay(id, on) {
+    var el = document.getElementById(id);
+    if (el) el.setAttribute('aria-disabled', on ? 'false' : 'true');
+}
 
-    tripTypeSelect.addEventListener('change', function () {
+/* ── VISA FLIGHT RESERVATION form ────────────────────────────────────── */
+(function () {
+    const form        = document.getElementById('vf-form');
+    const submitBtn   = document.getElementById('vf-submit-btn');
+    const formPanel   = document.getElementById('vf-form-panel');
+    const payPanel    = document.getElementById('vf-payment-panel');
+    const errorPanel  = document.getElementById('vf-error-panel');
+    const errorMsg    = document.getElementById('vf-form-error-msg');
+    const tripSel     = document.getElementById('vf-tripType');
+    const retWrap     = document.getElementById('vf-return-date-wrap');
+    const retDate     = document.getElementById('vf-returnDate');
+
+    tripSel.addEventListener('change', function () {
         if (this.value === 'Return') {
-            returnDateInput.required = true;
-            returnDateWrap.style.opacity = '1';
+            retDate.required = true;
+            retWrap.style.opacity = '1';
         } else {
-            returnDateInput.required = false;
-            returnDateInput.value = '';
-            returnDateWrap.style.opacity = '0.4';
+            retDate.required = false;
+            retDate.value = '';
+            retWrap.style.opacity = '0.4';
         }
     });
-    returnDateWrap.style.opacity = '0.4';
+    retWrap.style.opacity = '0.4';
 
-    const requiredFields = ['fullName', 'departureCity', 'destinationCity', 'tripType', 'departureDate', 'passengers', 'baggage', 'ticketType', 'contactNumber'];
+    const required = ['vf-fullName','vf-departureCity','vf-destinationCity','vf-tripType','vf-departureDate','vf-passengers','vf-contactNumber'];
 
     form.addEventListener('submit', async function (e) {
         e.preventDefault();
 
-        // Honeypot: bots fill hidden fields, humans don't
+        if (form.elements['website'] && form.elements['website'].value) {
+            formPanel.style.display = 'none';
+            payPanel.style.display = 'block';
+            return;
+        }
+
+        let valid = true;
+        required.forEach(id => {
+            const el = document.getElementById(id);
+            if (!el.value.trim()) { el.classList.add('error'); valid = false; }
+            else el.classList.remove('error');
+        });
+        if (tripSel.value === 'Return' && !retDate.value) {
+            retDate.classList.add('error'); valid = false;
+        } else {
+            retDate.classList.remove('error');
+        }
+        if (!valid) { errorMsg.classList.remove('hidden'); return; }
+        errorMsg.classList.add('hidden');
+
+        const dep = document.getElementById('vf-departureDate').value;
+        const ret = document.getElementById('vf-returnDate').value;
+        const payload = {
+            service:        'Visa Flight Reservation',
+            fullName:       document.getElementById('vf-fullName').value.trim(),
+            departureCity:  document.getElementById('vf-departureCity').value.trim(),
+            destinationCity:document.getElementById('vf-destinationCity').value.trim(),
+            travelDates:    ret ? dep + ' to ' + ret : dep,
+            tripType:       document.getElementById('vf-tripType').value,
+            passengers:     parseInt(document.getElementById('vf-passengers').value, 10),
+            contactNumber:  document.getElementById('vf-contactNumber').value.trim(),
+            submittedAt:    new Date().toISOString()
+        };
+
+        submitBtn.textContent = 'Sending…';
+        submitBtn.disabled = true;
+
+        try {
+            await fetch(VISA_FLIGHT_WEBHOOK_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify(payload)
+            });
+            window.open('https://buy.stripe.com/cNieVc3YFemK6Cq80z0sU05', '_blank');
+            formPanel.style.display = 'none';
+            payPanel.style.display = 'block';
+            gtag('event', 'visa_flight_form_submit', { page_title: document.title });
+        } catch (err) {
+            formPanel.style.display = 'none';
+            errorPanel.style.display = 'block';
+        } finally {
+            submitBtn.innerHTML = 'Submit Details &amp; Proceed to Payment <i class="fa-solid fa-arrow-right text-xs"></i>';
+            submitBtn.disabled = false;
+        }
+    });
+
+    form.querySelectorAll('.form-input, .form-select').forEach(el => {
+        el.addEventListener('input', () => el.classList.remove('error'));
+    });
+})();
+
+/* ── REAL FLIGHT BOOKING form ────────────────────────────────────────── */
+(function () {
+    const form        = document.getElementById('rf-form');
+    const submitBtn   = document.getElementById('rf-submit-btn');
+    const formPanel   = document.getElementById('rf-form-panel');
+    const successPanel= document.getElementById('rf-success-panel');
+    const errorPanel  = document.getElementById('rf-error-panel');
+    const errorMsg    = document.getElementById('rf-form-error-msg');
+    const tripSel     = document.getElementById('rf-tripType');
+    const retWrap     = document.getElementById('rf-return-date-wrap');
+    const retDate     = document.getElementById('rf-returnDate');
+
+    tripSel.addEventListener('change', function () {
+        if (this.value === 'Return') {
+            retDate.required = true;
+            retWrap.style.opacity = '1';
+        } else {
+            retDate.required = false;
+            retDate.value = '';
+            retWrap.style.opacity = '0.4';
+        }
+    });
+    retWrap.style.opacity = '0.4';
+
+    const required = ['rf-fullName','rf-departureCity','rf-destinationCity','rf-tripType','rf-departureDate','rf-passengers','rf-baggage','rf-ticketType','rf-contactNumber'];
+
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
         if (form.elements['website'] && form.elements['website'].value) {
             formPanel.style.display = 'none';
             successPanel.style.display = 'block';
@@ -390,40 +665,33 @@ window.addEventListener('scroll', () => {
         }
 
         let valid = true;
-        requiredFields.forEach(id => {
+        required.forEach(id => {
             const el = document.getElementById(id);
-            if (!el.value.trim()) {
-                el.classList.add('error');
-                valid = false;
-            } else {
-                el.classList.remove('error');
-            }
+            if (!el.value.trim()) { el.classList.add('error'); valid = false; }
+            else el.classList.remove('error');
         });
-        if (tripTypeSelect.value === 'Return' && !returnDateInput.value) {
-            returnDateInput.classList.add('error');
-            valid = false;
+        if (tripSel.value === 'Return' && !retDate.value) {
+            retDate.classList.add('error'); valid = false;
         } else {
-            returnDateInput.classList.remove('error');
+            retDate.classList.remove('error');
         }
-        if (!valid) {
-            errorMsg.classList.remove('hidden');
-            return;
-        }
+        if (!valid) { errorMsg.classList.remove('hidden'); return; }
         errorMsg.classList.add('hidden');
 
-        const depDate = document.getElementById('departureDate').value;
-        const retDate = document.getElementById('returnDate').value;
+        const dep = document.getElementById('rf-departureDate').value;
+        const ret = document.getElementById('rf-returnDate').value;
         const payload = {
-            fullName: document.getElementById('fullName').value.trim(),
-            departureCity: document.getElementById('departureCity').value.trim(),
-            destinationCity: document.getElementById('destinationCity').value.trim(),
-            travelDates: retDate ? depDate + ' to ' + retDate : depDate,
-            tripType: document.getElementById('tripType').value,
-            passengers: parseInt(document.getElementById('passengers').value, 10),
-            baggageAllowance: document.getElementById('baggage').value,
-            ticketType: document.getElementById('ticketType').value,
-            contactNumber: document.getElementById('contactNumber').value.trim(),
-            submittedAt: new Date().toISOString()
+            fullName:        document.getElementById('rf-fullName').value.trim(),
+            departureCity:   document.getElementById('rf-departureCity').value.trim(),
+            destinationCity: document.getElementById('rf-destinationCity').value.trim(),
+            travelDates:     ret ? dep + ' to ' + ret : dep,
+            tripType:        document.getElementById('rf-tripType').value,
+            passengers:      parseInt(document.getElementById('rf-passengers').value, 10),
+            baggageAllowance:document.getElementById('rf-baggage').value,
+            ticketType:      document.getElementById('rf-ticketType').value,
+            contactNumber:   document.getElementById('rf-contactNumber').value.trim(),
+            checkInRequested:document.getElementById('rf-checkIn').checked,
+            submittedAt:     new Date().toISOString()
         };
 
         submitBtn.textContent = 'Sending…';
@@ -442,6 +710,9 @@ window.addEventListener('scroll', () => {
         } catch (err) {
             formPanel.style.display = 'none';
             errorPanel.style.display = 'block';
+        } finally {
+            submitBtn.textContent = 'Submit Flight Request';
+            submitBtn.disabled = false;
         }
     });
 
@@ -450,9 +721,10 @@ window.addEventListener('scroll', () => {
     });
 })();
 
+/* ── Newsletter ──────────────────────────────────────────────────────── */
 (function () {
-    var newsBtn = document.getElementById('newsletter-btn');
-    var newsInput = document.getElementById('newsletter-email');
+    var newsBtn     = document.getElementById('newsletter-btn');
+    var newsInput   = document.getElementById('newsletter-email');
     var newsSuccess = document.getElementById('newsletter-success');
     if (newsBtn) {
         newsBtn.addEventListener('click', async function () {
