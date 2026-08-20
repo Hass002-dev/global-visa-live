@@ -235,7 +235,7 @@ NOTE: blog/post.html is kept as a redirect file only — it forwards
                     <i class="fa-solid fa-calculator text-gold text-xs"></i> Readiness Check
                 </a>
                 <a href="index.html" class="text-gold font-semibold transition text-sm hidden md:block">Insights</a>
-                <a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'nav_cta'})" target="_blank" class="btn-outline-gold px-3 py-2 md:px-4 rounded-lg text-xs md:text-sm">
+                <a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'nav_cta'})" target="_blank" rel="noopener noreferrer" class="btn-outline-gold px-3 py-2 md:px-4 rounded-lg text-xs md:text-sm">
                     <i class="fa-brands fa-whatsapp text-xs"></i>
                     <span class="hidden md:inline">WhatsApp HQ</span>
                 </a>
@@ -516,13 +516,22 @@ function renderPosts() {
     else loadMore.classList.add('hidden');
 }
 
+function isSafeHttpUrl(url) {
+    try {
+        const u = new URL(url, location.origin);
+        return (u.protocol === 'http:' || u.protocol === 'https:');
+    } catch (e) {
+        return false;
+    }
+}
 function renderCard(p) {
     const date = p.publishedAt ? formatDate(p.publishedAt) : '';
     const safe = (s) => String(s || '').replace(/[<>"']/g, c => ({'<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const heroBg = isSafeHttpUrl(p.heroImage) ? `url('${safe(p.heroImage)}')` : 'none';
     return `
     <a href="${encodeURIComponent(p.slug || 'index')}.html" class="post-card no-underline">
         <div class="post-card-image-wrap">
-            <div class="post-card-image" style="background-image:url('${safe(p.heroImage)}')"></div>
+            <div class="post-card-image" style="background-image:${heroBg}"></div>
             ${p.category ? `<span class="category-badge">${safe(p.category)}</span>` : ''}
         </div>
         <div class="p-6 flex flex-col flex-grow">

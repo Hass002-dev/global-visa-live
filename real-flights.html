@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -236,13 +236,13 @@
                         <input type="checkbox" onchange="gvjTogglePay('vf-pay-btn',this.checked)">
                         <span>I confirm I have read and accept GVJ's <a href="engagement-letter.html" target="_blank" rel="noopener">Client Engagement Letter and Terms &amp; Conditions</a>.</span>
                     </label>
-                    <a href="https://buy.stripe.com/cNieVc3YFemK6Cq80z0sU05" id="vf-pay-btn" target="_blank" onclick="gtag('event','visa_flight_payment_click',{'page_location':window.location.href,'page_title':document.title})" class="inline-flex items-center justify-center gap-2 w-full bg-[#25D366] hover:bg-[#128C7E] text-white font-bold px-8 py-4 rounded-xl transition text-sm mb-5 gvj-pay-gated" aria-disabled="true">
+                    <a href="https://buy.stripe.com/cNieVc3YFemK6Cq80z0sU05" id="vf-pay-btn" target="_blank" rel="noopener noreferrer" onclick="gtag('event','visa_flight_payment_click',{'page_location':window.location.href,'page_title':document.title})" class="inline-flex items-center justify-center gap-2 w-full bg-[#25D366] hover:bg-[#128C7E] text-white font-bold px-8 py-4 rounded-xl transition text-sm mb-5 gvj-pay-gated" aria-disabled="true">
                         <i class="fa-solid fa-lock text-xs"></i> Complete Payment — £50
                     </a>
                     <div class="gold-divider mb-5"></div>
                     <a href="https://wa.me/447511219482?text=Hi%2C%20I%27ve%20just%20paid%20for%20my%20Visa%20Flight%20Reservation%20and%20submitted%20my%20details."
                        onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'visa_flight_post_payment'})"
-                       target="_blank"
+                       target="_blank" rel="noopener noreferrer"
                        class="inline-flex items-center gap-3 bg-[#25D366]/10 border border-[#25D366]/40 hover:bg-[#25D366]/20 text-[#25D366] font-bold px-6 py-3 rounded-xl transition text-sm">
                         <i class="fa-brands fa-whatsapp text-lg"></i> Confirm on WhatsApp
                     </a>
@@ -259,7 +259,7 @@
                     <p class="text-[#7a8899] text-sm leading-relaxed mb-8">Something went wrong. Please contact us on WhatsApp and we'll take your reservation details directly.</p>
                     <a href="https://wa.me/447511219482?text=Hi%2C%20I%27d%20like%20to%20order%20a%20Visa%20Flight%20Reservation."
                        onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'visa_flight_error_cta'})"
-                       target="_blank"
+                       target="_blank" rel="noopener noreferrer"
                        class="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold px-8 py-4 rounded-xl transition text-sm">
                         <i class="fa-brands fa-whatsapp text-xl"></i>
                         Order via WhatsApp
@@ -402,7 +402,7 @@
                     <p class="text-[#7a8899] text-sm leading-relaxed mb-8">Thank you! We'll confirm your flight options and pricing on WhatsApp shortly.</p>
                     <a href="https://wa.me/447511219482?text=Hi%2C%20I%20just%20submitted%20a%20flight%20reservation%20request%20and%20I%27d%20like%20to%20follow%20up."
                        onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'flight_form_success_cta'})"
-                       target="_blank"
+                       target="_blank" rel="noopener noreferrer"
                        class="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold px-8 py-4 rounded-xl transition text-sm">
                         <i class="fa-brands fa-whatsapp text-xl"></i>
                         Follow Up on WhatsApp
@@ -420,7 +420,7 @@
                     <p class="text-[#7a8899] text-sm leading-relaxed mb-8">Something went wrong on our end. Please contact us directly on WhatsApp and we'll get your request sorted straight away.</p>
                     <a href="https://wa.me/447511219482?text=Hi%2C%20I%20just%20submitted%20a%20flight%20reservation%20request%20and%20I%27d%20like%20to%20follow%20up."
                        onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'flight_form_error_cta'})"
-                       target="_blank"
+                       target="_blank" rel="noopener noreferrer"
                        class="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold px-8 py-4 rounded-xl transition text-sm">
                         <i class="fa-brands fa-whatsapp text-xl"></i>
                         Contact Us on WhatsApp
@@ -443,10 +443,10 @@
                 <span class="text-white text-2xl font-black" style="font-family:'Cormorant Garamond',serif;">GLOBAL VISA <span class="text-gold">&amp;</span> JOURNEYS</span>
                 <p class="mt-4 text-sm leading-relaxed max-w-sm font-medium">A specialist travel consultancy that helps clients navigate visa rules and travel arrangements — honestly and thoroughly. Registered in England &amp; Wales.</p>
                 <div class="mt-6 flex gap-3 flex-wrap">
-                    <a href="https://facebook.com/globalvisajourneys" target="_blank" class="text-[#7a8899] hover:text-gold transition w-9 h-9 rounded-full border border-[#1e2730] flex items-center justify-center hover:border-gold"><i class="fa-brands fa-facebook text-sm"></i></a>
-                    <a href="https://instagram.com/globalvisajourneysltd" target="_blank" class="text-[#7a8899] hover:text-gold transition w-9 h-9 rounded-full border border-[#1e2730] flex items-center justify-center hover:border-gold"><i class="fa-brands fa-instagram text-sm"></i></a>
-                    <a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'footer_social'})" target="_blank" class="text-[#7a8899] hover:text-green-400 transition w-9 h-9 rounded-full border border-[#1e2730] flex items-center justify-center hover:border-green-400"><i class="fa-brands fa-whatsapp text-sm"></i></a>
-                    <a href="https://whatsapp.com/channel/0029VbCDSSWEquiHjVOXqp2f" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'footer_channel'})" target="_blank" class="text-white hover:text-[#25D366] transition flex items-center gap-2 bg-[#25D366]/10 border border-[#25D366]/30 rounded-full px-4 h-9 text-xs font-bold hover:bg-[#25D366]/20 hover:border-[#25D366]/60"><i class="fa-brands fa-whatsapp text-[#25D366]"></i> Follow Our Channel</a>
+                    <a href="https://facebook.com/globalvisajourneys" target="_blank" rel="noopener noreferrer" class="text-[#7a8899] hover:text-gold transition w-9 h-9 rounded-full border border-[#1e2730] flex items-center justify-center hover:border-gold"><i class="fa-brands fa-facebook text-sm"></i></a>
+                    <a href="https://instagram.com/globalvisajourneysltd" target="_blank" rel="noopener noreferrer" class="text-[#7a8899] hover:text-gold transition w-9 h-9 rounded-full border border-[#1e2730] flex items-center justify-center hover:border-gold"><i class="fa-brands fa-instagram text-sm"></i></a>
+                    <a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'footer_social'})" target="_blank" rel="noopener noreferrer" class="text-[#7a8899] hover:text-green-400 transition w-9 h-9 rounded-full border border-[#1e2730] flex items-center justify-center hover:border-green-400"><i class="fa-brands fa-whatsapp text-sm"></i></a>
+                    <a href="https://whatsapp.com/channel/0029VbCDSSWEquiHjVOXqp2f" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'footer_channel'})" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#25D366] transition flex items-center gap-2 bg-[#25D366]/10 border border-[#25D366]/30 rounded-full px-4 h-9 text-xs font-bold hover:bg-[#25D366]/20 hover:border-[#25D366]/60"><i class="fa-brands fa-whatsapp text-[#25D366]"></i> Follow Our Channel</a>
                 </div>
             </div>
             <div>
@@ -475,7 +475,7 @@
                 <ul class="space-y-3 text-sm font-medium">
                     <li class="flex items-start gap-2"><i class="fa-solid fa-envelope text-gold mt-0.5 flex-shrink-0"></i> office@globalvisajourneys.com</li>
                     <li class="flex items-start gap-2"><i class="fa-solid fa-phone text-gold mt-0.5 flex-shrink-0"></i> 0204 628 1692 (UK Office)</li>
-                    <li class="flex items-start gap-2"><a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'footer_quick_contact'})" target="_blank" class="hover:text-white transition flex items-start gap-2"><i class="fa-brands fa-whatsapp text-green-400 mt-0.5 flex-shrink-0"></i> +44 7511 219482</a></li>
+                    <li class="flex items-start gap-2"><a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'footer_quick_contact'})" target="_blank" rel="noopener noreferrer" class="hover:text-white transition flex items-start gap-2"><i class="fa-brands fa-whatsapp text-green-400 mt-0.5 flex-shrink-0"></i> +44 7511 219482</a></li>
                     <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot text-gold mt-0.5 flex-shrink-0"></i> 71-75 Shelton Street, London WC2H 9JQ</li>
                 </ul>
             </div>
@@ -508,7 +508,7 @@
     </div>
 </footer>
 
-<a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'floating_button'})" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp" title="Chat on WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>
+<a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'floating_button'})" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp" title="Chat on WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>
 
 <nav id="mobile-bottom-nav" style="position:fixed; bottom:0; left:0; right:0; z-index:9998; background:#0f1419; border-top:1px solid #1e2730; -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); padding-bottom:env(safe-area-inset-bottom);">
     <div style="display:flex;">

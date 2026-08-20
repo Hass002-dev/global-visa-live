@@ -202,7 +202,7 @@
         </div>
 
         <p class="text-center text-[#4a5568] text-xs mt-6">
-            Don't have portal access? <a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'portal_access_link'})" target="_blank" class="hover:text-white transition" style="color:var(--brand-gold)">Contact GV&J on WhatsApp</a>
+            Don't have portal access? <a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'portal_access_link'})" target="_blank" rel="noopener noreferrer" class="hover:text-white transition" style="color:var(--brand-gold)">Contact GV&J on WhatsApp</a>
         </p>
     </div>
 </div>
@@ -386,7 +386,7 @@
                     <p class="text-[#7a8899] text-sm mt-0.5 font-medium">Our team is available on WhatsApp to answer your questions.</p>
                 </div>
                 <a href="https://wa.me/447511219482?text=Hi%2C%20I%20need%20help%20with%20my%20portal" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'portal_help_cta'})"
-                   target="_blank"
+                   target="_blank" rel="noopener noreferrer"
                    class="flex-shrink-0 flex items-center gap-2 font-bold px-6 py-3 rounded-full text-sm transition"
                    style="background:#25D366; color:#fff;">
                     <i class="fa-brands fa-whatsapp text-lg"></i> Chat on WhatsApp
@@ -1100,7 +1100,7 @@ function showMsg(el, msg) {
 function showLoginError(msg, showWA = false) {
     const errBox = document.getElementById('login-error');
     if (showWA) {
-        errBox.innerHTML = `${msg}&nbsp;&nbsp;<a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'portal_error_cta'})" target="_blank" style="color:#25d366; font-weight:700; text-decoration:underline; white-space:nowrap;"><i class="fa-brands fa-whatsapp mr-1"></i>WhatsApp Us</a>`;
+        errBox.innerHTML = `${msg}&nbsp;&nbsp;<a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'portal_error_cta'})" target="_blank" rel="noopener noreferrer" style="color:#25d366; font-weight:700; text-decoration:underline; white-space:nowrap;"><i class="fa-brands fa-whatsapp mr-1"></i>WhatsApp Us</a>`;
     } else {
         errBox.textContent = msg;
     }
