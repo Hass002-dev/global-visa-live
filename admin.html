@@ -809,13 +809,15 @@ window.openDocsModal = (uid) => {
                 <span class="text-sm font-semibold text-white">${label}</span>
                 ${d ? `<span class="text-xs text-[#7a8899] hidden sm:inline">${formatDate(d.uploadedAt)}</span>` : ''}
             </div>
-            ${d && d.url
-                ? `<a href="${d.url}" target="_blank" rel="noopener noreferrer"
+            ${d && d.url && isSafeHttpUrl(d.url)
+                ? `<a href="${escHtml(d.url)}" target="_blank" rel="noopener noreferrer"
                       class="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-lg transition"
                       style="color:var(--brand-gold); border:1px solid rgba(201,168,76,0.3); background:rgba(201,168,76,0.06)">
                        <i class="fa-solid fa-download text-xs"></i> Download
                    </a>`
-                : `<span class="text-xs text-[#4a5568] font-medium">Not uploaded</span>`}
+                : d
+                    ? `<span class="text-xs text-[#4a5568] font-medium">Link unavailable</span>`
+                    : `<span class="text-xs text-[#4a5568] font-medium">Not uploaded</span>`}
         </div>`;
     }).join('');
 
@@ -903,6 +905,14 @@ function formatDate(iso) {
 }
 function escHtml(str) {
     return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function isSafeHttpUrl(url) {
+    try {
+        const u = new URL(url, location.origin);
+        return (u.protocol === 'http:' || u.protocol === 'https:');
+    } catch (e) {
+        return false;
+    }
 }
 
 /* ════════════════════════════════════════════════════════════
