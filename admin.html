@@ -321,11 +321,12 @@
                                 <th class="hidden md:table-cell">Category</th>
                                 <th class="hidden md:table-cell">Author</th>
                                 <th>Status</th>
+                                <th>Live</th>
                                 <th class="hidden lg:table-cell">Date</th>
                                 <th>Actions</th>
                             </tr></thead>
                             <tbody id="blog-tbody">
-                                <tr><td colspan="6" class="text-center py-12 text-[#4a5568]"><i class="fa-solid fa-circle-notch spin mr-2"></i>Loading posts…</td></tr>
+                                <tr><td colspan="7" class="text-center py-12 text-[#4a5568]"><i class="fa-solid fa-circle-notch spin mr-2"></i>Loading posts…</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -435,6 +436,15 @@
                         <button type="button" id="bf-publish" onclick="savePost('published')" class="btn-gold px-5 py-3 rounded-xl text-xs flex-1">
                             <i class="fa-solid fa-paper-plane"></i> <span id="bf-publish-label">Publish Now</span>
                         </button>
+                    </div>
+                    <div id="bf-live-row" class="hidden pt-4 border-t border-[#1e2730]">
+                        <label class="flex items-center gap-3 cursor-pointer select-none">
+                            <input type="checkbox" id="bf-live" class="w-4 h-4 flex-shrink-0" style="accent-color:#c9a84c;">
+                            <div>
+                                <p class="text-sm font-bold text-white">Mark as Live</p>
+                                <p class="text-xs text-[#7a8899] mt-0.5">Shows this post in the public blog listing. Enable only after the static HTML file is deployed to GitHub Pages.</p>
+                            </div>
+                        </label>
                     </div>
                 </form>
             </div>
@@ -950,13 +960,20 @@ async function loadAllBlogPosts() {
         if (unsubBlogList) unsubBlogList();
         unsubBlogList = onSnapshot(
             query(collection(db, 'blog_posts'), orderBy('createdAt', 'desc')),
-            (snap) => {
+            async (snap) => {
                 allBlogPosts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                // One-time migration: posts created before the live flag was added get live:true automatically
+                const toMigrate = allBlogPosts.filter(p => p.status === 'published' && p.live === undefined);
+                if (toMigrate.length > 0) {
+                    await Promise.all(toMigrate.map(p =>
+                        updateDoc(doc(db, 'blog_posts', p.id), { live: true }).catch(() => {})
+                    ));
+                }
                 renderBlogTable();
             },
             (err) => {
                 console.error('[GVJ Admin Blog] Listener error:', err);
-                document.getElementById('blog-tbody').innerHTML = `<tr><td colspan="6" class="text-center py-8 text-red-400 text-sm">Could not load posts: ${escHtml(err.message)}</td></tr>`;
+                document.getElementById('blog-tbody').innerHTML = `<tr><td colspan="7" class="text-center py-8 text-red-400 text-sm">Could not load posts: ${escHtml(err.message)}</td></tr>`;
             }
         );
     } catch(e) {
@@ -967,7 +984,7 @@ async function loadAllBlogPosts() {
 function renderBlogTable() {
     const tbody = document.getElementById('blog-tbody');
     if (allBlogPosts.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="text-center py-12 text-[#4a5568] text-sm">
+        tbody.innerHTML = `<tr><td colspan="7" class="text-center py-12 text-[#4a5568] text-sm">
             <i class="fa-solid fa-feather-pointed mr-2"></i>No blog posts yet. Click "New Post" or "Seed Samples" to get started.
         </td></tr>`;
         return;
@@ -975,18 +992,25 @@ function renderBlogTable() {
     tbody.innerHTML = allBlogPosts.map(p => {
         const statusCls   = p.status === 'published' ? 'blog-status-published' : 'blog-status-draft';
         const statusLabel = p.status === 'published' ? 'Published' : 'Draft';
+        const liveCls     = p.live ? 'blog-status-published' : '';
+        const liveStyle   = p.live ? '' : 'background:rgba(74,85,104,0.2);color:#7a8899;border:1px solid rgba(74,85,104,0.3)';
+        const liveLabel   = p.live ? 'Live' : 'Pending';
         const date        = p.publishedAt || p.createdAt;
         return `<tr>
             <td class="font-semibold text-white text-sm max-w-xs"><div class="truncate">${escHtml(p.title || 'Untitled')}</div><div class="text-[#4a5568] text-[11px] mt-0.5 truncate">${escHtml(p.slug || '')}</div></td>
             <td class="text-sm hidden md:table-cell">${escHtml(p.category || '—')}</td>
             <td class="text-sm hidden md:table-cell">${escHtml(p.author || '—')}</td>
             <td><span class="blog-status-badge ${statusCls}">${statusLabel}</span></td>
+            <td><span class="blog-status-badge ${liveCls}" style="${liveStyle}">${liveLabel}</span></td>
             <td class="text-[#7a8899] text-xs hidden lg:table-cell">${date ? formatDate(date) : '—'}</td>
             <td>
                 <div class="flex gap-1.5 flex-wrap">
                     <button class="btn-blue btn-sm rounded-lg text-xs" onclick="editPost('${p.id}')" title="Edit"><i class="fa-solid fa-pen text-xs"></i></button>
                     <button class="btn-sm rounded-lg text-xs" style="background:${p.status==='published'?'rgba(234,179,8,0.15)':'rgba(34,197,94,0.15)'}; color:${p.status==='published'?'#facc15':'#4ade80'}; border:1px solid ${p.status==='published'?'rgba(234,179,8,0.3)':'rgba(34,197,94,0.3)'}; padding:6px 10px;" onclick="togglePublish('${p.id}')" title="${p.status==='published'?'Unpublish':'Publish'}">
                         <i class="fa-solid ${p.status==='published'?'fa-eye-slash':'fa-eye'} text-xs"></i>
+                    </button>
+                    <button class="btn-sm rounded-lg text-xs" style="background:${p.live?'rgba(234,179,8,0.15)':'rgba(34,197,94,0.15)'}; color:${p.live?'#facc15':'#4ade80'}; border:1px solid ${p.live?'rgba(234,179,8,0.3)':'rgba(34,197,94,0.3)'}; padding:6px 10px;" onclick="toggleLive('${p.id}')" title="${p.live?'Hide from listing':'Go live'}">
+                        <i class="fa-solid ${p.live?'fa-toggle-on':'fa-bolt'} text-xs"></i>
                     </button>
                     <button class="btn-sm rounded-lg text-xs" style="background:rgba(239,68,68,0.12); color:#f87171; border:1px solid rgba(239,68,68,0.3); padding:6px 10px;" onclick="deletePost('${p.id}','${escHtml(p.title||'').replace(/'/g,'')}')" title="Delete"><i class="fa-solid fa-trash text-xs"></i></button>
                 </div>
@@ -1061,6 +1085,7 @@ window.savePost = async (statusValue) => {
         ctaType:        document.getElementById('bf-cta').value,
         seoTitle:       document.getElementById('bf-seo-title').value.trim(),
         seoDescription: document.getElementById('bf-seo-desc').value.trim(),
+        live:           !!(document.getElementById('bf-live')?.checked),
         status:         statusValue,
         updatedAt:      new Date().toISOString(),
     };
@@ -1098,7 +1123,8 @@ window.savePost = async (statusValue) => {
             await updateDoc(doc(db, 'blog_posts', editingId), data);
             okEl.textContent = 'Post updated successfully.';
         } else {
-            // New
+            // New posts always start as not live — static file must be deployed first
+            data.live = false;
             data.createdAt = new Date().toISOString();
             if (statusValue === 'published') data.publishedAt = new Date().toISOString();
             await addDoc(collection(db, 'blog_posts'), data);
@@ -1144,6 +1170,8 @@ window.editPost = (id) => {
     document.getElementById('bf-seo-desc').value    = p.seoDescription || '';
     updateCounter('bf-excerpt','bf-excerpt-count',200);
     updateCounter('bf-seo-desc','bf-seo-desc-count',160);
+    document.getElementById('bf-live').checked = !!p.live;
+    document.getElementById('bf-live-row').classList.remove('hidden');
     document.getElementById('bf-publish-label').textContent = 'Save & Publish';
     switchBlogTab('new');
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1156,12 +1184,27 @@ function resetForm() {
     document.getElementById('bf-author').value   = 'GV&J Strategy Team';
     document.getElementById('bf-category').value = '';
     document.getElementById('bf-cta').value      = 'quickscan';
+    document.getElementById('bf-live').checked   = false;
+    document.getElementById('bf-live-row').classList.add('hidden');
     document.getElementById('bf-slug').dataset.manual = 'false';
     document.getElementById('bf-preview').classList.add('hidden');
     document.getElementById('bf-publish-label').textContent = 'Publish Now';
     updateCounter('bf-excerpt','bf-excerpt-count',200);
     updateCounter('bf-seo-desc','bf-seo-desc-count',160);
 }
+
+/* ── TOGGLE LIVE ── */
+window.toggleLive = async (id) => {
+    const p = allBlogPosts.find(x => x.id === id);
+    if (!p) return;
+    const newLive = !p.live;
+    if (newLive && !confirm('Mark as Live?\n\nThe static HTML file for this post must already be deployed to GitHub Pages, otherwise visitors will hit a 404.')) return;
+    try {
+        await updateDoc(doc(db, 'blog_posts', id), { live: newLive, updatedAt: new Date().toISOString() });
+    } catch(e) {
+        console.error('[GVJ Admin Blog] Live toggle error:', e);
+    }
+};
 
 /* ── TOGGLE PUBLISH ── */
 window.togglePublish = async (id) => {

@@ -425,7 +425,7 @@ NOTE: blog/post.html is kept as a redirect file only — it forwards
 <script type="module">
 import { initializeApp }                              from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, collection, query, where,
-         orderBy, getDocs }                           from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+         getDocs }                                    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey:            "AIzaSyCcoyBXRITTblrH0XcaLGMjftUttXYLtj4",
@@ -456,11 +456,12 @@ async function loadPosts() {
         const q = query(
             collection(db, 'blog_posts'),
             where('status', '==', 'published'),
-            orderBy('publishedAt', 'desc')
+            where('live', '==', true)
         );
         const snap = await getDocs(q);
-        allPosts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-        console.log('[GVJ Blog] Loaded', allPosts.length, 'published posts');
+        allPosts = snap.docs.map(d => ({ id: d.id, ...d.data() }))
+            .sort((a, b) => new Date(b.publishedAt || b.createdAt || 0) - new Date(a.publishedAt || a.createdAt || 0));
+        console.log('[GVJ Blog] Loaded', allPosts.length, 'live posts');
 
         document.getElementById('posts-loading').classList.add('hidden');
 
