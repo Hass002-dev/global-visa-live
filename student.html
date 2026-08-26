@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>University Finder | Global Visa &amp; Journeys London</title>
-    <meta name="description" content="Find your ideal UK or European university in 60 seconds. Answer 5 questions and get personalised university matches based on your grades, budget, and subject. Student placement from £79.">
+    <meta name="description" content="Find your ideal European university in 60 seconds. Answer 4 questions and get personalised university matches based on your grades, budget, and subject. Student placement from £79.">
     <link rel="canonical" href="https://www.globalvisajourneys.com/student.html">
     <link rel="icon" type="image/svg+xml" href="./favicon.svg">
     <link rel="stylesheet" href="./output.css">
@@ -342,7 +342,7 @@
     <div class="max-w-3xl fade-in-up visible">
         <div class="inline-flex items-center gap-2 bg-[#0f1419]/80 backdrop-blur-sm border border-[#1e2730] rounded-full px-5 py-1.5 mb-8">
             <i class="fa-solid fa-graduation-cap text-gold text-xs"></i>
-            <span class="text-gold text-xs font-bold tracking-widest uppercase">Student Placement · UK &amp; Europe</span>
+            <span class="text-gold text-xs font-bold tracking-widest uppercase">Student Placement · Europe</span>
         </div>
         <h1 class="text-5xl md:text-7xl font-black text-white mb-6 leading-[1.05]" style="font-family:'Cormorant Garamond',serif;">
             Find Your University<br>
@@ -467,21 +467,7 @@
             </div>
             <div class="mt-8 flex justify-between">
                 <button type="button" class="btn-outline-gold px-6 py-3 rounded-full text-sm" onclick="goToStep(3)"><i class="fa-solid fa-arrow-left mr-2"></i> Back</button>
-                <button type="button" id="next-4" class="btn-gold px-8 py-3.5 rounded-full text-sm hidden" onclick="goToStep(5)">Next <i class="fa-solid fa-arrow-right ml-2"></i></button>
-            </div>
-        </div>
-
-        <!-- Step 5: Destination -->
-        <div class="quiz-step" id="step-5">
-            <h2 class="text-2xl md:text-3xl font-black text-white mb-8" style="font-family:'Cormorant Garamond',serif;">Where would you prefer to study?</h2>
-            <div class="flex flex-col gap-3">
-                <button type="button" class="quiz-option" data-q="destination" data-val="uk" onclick="selectOption(this)">🇬🇧 United Kingdom only</button>
-                <button type="button" class="quiz-option" data-q="destination" data-val="eu" onclick="selectOption(this)">🇪🇺 Europe only (Germany, Poland, Netherlands)</button>
-                <button type="button" class="quiz-option" data-q="destination" data-val="both" onclick="selectOption(this)">🌍 Open to both — show me the best option</button>
-            </div>
-            <div class="mt-8 flex justify-between">
-                <button type="button" class="btn-outline-gold px-6 py-3 rounded-full text-sm" onclick="goToStep(4)"><i class="fa-solid fa-arrow-left mr-2"></i> Back</button>
-                <button type="button" id="next-5" class="btn-gold px-8 py-3.5 rounded-full text-sm hidden" onclick="showResults()">See My Matches <i class="fa-solid fa-arrow-right ml-2"></i></button>
+                <button type="button" id="next-4" class="btn-gold px-8 py-3.5 rounded-full text-sm hidden" onclick="showResults()">See My Matches <i class="fa-solid fa-arrow-right ml-2"></i></button>
             </div>
         </div>
 
@@ -551,33 +537,11 @@
     <div class="max-w-7xl mx-auto px-4">
 
         <div class="text-center mb-14 fade-in-up">
-            <span class="text-gold text-xs tracking-widest uppercase font-bold">UK &amp; Europe</span>
+            <span class="text-gold text-xs tracking-widest uppercase font-bold">Europe</span>
             <h2 class="text-4xl font-bold text-white mt-2" style="font-family:'Cormorant Garamond',serif;">Why Study With Our Guidance</h2>
         </div>
 
         <div class="grid md:grid-cols-3 gap-8">
-
-            <!-- UK Graduate Route -->
-            <div class="bg-[#0f1419] border border-[#1e2730] rounded-2xl overflow-hidden hover:border-[#c9a84c]/50 transition fade-in-up">
-                <div class="carousel-wrap" id="carousel-uk">
-                    <div class="carousel-slides" id="slides-uk">
-                        <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1607237138185-eedd9c632b0b?w=800&auto=format&fit=crop" alt="Oxford University campus" width="100%" height="300" loading="eager"></div>
-                        <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=800&auto=format&fit=crop" alt="UK university lecture hall" width="100%" height="300" loading="lazy"></div>
-                        <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&auto=format&fit=crop" alt="UK graduation ceremony" width="100%" height="300" loading="lazy"></div>
-                        <div class="carousel-slide"><img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&auto=format&fit=crop" alt="UK university campus life" width="100%" height="300" loading="lazy"></div>
-                    </div>
-                    <button type="button" class="carousel-btn prev" onclick="carouselMove('uk', -1)"><i class="fa-solid fa-chevron-left"></i></button>
-                    <button type="button" class="carousel-btn next" onclick="carouselMove('uk', 1)"><i class="fa-solid fa-chevron-right"></i></button>
-                    <div class="carousel-dots" id="dots-uk"></div>
-                </div>
-                <div class="p-6">
-                    <div class="w-12 h-12 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center mb-4">
-                        <i class="fa-solid fa-passport text-xl text-gold"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">2-Year Work Visa Included</h3>
-                    <p class="text-[#7a8899] text-sm leading-relaxed">Every UK degree comes with the Graduate Route Visa — 2 years to work freely in the UK after graduation. No job offer required.</p>
-                </div>
-            </div>
 
             <!-- EU Affordable -->
             <div class="bg-[#0f1419] border border-[#1e2730] rounded-2xl overflow-hidden hover:border-[#c9a84c]/50 transition fade-in-up">
@@ -597,7 +561,7 @@
                         <i class="fa-solid fa-coins text-xl text-gold"></i>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">Study in Europe From £8,000/Year</h3>
-                    <p class="text-[#7a8899] text-sm leading-relaxed">Germany, Poland, and Hungary offer world-class degrees at a fraction of UK costs. Many programmes taught fully in English.</p>
+                    <p class="text-[#7a8899] text-sm leading-relaxed">Germany, Poland, and Hungary offer world-class degrees at significantly lower cost. Many programmes taught fully in English.</p>
                 </div>
             </div>
 
@@ -670,7 +634,7 @@
                     </div>
                 </div>
                 <div class="p-7 flex flex-col flex-grow">
-                    <p class="text-[#adb8c4] text-sm mb-6 leading-relaxed flex-grow">Applications to 5 universities, personal statement writing, offer management, and university selection advice.</p>
+                    <p class="text-[#adb8c4] text-sm mb-6 leading-relaxed flex-grow">Applications to  universities, personal statement writing, offer management, and university selection advice.</p>
                     <a href="https://wa.me/447511219482?text=Hi%2C%20I%20am%20interested%20in%20student%20placement%20services%20with%20Global%20Visa%20%26%20Journeys" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'pricing_diy_cta'})" target="_blank" rel="noopener" class="btn-gold py-3 rounded-xl text-sm w-full flex items-center justify-center gap-2">
                         <i class="fa-brands fa-whatsapp text-base"></i> Get Started — WhatsApp Us
                     </a>
@@ -713,38 +677,11 @@
         <div class="fade-in-up">
             <div class="faq-item">
                 <button type="button" class="faq-question" onclick="toggleFAQ(this)">
-                    <span>How much does it cost to study in the UK?</span>
-                    <i class="fa-solid fa-chevron-down faq-icon"></i>
-                </button>
-                <div class="faq-answer">
-                    Total first year costs range from £14,000 for budget universities outside London to £35,000 for London universities. This includes tuition, living costs, visa fees, and the GVJ service fee. We give you a full personalised cost breakdown in the Profile Assessment.
-                </div>
-            </div>
-            <div class="faq-item">
-                <button type="button" class="faq-question" onclick="toggleFAQ(this)">
-                    <span>Can I study in Europe if I cannot afford UK fees?</span>
-                    <i class="fa-solid fa-chevron-down faq-icon"></i>
-                </button>
-                <div class="faq-answer">
-                    Absolutely. Germany charges almost no tuition — approximately £300 in admin fees per year. Poland and Hungary offer full English programmes from £2,000–£4,000 per year in tuition. Total annual costs including living can be as low as £8,000–£12,000.
-                </div>
-            </div>
-            <div class="faq-item">
-                <button type="button" class="faq-question" onclick="toggleFAQ(this)">
-                    <span>What happens after I graduate from a UK university?</span>
-                    <i class="fa-solid fa-chevron-down faq-icon"></i>
-                </button>
-                <div class="faq-answer">
-                    You automatically qualify for the UK Graduate Route Visa — 2 years of work in the UK for undergraduates and Masters graduates, 3 years for PhDs. No job offer required. This is one of the strongest post-study work visas in the world.
-                </div>
-            </div>
-            <div class="faq-item">
-                <button type="button" class="faq-question" onclick="toggleFAQ(this)">
                     <span>Do I need IELTS to apply?</span>
                     <i class="fa-solid fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer">
-                    Most UK and EU universities require an English test. IELTS, TOEFL, and PTE Academic are all accepted. If you do not have a score yet we advise you on the minimum score needed for your target universities and the best way to prepare.
+                    Most European universities require an English test. IELTS, TOEFL, and PTE Academic are all accepted. If you do not have a score yet we advise you on the minimum score needed for your target universities and the best way to prepare.
                 </div>
             </div>
             <div class="faq-item">
@@ -1051,7 +988,7 @@
         rs.style.display = 'block';
 
         var budget = answers.budget;
-        var dest = answers.destination;
+        var dest = 'eu'; // GVJ places students in European universities only
         var subject = answers.subject;
 
         var intro = '';
@@ -1060,7 +997,7 @@
 
         // Medicine override
         if (subject === 'medicine' && (budget === 'under10' || budget === '10to15')) {
-            intro = 'Hungary offers world-class Medicine programmes in English at a fraction of UK costs. Based on your subject and budget, this is your strongest route.';
+            intro = 'Hungary offers world-class Medicine programmes in English at significantly lower cost than most alternatives. Based on your subject and budget, this is your strongest route.';
             unis = [
                 { flag: '🇭🇺', name: 'University of Pécs', country: 'Hungary' },
                 { flag: '🇭🇺', name: 'University of Debrecen', country: 'Hungary' },
@@ -1075,39 +1012,24 @@
                 { flag: '🇵🇱', name: 'Jagiellonian University', country: 'Poland' }
             ];
             cost = 'Estimated annual cost: £8,000–£10,000 (tuition + living)';
-        } else if (budget === '10to15' && dest === 'uk') {
-            intro = 'Within your budget there are strong UK universities outside London with excellent graduate outcomes and clear pathways to the Graduate Route Visa.';
-            unis = [
-                { flag: '🇬🇧', name: 'University of Bolton', country: 'England' },
-                { flag: '🇬🇧', name: 'University of Bedfordshire', country: 'England' },
-                { flag: '🇬🇧', name: 'Teesside University', country: 'England' }
-            ];
-            cost = 'Estimated annual cost: £14,000–£16,000';
-        } else if (budget === '10to15' && (dest === 'eu' || dest === 'both')) {
-            intro = 'Poland and Hungary offer strong English-taught programmes that fit your budget comfortably, with lower living costs than the UK.';
+        } else if (budget === '10to15') {
+            intro = 'Poland and Hungary offer strong English-taught programmes that fit your budget comfortably, with accessible tuition fees and reasonable living costs.';
             unis = [
                 { flag: '🇵🇱', name: 'University of Warsaw', country: 'Poland' },
                 { flag: '🇭🇺', name: 'University of Debrecen', country: 'Hungary' },
                 { flag: '🇵🇱', name: 'Jagiellonian University', country: 'Poland' }
             ];
             cost = 'Estimated annual cost: £10,000–£14,000';
-        } else if (budget === '15to20' && dest === 'eu') {
-            intro = 'With your budget you can access excellent European universities with English-taught programmes and lower overall costs than UK equivalents.';
+        } else if (budget === '15to20') {
+            intro = 'With your budget you can access excellent European universities with English-taught programmes and strong graduate employment outcomes.';
             unis = [
                 { flag: '🇵🇱', name: 'University of Warsaw', country: 'Poland' },
                 { flag: '🇩🇪', name: 'TU Berlin', country: 'Germany' },
                 { flag: '🇳🇱', name: 'University of Amsterdam', country: 'Netherlands' }
             ];
             cost = 'Estimated annual cost: £12,000–£17,000';
-        } else if (budget === '15to20' && (dest === 'uk' || dest === 'both')) {
-            intro = 'Mid-range UK universities offer strong teaching quality, graduate route visa access, and good employment outcomes within your budget.';
-            unis = [
-                { flag: '🇬🇧', name: 'Coventry University', country: 'England' },
-                { flag: '🇬🇧', name: 'University of Portsmouth', country: 'England' },
-                { flag: '🇬🇧', name: 'Northumbria University', country: 'England' }
-            ];
-            cost = 'Estimated annual cost: £16,000–£19,000';
-        } else if (budget === 'over20' && dest === 'eu') {
+        } else {
+            // over20
             intro = 'With your budget you have access to the very best European universities, including Russell Group equivalents in the Netherlands and Germany.';
             unis = [
                 { flag: '🇳🇱', name: 'University of Amsterdam', country: 'Netherlands' },
@@ -1115,20 +1037,6 @@
                 { flag: '🇧🇪', name: 'KU Leuven', country: 'Belgium' }
             ];
             cost = 'Estimated annual cost: £15,000–£22,000';
-        } else {
-            // over20 UK or both
-            intro = 'Your budget opens the door to strong, well-regarded UK universities with excellent graduate employment rates and full Graduate Route Visa access.';
-            unis = [
-                { flag: '🇬🇧', name: 'University of Birmingham', country: 'England' },
-                { flag: '🇬🇧', name: 'University of Leeds', country: 'England' },
-                { flag: '🇬🇧', name: 'Brunel University London', country: 'England' }
-            ];
-            cost = 'Estimated annual cost: £20,000–£28,000';
-        }
-
-        // If "both" destination and not already handled, show side-by-side note
-        if (dest === 'both' && budget !== 'under10' && budget !== '10to15' && !(subject === 'medicine' && (budget === 'under10' || budget === '10to15'))) {
-            intro = 'Since you are open to both regions, we have matched you to the strongest UK option. A full Profile Assessment will also present the best EU alternative side by side for comparison.';
         }
 
         document.getElementById('results-intro').textContent = intro;
