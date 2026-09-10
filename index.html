@@ -396,6 +396,18 @@
             display: block;
         }
 
+        /* ── APPROVALS CAROUSEL (student.html pattern) ── */
+        .carousel-wrap{position:relative;overflow:hidden;border-radius:20px;}
+        .carousel-slides{display:flex;transition:transform 0.5s ease;}
+        .carousel-slide{min-width:100%;flex-shrink:0;}
+        .carousel-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(8,12,16,0.75);border:1px solid rgba(201,168,76,0.35);color:var(--text-primary);width:34px;height:34px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.75rem;transition:background 0.2s,border-color 0.2s;z-index:2;}
+        .carousel-btn:hover{background:rgba(201,168,76,0.2);border-color:var(--brand-gold);color:var(--brand-gold);}
+        .carousel-btn.prev{left:10px;}
+        .carousel-btn.next{right:10px;}
+        .carousel-dots{display:flex;justify-content:center;gap:6px;padding:16px 0 4px;}
+        .carousel-dot{width:7px;height:7px;border-radius:50%;background:rgba(201,168,76,0.3);cursor:pointer;transition:all 0.3s;border:none;}
+        .carousel-dot.active{background:var(--brand-gold);width:20px;border-radius:4px;}
+
         /* ── REFUSAL ALERT BANNER ── */
         #refusal-banner {
             position: fixed;
@@ -1289,116 +1301,131 @@
             <p class="text-[#7a8899] mt-4 max-w-xl mx-auto text-sm font-medium">Every case is different. Every result is earned. Here's what our clients achieved.</p>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 fade-in-up">
+        <div class="carousel-wrap fade-in-up" style="max-width:480px;margin:0 auto;">
+            <div class="carousel-slides" id="slides-approvals">
 
-            <!-- Card 1 -->
-            <div class="bg-[#080c10] border border-[#1e2730] rounded-2xl overflow-hidden flex flex-col hover:border-gold/50 hover:-translate-y-1 transition duration-300 group">
-                <div class="approval-img-wrap">
-                    <img src="./assets/testimonials/Approval 1 Emma.jpeg" alt="Visa approval — Emmanuel A." class="transition duration-500 group-hover:scale-105" width="400" height="280" loading="lazy">
-                </div>
-                <div class="p-6 flex flex-col flex-grow">
-                <div class="flex gap-0.5 mb-3">
-                    <i class="fa-solid fa-star text-gold text-xs"></i>
-                    <i class="fa-solid fa-star text-gold text-xs"></i>
-                    <i class="fa-solid fa-star text-gold text-xs"></i>
-                    <i class="fa-solid fa-star text-gold text-xs"></i>
-                    <i class="fa-solid fa-star text-gold text-xs"></i>
-                </div>
-                <p class="text-[#c9d1d9] text-sm leading-relaxed italic font-medium flex-grow mb-5">
-                    "Their team is exceptionally patient, professional, and reliable, demonstrating great efficiency and attention to detail throughout the process."
-                </p>
-                <div class="border-t border-[#1e2730] pt-4 mt-auto">
-                    <p class="text-white text-sm font-bold">Emmanuel A.</p>
-                    <p class="text-[#7a8899] text-xs font-medium mt-0.5">London, UK</p>
-                    <div class="mt-2 inline-flex items-center gap-1.5 bg-green-900/20 border border-green-800/40 rounded-full px-3 py-1">
-                        <span class="w-1.5 h-1.5 rounded-full bg-green-400 flex-shrink-0"></span>
-                        <span class="text-green-400 text-[10px] font-bold uppercase tracking-wide">Greece Visa — Approved</span>
+                <!-- Slide 1: Emmanuel A. -->
+                <div class="carousel-slide">
+                    <div class="bg-[#080c10] border border-[#1e2730] rounded-2xl overflow-hidden flex flex-col hover:border-gold/50 transition duration-300 group">
+                        <div class="approval-img-wrap">
+                            <img src="./assets/testimonials/Approval 1 Emma.jpeg" alt="Visa approval — Emmanuel A." class="transition duration-500 group-hover:scale-105" width="400" height="280" loading="lazy">
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="flex gap-0.5 mb-3">
+                                <i class="fa-solid fa-star text-gold text-xs"></i><i class="fa-solid fa-star text-gold text-xs"></i><i class="fa-solid fa-star text-gold text-xs"></i><i class="fa-solid fa-star text-gold text-xs"></i><i class="fa-solid fa-star text-gold text-xs"></i>
+                            </div>
+                            <p class="text-[#c9d1d9] text-sm leading-relaxed italic font-medium flex-grow mb-5">"Their team is exceptionally patient, professional, and reliable, demonstrating great efficiency and attention to detail throughout the process."</p>
+                            <div class="border-t border-[#1e2730] pt-4 mt-auto">
+                                <p class="text-white text-sm font-bold">Emmanuel A.</p>
+                                <p class="text-[#7a8899] text-xs font-medium mt-0.5">London, UK</p>
+                                <div class="mt-2 inline-flex items-center gap-1.5 bg-green-900/20 border border-green-800/40 rounded-full px-3 py-1"><span class="w-1.5 h-1.5 rounded-full bg-green-400 flex-shrink-0"></span><span class="text-green-400 text-[10px] font-bold uppercase tracking-wide">Greece Visa — Approved</span></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                </div>
-            </div>
 
-            <!-- Card 2 -->
-            <div class="bg-[#080c10] border border-[#1e2730] rounded-2xl overflow-hidden flex flex-col hover:border-gold/50 hover:-translate-y-1 transition duration-300 group">
-                <div class="approval-img-wrap">
-                    <img src="./assets/testimonials/Approval Lass.JPG" alt="Visa approval — Lass" class="transition duration-500 group-hover:scale-105" width="400" height="280" loading="lazy">
-                </div>
-                <div class="p-6 flex flex-col flex-grow">
-                <div class="flex gap-0.5 mb-3">
-                    <i class="fa-solid fa-star text-gold text-xs"></i>
-                    <i class="fa-solid fa-star text-gold text-xs"></i>
-                    <i class="fa-solid fa-star text-gold text-xs"></i>
-                    <i class="fa-solid fa-star text-gold text-xs"></i>
-                    <i class="fa-solid fa-star text-gold text-xs"></i>
-                </div>
-                <p class="text-[#c9d1d9] text-sm leading-relaxed italic font-medium flex-grow mb-5">
-                    "Smooth, professional service. They handled the appointment booking, cover letter, and travel logistics. I didn't have to chase a single thing."
-                </p>
-                <div class="border-t border-[#1e2730] pt-4 mt-auto">
-                    <p class="text-white text-sm font-bold">Lass</p>
-                    <p class="text-[#7a8899] text-xs font-medium mt-0.5">London, UK</p>
-                    <div class="mt-2 inline-flex items-center gap-1.5 bg-green-900/20 border border-green-800/40 rounded-full px-3 py-1">
-                        <span class="w-1.5 h-1.5 rounded-full bg-green-400 flex-shrink-0"></span>
-                        <span class="text-green-400 text-[10px] font-bold uppercase tracking-wide">Spain Visa — Approved</span>
+                <!-- Slide 2: Lass -->
+                <div class="carousel-slide">
+                    <div class="bg-[#080c10] border border-[#1e2730] rounded-2xl overflow-hidden flex flex-col hover:border-gold/50 transition duration-300 group">
+                        <div class="approval-img-wrap">
+                            <img src="./assets/testimonials/Approval Lass.JPG" alt="Visa approval — Lass" class="transition duration-500 group-hover:scale-105" width="400" height="280" loading="lazy">
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="flex gap-0.5 mb-3">
+                                <i class="fa-solid fa-star text-gold text-xs"></i><i class="fa-solid fa-star text-gold text-xs"></i><i class="fa-solid fa-star text-gold text-xs"></i><i class="fa-solid fa-star text-gold text-xs"></i><i class="fa-solid fa-star text-gold text-xs"></i>
+                            </div>
+                            <p class="text-[#c9d1d9] text-sm leading-relaxed italic font-medium flex-grow mb-5">"Smooth, professional service. They handled the appointment booking, cover letter, and travel logistics. I didn't have to chase a single thing."</p>
+                            <div class="border-t border-[#1e2730] pt-4 mt-auto">
+                                <p class="text-white text-sm font-bold">Lass</p>
+                                <p class="text-[#7a8899] text-xs font-medium mt-0.5">London, UK</p>
+                                <div class="mt-2 inline-flex items-center gap-1.5 bg-green-900/20 border border-green-800/40 rounded-full px-3 py-1"><span class="w-1.5 h-1.5 rounded-full bg-green-400 flex-shrink-0"></span><span class="text-green-400 text-[10px] font-bold uppercase tracking-wide">Spain Visa — Approved</span></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                </div>
-            </div>
 
-            <!-- Card 3 -->
-            <div class="bg-[#080c10] border border-[#1e2730] rounded-2xl overflow-hidden flex flex-col hover:border-gold/50 hover:-translate-y-1 transition duration-300 group">
-                <div class="approval-img-wrap">
-                    <img src="./assets/testimonials/Approval Lin.jpeg" alt="Visa approval — Linda B." class="transition duration-500 group-hover:scale-105" width="400" height="280" loading="lazy">
-                </div>
-                <div class="p-6 flex flex-col flex-grow">
-                <div class="flex gap-0.5 mb-3">
-                    <i class="fa-solid fa-star text-gold text-xs"></i>
-                    <i class="fa-solid fa-star text-gold text-xs"></i>
-                    <i class="fa-solid fa-star text-gold text-xs"></i>
-                    <i class="fa-solid fa-star text-gold text-xs"></i>
-                    <i class="fa-solid fa-star text-gold text-xs"></i>
-                </div>
-                <p class="text-[#c9d1d9] text-sm leading-relaxed italic font-medium flex-grow mb-5">
-                    "GV&amp;J's expertise turned my visa application into a seamless experience. Their attention to detail and support made all the difference."
-                </p>
-                <div class="border-t border-[#1e2730] pt-4 mt-auto">
-                    <p class="text-white text-sm font-bold">Linda B.</p>
-                    <p class="text-[#7a8899] text-xs font-medium mt-0.5">London, UK</p>
-                    <div class="mt-2 inline-flex items-center gap-1.5 bg-green-900/20 border border-green-800/40 rounded-full px-3 py-1">
-                        <span class="w-1.5 h-1.5 rounded-full bg-green-400 flex-shrink-0"></span>
-                        <span class="text-green-400 text-[10px] font-bold uppercase tracking-wide">Greece Visa — Approved</span>
+                <!-- Slide 3: Linda B. -->
+                <div class="carousel-slide">
+                    <div class="bg-[#080c10] border border-[#1e2730] rounded-2xl overflow-hidden flex flex-col hover:border-gold/50 transition duration-300 group">
+                        <div class="approval-img-wrap">
+                            <img src="./assets/testimonials/Approval Lin.jpeg" alt="Visa approval — Linda B." class="transition duration-500 group-hover:scale-105" width="400" height="280" loading="lazy">
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="flex gap-0.5 mb-3">
+                                <i class="fa-solid fa-star text-gold text-xs"></i><i class="fa-solid fa-star text-gold text-xs"></i><i class="fa-solid fa-star text-gold text-xs"></i><i class="fa-solid fa-star text-gold text-xs"></i><i class="fa-solid fa-star text-gold text-xs"></i>
+                            </div>
+                            <p class="text-[#c9d1d9] text-sm leading-relaxed italic font-medium flex-grow mb-5">"GV&amp;J's expertise turned my visa application into a seamless experience. Their attention to detail and support made all the difference."</p>
+                            <div class="border-t border-[#1e2730] pt-4 mt-auto">
+                                <p class="text-white text-sm font-bold">Linda B.</p>
+                                <p class="text-[#7a8899] text-xs font-medium mt-0.5">London, UK</p>
+                                <div class="mt-2 inline-flex items-center gap-1.5 bg-green-900/20 border border-green-800/40 rounded-full px-3 py-1"><span class="w-1.5 h-1.5 rounded-full bg-green-400 flex-shrink-0"></span><span class="text-green-400 text-[10px] font-bold uppercase tracking-wide">Greece Visa — Approved</span></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                </div>
-            </div>
 
-            <!-- Card 4 -->
-            <div class="bg-[#080c10] border border-[#1e2730] rounded-2xl overflow-hidden flex flex-col hover:border-gold/50 hover:-translate-y-1 transition duration-300 group">
-                <div class="approval-img-wrap">
-                    <img src="./assets/testimonials/Approval Hass.JPG" alt="Visa approval — Hass S." class="transition duration-500 group-hover:scale-105" width="400" height="280" loading="lazy">
-                </div>
-                <div class="p-6 flex flex-col flex-grow">
-                <div class="flex gap-0.5 mb-3">
-                    <i class="fa-solid fa-star text-gold text-xs"></i>
-                    <i class="fa-solid fa-star text-gold text-xs"></i>
-                    <i class="fa-solid fa-star text-gold text-xs"></i>
-                    <i class="fa-solid fa-star text-gold text-xs"></i>
-                    <i class="fa-solid fa-star text-gold text-xs"></i>
-                </div>
-                <p class="text-[#c9d1d9] text-sm leading-relaxed italic font-medium flex-grow mb-5">
-                    "The QuickScan was worth every penny. It found two issues in my bank statements I had no idea about. My application sailed through after the corrections."
-                </p>
-                <div class="border-t border-[#1e2730] pt-4 mt-auto">
-                    <p class="text-white text-sm font-bold">Hass S.</p>
-                    <p class="text-[#7a8899] text-xs font-medium mt-0.5">England, UK</p>
-                    <div class="mt-2 inline-flex items-center gap-1.5 bg-green-900/20 border border-green-800/40 rounded-full px-3 py-1">
-                        <span class="w-1.5 h-1.5 rounded-full bg-green-400 flex-shrink-0"></span>
-                        <span class="text-green-400 text-[10px] font-bold uppercase tracking-wide">Schengen — Approved</span>
+                <!-- Slide 4: Hass S. -->
+                <div class="carousel-slide">
+                    <div class="bg-[#080c10] border border-[#1e2730] rounded-2xl overflow-hidden flex flex-col hover:border-gold/50 transition duration-300 group">
+                        <div class="approval-img-wrap">
+                            <img src="./assets/testimonials/Approval Hass.JPG" alt="Visa approval — Hass S." class="transition duration-500 group-hover:scale-105" width="400" height="280" loading="lazy">
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="flex gap-0.5 mb-3">
+                                <i class="fa-solid fa-star text-gold text-xs"></i><i class="fa-solid fa-star text-gold text-xs"></i><i class="fa-solid fa-star text-gold text-xs"></i><i class="fa-solid fa-star text-gold text-xs"></i><i class="fa-solid fa-star text-gold text-xs"></i>
+                            </div>
+                            <p class="text-[#c9d1d9] text-sm leading-relaxed italic font-medium flex-grow mb-5">"The QuickScan was worth every penny. It found two issues in my bank statements I had no idea about. My application sailed through after the corrections."</p>
+                            <div class="border-t border-[#1e2730] pt-4 mt-auto">
+                                <p class="text-white text-sm font-bold">Hass S.</p>
+                                <p class="text-[#7a8899] text-xs font-medium mt-0.5">England, UK</p>
+                                <div class="mt-2 inline-flex items-center gap-1.5 bg-green-900/20 border border-green-800/40 rounded-full px-3 py-1"><span class="w-1.5 h-1.5 rounded-full bg-green-400 flex-shrink-0"></span><span class="text-green-400 text-[10px] font-bold uppercase tracking-wide">Schengen — Approved</span></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                </div>
-            </div>
 
+                <!-- Slide 5: James -->
+                <div class="carousel-slide">
+                    <div class="bg-[#080c10] border border-[#1e2730] rounded-2xl overflow-hidden flex flex-col hover:border-gold/50 transition duration-300 group">
+                        <div class="approval-img-wrap">
+                            <img src="./assets/testimonials/James Greece Visa.jpeg" alt="Visa approval — James" class="transition duration-500 group-hover:scale-105" width="400" height="280" loading="lazy">
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="flex gap-0.5 mb-3">
+                                <i class="fa-solid fa-star text-gold text-xs"></i><i class="fa-solid fa-star text-gold text-xs"></i><i class="fa-solid fa-star text-gold text-xs"></i><i class="fa-solid fa-star text-gold text-xs"></i><i class="fa-solid fa-star text-gold text-xs"></i>
+                            </div>
+                            <p class="text-[#c9d1d9] text-sm leading-relaxed italic font-medium flex-grow mb-5">"I had a very positive experience with my visa application. The process was handled professionally and efficiently, and I was guided throughout the application process. The communication was clear, and all my questions were answered patiently. I really appreciated the support and attention to detail, which made what could have been a stressful process much easier. I would definitely recommend their services to anyone looking for reliable assistance with a visa application."</p>
+                            <div class="border-t border-[#1e2730] pt-4 mt-auto">
+                                <p class="text-white text-sm font-bold">James</p>
+                                <div class="mt-2 inline-flex items-center gap-1.5 bg-green-900/20 border border-green-800/40 rounded-full px-3 py-1"><span class="w-1.5 h-1.5 rounded-full bg-green-400 flex-shrink-0"></span><span class="text-green-400 text-[10px] font-bold uppercase tracking-wide">Greece Visa — Approved</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 6: Mirabel -->
+                <div class="carousel-slide">
+                    <div class="bg-[#080c10] border border-[#1e2730] rounded-2xl overflow-hidden flex flex-col hover:border-gold/50 transition duration-300 group">
+                        <div class="approval-img-wrap">
+                            <img src="./assets/testimonials/Mirabel Greece Visa.jpeg" alt="Visa approval — Mirabel" class="transition duration-500 group-hover:scale-105" width="400" height="280" loading="lazy">
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="flex gap-0.5 mb-3">
+                                <i class="fa-solid fa-star text-gold text-xs"></i><i class="fa-solid fa-star text-gold text-xs"></i><i class="fa-solid fa-star text-gold text-xs"></i><i class="fa-solid fa-star text-gold text-xs"></i><i class="fa-solid fa-star text-gold text-xs"></i>
+                            </div>
+                            <p class="text-[#7a8899] text-sm leading-relaxed font-medium flex-grow mb-5">Greek Schengen visa approved — September 2026.</p>
+                            <div class="border-t border-[#1e2730] pt-4 mt-auto">
+                                <p class="text-white text-sm font-bold">Mirabel</p>
+                                <div class="mt-2 inline-flex items-center gap-1.5 bg-green-900/20 border border-green-800/40 rounded-full px-3 py-1"><span class="w-1.5 h-1.5 rounded-full bg-green-400 flex-shrink-0"></span><span class="text-green-400 text-[10px] font-bold uppercase tracking-wide">Greece Visa — Approved</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <button type="button" class="carousel-btn prev" onclick="carouselMove('approvals', -1)" aria-label="Previous approval"><i class="fa-solid fa-chevron-left"></i></button>
+            <button type="button" class="carousel-btn next" onclick="carouselMove('approvals', 1)" aria-label="Next approval"><i class="fa-solid fa-chevron-right"></i></button>
+            <div class="carousel-dots" id="dots-approvals"></div>
         </div>
 
         <!-- Bottom CTA: nudges toward Google Reviews goal -->
@@ -2086,6 +2113,47 @@ function gvjTogglePay(id, on) {
     var el = document.getElementById(id);
     if (el) el.setAttribute('aria-disabled', on ? 'false' : 'true');
 }
+
+// ── APPROVALS CAROUSEL (student.html pattern) ──
+var carousels = {};
+function initCarousel(id) {
+    var slidesEl = document.getElementById('slides-' + id);
+    var dotsEl = document.getElementById('dots-' + id);
+    var count = slidesEl.children.length;
+    carousels[id] = { index: 0, count: count, timer: null };
+    for (var i = 0; i < count; i++) {
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('data-i', i);
+        dot.setAttribute('data-id', id);
+        dot.addEventListener('click', function() {
+            carouselGoTo(this.getAttribute('data-id'), parseInt(this.getAttribute('data-i')));
+        });
+        dotsEl.appendChild(dot);
+    }
+    carouselAutoPlay(id);
+}
+function carouselGoTo(id, idx) {
+    var c = carousels[id];
+    c.index = (idx + c.count) % c.count;
+    document.getElementById('slides-' + id).style.transform = 'translateX(-' + (c.index * 100) + '%)';
+    document.getElementById('dots-' + id).querySelectorAll('.carousel-dot').forEach(function(d, i) {
+        d.classList.toggle('active', i === c.index);
+    });
+}
+function carouselMove(id, dir) {
+    clearInterval(carousels[id].timer);
+    carouselGoTo(id, carousels[id].index + dir);
+    carouselAutoPlay(id);
+}
+function carouselAutoPlay(id) {
+    clearInterval(carousels[id].timer);
+    carousels[id].timer = setInterval(function() {
+        carouselGoTo(id, carousels[id].index + 1);
+    }, 4000);
+}
+initCarousel('approvals');
 </script>
 </body>
 </html>
