@@ -661,14 +661,22 @@ function showRefError(msg){
 
 function showReferralCode(code,name){
     document.getElementById('generated-code').textContent=code;
-    // Append code to WhatsApp share link
     const shareBtn=document.getElementById('whatsapp-share-btn');
-    shareBtn.href=shareBtn.href+encodeURIComponent(code);
+    const base='https://wa.me/?text='+encodeURIComponent('I\'ve got a referral code for Global Visa & Journeys — use it when you contact them: ');
+    shareBtn.href=base+encodeURIComponent(code);
     document.getElementById('referral-form-wrap').classList.add('hidden');
     document.getElementById('referral-success-wrap').classList.remove('hidden');
-    window.location.hash='#signup';
+    try{localStorage.setItem('gvj_referral_code',code);}catch(e){}
     gtag('event','referral_code_generated',{'referral_code':code});
 }
+
+// Restore code from a previous session
+(function(){
+    try{
+        const saved=localStorage.getItem('gvj_referral_code');
+        if(saved) showReferralCode(saved);
+    }catch(e){}
+})();
 
 function showRefFallback(){
     document.getElementById('referral-form-wrap').classList.add('hidden');
