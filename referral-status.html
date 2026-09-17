@@ -280,6 +280,7 @@ function showResults(code, data){
 
     document.getElementById('status-form-wrap').classList.add('hidden');
     document.getElementById('status-results-wrap').classList.remove('hidden');
+    try { localStorage.setItem('gvj_referral_session', JSON.stringify({code, data})); } catch(e){}
     gtag('event','referral_status_viewed',{'referral_code':code});
 }
 
@@ -289,7 +290,19 @@ function resetLookup(){
     document.getElementById('lookup-error').classList.add('hidden');
     document.getElementById('lookup-code').value = '';
     document.getElementById('lookup-whatsapp').value = '';
+    try { localStorage.removeItem('gvj_referral_session'); } catch(e){}
 }
+
+// Restore previous session on page load
+(function(){
+    try {
+        const saved = localStorage.getItem('gvj_referral_session');
+        if(saved){
+            const {code, data} = JSON.parse(saved);
+            if(code && data) showResults(code, data);
+        }
+    } catch(e){}
+})();
 
 // Pre-fill code from URL query param ?code=HASS7K2
 (function(){
