@@ -429,7 +429,7 @@
                         <li><a href="refusal.html" class="hover:text-gold transition">Refusal Recovery</a></li>
                         <li><a href="student.html" class="hover:text-gold transition">Study Abroad</a></li>
                         <li><a href="work.html" class="hover:text-gold transition">Work in Europe</a></li>
-                        <li><a href="https://buy.stripe.com/cNieVc3YFemK6Cq80z0sU05" target="_blank" rel="noopener" class="hover:text-gold transition">Flight Reservation</a></li>
+                        <li><a href="https://buy.stripe.com/cNieVc3YFemK6Cq80z0sU05" target="_blank" rel="noopener noreferrer" class="hover:text-gold transition">Flight Reservation</a></li>
                     </ul>
                 </div>
 
@@ -451,7 +451,7 @@
                         <li class="flex items-start gap-2"><i class="fa-solid fa-envelope text-gold mt-0.5 flex-shrink-0"></i> office@globalvisajourneys.com</li>
                         <li class="flex items-start gap-2"><i class="fa-solid fa-phone text-gold mt-0.5 flex-shrink-0"></i> 0204 628 1692 (UK Office)</li>
                         <li class="flex items-start gap-2">
-                            <a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'footer_quick_contact'})" target="_blank" rel="noopener" class="hover:text-white transition flex items-start gap-2">
+                            <a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'footer_quick_contact'})" target="_blank" rel="noopener noreferrer" class="hover:text-white transition flex items-start gap-2">
                                 <i class="fa-brands fa-whatsapp text-green-400 mt-0.5 flex-shrink-0"></i> +44 7511 219482
                             </a>
                         </li>
@@ -838,7 +838,7 @@ function renderDocGrid() {
             <p class="text-[#7a8899] text-xs leading-relaxed mb-3 font-medium">${cat.desc}</p>
             ${uploaded
                 ? `<div class="bg-green-900/15 border border-green-800/30 rounded-lg px-3 py-2 mb-3">
-                       <p class="text-green-400 text-xs font-bold truncate">${uploaded.filename}</p>
+                       <p class="text-green-400 text-xs font-bold truncate">${escHtml(uploaded.filename||'')}</p>
                        <p class="text-[#4a5568] text-[10px] mt-0.5">${formatDate(uploaded.uploadedAt)}</p>
                    </div>`
                 : `<p class="text-red-400 text-xs font-bold mb-3"><i class="fa-solid fa-circle-xmark mr-1"></i>Not Uploaded</p>`}
@@ -1091,6 +1091,10 @@ window.saveProfile = async () => {
 };
 
 /* ── HELPERS ── */
+function escHtml(str) {
+    return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
 function showMsg(el, msg) {
     el.textContent = msg;
     el.classList.remove('hidden');
@@ -1100,7 +1104,18 @@ function showMsg(el, msg) {
 function showLoginError(msg, showWA = false) {
     const errBox = document.getElementById('login-error');
     if (showWA) {
-        errBox.innerHTML = `${msg}&nbsp;&nbsp;<a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'portal_error_cta'})" target="_blank" rel="noopener noreferrer" style="color:#25d366; font-weight:700; text-decoration:underline; white-space:nowrap;"><i class="fa-brands fa-whatsapp mr-1"></i>WhatsApp Us</a>`;
+        errBox.textContent = '';
+        const span = document.createElement('span');
+        span.textContent = msg;
+        const nbsp = document.createTextNode('  ');
+        const link = document.createElement('a');
+        link.href = 'https://wa.me/447511219482';
+        link.setAttribute('onclick', "gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'portal_error_cta'})");
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.style.cssText = 'color:#25d366; font-weight:700; text-decoration:underline; white-space:nowrap;';
+        link.innerHTML = '<i class="fa-brands fa-whatsapp mr-1"></i>WhatsApp Us';
+        errBox.append(span, nbsp, link);
     } else {
         errBox.textContent = msg;
     }

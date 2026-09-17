@@ -10,7 +10,7 @@
     <link rel="icon" type="image/svg+xml" href="./favicon.svg">
     <link rel="stylesheet" href="./output.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0" crossorigin="anonymous" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0" crossorigin="anonymous"></noscript>
 
     <!-- Cookie consent + analytics (GA4 / Tawk.to loaded conditionally) -->
@@ -280,6 +280,7 @@
                     <li><a href="partnership.html" class="hover:text-gold transition">Partners</a></li>
                     <li><a href="diy-toolkit.html" class="hover:text-gold transition">DIY Toolkit</a></li>
                     <li><a href="days-calculator.html" style="color: var(--brand-gold);">Days Calculator</a></li>
+                    <li><a href="referral.html" class="hover:text-gold transition">Referral Programme</a></li>
                 </ul>
             </div>
             <div>
@@ -376,19 +377,6 @@ function calcSchengen(refDateStr, trips) {
     return { total: total, remaining: 90 - total, winStart: winStart, winEnd: ref };
 }
 
-// ── INTERNAL TEST (verifies implementation before any user interaction) ──
-(function runTest() {
-    var r = calcSchengen('2026-06-01', [
-        { entry: '2026-01-01', exit: '2026-01-30' },
-        { entry: '2026-04-01', exit: '2026-04-15' }
-    ]);
-    var pass = (r.total === 45 && r.remaining === 45);
-    if (pass) {
-        console.log('[GVJ Days Calc] ✓ Test passed: ref 2026-06-01 | window ' + fmtDate(r.winStart) + ' – ' + fmtDate(r.winEnd) + ' | 45 days used, 45 remaining');
-    } else {
-        console.error('[GVJ Days Calc] ✗ Test FAILED: expected total=45 remaining=45, got total=' + r.total + ' remaining=' + r.remaining);
-    }
-})();
 
 // ── NAV SCROLL ──
 window.addEventListener('scroll', function() {

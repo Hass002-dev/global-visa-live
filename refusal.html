@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- FONT AWESOME — async to avoid render-blocking -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0" crossorigin="anonymous" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0" crossorigin="anonymous"></noscript>
 
     <!-- Cookie consent + analytics (GA4 / Tawk.to loaded conditionally) -->
@@ -348,11 +348,11 @@
         </p>
 
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-            <label class="gvj-terms-label"><input type="checkbox" onchange="gvjTogglePay('pay-1',this.checked)"><span>I confirm I have read and accept GVJ's <a href="engagement-letter.html" target="_blank" rel="noopener">Client Engagement Letter and Terms &amp; Conditions</a>.</span></label>
-            <a href="https://book.stripe.com/14A3cu66N3I65ym0y70sU0c" id="pay-1" target="_blank" rel="noopener" class="w-full sm:w-auto btn-gold px-8 py-4 rounded-full text-sm shadow-[0_0_30px_rgba(201,168,76,0.25)] gvj-pay-gated" aria-disabled="true">
+            <label class="gvj-terms-label"><input type="checkbox" onchange="gvjTogglePay('pay-1',this.checked)"><span>I confirm I have read and accept GVJ's <a href="engagement-letter.html" target="_blank" rel="noopener noreferrer">Client Engagement Letter and Terms &amp; Conditions</a>.</span></label>
+            <a href="https://book.stripe.com/14A3cu66N3I65ym0y70sU0c" id="pay-1" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto btn-gold px-8 py-4 rounded-full text-sm shadow-[0_0_30px_rgba(201,168,76,0.25)] gvj-pay-gated" aria-disabled="true">
                 Start Refusal Diagnosis — £99
             </a>
-            <a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'hero_cta'})" target="_blank" rel="noopener" class="w-full sm:w-auto bg-[#25D366] text-white px-8 py-4 rounded-full font-bold text-sm hover:bg-[#128C7E] transition shadow-lg flex items-center justify-center gap-2">
+            <a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'hero_cta'})" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto bg-[#25D366] text-white px-8 py-4 rounded-full font-bold text-sm hover:bg-[#128C7E] transition shadow-lg flex items-center justify-center gap-2">
                 <i class="fa-brands fa-whatsapp text-xl"></i> WhatsApp Us Now
             </a>
         </div>
@@ -414,8 +414,8 @@
                 </div>
                 <h3 class="text-xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">Refusal Diagnosis</h3>
                 <p class="text-[#7a8899] text-sm leading-relaxed mb-6">We read your official refusal letter, identify the exact refusal code, and diagnose the real root cause. You receive a full written report within 48 hours explaining exactly what went wrong and exactly what to do next.</p>
-                <label class="gvj-terms-label"><input type="checkbox" onchange="gvjTogglePay('pay-2',this.checked)"><span>I confirm I have read and accept GVJ's <a href="engagement-letter.html" target="_blank" rel="noopener">Client Engagement Letter and Terms &amp; Conditions</a>.</span></label>
-                <a href="https://book.stripe.com/14A3cu66N3I65ym0y70sU0c" id="pay-2" target="_blank" rel="noopener" class="btn-gold inline-flex items-center gap-2 px-6 py-3 rounded-lg text-xs gvj-pay-gated" aria-disabled="true">
+                <label class="gvj-terms-label"><input type="checkbox" onchange="gvjTogglePay('pay-2',this.checked)"><span>I confirm I have read and accept GVJ's <a href="engagement-letter.html" target="_blank" rel="noopener noreferrer">Client Engagement Letter and Terms &amp; Conditions</a>.</span></label>
+                <a href="https://book.stripe.com/14A3cu66N3I65ym0y70sU0c" id="pay-2" target="_blank" rel="noopener noreferrer" class="btn-gold inline-flex items-center gap-2 px-6 py-3 rounded-lg text-xs gvj-pay-gated" aria-disabled="true">
                     <i class="fa-solid fa-magnifying-glass"></i> Start Now
                 </a>
             </div>
@@ -685,8 +685,8 @@
                     <p class="text-[#adb8c4] text-base leading-relaxed mb-8">
                         The EU's Entry Exit System went live in 2026. Every Schengen refusal is now permanently visible to all 29 Schengen countries. Every future application you make anywhere in Europe will show this refusal. This is why acting quickly and correctly after a refusal has never been more important.
                     </p>
-                    <label class="gvj-terms-label"><input type="checkbox" onchange="gvjTogglePay('pay-3',this.checked)"><span>I confirm I have read and accept GVJ's <a href="engagement-letter.html" target="_blank" rel="noopener">Client Engagement Letter and Terms &amp; Conditions</a>.</span></label>
-                    <a href="https://book.stripe.com/14A3cu66N3I65ym0y70sU0c" id="pay-3" target="_blank" rel="noopener" class="btn-gold inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm gvj-pay-gated" aria-disabled="true">
+                    <label class="gvj-terms-label"><input type="checkbox" onchange="gvjTogglePay('pay-3',this.checked)"><span>I confirm I have read and accept GVJ's <a href="engagement-letter.html" target="_blank" rel="noopener noreferrer">Client Engagement Letter and Terms &amp; Conditions</a>.</span></label>
+                    <a href="https://book.stripe.com/14A3cu66N3I65ym0y70sU0c" id="pay-3" target="_blank" rel="noopener noreferrer" class="btn-gold inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm gvj-pay-gated" aria-disabled="true">
                         <i class="fa-solid fa-magnifying-glass"></i> Get Your Refusal Diagnosis — £99
                     </a>
                 </div>
@@ -785,11 +785,11 @@
             <p class="text-[#7a8899] text-lg mb-10 max-w-xl mx-auto font-medium">Start with the Refusal Diagnosis — £99. No large upfront fees. Full written report within 48 hours.</p>
 
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-                <label class="gvj-terms-label"><input type="checkbox" onchange="gvjTogglePay('pay-4',this.checked)"><span>I confirm I have read and accept GVJ's <a href="engagement-letter.html" target="_blank" rel="noopener">Client Engagement Letter and Terms &amp; Conditions</a>.</span></label>
-                <a href="https://book.stripe.com/14A3cu66N3I65ym0y70sU0c" id="pay-4" target="_blank" rel="noopener" class="w-full sm:w-auto btn-gold px-8 py-4 rounded-full text-sm shadow-[0_0_30px_rgba(201,168,76,0.25)] gvj-pay-gated" aria-disabled="true">
+                <label class="gvj-terms-label"><input type="checkbox" onchange="gvjTogglePay('pay-4',this.checked)"><span>I confirm I have read and accept GVJ's <a href="engagement-letter.html" target="_blank" rel="noopener noreferrer">Client Engagement Letter and Terms &amp; Conditions</a>.</span></label>
+                <a href="https://book.stripe.com/14A3cu66N3I65ym0y70sU0c" id="pay-4" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto btn-gold px-8 py-4 rounded-full text-sm shadow-[0_0_30px_rgba(201,168,76,0.25)] gvj-pay-gated" aria-disabled="true">
                     Start Refusal Diagnosis — £99
                 </a>
-                <a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'body_cta'})" target="_blank" rel="noopener" class="w-full sm:w-auto btn-outline-gold px-8 py-4 rounded-full text-sm flex items-center justify-center gap-2">
+                <a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'body_cta'})" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto btn-outline-gold px-8 py-4 rounded-full text-sm flex items-center justify-center gap-2">
                     <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp Us First
                 </a>
             </div>
@@ -879,16 +879,16 @@
                 <span class="text-white text-2xl font-black" style="font-family:'Cormorant Garamond',serif;">GLOBAL VISA <span class="text-gold">&amp;</span> JOURNEYS</span>
                 <p class="mt-4 text-sm leading-relaxed max-w-sm font-medium">A forensic travel consultancy bridging complex bureaucratic compliance and seamless travel logistics. Registered in England &amp; Wales.</p>
                 <div class="mt-6 flex gap-3 flex-wrap">
-                    <a href="https://facebook.com/globalvisajourneys" target="_blank" rel="noopener" class="text-[#7a8899] hover:text-gold transition w-9 h-9 rounded-full border border-[#1e2730] flex items-center justify-center hover:border-gold">
+                    <a href="https://facebook.com/globalvisajourneys" target="_blank" rel="noopener noreferrer" class="text-[#7a8899] hover:text-gold transition w-9 h-9 rounded-full border border-[#1e2730] flex items-center justify-center hover:border-gold">
                         <i class="fa-brands fa-facebook text-sm"></i>
                     </a>
-                    <a href="https://instagram.com/globalvisajourneysltd" target="_blank" rel="noopener" class="text-[#7a8899] hover:text-gold transition w-9 h-9 rounded-full border border-[#1e2730] flex items-center justify-center hover:border-gold">
+                    <a href="https://instagram.com/globalvisajourneysltd" target="_blank" rel="noopener noreferrer" class="text-[#7a8899] hover:text-gold transition w-9 h-9 rounded-full border border-[#1e2730] flex items-center justify-center hover:border-gold">
                         <i class="fa-brands fa-instagram text-sm"></i>
                     </a>
-                    <a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'footer_social'})" target="_blank" rel="noopener" class="text-[#7a8899] hover:text-green-400 transition w-9 h-9 rounded-full border border-[#1e2730] flex items-center justify-center hover:border-green-400">
+                    <a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'footer_social'})" target="_blank" rel="noopener noreferrer" class="text-[#7a8899] hover:text-green-400 transition w-9 h-9 rounded-full border border-[#1e2730] flex items-center justify-center hover:border-green-400">
                         <i class="fa-brands fa-whatsapp text-sm"></i>
                     </a>
-                    <a href="https://whatsapp.com/channel/0029VbCDSSWEquiHjVOXqp2f" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'footer_channel'})" target="_blank" rel="noopener" class="text-white hover:text-[#25D366] transition flex items-center gap-2 bg-[#25D366]/10 border border-[#25D366]/30 rounded-full px-4 h-9 text-xs font-bold hover:bg-[#25D366]/20 hover:border-[#25D366]/60">
+                    <a href="https://whatsapp.com/channel/0029VbCDSSWEquiHjVOXqp2f" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'footer_channel'})" target="_blank" rel="noopener noreferrer" class="text-white hover:text-[#25D366] transition flex items-center gap-2 bg-[#25D366]/10 border border-[#25D366]/30 rounded-full px-4 h-9 text-xs font-bold hover:bg-[#25D366]/20 hover:border-[#25D366]/60">
                         <i class="fa-brands fa-whatsapp text-[#25D366]"></i> Follow Our Channel
                     </a>
                 </div>
@@ -902,7 +902,7 @@
                     <li><a href="refusal.html" class="hover:text-gold transition">Refusal Recovery</a></li>
                     <li><a href="student.html" class="hover:text-gold transition">Study Abroad</a></li>
                     <li><a href="work.html" class="hover:text-gold transition">Work in Europe</a></li>
-                    <li><a href="https://buy.stripe.com/cNieVc3YFemK6Cq80z0sU05" target="_blank" rel="noopener" class="hover:text-gold transition">Flight Reservation</a></li>
+                    <li><a href="https://buy.stripe.com/cNieVc3YFemK6Cq80z0sU05" target="_blank" rel="noopener noreferrer" class="hover:text-gold transition">Flight Reservation</a></li>
                 </ul>
             </div>
 
@@ -924,7 +924,7 @@
                     <li class="flex items-start gap-2"><i class="fa-solid fa-envelope text-gold mt-0.5 flex-shrink-0"></i> office@globalvisajourneys.com</li>
                     <li class="flex items-start gap-2"><i class="fa-solid fa-phone text-gold mt-0.5 flex-shrink-0"></i> 0204 628 1692 (UK Office)</li>
                     <li class="flex items-start gap-2">
-                        <a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'footer_quick_contact'})" target="_blank" rel="noopener" class="hover:text-white transition flex items-start gap-2">
+                        <a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'footer_quick_contact'})" target="_blank" rel="noopener noreferrer" class="hover:text-white transition flex items-start gap-2">
                             <i class="fa-brands fa-whatsapp text-green-400 mt-0.5 flex-shrink-0"></i> +44 7511 219482
                         </a>
                     </li>
@@ -969,7 +969,7 @@
 </footer>
 
 <!-- FLOATING WHATSAPP -->
-<a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'floating_button'})" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" title="Chat on WhatsApp">
+<a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'floating_button'})" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp" title="Chat on WhatsApp">
     <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
 </a>
 
