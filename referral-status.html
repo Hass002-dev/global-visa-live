@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Check Referral Earnings | Global Visa &amp; Journeys</title>
+<meta name="description" content="Check your referral earnings with your code and WhatsApp number.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://www.globalvisajourneys.com/referral-status.html">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link rel="stylesheet" href="./output.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0" crossorigin="anonymous"></noscript>
+<script src="./cookie-consent.js"></script>
+<style>
+:root{--bg-primary:#080c10;--bg-secondary:#0f1419;--bg-card:#131920;--border-surface:#1e2730;--border-subtle:#252e38;--brand-gold:#c9a84c;--brand-gold-light:#e8c97a;--brand-gold-dim:#8a6f2e;--text-primary:#eef2f7;--text-secondary:#7a8899;--text-muted:#4a5568;--whatsapp:#25d366;}
+*{box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background-color:var(--bg-primary);color:var(--text-primary);overflow-x:hidden;font-weight:450;min-height:100vh;display:flex;flex-direction:column;}
+h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.4;}
+.text-gold{color:var(--brand-gold);}
+.btn-gold{background:linear-gradient(135deg,var(--brand-gold) 0%,var(--brand-gold-light) 100%);color:#080c10;font-weight:800;font-family:'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:0.08em;transition:all 0.3s ease;position:relative;overflow:hidden;}
+.btn-gold::after{content:'';position:absolute;inset:0;background:white;opacity:0;transition:opacity 0.3s;}
+.btn-gold:hover::after{opacity:0.1;}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(201,168,76,0.35);}
+.btn-outline-gold{border:1.5px solid var(--brand-gold);color:var(--brand-gold);font-weight:700;font-family:'DM Sans',sans-serif;transition:all 0.3s ease;background:transparent;}
+.btn-outline-gold:hover{background:linear-gradient(135deg,var(--brand-gold),var(--brand-gold-light));color:#080c10;transform:translateY(-1px);}
+.gold-divider{height:1px;background:linear-gradient(to right,transparent,var(--brand-gold-dim),transparent);}
+.nav-scrolled{background:rgba(8,12,16,0.98)!important;box-shadow:0 2px 20px rgba(0,0,0,0.5);}
+.trust-badge{display:flex;align-items:center;gap:10px;background:var(--bg-card);border:1px solid var(--border-surface);border-radius:8px;padding:12px 16px;transition:border-color 0.3s;}
+.trust-badge:hover{border-color:var(--brand-gold-dim);}
+@keyframes ringShake{0%,75%,100%{transform:rotate(0) scale(1);}77%,81%,85%,89%{transform:rotate(-14deg) scale(1.08);}79%,83%,87%{transform:rotate(14deg) scale(1.08);}}
+.whatsapp-float{position:fixed;width:58px;height:58px;bottom:28px;right:28px;background:var(--whatsapp);color:#fff;border-radius:50%;font-size:28px;box-shadow:0 4px 20px rgba(37,211,102,0.45);z-index:999;display:flex;align-items:center;justify-content:center;animation:ringShake 5s infinite;transition:transform 0.2s,box-shadow 0.2s;}
+.whatsapp-float:hover{animation:none;transform:scale(1.12);box-shadow:0 6px 28px rgba(37,211,102,0.6);}
+/* Status form */
+.status-input{width:100%;background:var(--bg-card);border:1px solid var(--border-surface);color:var(--text-primary);padding:14px 16px;border-radius:10px;font-size:0.925rem;font-family:'DM Sans',sans-serif;font-weight:450;transition:border-color 0.2s,box-shadow 0.2s;outline:none;letter-spacing:0.02em;}
+.status-input:focus{border-color:var(--brand-gold);box-shadow:0 0 0 3px rgba(201,168,76,0.1);}
+.status-input::placeholder{color:var(--text-muted);}
+/* Stat cards */
+.stat-card{background:var(--bg-card);border:1px solid var(--border-surface);border-radius:12px;padding:24px 20px;text-align:center;transition:border-color 0.3s;}
+.stat-card.gold{border-top:2px solid var(--brand-gold);}
+.stat-card.green{border-top:2px solid #22c55e;}
+.stat-card.blue{border-top:2px solid #60a5fa;}
+.stat-card.amber{border-top:2px solid #f59e0b;}
+.stat-value{font-family:'Cormorant Garamond',serif;font-size:2.25rem;font-weight:700;line-height:1;margin-bottom:4px;}
+.stat-label{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;font-weight:700;color:var(--text-secondary);}
+/* Mobile nav */
+#mobile-bottom-nav{display:none;}
+@media(max-width:767px){#mobile-bottom-nav{display:block;}.whatsapp-float{bottom:90px!important;}body{padding-bottom:80px;}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav" class="bg-[#080c10]/90 backdrop-blur-md border-b border-[#1e2730] fixed w-full z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-20 items-center">
+            <div class="flex items-center space-x-3">
+                <img src="./Updated Logo.png" alt="GV&J Logo" class="h-11 w-11 object-contain rounded-md" width="44" height="44" loading="eager" onerror="this.style.display='none'">
+                <div class="flex flex-col leading-none">
+                    <span class="text-xl md:text-2xl font-black tracking-tight hidden md:block" style="font-family:'Cormorant Garamond',serif;letter-spacing:0.02em;"><span class="text-gold">GLOBAL VISA</span> <span class="text-white">&amp; JOURNEYS</span></span>
+                    <span class="text-xl font-black tracking-tight md:hidden" style="font-family:'Cormorant Garamond',serif;">GV<span class="text-gold">&amp;</span>J</span>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3 md:space-x-5">
+                <a href="index.html" class="text-[#7a8899] hover:text-white font-semibold transition text-sm hidden md:block">Home</a>
+                <a href="referral.html" class="text-[#7a8899] hover:text-white font-semibold transition text-sm hidden md:block"><i class="fa-solid fa-arrow-left text-xs mr-1"></i> Referral Programme</a>
+                <a href="portal.html" class="btn-outline-gold px-3 py-2 md:px-4 rounded-lg text-xs md:text-sm flex items-center gap-2"><i class="fa-solid fa-lock text-xs"></i><span class="hidden md:inline">Client Portal</span><span class="md:hidden">Portal</span></a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="flex-grow flex flex-col justify-center items-center px-4 pt-28 pb-16 relative z-10">
+    <div class="w-full max-w-md">
+
+        <!-- LOOKUP FORM -->
+        <div id="status-form-wrap">
+            <div class="text-center mb-8">
+                <span class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest border border-[#c9a84c]/50 text-gold px-4 py-1.5 rounded-full mb-5">
+                    <i class="fa-solid fa-chart-bar"></i> Referral Earnings
+                </span>
+                <h1 class="text-4xl font-black text-white" style="font-family:'Cormorant Garamond',serif;">Check Your Earnings</h1>
+                <p class="text-[#7a8899] mt-3 text-sm font-medium leading-relaxed">Enter the code you received and the WhatsApp number you registered with.</p>
+            </div>
+
+            <div class="bg-[#0f1419] border border-[#1e2730] rounded-2xl p-8">
+                <div class="space-y-5">
+                    <div>
+                        <label for="lookup-code" class="block text-white text-sm font-bold mb-2">Your Referral Code</label>
+                        <input id="lookup-code" type="text" autocomplete="off" placeholder="e.g. HASS7K2" class="status-input" maxlength="12" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')">
+                    </div>
+                    <div>
+                        <label for="lookup-whatsapp" class="block text-white text-sm font-bold mb-2">Your WhatsApp Number</label>
+                        <input id="lookup-whatsapp" type="tel" autocomplete="tel" placeholder="e.g. +44 7700 900123" class="status-input" maxlength="30">
+                        <p class="text-[#4a5568] text-xs mt-1.5 font-medium">The same number you used when you signed up.</p>
+                    </div>
+                    <div id="lookup-error" class="hidden bg-[#131920] border border-[#1e2730] rounded-lg p-4 text-center">
+                        <i class="fa-solid fa-circle-info text-[#7a8899] mb-2 block text-lg"></i>
+                        <p class="text-[#adb8c4] text-sm font-medium">No matching record found. Please check your code and the WhatsApp number you registered with.</p>
+                    </div>
+                    <button id="lookup-btn" type="button" onclick="submitLookup()" class="btn-gold w-full py-4 rounded-xl text-sm flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-magnifying-glass"></i> Check My Earnings
+                    </button>
+                </div>
+            </div>
+
+            <p class="text-center text-[#4a5568] text-xs mt-5 font-medium">
+                Don't have a code yet? <a href="referral.html#signup" class="text-gold hover:underline font-semibold">Sign up for the referral programme →</a>
+            </p>
+        </div>
+
+        <!-- RESULTS (hidden until successful lookup) -->
+        <div id="status-results-wrap" class="hidden">
+            <div class="text-center mb-8">
+                <span class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest border border-[#c9a84c]/50 text-gold px-4 py-1.5 rounded-full mb-5">
+                    <i class="fa-solid fa-chart-bar"></i> Referral Earnings
+                </span>
+                <h1 class="text-4xl font-black text-white" style="font-family:'Cormorant Garamond',serif;">Your Earnings</h1>
+                <p class="text-[#7a8899] mt-3 text-sm font-medium">Code: <span id="result-code" class="text-gold font-bold"></span></p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <div class="stat-card gold">
+                    <div class="stat-value text-gold" id="stat-earned">£0</div>
+                    <div class="stat-label mt-2">Total Earned</div>
+                    <p class="text-[#4a5568] text-[10px] mt-2 font-medium">All commissions confirmed</p>
+                </div>
+                <div class="stat-card green">
+                    <div class="stat-value text-green-400" id="stat-paid">£0</div>
+                    <div class="stat-label mt-2">Paid Out</div>
+                    <p class="text-[#4a5568] text-[10px] mt-2 font-medium">Already transferred to you</p>
+                </div>
+                <div class="stat-card amber">
+                    <div class="stat-value text-amber-400" id="stat-pending">£0</div>
+                    <div class="stat-label mt-2">Pending</div>
+                    <p class="text-[#4a5568] text-[10px] mt-2 font-medium">Confirmed, awaiting payment</p>
+                </div>
+                <div class="stat-card blue">
+                    <div class="stat-value text-blue-400" id="stat-count">0</div>
+                    <div class="stat-label mt-2">Referrals</div>
+                    <p class="text-[#4a5568] text-[10px] mt-2 font-medium">Cases linked to your code</p>
+                </div>
+            </div>
+
+            <div class="bg-[#0f1419] border border-[#1e2730] rounded-xl p-5 text-center mb-6">
+                <p class="text-[#7a8899] text-xs font-medium leading-relaxed">Earnings are updated within 24 hours of a case being confirmed or paid. For questions about a specific reward, message us on WhatsApp.</p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <a href="https://wa.me/447511219482?text=Hi%2C%20I%27d%20like%20to%20ask%20about%20my%20referral%20earnings"
+                   onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'referral_status_earnings'})"
+                   target="_blank" rel="noopener noreferrer"
+                   class="flex-1 bg-[#25D366] hover:bg-[#128C7E] text-white py-3 px-5 rounded-full font-bold text-sm text-center transition flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> Ask About a Reward
+                </a>
+                <a href="referral.html"
+                   class="flex-1 btn-outline-gold py-3 px-5 rounded-full text-sm text-center flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-users text-xs"></i> Refer Someone New
+                </a>
+            </div>
+
+            <p class="text-center mt-6">
+                <button onclick="resetLookup()" class="text-[#4a5568] hover:text-[#7a8899] text-xs font-medium transition underline underline-offset-2">Look up a different code</button>
+            </p>
+        </div>
+
+    </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-[#080c10] text-[#7a8899] relative z-10 mt-auto">
+    <div class="border-b border-[#1e2730] py-8">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                <div class="trust-badge"><i class="fa-solid fa-building-columns text-gold text-xl flex-shrink-0"></i><div><p class="text-white text-xs font-bold">Companies House</p><p class="text-[#7a8899] text-[11px] font-medium">Reg. No. 16959031</p></div></div>
+                <div class="trust-badge"><i class="fa-solid fa-shield-halved text-green-400 text-xl flex-shrink-0"></i><div><p class="text-white text-xs font-bold">PI Insured</p><p class="text-[#7a8899] text-[11px] font-medium">Professional Indemnity</p></div></div>
+                <div class="trust-badge"><i class="fa-brands fa-stripe text-[#635BFF] text-2xl flex-shrink-0"></i><div><p class="text-white text-xs font-bold">Secure Payments</p><p class="text-[#7a8899] text-[11px] font-medium">Powered by Stripe</p></div></div>
+                <div class="trust-badge"><i class="fa-solid fa-lock text-blue-400 text-xl flex-shrink-0"></i><div><p class="text-white text-xs font-bold">GDPR Compliant</p><p class="text-[#7a8899] text-[11px] font-medium">256-bit Encrypted</p></div></div>
+                <div class="trust-badge"><i class="fa-solid fa-graduation-cap text-gold text-xl flex-shrink-0"></i><div><p class="text-white text-xs font-bold">ApplyBoard Partner</p><p class="text-[#7a8899] text-[11px] font-medium">Official Recruiter</p></div></div>
+            </div>
+        </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6 text-sm">
+        <div>
+            <span class="text-white text-xl font-black" style="font-family:'Cormorant Garamond',serif;">GLOBAL VISA <span class="text-gold">&amp;</span> JOURNEYS</span>
+            <p class="text-[#4a5568] text-xs mt-1 font-medium">Registered in England &amp; Wales · No. 16959031</p>
+        </div>
+        <div class="flex flex-wrap gap-4 text-xs font-medium">
+            <a href="referral.html" class="hover:text-gold transition">Referral Programme</a>
+            <a href="privacy-policy.html" class="hover:text-gold transition">Privacy Policy</a>
+            <a href="engagement-letter.html" class="hover:text-gold transition">Terms &amp; Conditions</a>
+            <a href="#" class="gvj-cookie-settings hover:text-gold transition">Cookie Settings</a>
+        </div>
+    </div>
+    <div class="gold-divider max-w-7xl mx-auto"></div>
+    <div class="max-w-7xl mx-auto px-4 py-6 text-center text-xs">
+        <p class="text-[#4a5568] font-medium">&copy; 2026 Global Visa &amp; Journeys Ltd. All rights reserved.</p>
+    </div>
+</footer>
+
+<a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'floating_button'})" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp" title="Chat on WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>
+
+<nav id="mobile-bottom-nav" style="position:fixed;bottom:0;left:0;right:0;z-index:9998;background:#0f1419;border-top:1px solid #1e2730;backdrop-filter:blur(12px);padding-bottom:env(safe-area-inset-bottom);">
+    <div style="display:flex;">
+        <a href="index.html" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 4px;gap:3px;color:#7a8899;text-decoration:none;"><i class="fa-solid fa-house" style="font-size:18px;line-height:1;"></i><span style="font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;line-height:1;">Home</span></a>
+        <a href="calculator.html" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 4px;gap:3px;color:#7a8899;text-decoration:none;"><i class="fa-solid fa-clipboard-list" style="font-size:18px;line-height:1;"></i><span style="font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;line-height:1;">Readiness</span></a>
+        <a href="referral.html" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 4px;gap:3px;color:#c9a84c;text-decoration:none;"><i class="fa-solid fa-gift" style="font-size:18px;line-height:1;"></i><span style="font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;line-height:1;">Refer</span></a>
+        <a href="about.html" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 4px;gap:3px;color:#7a8899;text-decoration:none;"><i class="fa-solid fa-circle-info" style="font-size:18px;line-height:1;"></i><span style="font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;line-height:1;">About</span></a>
+        <a href="portal.html" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 4px;gap:3px;color:#7a8899;text-decoration:none;"><i class="fa-solid fa-lock" style="font-size:18px;line-height:1;"></i><span style="font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;line-height:1;">Portal</span></a>
+    </div>
+</nav>
+
+<script>
+// Cloud Function endpoint — update after deploying functions to gvj-case-tracker
+const GVJ_LOOKUP_URL = 'https://lookupreferral-prnjtzi5da-uc.a.run.app';
+
+// Nav scroll
+window.addEventListener('scroll',()=>{document.getElementById('main-nav').classList.toggle('nav-scrolled',window.scrollY>50);});
+
+async function submitLookup(){
+    const code = document.getElementById('lookup-code').value.trim().toUpperCase();
+    const whatsapp = document.getElementById('lookup-whatsapp').value.trim();
+    const btn = document.getElementById('lookup-btn');
+    const errEl = document.getElementById('lookup-error');
+
+    errEl.classList.add('hidden');
+
+    if(!code || code.length < 5){
+        showLookupError();
+        return;
+    }
+    if(!whatsapp || whatsapp.replace(/\D/g,'').length < 7){
+        showLookupError();
+        return;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Checking…';
+
+    try{
+        const res = await fetch(GVJ_LOOKUP_URL, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({code, whatsapp})
+        });
+        const data = await res.json();
+
+        if(data.notFound || !res.ok){
+            showLookupError();
+            return;
+        }
+
+        showResults(code, data);
+    } catch(err){
+        showLookupError();
+    } finally{
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i> Check My Earnings';
+    }
+}
+
+function showLookupError(){
+    document.getElementById('lookup-error').classList.remove('hidden');
+}
+
+function formatCurrency(val){
+    if(!val || val === 0) return '£0';
+    return '£' + Number(val).toFixed(0);
+}
+
+function showResults(code, data){
+    document.getElementById('result-code').textContent = code;
+    document.getElementById('stat-earned').textContent = formatCurrency(data.totalEarned);
+    document.getElementById('stat-paid').textContent = formatCurrency(data.totalPaid);
+    document.getElementById('stat-pending').textContent = formatCurrency(data.totalPending);
+    document.getElementById('stat-count').textContent = data.referredCount || 0;
+
+    document.getElementById('status-form-wrap').classList.add('hidden');
+    document.getElementById('status-results-wrap').classList.remove('hidden');
+    gtag('event','referral_status_viewed',{'referral_code':code});
+}
+
+function resetLookup(){
+    document.getElementById('status-results-wrap').classList.add('hidden');
+    document.getElementById('status-form-wrap').classList.remove('hidden');
+    document.getElementById('lookup-error').classList.add('hidden');
+    document.getElementById('lookup-code').value = '';
+    document.getElementById('lookup-whatsapp').value = '';
+}
+
+// Pre-fill code from URL query param ?code=HASS7K2
+(function(){
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
+    if(code){
+        document.getElementById('lookup-code').value = code.toUpperCase().replace(/[^A-Z0-9]/g,'');
+    }
+})();
+</script>
+</body>
+</html>
