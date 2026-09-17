@@ -45,14 +45,14 @@
 
     /* ── Consent actions ────────────────────────────────────────────────── */
     function acceptAll() {
-        localStorage.setItem(STORAGE_KEY, 'all');
+        try { localStorage.setItem(STORAGE_KEY, 'all'); } catch (e) {}
         hideBanner();
         loadGA();
         loadTawk();
     }
 
     function necessaryOnly() {
-        localStorage.setItem(STORAGE_KEY, 'necessary');
+        try { localStorage.setItem(STORAGE_KEY, 'necessary'); } catch (e) {}
         hideBanner();
     }
 
@@ -170,7 +170,7 @@
         document.querySelectorAll('.gvj-cookie-settings').forEach(function (el) {
             el.addEventListener('click', function (e) {
                 e.preventDefault();
-                localStorage.removeItem(STORAGE_KEY);
+                try { localStorage.removeItem(STORAGE_KEY); } catch (e2) {}
                 injectBanner();
                 showBanner();
             });
@@ -179,7 +179,8 @@
 
     /* ── Init ───────────────────────────────────────────────────────────── */
     function init() {
-        var pref = localStorage.getItem(STORAGE_KEY);
+        var pref;
+        try { pref = localStorage.getItem(STORAGE_KEY); } catch (e) { pref = null; }
         if (pref === 'all') {
             loadGA();
             loadTawk();

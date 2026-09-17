@@ -372,7 +372,7 @@ NOTE: blog/post.html is kept as a redirect file only — it forwards
                     <li><a href="../refusal.html" class="hover:text-gold transition">Refusal Recovery</a></li>
                     <li><a href="../student.html" class="hover:text-gold transition">Study Abroad</a></li>
                     <li><a href="../work.html" class="hover:text-gold transition">Work in Europe</a></li>
-                    <li><a href="https://buy.stripe.com/cNieVc3YFemK6Cq80z0sU05" target="_blank" rel="noopener" class="hover:text-gold transition">Flight Reservation</a></li>
+                    <li><a href="https://buy.stripe.com/cNieVc3YFemK6Cq80z0sU05" target="_blank" rel="noopener noreferrer" class="hover:text-gold transition">Flight Reservation</a></li>
                 </ul>
             </div>
 
@@ -414,7 +414,7 @@ NOTE: blog/post.html is kept as a redirect file only — it forwards
     <p class="text-[#4a5568] text-xs text-center py-6 font-medium">&copy; 2026 Global Visa &amp; Journeys Ltd. Registered in England &amp; Wales (No: 16959031).</p>
 </footer>
 
-<a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'floating_button'})" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Chat on WhatsApp" title="Chat on WhatsApp">
+<a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'floating_button'})" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Chat on WhatsApp" title="Chat on WhatsApp">
     <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
 </a>
 
@@ -461,7 +461,6 @@ async function loadPosts() {
         const snap = await getDocs(q);
         allPosts = snap.docs.map(d => ({ id: d.id, ...d.data() }))
             .sort((a, b) => new Date(b.publishedAt || b.createdAt || 0) - new Date(a.publishedAt || a.createdAt || 0));
-        console.log('[GVJ Blog] Loaded', allPosts.length, 'live posts');
 
         document.getElementById('posts-loading').classList.add('hidden');
 

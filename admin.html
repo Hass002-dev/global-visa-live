@@ -1060,7 +1060,11 @@ window.togglePreview = () => {
     const body = document.getElementById('bf-body').value;
     if (prev.classList.contains('hidden')) {
         const html = (typeof marked !== 'undefined') ? marked.parse(body) : body;
-        document.getElementById('bf-preview-html').innerHTML = (typeof DOMPurify !== 'undefined') ? DOMPurify.sanitize(html) : html;
+        if (typeof DOMPurify === 'undefined') {
+            document.getElementById('bf-preview-html').textContent = 'Security library (DOMPurify) failed to load. Refresh the page before previewing.';
+        } else {
+            document.getElementById('bf-preview-html').innerHTML = DOMPurify.sanitize(html);
+        }
         prev.classList.remove('hidden');
     } else {
         prev.classList.add('hidden');
@@ -1103,12 +1107,16 @@ window.savePost = async (statusValue) => {
     if (!data.seoTitle)       data.seoTitle       = data.title;
     if (!data.seoDescription) data.seoDescription = data.excerpt;
 
-    // Convert markdown → HTML
+    // Convert markdown → HTML — fail closed if DOMPurify unavailable
+    if (typeof DOMPurify === 'undefined') {
+        errEl.textContent = 'Security library (DOMPurify) failed to load. Please refresh the page before saving.';
+        errEl.classList.remove('hidden');
+        return;
+    }
     if (typeof marked !== 'undefined') {
-        const raw   = marked.parse(data.body);
-        data.bodyHtml = (typeof DOMPurify !== 'undefined') ? DOMPurify.sanitize(raw) : raw;
+        data.bodyHtml = DOMPurify.sanitize(marked.parse(data.body));
     } else {
-        data.bodyHtml = data.body;
+        data.bodyHtml = DOMPurify.sanitize(data.body);
     }
 
     const btn = statusValue === 'draft' ? document.getElementById('bf-save-draft') : document.getElementById('bf-publish');

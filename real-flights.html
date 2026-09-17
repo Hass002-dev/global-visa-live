@@ -10,7 +10,7 @@
     <link rel="icon" type="image/svg+xml" href="./favicon.svg">
     <link rel="stylesheet" href="./output.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0" crossorigin="anonymous" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0" crossorigin="anonymous"></noscript>
 
     <!-- Cookie consent + analytics (GA4 / Tawk.to loaded conditionally) -->
@@ -234,7 +234,7 @@
                     <p class="text-[#7a8899] text-sm leading-relaxed mb-7 max-w-sm mx-auto">Your trip details are in. Complete the £50 payment below to confirm your reservation — a tab should have opened automatically. Once payment is done, your visa flight reservation will be prepared and delivered within 24 hours. We'll confirm everything on WhatsApp.</p>
                     <label class="gvj-terms-label" style="justify-content:center; max-width:420px; margin:0 auto 10px;">
                         <input type="checkbox" onchange="gvjTogglePay('vf-pay-btn',this.checked)">
-                        <span>I confirm I have read and accept GVJ's <a href="engagement-letter.html" target="_blank" rel="noopener">Client Engagement Letter and Terms &amp; Conditions</a>.</span>
+                        <span>I confirm I have read and accept GVJ's <a href="engagement-letter.html" target="_blank" rel="noopener noreferrer">Client Engagement Letter and Terms &amp; Conditions</a>.</span>
                     </label>
                     <a href="https://buy.stripe.com/cNieVc3YFemK6Cq80z0sU05" id="vf-pay-btn" target="_blank" rel="noopener noreferrer" onclick="gtag('event','visa_flight_payment_click',{'page_location':window.location.href,'page_title':document.title})" class="inline-flex items-center justify-center gap-2 w-full bg-[#25D366] hover:bg-[#128C7E] text-white font-bold px-8 py-4 rounded-xl transition text-sm mb-5 gvj-pay-gated" aria-disabled="true">
                         <i class="fa-solid fa-lock text-xs"></i> Complete Payment — £50
