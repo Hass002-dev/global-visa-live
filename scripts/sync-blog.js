@@ -60,7 +60,7 @@ async function signIn(password) {
         hostname: 'identitytoolkit.googleapis.com',
         path:     `/v1/accounts:signInWithPassword?key=${API_KEY}`,
         method:   'POST',
-        headers:  { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(body) }
+        headers:  { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(body), 'Referer': 'https://globalvisajourneys.com/' }
     }, body);
     if (!res.body.idToken) {
         console.error('[sync-blog] Firebase Auth failed:', res.body?.error?.message || JSON.stringify(res.body));
@@ -69,7 +69,7 @@ async function signIn(password) {
     return res.body.idToken;
 }
 
-async function queryPublishedPosts(token) {
+async function queryPublishedPosts() {
     const body = JSON.stringify({
         structuredQuery: {
             from: [{ collectionId: 'blog_posts' }],
@@ -82,11 +82,12 @@ async function queryPublishedPosts(token) {
             }
         }
     });
+    // blog_posts are publicly readable — no auth token needed for this query
     const res = await httpRequest({
         hostname: 'firestore.googleapis.com',
         path:     `/v1/projects/${PROJECT_ID}/databases/(default)/documents:runQuery`,
         method:   'POST',
-        headers:  { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(body), 'Authorization': `Bearer ${token}` }
+        headers:  { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(body) }
     }, body);
 
     const posts = [];
@@ -140,16 +141,17 @@ async function main() {
     const markIdx    = args.indexOf('--mark-live');
     const markLiveId = markIdx >= 0 ? args[markIdx + 1] : null;
 
-    const password = loadPassword();
-    const token    = await signIn(password);
-
     if (markLiveId) {
+        // markLive requires auth — sign in first
+        const password = loadPassword();
+        const token    = await signIn(password);
         await markLive(token, markLiveId);
         process.stdout.write(JSON.stringify({ success: true, id: markLiveId }) + '\n');
         return;
     }
 
-    const posts = await queryPublishedPosts(token);
+    // Query is public — no sign-in needed
+    const posts = await queryPublishedPosts();
     process.stdout.write(JSON.stringify(posts, null, 2) + '\n');
 }
 
