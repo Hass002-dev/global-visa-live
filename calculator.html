@@ -1513,6 +1513,13 @@ window.subscribeNewsletter = async () => {
             await window._fbSaveAssessment(payload);
         }
 
+        fetch('https://script.google.com/macros/s/AKfycbxEvQ-kUJiX637FCWwfoSsj8gh7ChWRVbQfOxqlyGoR3mW5XT2LIf01tfz9HxOKxK__Lg/exec', {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(payload)
+        }).catch(function() {});
+
         manualNext(4);
     }
 </script>
