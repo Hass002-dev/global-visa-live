@@ -1,11 +1,24 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://images.unsplash.com">
     <title>Visa Readiness Check | Global Visa & Journeys London</title>
     <meta name="description" content="Check your Schengen visa financial readiness instantly. Our forensic calculator checks your balance against 2026 embassy thresholds and flags every risk before you apply.">
     <link rel="canonical" href="https://www.globalvisajourneys.com/calculator.html">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.globalvisajourneys.com/calculator.html">
+    <meta property="og:title" content="Visa Readiness Check | Global Visa & Journeys London">
+    <meta property="og:description" content="Check your Schengen visa financial readiness instantly. Our forensic calculator checks your balance against 2026 embassy thresholds and flags every risk before you apply.">
+    <meta property="og:image" content="https://www.globalvisajourneys.com/Updated%20Logo.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Visa Readiness Check | Global Visa & Journeys London">
+    <meta name="twitter:description" content="Check your Schengen visa financial readiness instantly. Our forensic calculator checks your balance against 2026 embassy thresholds and flags every risk before you apply.">
+    <meta name="twitter:image" content="https://www.globalvisajourneys.com/Updated%20Logo.png">
 
     <link rel="icon" type="image/svg+xml" href="./favicon.svg">
     <link rel="stylesheet" href="./output.css">
@@ -1518,7 +1531,7 @@ window.subscribeNewsletter = async () => {
             mode: 'no-cors',
             headers: { 'Content-Type': 'text/plain;charset=utf-8' },
             body: JSON.stringify(payload)
-        }).catch(function() {});
+        }).catch(function(err) { console.error('[GVJ] Submission error:', err); });
 
         manualNext(4);
     }
