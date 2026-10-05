@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .btn-gold:focus-visible,
+  .btn-outline-gold:focus-visible {
+    outline: 2px solid var(--brand-gold, #c9a84c);
+    outline-offset: 2px;
+  }
+}
