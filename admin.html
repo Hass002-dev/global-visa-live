@@ -179,6 +179,11 @@
             <button id="admin-login-btn" onclick="doAdminLogin()" class="w-full btn-gold py-4 rounded-xl text-sm">
                 Access Admin Dashboard
             </button>
+
+            <div class="mt-4 text-center">
+                <button onclick="doForgotPassword()" class="text-xs text-[#7a8899] hover:text-gold transition underline underline-offset-2 bg-transparent border-none cursor-pointer">Forgot password? Send reset email</button>
+                <div id="forgot-msg" class="hidden mt-3 p-3 rounded-xl text-xs font-medium"></div>
+            </div>
         </div>
 
         <p class="text-center text-[#2d3748] text-xs mt-4">This page is not linked from the public website. Unauthorised access attempts are logged.</p>
@@ -658,6 +663,27 @@ window.doAdminLogin = async () => {
         showLoginError('Incorrect email or password.');
         btn.innerHTML = 'Access Admin Dashboard';
         btn.disabled  = false;
+    }
+};
+
+/* ── FORGOT PASSWORD ── */
+window.doForgotPassword = async () => {
+    const msgEl = document.getElementById('forgot-msg');
+    msgEl.className = 'mt-3 p-3 rounded-xl text-xs font-medium';
+    msgEl.textContent = 'Sending…';
+    msgEl.classList.remove('hidden');
+    try {
+        const { sendPasswordResetEmail } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
+        await sendPasswordResetEmail(auth, 'office@globalvisajourneys.com');
+        msgEl.style.background = '#0d2e1a';
+        msgEl.style.border = '1px solid #22c55e';
+        msgEl.style.color = '#4ade80';
+        msgEl.textContent = '✓ Reset email sent to office@globalvisajourneys.com. Right-click the button in the email → Copy link address — then paste the full URL into the pw-reset-helper.html file on your computer.';
+    } catch(e) {
+        msgEl.style.background = '#2e0d0d';
+        msgEl.style.border = '1px solid #ef4444';
+        msgEl.style.color = '#f87171';
+        msgEl.textContent = 'Error: ' + e.message;
     }
 };
 
