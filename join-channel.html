@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Join the GVJ WhatsApp Channel | Global Visa & Journeys</title>
+  <meta name="description" content="Free Schengen visa tips and updates for West Africans, straight to WhatsApp. Join the Global Visa & Journeys channel.">
+  <link rel="canonical" href="https://www.globalvisajourneys.com/join-channel.html">
+
+  <style>
+    /* GVJ brand tokens */
+    :root { --navy:#0D2137; --gold:#C9A84C; --cream:#f9f4ea; --text:#1b2a3a; }
+
+    * { box-sizing:border-box; }
+    body {
+      margin:0; font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+      background:var(--cream); color:var(--text); line-height:1.55;
+    }
+
+    /* Single centred column, 16px side gutters on phones */
+    main { max-width:560px; margin:0 auto; padding:40px 16px 56px; }
+
+    .brand { color:var(--navy); font-weight:700; letter-spacing:.02em; font-size:.95rem; }
+    h1 { color:var(--navy); font-size:1.8rem; line-height:1.2; margin:18px 0 12px; }
+    p.lead { font-size:1.05rem; margin:0 0 24px; }
+
+    /* Gold-bordered benefits card, matches GVJ email style */
+    .card { background:#fff; border-left:4px solid var(--gold); border-radius:6px; padding:16px 18px; margin:0 0 28px; }
+    .card ul { margin:0; padding-left:20px; }
+    .card li { margin:6px 0; }
+
+    /* Primary call to action */
+    .btn {
+      display:block; text-align:center; text-decoration:none;
+      background:var(--navy); color:#fff; font-weight:700; font-size:1.1rem;
+      padding:16px 20px; border-radius:8px; border:2px solid var(--gold);
+    }
+    .btn:hover, .btn:focus-visible { background:#14304f; }
+
+    .note { font-size:.85rem; color:#4a5a6a; margin-top:28px; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="brand">GLOBAL VISA &amp; JOURNEYS</div>
+
+    <h1>Get Schengen visa updates on WhatsApp. Free.</h1>
+    <p class="lead">Join our channel for practical Schengen visa tips and updates, made for West African applicants.</p>
+
+    <div class="card">
+      <ul>
+        <li>Schengen visa tips and updates</li>
+        <li>Free to join, leave any time</li>
+      </ul>
+    </div>
+
+    <!-- Channel link. Click is tracked as a conversion (see script below). -->
+    <a id="join-btn" class="btn" rel="noopener"
+       href="https://whatsapp.com/channel/0029VbCDSSWEquiHjVOXqp2f">
+      Join the WhatsApp Channel
+    </a>
+
+    <p class="note">
+      We share general information and consultancy support. Visa decisions are made by the embassy or consulate,
+      and we cannot guarantee any outcome.
+    </p>
+  </main>
+
+  <script>
+    // Fire a Google Ads / Analytics event when someone taps Join.
+    // TODO: replace the placeholders below once the Google tag is on the site;
+    // until then this does nothing, and the button still works.
+    document.getElementById('join-btn').addEventListener('click', function () {
+      if (typeof gtag === 'function') {
+        gtag('event', 'channel_join_click');
+        // gtag('event', 'conversion', { send_to: 'AW-XXXXXXXXX/XXXXXXXXXXX' });
+      }
+    });
+  </script>
+</body>
+</html>
