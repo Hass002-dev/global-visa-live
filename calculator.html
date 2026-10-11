@@ -1044,7 +1044,7 @@ window.subscribeNewsletter = async () => {
     /* ── CONSTANTS ── */
     const QUICKSCAN_STRIPE = "https://book.stripe.com/28E4gygLremKd0Ogx50sU00";
     const WA               = "https://wa.me/447511219482";
-    const EUR_GBP          = 0.86; // 1 EUR = 0.86 GBP (2026 working rate)
+    const EUR_GBP          = 0.85; // 1 EUR = 0.85 GBP (indicative — rates change daily, last checked 11 Oct 2026 via ECB reference rate)
 
     /* ═══════════════════════════════════════════════════════
        NAV + MODAL
@@ -1184,26 +1184,38 @@ window.subscribeNewsletter = async () => {
 
         switch (dest) {
             case 'Spain':
-                dailyEUR = 100; minimumEUR = 900;
-                notes = 'Spain: €100/day with a minimum total of €900 regardless of trip length.';
+                dailyEUR = 122.10; minimumEUR = 1098.90;
+                notes = `Spain: €122.10/day with a minimum total of €1,098.90 regardless of trip length (2026 rate, EU Official Journal C/2026/2444 — figures change annually, check before applying).`;
                 break;
             case 'France':
-                if (accom === 'hotel')  { dailyEUR = 65;    notes = 'France: €65/day with pre-booked hotel proof.'; }
-                else if (accom === 'hostel') { dailyEUR = 32.25; notes = 'France: €32.25/day with hostel accommodation.'; }
-                else                   { dailyEUR = 120;   notes = 'France: €120/day without pre-booked accommodation proof.'; }
+                if (accom === 'hotel')  { dailyEUR = 65;    notes = `France: €65/day with pre-booked hotel proof (source: service-public.gouv.fr).`; }
+                else if (accom === 'hostel') { dailyEUR = 32.50; notes = `France: €32.50/day with hosted accommodation proof (source: service-public.gouv.fr).`; }
+                else                   { dailyEUR = 120;   notes = `France: €120/day without pre-booked accommodation proof (source: service-public.gouv.fr).`; }
                 break;
             case 'Greece':
                 dailyEUR = 50; minimumEUR = 300;
-                notes = 'Greece: €50/day with a minimum total of €300 regardless of trip length.';
+                notes = `Greece: €50/day with a minimum total of €300 regardless of trip length, reduced by half for minors (source: Greek Ministerial Decision 3021/22/10-ε).`;
                 break;
-            case 'Germany':     dailyEUR = 45;  notes = 'Germany: €45/day.'; break;
-            case 'Netherlands': dailyEUR = 34;  notes = 'Netherlands: €34/day.'; break;
-            case 'Italy':       dailyEUR = 120; notes = 'Italy: €120/day.'; break;
+            case 'Germany':     dailyEUR = 45;  notes = `Germany: no fixed statutory minimum — assessed case by case. €45/day is used as a reference figure under the EU's Schengen Borders Code (Art. 39) notification.`; break;
+            case 'Netherlands': dailyEUR = 55;  notes = `Netherlands: €55/day (source: nederlandwereldwijd.nl, official Dutch government portal).`; break;
+            case 'Italy':
+                // Official Italian table (Ministry of Interior Directive, 1 Mar 2000) bands by trip length, solo traveller rate.
+                if (days <= 10) { dailyEUR = 44.93; }
+                else if (days <= 20) { dailyEUR = 36.67; }
+                else { dailyEUR = 27.89; }
+                notes = `Italy: €${dailyEUR.toFixed(2)}/day for a ${days}-day trip (official banded rate — shorter trips cost more per day; travelling with others may lower this). Source: Italian Ministry of Interior.`;
+                break;
             case 'Portugal':
                 dailyEUR = 40; entryEUR = 75;
-                notes = 'Portugal: €40/day plus €75 additional entry requirement.';
+                notes = `Portugal: €40/day plus €75 additional entry requirement (source: vistos.mne.gov.pt, official Portuguese government portal).`;
                 break;
-            case 'Switzerland': dailyEUR = 100; notes = 'Switzerland: €100/day.'; break;
+            case 'Switzerland':
+                // Official figure is CHF 100/day (CHF 30/day students/children), not EUR — converted here at an
+                // approximate 1:1 CHF-to-EUR assumption since the two currencies trade close to parity. Flag for
+                // tightening with a live CHF rate if more precision is needed.
+                dailyEUR = 100;
+                notes = `Switzerland: CHF 100/day (CHF 30/day for students/children) — shown here converted at an approximate 1:1 CHF-to-EUR rate. Source: Swiss Embassy (admin.ch).`;
+                break;
             default:            dailyEUR = 100; notes = 'General Schengen benchmark: €100/day.'; break;
         }
 
@@ -1252,7 +1264,7 @@ window.subscribeNewsletter = async () => {
         if (parkingRisk) {
             ragScore = Math.max(ragScore, 2);
             checks.push({ s:'fail', title:'Funds Parking Risk Detected',
-                desc:`Your balance (£${balance.toLocaleString()}) is more than 4× your monthly income (£${income.toLocaleString()}) but you have less than 3 months of statement history. ECOs treat this as evidence of borrowed or artificially inflated funds — a potential 10-year ban trigger.` });
+                desc:`Your balance (£${balance.toLocaleString()}) is more than 4× your monthly income (£${income.toLocaleString()}) but you have less than 3 months of statement history. ECOs treat this as evidence of borrowed or artificially inflated funds — serious misrepresentation can lead to refusal, and the refusal is recorded in VIS.` });
         } else {
             checks.push({ s:'pass', title:'Funds Parking Risk',
                 desc:'Balance-to-income ratio and statement history are consistent. No immediate funds parking flag detected.' });
@@ -1281,7 +1293,7 @@ window.subscribeNewsletter = async () => {
             if (diffDays > 28) {
                 ragScore = Math.max(ragScore, 1);
                 checks.push({ s:'warn', title:'28-Day Bank Statement Rule',
-                    desc:`Your travel date is <strong>${diffDays} days away</strong>. Your current bank statement will be older than 28 days at time of submission. You <strong>must obtain a fresh statement</strong> within 28 days of the embassy appointment.` });
+                    desc:`Your travel date is <strong>${diffDays} days away</strong>. Your current bank statement will be older than 28 days at time of submission. Many consulates ask for a statement no older than 28 days at the embassy appointment.` });
             } else if (diffDays >= 0) {
                 checks.push({ s:'pass', title:'28-Day Bank Statement Rule',
                     desc:`Travel date is ${diffDays} day${diffDays !== 1 ? 's' : ''} away. Your statement will be within the valid 28-day window at submission.` });
@@ -1291,7 +1303,7 @@ window.subscribeNewsletter = async () => {
         } else {
             ragScore = Math.max(ragScore, 1);
             checks.push({ s:'warn', title:'28-Day Bank Statement Rule',
-                desc:'No travel date entered. Ensure your bank statement is no older than 28 days at submission. Enter your travel date above for a precise check.' });
+                desc:'No travel date entered. Many consulates ask for a bank statement no older than 28 days at submission. Enter your travel date above for a precise check.' });
         }
 
         // ── CHECK 5: Employment Consistency ──
@@ -1311,7 +1323,7 @@ window.subscribeNewsletter = async () => {
         if (bigDeposit) {
             ragScore = Math.max(ragScore, 2);
             checks.push({ s:'fail', title:'Large Deposit / Lump Sum Risk',
-                desc:'A large deposit in the last 90 days is a major deception trigger. ECOs may assume funds are borrowed to inflate the balance — a pattern linked to 10-year visa bans. This must be addressed with a credible, documented source-of-funds narrative before submission.' });
+                desc:'A large deposit in the last 90 days is a major deception trigger. ECOs may assume funds are borrowed to inflate the balance — this is treated as serious misrepresentation and the refusal is recorded in VIS. This must be addressed with a credible, documented source-of-funds narrative before submission.' });
         } else {
             checks.push({ s:'pass', title:'Large Deposit / Lump Sum Risk',
                 desc:'No large deposits declared. Balance appears organically accumulated over time. No immediate lump-sum deception flag.' });
