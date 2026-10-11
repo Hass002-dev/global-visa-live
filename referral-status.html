@@ -91,28 +91,33 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
         <!-- LOOKUP FORM -->
         <div id="status-form-wrap">
+            <div class="flex justify-center gap-2 mb-7" id="mode-toggle">
+                <button type="button" id="mode-btn-referrer" onclick="setMode('referrer')" class="btn-gold px-5 py-2 rounded-full text-xs">I'm a Referrer</button>
+                <button type="button" id="mode-btn-partner" onclick="setMode('partner')" class="btn-outline-gold px-5 py-2 rounded-full text-xs">I'm a Partner</button>
+            </div>
+
             <div class="text-center mb-8">
                 <span class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest border border-[#c9a84c]/50 text-gold px-4 py-1.5 rounded-full mb-5">
-                    <i class="fa-solid fa-chart-bar"></i> Referral Earnings
+                    <i class="fa-solid fa-chart-bar"></i> <span id="form-badge-text">Referral Earnings</span>
                 </span>
                 <h1 class="text-4xl font-black text-white" style="font-family:'Cormorant Garamond',serif;">Check Your Earnings</h1>
-                <p class="text-[#7a8899] mt-3 text-sm font-medium leading-relaxed">Enter the code you received and the WhatsApp number you registered with.</p>
+                <p class="text-[#7a8899] mt-3 text-sm font-medium leading-relaxed" id="form-description">Enter the code you received and the WhatsApp number you registered with.</p>
             </div>
 
             <div class="bg-[#0f1419] border border-[#1e2730] rounded-2xl p-8">
                 <div class="space-y-5">
                     <div>
-                        <label for="lookup-code" class="block text-white text-sm font-bold mb-2">Your Referral Code</label>
+                        <label for="lookup-code" class="block text-white text-sm font-bold mb-2" id="code-label">Your Referral Code</label>
                         <input id="lookup-code" type="text" autocomplete="off" placeholder="e.g. HASS7K2" class="status-input" maxlength="12" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')">
                     </div>
-                    <div>
+                    <div id="whatsapp-field-wrap">
                         <label for="lookup-whatsapp" class="block text-white text-sm font-bold mb-2">Your WhatsApp Number</label>
                         <input id="lookup-whatsapp" type="tel" autocomplete="tel" placeholder="e.g. +44 7700 900123" class="status-input" maxlength="30">
                         <p class="text-[#4a5568] text-xs mt-1.5 font-medium">The same number you used when you signed up.</p>
                     </div>
                     <div id="lookup-error" class="hidden bg-[#131920] border border-[#1e2730] rounded-lg p-4 text-center">
                         <i class="fa-solid fa-circle-info text-[#7a8899] mb-2 block text-lg"></i>
-                        <p class="text-[#adb8c4] text-sm font-medium">No matching record found. Please check your code and the WhatsApp number you registered with.</p>
+                        <p class="text-[#adb8c4] text-sm font-medium" id="lookup-error-text">No matching record found. Please check your code and the WhatsApp number you registered with.</p>
                     </div>
                     <button id="lookup-btn" type="button" onclick="submitLookup()" class="btn-gold w-full py-4 rounded-xl text-sm flex items-center justify-center gap-2">
                         <i class="fa-solid fa-magnifying-glass"></i> Check My Earnings
@@ -120,7 +125,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
                 </div>
             </div>
 
-            <p class="text-center text-[#4a5568] text-xs mt-5 font-medium">
+            <p class="text-center text-[#4a5568] text-xs mt-5 font-medium" id="signup-cta-wrap">
                 Don't have a code yet? <a href="referral.html#signup" class="text-gold hover:underline font-semibold">Sign up for the referral programme →</a>
             </p>
         </div>
@@ -129,7 +134,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div id="status-results-wrap" class="hidden">
             <div class="text-center mb-8">
                 <span class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest border border-[#c9a84c]/50 text-gold px-4 py-1.5 rounded-full mb-5">
-                    <i class="fa-solid fa-chart-bar"></i> Referral Earnings
+                    <i class="fa-solid fa-chart-bar"></i> <span id="results-badge-text">Referral Earnings</span>
                 </span>
                 <h1 class="text-4xl font-black text-white" style="font-family:'Cormorant Garamond',serif;">Your Earnings</h1>
                 <p class="text-[#7a8899] mt-3 text-sm font-medium">Code: <span id="result-code" class="text-gold font-bold"></span></p>
@@ -153,7 +158,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
                 </div>
                 <div class="stat-card blue">
                     <div class="stat-value text-blue-400" id="stat-count">0</div>
-                    <div class="stat-label mt-2">Referrals</div>
+                    <div class="stat-label mt-2" id="stat-count-label">Referrals</div>
                     <p class="text-[#4a5568] text-[10px] mt-2 font-medium">Cases linked to your code</p>
                 </div>
             </div>
@@ -169,7 +174,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
                    class="flex-1 bg-[#25D366] hover:bg-[#128C7E] text-white py-3 px-5 rounded-full font-bold text-sm text-center transition flex items-center justify-center gap-2">
                     <i class="fa-brands fa-whatsapp text-lg"></i> Ask About a Reward
                 </a>
-                <a href="referral.html"
+                <a href="referral.html" id="refer-again-btn"
                    class="flex-1 btn-outline-gold py-3 px-5 rounded-full text-sm text-center flex items-center justify-center gap-2">
                     <i class="fa-solid fa-users text-xs"></i> Refer Someone New
                 </a>
@@ -227,17 +232,49 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 </nav>
 
 <script>
-// Cloud Function endpoint — update after deploying functions to gvj-case-tracker
+// Cloud Function endpoints — update after deploying functions to gvj-case-tracker
 const GVJ_LOOKUP_URL = 'https://lookupreferral-prnjtzi5da-uc.a.run.app';
+const GVJ_PARTNER_LOOKUP_URL = 'https://us-central1-gvj-case-tracker.cloudfunctions.net/lookupPartnerCommission';
+
+let currentMode = 'referrer';
 
 // Nav scroll
 window.addEventListener('scroll',()=>{document.getElementById('main-nav').classList.toggle('nav-scrolled',window.scrollY>50);});
+
+function setMode(mode){
+    currentMode = mode;
+    document.getElementById('lookup-error').classList.add('hidden');
+    applyMode();
+}
+
+function applyMode(){
+    const isPartner = currentMode === 'partner';
+
+    document.getElementById('mode-btn-referrer').className = 'px-5 py-2 rounded-full text-xs ' + (isPartner ? 'btn-outline-gold' : 'btn-gold');
+    document.getElementById('mode-btn-partner').className = 'px-5 py-2 rounded-full text-xs ' + (isPartner ? 'btn-gold' : 'btn-outline-gold');
+
+    document.getElementById('form-badge-text').textContent = isPartner ? 'Partner Earnings' : 'Referral Earnings';
+    document.getElementById('results-badge-text').textContent = isPartner ? 'Partner Earnings' : 'Referral Earnings';
+    document.getElementById('form-description').textContent = isPartner
+        ? 'Enter the partner code GVJ gave you.'
+        : 'Enter the code you received and the WhatsApp number you registered with.';
+    document.getElementById('code-label').textContent = isPartner ? 'Your Partner Code' : 'Your Referral Code';
+    document.getElementById('lookup-error-text').textContent = isPartner
+        ? 'No matching partner code found. Please check the code GVJ gave you.'
+        : 'No matching record found. Please check your code and the WhatsApp number you registered with.';
+    document.getElementById('stat-count-label').textContent = isPartner ? 'Cases' : 'Referrals';
+
+    document.getElementById('whatsapp-field-wrap').classList.toggle('hidden', isPartner);
+    document.getElementById('signup-cta-wrap').classList.toggle('hidden', isPartner);
+    document.getElementById('refer-again-btn').classList.toggle('hidden', isPartner);
+}
 
 async function submitLookup(){
     const code = document.getElementById('lookup-code').value.trim().toUpperCase();
     const whatsapp = document.getElementById('lookup-whatsapp').value.trim();
     const btn = document.getElementById('lookup-btn');
     const errEl = document.getElementById('lookup-error');
+    const isPartner = currentMode === 'partner';
 
     errEl.classList.add('hidden');
 
@@ -245,7 +282,7 @@ async function submitLookup(){
         showLookupError();
         return;
     }
-    if(!whatsapp || whatsapp.replace(/\D/g,'').length < 7){
+    if(!isPartner && (!whatsapp || whatsapp.replace(/\D/g,'').length < 7)){
         showLookupError();
         return;
     }
@@ -254,10 +291,10 @@ async function submitLookup(){
     btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Checking…';
 
     try{
-        const res = await fetch(GVJ_LOOKUP_URL, {
+        const res = await fetch(isPartner ? GVJ_PARTNER_LOOKUP_URL : GVJ_LOOKUP_URL, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({code, whatsapp})
+            body: JSON.stringify(isPartner ? {code} : {code, whatsapp})
         });
         const data = await res.json();
 
@@ -285,6 +322,7 @@ function formatCurrency(val){
 }
 
 function showResults(code, data){
+    applyMode();
     document.getElementById('result-code').textContent = code;
     document.getElementById('stat-earned').textContent = formatCurrency(data.totalEarned);
     document.getElementById('stat-paid').textContent = formatCurrency(data.totalPaid);
@@ -293,8 +331,8 @@ function showResults(code, data){
 
     document.getElementById('status-form-wrap').classList.add('hidden');
     document.getElementById('status-results-wrap').classList.remove('hidden');
-    try { localStorage.setItem('gvj_referral_session', JSON.stringify({code, data})); } catch(e){}
-    gtag('event','referral_status_viewed',{'referral_code':code});
+    try { localStorage.setItem('gvj_referral_session', JSON.stringify({code, data, mode: currentMode})); } catch(e){}
+    gtag('event','referral_status_viewed',{'referral_code':code,'lookup_mode':currentMode});
 }
 
 function resetLookup(){
@@ -306,12 +344,15 @@ function resetLookup(){
     try { localStorage.removeItem('gvj_referral_session'); } catch(e){}
 }
 
+applyMode();
+
 // Restore previous session on page load
 (function(){
     try {
         const saved = localStorage.getItem('gvj_referral_session');
         if(saved){
-            const {code, data} = JSON.parse(saved);
+            const {code, data, mode} = JSON.parse(saved);
+            if(mode) currentMode = mode;
             if(code && data) showResults(code, data);
         }
     } catch(e){}
