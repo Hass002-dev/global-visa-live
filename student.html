@@ -520,6 +520,17 @@
             These are indicative matches based on your answers. Our Student Profile Assessment gives you a complete personalised shortlist, honest assessment of your approval chances, and full cost breakdown — delivered within 48 hours.
         </p>
 
+        <!-- Email capture -->
+        <div class="bg-[#0f1419] border border-[#1e2730] rounded-xl p-5 mb-6 max-w-md mx-auto text-center">
+            <p class="text-[#adb8c4] text-sm font-medium mb-3">Want to save a copy of these results? Enter your email below.</p>
+            <div class="flex flex-col sm:flex-row gap-2">
+                <input type="email" id="quiz-lead-email" placeholder="Your email" class="flex-1 bg-[#080c10] border border-[#1e2730] text-[#eef2f7] text-sm px-4 py-2.5 rounded-lg focus:outline-none focus:border-[#c9a84c] placeholder-[#4a5568]">
+                <button type="button" id="quiz-lead-btn" onclick="saveQuizLead()" class="btn-gold px-5 py-2.5 rounded-lg text-xs font-bold whitespace-nowrap">Save My Results</button>
+            </div>
+            <p id="quiz-lead-success" class="hidden text-green-400 text-xs mt-2"><i class="fa-solid fa-circle-check mr-1"></i> Saved — thank you.</p>
+            <p id="quiz-lead-error" class="hidden text-red-400 text-xs mt-2">Please enter a valid email.</p>
+        </div>
+
         <!-- CTAs -->
         <div class="flex flex-col sm:flex-row gap-4 justify-center mb-5">
             <label class="gvj-terms-label"><input type="checkbox" onchange="gvjTogglePay('pay-1',this.checked)"><span>I confirm I have read and accept GVJ's <a href="engagement-letter.html" target="_blank" rel="noopener noreferrer">Client Engagement Letter and Terms &amp; Conditions</a>.</span></label>
@@ -978,6 +989,7 @@
 
     // ── QUIZ ──
     var answers = {};
+    var lastResult = {};
 
     function selectOption(el) {
         var q = el.getAttribute('data-q');
@@ -1063,7 +1075,44 @@
         });
         document.getElementById('results-unis').innerHTML = uniHtml;
         document.getElementById('results-cost-text').textContent = cost;
+        lastResult = { intro: intro, cost: cost, universities: unis.map(function(u) { return u.name + ' (' + u.country + ')'; }) };
         rs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function saveQuizLead() {
+        var emailInput = document.getElementById('quiz-lead-email');
+        var btn = document.getElementById('quiz-lead-btn');
+        var successEl = document.getElementById('quiz-lead-success');
+        var errorEl = document.getElementById('quiz-lead-error');
+        var email = emailInput.value.trim();
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            emailInput.style.borderColor = '#ef4444';
+            errorEl.classList.remove('hidden');
+            successEl.classList.add('hidden');
+            return;
+        }
+        emailInput.style.borderColor = '';
+        errorEl.classList.add('hidden');
+        btn.textContent = 'Saving...';
+        btn.disabled = true;
+        var payload = {
+            quizType: 'student',
+            email: email,
+            answers: answers,
+            result: lastResult,
+            page: 'student.html',
+            timestamp: new Date().toISOString(),
+            source: 'quiz_lead'
+        };
+        var done = function() { btn.textContent = 'Save My Results'; btn.disabled = false; };
+        if (window._fbSaveQuizLead) {
+            window._fbSaveQuizLead(payload).then(function() {
+                successEl.classList.remove('hidden');
+                emailInput.value = '';
+            }).finally(done);
+        } else {
+            done();
+        }
     }
 
     function retakeQuiz() {
@@ -1250,6 +1299,30 @@ function gvjTogglePay(id, on) {
     var el = document.getElementById(id);
     if (el) el.setAttribute('aria-disabled', on ? 'false' : 'true');
 }
+</script>
+
+<!-- Firebase — quiz lead capture -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCcoyBXRITTblrH0XcaLGMjftUttXYLtj4",
+        authDomain: "global-visa-journeys.firebaseapp.com",
+        projectId: "global-visa-journeys",
+        storageBucket: "global-visa-journeys.firebasestorage.app",
+        messagingSenderId: "381217766164",
+        appId: "1:381217766164:web:1cb70fbc26332f5a8d6001"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db  = getFirestore(app);
+
+    // Shared collection for both student.html and work.html quiz leads
+    window._fbSaveQuizLead = async (data) => {
+        try { await addDoc(collection(db, "quiz_leads"), data); }
+        catch(e) { console.error("FB quiz lead:", e); }
+    };
 </script>
 </body>
 </html>
