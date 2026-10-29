@@ -1,0 +1,71 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Admin has full access to everything
+    match /{document=**} {
+      allow read, write: if request.auth != null
+        && request.auth.token.email == "office@globalvisajourneys.com";
+    }
+
+    // Clients can only access their own document
+    match /clients/{userId} {
+      allow read, write: if request.auth != null
+        && request.auth.uid == userId;
+    }
+
+    // Assessments — anyone can submit, admin can read all
+    match /assessments/{docId} {
+      allow create: if request.resource.data.keys().hasAny(['email', 'name', 'destination'])
+        && request.resource.data.email is string
+        && request.resource.data.email.size() > 5
+        && request.resource.data.email.size() < 256
+        && request.resource.data.size() < 20;
+      allow read: if request.auth != null
+        && request.auth.token.email == "office@globalvisajourneys.com";
+    }
+
+    // Enquiries — anyone can submit, admin can read all
+    match /enquiries/{docId} {
+      allow create: if request.resource.data.keys().hasAny(['email', 'name', 'message'])
+        && request.resource.data.email is string
+        && request.resource.data.email.size() > 5
+        && request.resource.data.email.size() < 256
+        && request.resource.data.size() < 20;
+      allow read: if request.auth != null
+        && request.auth.token.email == "office@globalvisajourneys.com";
+    }
+
+    // Newsletter — anyone can subscribe, admin can read all
+    match /newsletter_subs/{docId} {
+      allow create: if request.resource.data.keys().hasAll(['email'])
+        && request.resource.data.email is string
+        && request.resource.data.email.size() > 5
+        && request.resource.data.email.size() < 256
+        && request.resource.data.size() <= 3;
+      allow read: if request.auth != null
+        && request.auth.token.email == "office@globalvisajourneys.com";
+    }
+
+    // Quiz leads (student + work quizzes) — anyone can submit, admin can read all
+    match /quiz_leads/{docId} {
+      allow create: if request.resource.data.keys().hasAny(['email', 'quizType'])
+        && request.resource.data.email is string
+        && request.resource.data.email.size() > 5
+        && request.resource.data.email.size() < 256
+        && request.resource.data.size() < 20;
+      allow read: if request.auth != null
+        && request.auth.token.email == "office@globalvisajourneys.com";
+    }
+
+    // Blog posts — published posts readable by everyone
+    match /blog_posts/{postId} {
+      allow read: if resource.data.status == "published"
+                   || (request.auth != null
+                   && request.auth.token.email == "office@globalvisajourneys.com");
+      allow write: if request.auth != null
+                   && request.auth.token.email == "office@globalvisajourneys.com";
+    }
+
+  }
+}
