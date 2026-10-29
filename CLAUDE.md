@@ -54,11 +54,13 @@ Tailwind 3 is compiled from `input.css` → `output.css` via `tailwind.config.js
 | `diy-toolkit.html` | DIY visa toolkit product page | Yes |
 | `fee-list.html` | Service fee schedule | Yes |
 | `partnership.html` | Partnership / affiliate page | Yes |
-| `leaflet-west-africa.html` | West Africa hub landing page | Yes |
+| `referral.html` | Client Referral Programme — individual referrer sign-up, code generation, earnings table | Yes |
+| `referral-status.html` | Referral earnings lookup — code + WhatsApp number → stats | Yes |
 | `privacy-policy.html` | Privacy policy | Yes |
 | `refund-policy.html` | Refund policy | Yes |
 | `complaints-policy.html` | Complaints policy | Yes |
 | `engagement-letter.html` | Client engagement letter template | Yes |
+| `join-channel.html` | WhatsApp Channel join landing page for paid ad traffic (self-contained, no nav/footer boilerplate) | No |
 | `blog/index.html` | Blog listing (Firebase/Firestore, JS-rendered) | Yes |
 | `portal.html` | Secure client portal (noindex) | No |
 | `admin.html` | Admin dashboard — blog post management, client documents (noindex) | No |
@@ -85,21 +87,32 @@ The live toggle can also be flipped manually from the admin.html post table (bol
 Current blog posts in `blog/`:
 - `dummy-tickets-visa-applications-guide.html`
 - `easiest-schengen-visa-country-west-africans-2026.html`
+- `ees-90-180-day-rule-schengen-overstay-tracking.html`
 - `ees-biometric-checks-september-2026-schengen-visa-holders.html`
+- `etias-2026-delayed-new-timeline-europe-uk-residents.html`
+- `ghana-benelux-visa-waiver-talks-luxembourg-2026.html`
 - `italy-schengen-visa-online-application-2026.html`
-- `multi-entry-schengen-visa-nigeria-ghana-2026.html`
+- `nigeria-schengen-visa-not-visa-free-2026.html`
 - `schengen-90-180-day-rule-ees-2026-west-africa.html`
+- `schengen-main-destination-embassy-rule-multi-country-2026.html`
 - `schengen-refusal-nigeria-2026.html`
 - `schengen-uk-spain-vs-greece-2026.html`
+- `schengen-visa-application-window-180-days-september-2026.html`
 - `schengen-visa-appointment-delays-summer-2026.html`
 - `schengen-visa-appointment-slots-2026-vfs-global-tlscontact.html`
+- `schengen-visa-bank-statement-mistakes-nigeria-ghana-2026.html`
 - `schengen-visa-bank-statement-requirements-2026.html`
 - `schengen-visa-cover-letter-2026-nigeria-ghana.html`
+- `schengen-visa-fee-increase-discussion-2026.html`
 - `schengen-visa-fees-2026-real-cost-nigeria-ghana-uk.html`
 - `schengen-visa-flight-reservation-rules-2026.html`
-- `schengen-visa-interview-questions-2026-nigeria-ghana.html`
-- `schengen-visa-uk-non-british-passport-2026.html`
 - `schengen-visa-gambia-2026-dakar-senegal-consulate.html`
+- `schengen-visa-interview-questions-2026-nigeria-ghana.html`
+- `schengen-visa-phishing-scam-fake-ees-emails-2026.html`
+- `schengen-visa-uk-non-british-passport-2026.html`
+- `spain-italy-schengen-border-checks-2026.html`
+- `uk-graduate-visa-18-months-january-2027-changes.html`
+- `uk-student-visa-financial-requirement-increase-november-2026.html`
 
 ### real-flights.html — dual service page
 
