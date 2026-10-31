@@ -232,13 +232,13 @@
         html.gvj-motion .scale-gap.is-armed .scale-gap-fill {
             transform: scaleX(0);
             transform-origin: left center;
-            transition: transform 0.9s cubic-bezier(0.4,0,0.2,1);
+            transition: transform 2.2s cubic-bezier(0.4,0,0.2,1);
         }
         html.gvj-motion .scale-gap.is-armed .label-before { opacity: 1; }
         html.gvj-motion .scale-gap.is-armed .label-after  { opacity: 0; }
         html.gvj-motion .scale-gap.is-armed.in-view .scale-gap-fill { transform: scaleX(1); }
-        html.gvj-motion .scale-gap.is-armed.in-view .label-before { opacity: 0; transition: opacity 0.3s; }
-        html.gvj-motion .scale-gap.is-armed.in-view .label-after  { opacity: 1; transition: opacity 0.4s 0.5s; }
+        html.gvj-motion .scale-gap.is-armed.in-view .label-before { opacity: 0; transition: opacity 0.4s; }
+        html.gvj-motion .scale-gap.is-armed.in-view .label-after  { opacity: 1; transition: opacity 0.6s 1.6s; }
 
         .scale-copy { max-width: 640px; margin: 4rem auto 0; padding: 0 1rem; color: var(--text-secondary); font-size: 1rem; line-height: 1.8; }
         .scale-copy p { margin-bottom: 1.4rem; }
@@ -254,6 +254,31 @@
         .corridor-section { padding: 6rem 0 0; }
         .corridor-intro { max-width: 640px; margin: 0 auto 3.5rem; padding: 0 1rem; text-align: center; }
         .corridor-intro p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.7; margin-top: 1rem; }
+
+        /* Banner image + looping city marquee. The marquee is decorative —
+           with JS disabled or reduced motion it still renders as a plain,
+           fully readable static row (see the @media rule at the bottom). */
+        .corridor-banner { position: relative; max-width: 1100px; margin: 0 auto 4rem; padding: 0 1rem; overflow: hidden; }
+        .corridor-banner img { width: 100%; height: 280px; object-fit: cover; display: block; border-radius: 4px; }
+        .corridor-banner-overlay {
+            position: absolute; inset: 1rem 1rem 0 1rem; border-radius: 4px;
+            background: linear-gradient(to top, rgba(8,12,16,0.92) 0%, rgba(8,12,16,0.25) 55%, rgba(8,12,16,0.05) 100%);
+        }
+        .corridor-marquee { position: absolute; left: 1rem; right: 1rem; bottom: 0; overflow: hidden; padding: 0.9rem 0; }
+        .corridor-marquee-track { display: flex; white-space: nowrap; width: max-content; }
+        .corridor-marquee-set {
+            display: inline-flex; gap: 0.9rem; padding-right: 0.9rem;
+            font-size: 1.1rem; font-weight: 400; letter-spacing: 0.08em; color: var(--brand-gold-light);
+        }
+        .corridor-marquee-set b { color: var(--brand-gold-dim); font-size: 0.8rem; font-weight: 400; }
+        /* The second copy only exists once motion is enabled — it is what
+           makes the loop seamless. Without it, the band is a single, still,
+           fully readable line of text. */
+        .corridor-marquee-dupe { display: none; }
+        html.gvj-motion .corridor-marquee-dupe { display: inline-flex; }
+        html.gvj-motion .corridor-marquee-track { animation: corridorMarquee 28s linear infinite; }
+        @keyframes corridorMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        @media (max-width: 640px) { .corridor-banner img { height: 200px; } .corridor-marquee-track { font-size: 0.9rem; } }
 
         /* Static fallback — no JS, or reduced motion. Complete on its own. */
         .corridor-static { max-width: 760px; margin: 0 auto; padding: 0 1rem 7rem; }
@@ -291,13 +316,13 @@
         .corridor-line-fill {
             position: absolute; inset: 0; width: calc(var(--stage) / 3 * 100%);
             background: var(--brand-gold); border-radius: 2px;
-            transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+            transition: width 1.3s cubic-bezier(0.4,0,0.2,1);
         }
         .corridor-marker {
             position: absolute; top: 50%; left: calc(var(--stage) / 3 * 100%);
             transform: translate(-50%, -50%); width: 16px; height: 16px; border-radius: 50%;
             background: var(--brand-gold); box-shadow: 0 0 0 5px rgba(201,168,76,0.18);
-            transition: left 0.6s cubic-bezier(0.4,0,0.2,1);
+            transition: left 1.3s cubic-bezier(0.4,0,0.2,1);
         }
         .corridor-endpoints {
             display: flex; justify-content: space-between; max-width: 760px; margin: 0.75rem auto 0;
@@ -312,15 +337,10 @@
         @keyframes corridorFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
         /* ── 4. WHO WE ARE ── */
-        .who-we-are { padding: 6rem 0; }
+        .who-we-are { padding: 6rem 0; text-align: center; }
         .who-we-are-inner { max-width: 620px; margin: 0 auto; padding: 0 1rem; }
         .who-we-are p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.4rem; }
         .who-we-are p:first-of-type { color: var(--text-primary); font-size: 1.2rem; }
-        .founder-sign { margin-top: 2.5rem; display: flex; align-items: center; gap: 1.1rem; }
-        .founder-sign svg { flex-shrink: 0; }
-        .founder-sign-text { font-size: 0.85rem; color: var(--text-primary); line-height: 1.5; }
-        .founder-sign-text strong { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: var(--brand-gold); display: block; }
-        .founder-sign-text span { color: var(--text-muted); font-size: 0.75rem; }
 
         /* ── 5. FACTS & CONTACT ── */
         .facts-section { padding: 6rem 0 7rem; }
@@ -346,7 +366,7 @@
         /* Defence in depth — kills the scroll-driven transitions outright
            even if the motion gate above were ever bypassed. */
         @media (prefers-reduced-motion: reduce) {
-            .scale-gap-fill, .label-before, .label-after, .corridor-line-fill, .corridor-marker, .corridor-stage {
+            .scale-gap-fill, .label-before, .label-after, .corridor-line-fill, .corridor-marker, .corridor-stage, .corridor-marquee-track {
                 transition: none !important; animation: none !important;
             }
         }
@@ -464,7 +484,7 @@
     </div>
     <div class="scale-bar">
         <div class="scale-segment regulated">
-            <span class="scale-caption">Solicitors &amp; IAA-registered advisers</span>
+            <span class="scale-caption">Solicitors &amp; registered advisers</span>
         </div>
         <div class="scale-segment scale-gap is-armed" id="scale-gap">
             <div class="scale-gap-fill"></div>
@@ -479,12 +499,12 @@
     </div>
 
     <div class="scale-copy">
-        <p>On one side sit immigration solicitors and IAA-registered advisers. They are the right people for an appeal, a human rights case, settlement, or anything where the law itself is in dispute, and they charge accordingly. But a teacher in Banjul applying for a ten-day trip to Spain has no legal dispute. She has a documents problem: a bank statement that raises a question nobody told her to answer.</p>
+        <p>On one side are immigration solicitors and advisers registered with the Immigration Advice Authority (IAA). They are the right people for an appeal, a human rights case, or anything where the law itself is being argued. They charge a lot for this. But a teacher in Banjul applying for a ten-day trip to Spain has no legal argument to make. Her problem is simpler: a bank statement that raises a question nobody explained to her.</p>
 
         <!-- ASK HASS: verify this sentence against official VIS guidance before it goes live. It is already phrased as what is recorded, not a ban of a stated length, per your instruction. -->
-        <p>On the other side sit the unregulated fixers. They promise what nobody can promise, and some deliver it by inventing the evidence. The client often does not know. When a consulate spots it, the refusal is not a simple no — the reason is recorded in a system other member states can see.</p>
+        <p>On the other side are the unregulated fixers. They promise things nobody can promise. Some keep that promise by making up evidence. The client often does not know this is happening. When a consulate notices, the refusal is not a simple no — the reason is recorded in a system other member states can see.</p>
 
-        <p>Between the two is the person who is genuinely eligible and simply presenting badly. Nobody was serving them. <strong>That is the gap GVJ was built for.</strong></p>
+        <p>In between is someone who qualifies, but is presenting their case badly. Nobody was helping people like this. <strong>That is the gap GVJ was built for.</strong></p>
     </div>
 </section>
 
@@ -498,7 +518,21 @@
     <div class="corridor-intro">
         <span class="eyebrow">How It Works</span>
         <h2 class="text-4xl md:text-5xl font-bold text-white" style="font-family:'Cormorant Garamond',serif; text-wrap:balance;">The Corridor.</h2>
-        <p>Every case we handle moves along the same route: from a document in Banjul, Lagos or Accra, to a decision made in Europe.</p>
+        <p>Every case moves along the same route: from a document in Banjul, Lagos or Accra, to a decision made in Europe.</p>
+    </div>
+
+    <!-- Banner image + looping city marquee — the one photograph on this page.
+         No people in the shot (see note to Hass). Width-capped, lazy-loaded,
+         below the fold, auto-format so the browser can serve WebP/AVIF. -->
+    <div class="corridor-banner">
+        <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1600&auto=format&fit=crop&q=70" alt="" aria-hidden="true" loading="lazy" width="1600" height="480">
+        <div class="corridor-banner-overlay"></div>
+        <div class="corridor-marquee" aria-hidden="true">
+            <div class="corridor-marquee-track">
+                <span class="corridor-marquee-set">BANJUL <b>·</b> LAGOS <b>·</b> ACCRA <b>·</b> FREETOWN <b>·</b> LONDON <b>·</b> MADRID <b>·</b> ATHENS <b>·</b></span>
+                <span class="corridor-marquee-set corridor-marquee-dupe">BANJUL <b>·</b> LAGOS <b>·</b> ACCRA <b>·</b> FREETOWN <b>·</b> LONDON <b>·</b> MADRID <b>·</b> ATHENS <b>·</b></span>
+            </div>
+        </div>
     </div>
 
     <!-- Static, always-complete version -->
@@ -506,23 +540,23 @@
         <ol>
             <li>
                 <h3>Documents</h3>
-                <p>We forensically review every document before it's gathered — bank statements, employer letters, proof of ties — so nothing a visa officer could doubt reaches the file.</p>
+                <p>We check every document closely — bank statements, employer letters, proof you plan to return home — before it is gathered. This way, nothing in the file raises doubt.</p>
             </li>
             <li>
                 <h3>Submission</h3>
-                <p>We prepare the file and book the appointment. From there, the counter has two sides.</p>
+                <p>We prepare the file and book the appointment. After that, there are two sides to the counter.</p>
                 <div class="corridor-split-grid">
-                    <div class="side"><span>Applicant's side</span><p>You attend in person, present your documents, and go through biometrics.</p></div>
-                    <div class="side"><span>Consulate's side</span><p>A visa officer checks the same file against a checklist most applicants never see — consistency, sufficiency, intent to return.</p></div>
+                    <div class="side"><span>Applicant's side</span><p>You go in person, hand over your documents, and give your fingerprints and photo.</p></div>
+                    <div class="side"><span>Consulate's side</span><p>A visa officer checks the same documents against a checklist most applicants never see — do the numbers match, is there enough evidence, does the person plan to return home.</p></div>
                 </div>
             </li>
             <li>
                 <h3>Decision</h3>
-                <p>We track the case through to the embassy's decision and explain exactly what it means, whichever way it goes.</p>
+                <p>We follow the case until the embassy decides, and we explain what the decision means, either way.</p>
             </li>
             <li>
                 <h3>Travel</h3>
-                <p>Once the visa is issued, the journey itself is logistics — flights, insurance, and the practical detail of getting there.</p>
+                <p>Once the visa is issued, the rest is practical — flights, insurance, and the details of getting there.</p>
             </li>
         </ol>
     </div>
@@ -542,23 +576,23 @@
                 <div class="corridor-stages">
                     <div class="corridor-stage is-active" data-stage="0">
                         <h3>Documents</h3>
-                        <p>We forensically review every document before it's gathered — bank statements, employer letters, proof of ties — so nothing a visa officer could doubt reaches the file.</p>
+                        <p>We check every document closely — bank statements, employer letters, proof you plan to return home — before it is gathered.</p>
                     </div>
                     <div class="corridor-stage" data-stage="1">
                         <h3>Submission</h3>
-                        <p>We prepare the file and book the appointment. From there, the counter has two sides.</p>
+                        <p>We prepare the file and book the appointment. After that, there are two sides to the counter.</p>
                         <div class="corridor-split-grid">
-                            <div class="side"><span>Applicant's side</span><p>You attend in person, present your documents, and go through biometrics.</p></div>
-                            <div class="side"><span>Consulate's side</span><p>A checklist most applicants never see — consistency, sufficiency, intent to return.</p></div>
+                            <div class="side"><span>Applicant's side</span><p>You go in person and give your fingerprints and photo.</p></div>
+                            <div class="side"><span>Consulate's side</span><p>A checklist most applicants never see — do the numbers match, is there enough evidence.</p></div>
                         </div>
                     </div>
                     <div class="corridor-stage" data-stage="2">
                         <h3>Decision</h3>
-                        <p>We track the case through to the embassy's decision and explain exactly what it means, whichever way it goes.</p>
+                        <p>We follow the case until the embassy decides, and we explain what it means, either way.</p>
                     </div>
                     <div class="corridor-stage" data-stage="3">
                         <h3>Travel</h3>
-                        <p>Once the visa is issued, the journey itself is logistics — flights, insurance, and the practical detail of getting there.</p>
+                        <p>Once the visa is issued, the rest is practical — flights, insurance, and the details of getting there.</p>
                     </div>
                 </div>
             </div>
@@ -572,26 +606,22 @@
 </section>
 
 <!-- ══════════════════════════════════════════════════════════ -->
-<!-- 4. WHO WE ARE — first person, no portrait, signed by name. -->
+<!-- 4. WHO WE ARE — company voice only. No names, no "I".       -->
 <!-- ══════════════════════════════════════════════════════════ -->
 <section class="who-we-are bg-[#0f1419] border-y border-[#1e2730] relative z-10">
     <div class="who-we-are-inner">
         <span class="eyebrow">Who We Are</span>
         <h2 class="text-4xl md:text-5xl font-bold text-white mb-8" style="font-family:'Cormorant Garamond',serif; text-wrap:balance;">Both sides of the counter.</h2>
 
-        <p>I didn't start this firm by reading about the visa industry. I started it by living on both ends of the corridor.</p>
-        <p>I've sat at a kitchen table in Banjul, helping gather a bank statement that was about to raise the wrong question — long before I had a name for it. And I've sat on the UK side, where that same file lands, and understood exactly what a visa officer is trained to check and doubt.</p>
-        <p>Most firms in this industry know one end. A solicitor knows the law. A fixer knows what sells. I don't think either has stood on both sides of that counter at once — and that is the gap Global Visa &amp; Journeys was built to close.</p>
+        <p>Most firms in this industry understand only one side of the process.</p>
+        <p>A solicitor understands the law. A fixer understands what sells. Global Visa &amp; Journeys understands both sides of the counter — the family in Banjul, Lagos or Accra gathering documents, and the UK side where that same file lands and gets checked.</p>
+        <p>That is the gap this company was built to close.</p>
 
-        <div class="founder-sign">
-            <svg width="46" height="46" viewBox="0 0 46 46" fill="none" aria-hidden="true" focusable="false">
-                <path d="M34 14c-2-4-8-5-12-3s-5 7-1 9 11 1 13 5-3 9-9 8-8-4-8-4" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-            </svg>
-            <div class="founder-sign-text">
-                <strong>Sinera, Founder</strong>
-                <span>Global Visa &amp; Journeys Ltd · Company No. 16959031</span>
-            </div>
-        </div>
+        <svg class="corridor-mark" width="180" height="14" viewBox="0 0 180 14" fill="none" aria-hidden="true" focusable="false" style="margin:2.5rem auto 0;">
+            <circle cx="7" cy="7" r="5" stroke="#c9a84c" stroke-width="1.4"/>
+            <line x1="14" y1="7" x2="166" y2="7" stroke="#8a6f2e" stroke-width="1.2" stroke-dasharray="1 5"/>
+            <circle cx="173" cy="7" r="5" fill="#c9a84c"/>
+        </svg>
     </div>
 </section>
 
@@ -603,7 +633,7 @@
         <span class="eyebrow">Facts</span>
         <h2 class="text-4xl md:text-5xl font-bold text-white mb-8" style="font-family:'Cormorant Garamond',serif; text-wrap:balance;">What we are. Plainly.</h2>
 
-        <p class="facts-line">Global Visa &amp; Journeys prepares Schengen and EU visa applications for UK residents, and for clients in the Gambia, Nigeria, Sierra Leone and Ghana. <strong class="text-white">We do not provide UK visa or UK immigration advice, representation, or services.</strong></p>
+        <p class="facts-line">Global Visa &amp; Journeys prepares Schengen and EU visa applications for UK residents, and for clients in the Gambia, Nigeria, Sierra Leone and Ghana. <strong class="text-white">We do not give UK visa or UK immigration advice, and we do not offer UK immigration services.</strong></p>
 
         <p class="facts-company">Global Visa &amp; Journeys Ltd is registered in England &amp; Wales, <strong>Company No. 16959031</strong>.</p>
 
