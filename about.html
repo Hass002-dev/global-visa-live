@@ -6,18 +6,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="dns-prefetch" href="https://images.unsplash.com">
-    <title>About Us | Global Visa & Journeys — London Visa Strategy Consultancy</title>
+    <title>About Us | Global Visa & Journeys</title>
 
-    <meta name="description" content="The London-based visa strategy consultancy disrupting the predatory visa fixer industry. Discover our mission, values, and the Goldilocks Zone we occupy between travel agents, immigration lawyers, and unregulated middlemen.">
+    <meta name="description" content="Global Visa & Journeys prepares Schengen and EU visa applications for UK residents, and for clients in the Gambia, Nigeria, Sierra Leone and Ghana.">
     <link rel="canonical" href="https://www.globalvisajourneys.com/about.html">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.globalvisajourneys.com/about.html">
-    <meta property="og:title" content="About Us | Global Visa & Journeys — London Visa Strategy Consultancy">
-    <meta property="og:description" content="The London-based visa strategy consultancy disrupting the predatory visa fixer industry. Discover our mission, values, and the Goldilocks Zone we occupy between travel agents, immigration lawyers, and unregulated middlemen.">
+    <meta property="og:title" content="About Us | Global Visa & Journeys">
+    <meta property="og:description" content="Global Visa & Journeys prepares Schengen and EU visa applications for UK residents, and for clients in the Gambia, Nigeria, Sierra Leone and Ghana.">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="About Us | Global Visa & Journeys — London Visa Strategy Consultancy">
-    <meta name="twitter:description" content="The London-based visa strategy consultancy disrupting the predatory visa fixer industry. Discover our mission, values, and the Goldilocks Zone we occupy between travel agents, immigration lawyers, and unregulated middlemen.">
+    <meta name="twitter:title" content="About Us | Global Visa & Journeys">
+    <meta name="twitter:description" content="Global Visa & Journeys prepares Schengen and EU visa applications for UK residents, and for clients in the Gambia, Nigeria, Sierra Leone and Ghana.">
 
     <!-- FAVICON -->
     <link rel="icon" type="image/svg+xml" href="./favicon.svg">
@@ -26,7 +25,8 @@
     <link rel="stylesheet" href="./output.css">
 
     <!-- FONTS -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Trimmed to exactly two font weights (one display, one body) — hard page-weight budget for this rebuild -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=DM+Sans:wght@400&display=swap" rel="stylesheet">
 
     <!-- FONT AWESOME -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0" crossorigin="anonymous">
@@ -86,16 +86,6 @@
             opacity: 0.4;
         }
 
-        /* ── ABOUT HERO — different image to differentiate from homepage ── */
-        .about-hero-bg {
-            background-image:
-                linear-gradient(to bottom, rgba(8,12,16,0.95) 0%, rgba(8,12,16,0.82) 50%, rgba(8,12,16,0.98) 100%),
-                url('https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=2670&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }
-
         /* ── BUTTONS ── */
         .btn-gold {
             background: linear-gradient(135deg, var(--brand-gold) 0%, var(--brand-gold-light) 100%);
@@ -133,14 +123,6 @@
             transform: translateY(-1px);
         }
 
-        /* ── ANIMATIONS ── */
-        .fade-in-up {
-            opacity: 0;
-            transform: translateY(28px);
-            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-        }
-        .fade-in-up.visible { opacity: 1; transform: translateY(0); }
-
         /* ── NAV SCROLL EFFECT ── */
         .nav-scrolled {
             background: rgba(8,12,16,0.98) !important;
@@ -153,141 +135,220 @@
             background: linear-gradient(to right, transparent, var(--brand-gold-dim), transparent);
         }
 
-        /* ── ABOUT PAGE SPECIFIC ── */
+        /* ══════════════════════════════════════════════
+           ABOUT PAGE REBUILD — Oct 2026
+           Type-led, no photographs of people anywhere.
+           Every rule below reuses the tokens at the top
+           of this file. Scroll effects are a progressive
+           enhancement only: every section is complete and
+           correct with JavaScript disabled, and with
+           prefers-reduced-motion: reduce. See the inline
+           script right after <body> for how the gate works.
+           ══════════════════════════════════════════════ */
 
-        /* Pull quote — used in Our Story section */
-        .pull-quote {
-            position: relative;
-            border-left: 3px solid var(--brand-gold);
-            padding: 8px 0 8px 28px;
-            margin: 32px 0;
-        }
-        .pull-quote::before {
-            content: '"';
-            position: absolute;
-            left: -10px;
-            top: -28px;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 6rem;
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
             color: var(--brand-gold);
-            opacity: 0.18;
-            line-height: 1;
-        }
-
-        /* Mission card — clean prose block */
-        .mission-block {
-            background: linear-gradient(135deg, rgba(201,168,76,0.06) 0%, rgba(8,12,16,0) 100%);
-            border: 1px solid var(--border-surface);
-            border-left: 3px solid var(--brand-gold);
-            border-radius: 12px;
-            padding: 40px;
-        }
-
-        /* Differentiator card — used in Goldilocks Zone */
-        .diff-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-surface);
-            border-radius: 12px;
-            padding: 28px;
-            transition: all 0.3s ease;
-            height: 100%;
-        }
-        .diff-card.featured {
-            border-color: var(--brand-gold);
-            box-shadow: 0 0 40px rgba(201,168,76,0.10);
-        }
-        .diff-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--brand-gold-light);
-        }
-        .diff-card .weakness {
-            color: #ef4444;
-            font-size: 0.78rem;
-            font-weight: 700;
+            font-size: 0.72rem;
+            font-weight: 400;
+            letter-spacing: 0.22em;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-top: 14px;
+            margin-bottom: 1.5rem;
         }
-
-        /* Values card */
-        .value-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-surface);
-            border-radius: 16px;
-            padding: 32px;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .value-card::before {
+        .eyebrow::before, .eyebrow::after {
             content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--brand-gold), var(--brand-gold-light));
-            transition: width 0.5s ease;
-        }
-        .value-card:hover { border-color: var(--brand-gold-dim); transform: translateY(-3px); }
-        .value-card:hover::before { width: 100%; }
-
-        .value-number {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--brand-gold);
-            opacity: 0.5;
-            line-height: 1;
+            width: 22px;
+            height: 1px;
+            background: var(--brand-gold-dim);
         }
 
-        /* Numbers / stats large */
-        .big-stat {
-            text-align: center;
-            padding: 24px 12px;
+        /* ── 1. OPENER ── */
+        .opener { padding: 11rem 0 6rem; text-align: center; }
+        .opener h1 {
+            font-size: clamp(2.5rem, 6vw, 5.25rem);
+            line-height: 1.08;
+            letter-spacing: -0.01em;
+            color: var(--text-primary);
+            text-wrap: balance;
+            max-width: 18ch;
+            margin: 0 auto 2rem;
         }
-        .big-stat-number {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 4.5rem;
-            font-weight: 700;
-            color: var(--brand-gold);
-            line-height: 1;
-            letter-spacing: -0.02em;
-        }
-        .big-stat-label {
-            font-size: 0.75rem;
+        .opener p {
+            max-width: 42ch;
+            margin: 0 auto;
             color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        .corridor-mark { margin: 3rem auto 0; display: block; }
+
+        /* ── 2. THE SCALE ── */
+        .scale-section { padding: 6rem 0; }
+        .scale-endpoints {
+            display: flex;
+            justify-content: space-between;
+            max-width: 880px;
+            margin: 0 auto 1rem;
+            padding: 0 1rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            letter-spacing: 0.12em;
-            font-weight: 700;
-            margin-top: 12px;
+            color: var(--text-muted);
         }
-
-        /* Audience card */
-        .audience-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-surface);
-            border-top: 2px solid var(--brand-gold);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        .audience-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.5); }
-
-        .audience-card-header {
-            height: 220px;
-            background-size: cover;
-            background-position: center;
+        .scale-bar { display: flex; max-width: 880px; margin: 0 auto; padding: 0 1rem; gap: 2px; }
+        .scale-segment {
+            flex: 1;
+            height: 88px;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .scale-segment.regulated { background: rgba(56,189,248,0.10); border: 1px solid rgba(56,189,248,0.25); }
+        .scale-segment.fixers    { background: rgba(239,68,68,0.10); border: 1px solid rgba(239,68,68,0.25); }
+        .scale-caption { font-size: 0.78rem; color: var(--text-secondary); text-align: center; padding: 0 0.6rem; line-height: 1.3; }
+        .scale-gap { border: 2px dashed var(--border-subtle); background: transparent; }
+        .scale-gap-fill {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--brand-gold) 0%, var(--brand-gold-light) 100%);
+        }
+        .scale-gap-label { position: absolute; inset: 0; z-index: 1; }
+        .scale-gap-label span {
+            position: absolute; inset: 0;
+            display: flex; align-items: center; justify-content: center;
+            padding: 0 0.75rem; text-align: center; font-size: 0.8rem;
+        }
+        .scale-gap .label-before { color: var(--text-secondary); opacity: 0; }
+        .scale-gap .label-after  { color: #080c10; opacity: 1; }
+
+        /* The pre-fill "hole" state only exists when JS + motion are both
+           available (html.gvj-motion, set by the early script after <body>).
+           A visitor with JS disabled, or who asked for reduced motion, only
+           ever sees the filled, labelled state above — never a gap. */
+        html.gvj-motion .scale-gap.is-armed .scale-gap-fill {
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform 0.9s cubic-bezier(0.4,0,0.2,1);
+        }
+        html.gvj-motion .scale-gap.is-armed .label-before { opacity: 1; }
+        html.gvj-motion .scale-gap.is-armed .label-after  { opacity: 0; }
+        html.gvj-motion .scale-gap.is-armed.in-view .scale-gap-fill { transform: scaleX(1); }
+        html.gvj-motion .scale-gap.is-armed.in-view .label-before { opacity: 0; transition: opacity 0.3s; }
+        html.gvj-motion .scale-gap.is-armed.in-view .label-after  { opacity: 1; transition: opacity 0.4s 0.5s; }
+
+        .scale-copy { max-width: 640px; margin: 4rem auto 0; padding: 0 1rem; color: var(--text-secondary); font-size: 1rem; line-height: 1.8; }
+        .scale-copy p { margin-bottom: 1.4rem; }
+        .scale-copy p:last-child { color: var(--text-primary); font-size: 1.1rem; margin-bottom: 0; }
+        .scale-copy strong { color: var(--brand-gold); font-weight: 400; }
+
+        @media (max-width: 640px) {
+            .scale-bar { flex-direction: column; gap: 10px; }
+            .scale-segment { height: auto; min-height: 84px; border-radius: 10px; padding: 1rem; }
         }
 
-        /* Legal transparency callout */
-        .legal-callout {
-            background: linear-gradient(135deg, rgba(239,68,68,0.06) 0%, rgba(8,12,16,0) 100%);
-            border: 1px solid rgba(239,68,68,0.2);
-            border-left: 3px solid #ef4444;
-            border-radius: 12px;
-            padding: 32px;
+        /* ── 3. THE CORRIDOR ── */
+        .corridor-section { padding: 6rem 0 0; }
+        .corridor-intro { max-width: 640px; margin: 0 auto 3.5rem; padding: 0 1rem; text-align: center; }
+        .corridor-intro p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.7; margin-top: 1rem; }
+
+        /* Static fallback — no JS, or reduced motion. Complete on its own. */
+        .corridor-static { max-width: 760px; margin: 0 auto; padding: 0 1rem 7rem; }
+        .corridor-static ol { list-style: none; padding: 0; margin: 0; position: relative; }
+        .corridor-static ol::before {
+            content: ''; position: absolute; left: 11px; top: 10px; bottom: 10px; width: 1px;
+            background: var(--border-surface);
+        }
+        .corridor-static li { position: relative; padding: 0 0 2.75rem 2.75rem; }
+        .corridor-static li::before {
+            content: ''; position: absolute; left: 4px; top: 6px; width: 15px; height: 15px;
+            border-radius: 50%; background: var(--bg-primary); border: 2px solid var(--brand-gold);
+        }
+        .corridor-static h3 { color: var(--text-primary); font-size: 1.4rem; margin-bottom: 0.5rem; }
+        .corridor-static p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.65; }
+        .corridor-split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem; }
+        .corridor-split-grid .side { background: var(--bg-card); border: 1px solid var(--border-surface); border-radius: 10px; padding: 1.1rem 1.25rem; }
+        .corridor-split-grid .side span { display: block; color: var(--brand-gold); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .corridor-split-grid .side p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; }
+        @media (max-width: 560px) { .corridor-split-grid { grid-template-columns: 1fr; } }
+
+        /* Enhanced sticky scrollytelling — hidden until html.gvj-motion is set */
+        .corridor-scrolly { display: none; }
+        html.gvj-motion .corridor-scrolly { display: block; }
+        html.gvj-motion .corridor-static  { display: none; }
+
+        .corridor-scroll { position: relative; height: 320vh; }
+        .corridor-sticky {
+            position: sticky; top: 0; height: 100vh;
+            display: flex; flex-direction: column; justify-content: center; gap: 2.5rem;
+            overflow: hidden; padding: 0 1rem; --stage: 0;
+        }
+        .corridor-track { max-width: 760px; margin: 0 auto; width: 100%; position: relative; padding: 0 1rem; }
+        .corridor-line { height: 2px; background: var(--border-surface); position: relative; border-radius: 2px; }
+        .corridor-line-fill {
+            position: absolute; inset: 0; width: calc(var(--stage) / 3 * 100%);
+            background: var(--brand-gold); border-radius: 2px;
+            transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+        }
+        .corridor-marker {
+            position: absolute; top: 50%; left: calc(var(--stage) / 3 * 100%);
+            transform: translate(-50%, -50%); width: 16px; height: 16px; border-radius: 50%;
+            background: var(--brand-gold); box-shadow: 0 0 0 5px rgba(201,168,76,0.18);
+            transition: left 0.6s cubic-bezier(0.4,0,0.2,1);
+        }
+        .corridor-endpoints {
+            display: flex; justify-content: space-between; max-width: 760px; margin: 0.75rem auto 0;
+            padding: 0 1rem; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted);
+        }
+        .corridor-stages { max-width: 680px; margin: 0 auto; width: 100%; text-align: center; min-height: 10rem; padding: 0 1rem; }
+        .corridor-stage { display: none; }
+        .corridor-stage.is-active { display: block; animation: corridorFade 0.5s ease; }
+        .corridor-stage h3 { color: var(--text-primary); font-size: 1.6rem; margin-bottom: 0.65rem; }
+        .corridor-stage p { color: var(--text-secondary); font-size: 1rem; line-height: 1.7; max-width: 48ch; margin: 0 auto; }
+        .corridor-stage .corridor-split-grid { text-align: left; max-width: 560px; margin: 1.1rem auto 0; }
+        @keyframes corridorFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ── 4. WHO WE ARE ── */
+        .who-we-are { padding: 6rem 0; }
+        .who-we-are-inner { max-width: 620px; margin: 0 auto; padding: 0 1rem; }
+        .who-we-are p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.4rem; }
+        .who-we-are p:first-of-type { color: var(--text-primary); font-size: 1.2rem; }
+        .founder-sign { margin-top: 2.5rem; display: flex; align-items: center; gap: 1.1rem; }
+        .founder-sign svg { flex-shrink: 0; }
+        .founder-sign-text { font-size: 0.85rem; color: var(--text-primary); line-height: 1.5; }
+        .founder-sign-text strong { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: var(--brand-gold); display: block; }
+        .founder-sign-text span { color: var(--text-muted); font-size: 0.75rem; }
+
+        /* ── 5. FACTS & CONTACT ── */
+        .facts-section { padding: 6rem 0 7rem; }
+        .facts-inner { max-width: 620px; margin: 0 auto; padding: 0 1rem; }
+        .facts-line { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.75; margin-bottom: 1.75rem; }
+        .facts-company { color: var(--text-primary); font-size: 0.95rem; margin-bottom: 1.75rem; }
+        .facts-company strong { color: var(--brand-gold); font-weight: 400; }
+        .credential-row { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2.5rem; }
+        .credential-chip { border: 1px solid var(--border-surface); color: var(--text-secondary); font-size: 0.72rem; letter-spacing: 0.04em; padding: 0.45rem 0.9rem; border-radius: 999px; }
+        .contact-block { display: flex; flex-direction: column; gap: 0.9rem; margin: 2rem 0 2.5rem; }
+        .contact-row { display: flex; align-items: baseline; gap: 0.75rem; font-size: 1rem; }
+        .contact-row .label { color: var(--text-muted); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; min-width: 90px; }
+        .contact-row a { color: var(--text-primary); text-decoration: none; border-bottom: 1px solid var(--border-surface); transition: border-color 0.2s, color 0.2s; }
+        .contact-row a:hover { color: var(--brand-gold); border-color: var(--brand-gold); }
+        .stats-placeholder {
+            border: 1px dashed var(--border-subtle); border-radius: 8px; padding: 0.9rem 1.1rem;
+            color: var(--text-muted); font-size: 0.78rem; line-height: 1.5;
+        }
+
+        /* Visible keyboard focus on this page's own controls */
+        .opener a:focus-visible, .contact-row a:focus-visible { outline: 2px solid var(--brand-gold); outline-offset: 3px; }
+
+        /* Defence in depth — kills the scroll-driven transitions outright
+           even if the motion gate above were ever bypassed. */
+        @media (prefers-reduced-motion: reduce) {
+            .scale-gap-fill, .label-before, .label-after, .corridor-line-fill, .corridor-marker, .corridor-stage {
+                transition: none !important; animation: none !important;
+            }
         }
 
         /* Whatsapp float — matches index */
@@ -318,17 +379,25 @@
 
         @media (max-width: 768px) {
             .tawk-min-container { bottom: 100px !important; }
-            .big-stat-number { font-size: 3rem; }
         }
     </style>
-<style>
-.gvj-pay-gated[aria-disabled='true'] { opacity:0.42; pointer-events:none; filter:grayscale(25%); }
-.gvj-terms-label { display:flex; align-items:flex-start; gap:6px; margin-bottom:8px; font-size:0.68rem; color:#7a8899; line-height:1.5; cursor:pointer; }
-.gvj-terms-label input[type=checkbox] { margin-top:2px; flex-shrink:0; accent-color:#c9a84c; width:14px; height:14px; }
-.gvj-terms-label a { color:#c9a84c; text-decoration:underline; }
-</style>
 </head>
 <body>
+
+<script>
+// Feature + preference gate for the scroll-driven enhancements further down
+// this page. Runs before paint so nothing flashes between states. If this
+// never runs at all (JS disabled), every section below already shows its
+// complete, correct default — see the html.gvj-motion rules in <style>.
+(function () {
+    try {
+        var reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if ('IntersectionObserver' in window && !reduced) {
+            document.documentElement.classList.add('gvj-motion');
+        }
+    } catch (e) { /* fails safe to the default, fully-readable state */ }
+})();
+</script>
 
 <!-- ══════════════════════════════════════════════════════════ -->
 <!-- NAVIGATION — copied from index.html for consistency        -->
@@ -363,458 +432,202 @@
 </nav>
 
 <!-- ══════════════════════════════════════════════════════════ -->
-<!-- 1. HERO                                                    -->
+<!-- 1. OPENER — type only. No image.                           -->
 <!-- ══════════════════════════════════════════════════════════ -->
-<header class="about-hero-bg min-h-[85vh] flex items-center justify-center text-center px-4 pt-36 md:pt-40 pb-24 relative z-10">
-    <div class="max-w-4xl fade-in-up visible">
-        <div class="inline-flex items-center gap-2 bg-[#0f1419]/80 backdrop-blur-sm border border-[#1e2730] rounded-full px-5 py-1.5 mb-8">
-            <span class="w-2 h-2 rounded-full bg-gold animate-pulse"></span>
-            <span class="text-gold text-xs font-bold tracking-widest uppercase">About Global Visa &amp; Journeys</span>
-        </div>
-
-        <h1 class="text-5xl md:text-7xl font-black text-white mb-6 leading-[1.05]" style="font-family:'Cormorant Garamond',serif;">
-           <br> We Built This Firm<br>
-            <em class="text-gold">to End Predatory Visa Practice.</em>
-        </h1>
-        <p class="text-lg md:text-xl text-[#adb8c4] max-w-2xl mx-auto font-medium leading-relaxed">
-            Global Visa &amp; Journeys is a London consultancy disrupting an industry built on shortcuts, false promises, and forged paperwork. We replace it with forensic preparation and radical transparency.
-        </p>
-    </div>
+<header class="opener bg-[#080c10] relative z-10 px-4">
+    <span class="eyebrow">Global Visa &amp; Journeys</span>
+    <h1 style="font-family:'Cormorant Garamond',serif; text-wrap:balance;">A corridor runs between West Africa and Europe. We work both ends of it.</h1>
+    <p>Schengen and EU visa preparation for UK residents, and for clients in the Gambia, Nigeria, Sierra Leone and Ghana. We do not provide UK visa or UK immigration services.</p>
+    <svg class="corridor-mark" width="180" height="14" viewBox="0 0 180 14" fill="none" aria-hidden="true" focusable="false">
+        <circle cx="7" cy="7" r="5" stroke="#c9a84c" stroke-width="1.4"/>
+        <line x1="14" y1="7" x2="166" y2="7" stroke="#8a6f2e" stroke-width="1.2" stroke-dasharray="1 5"/>
+        <circle cx="173" cy="7" r="5" fill="#c9a84c"/>
+    </svg>
 </header>
 
 <!-- ══════════════════════════════════════════════════════════ -->
-<!-- 2. OUR STORY                                               -->
+<!-- 2. THE BROKEN-INDUSTRY SCALE                                -->
+<!-- The hole fills and labels itself once scrolled into view.  -->
+<!-- Default state (no JS / reduced motion) is already filled — -->
+<!-- see the html.gvj-motion rules in <style> for how this       -->
+<!-- degrades to a fully complete page without either.           -->
 <!-- ══════════════════════════════════════════════════════════ -->
-<section class="py-24 bg-[#0f1419] border-y border-[#1e2730] relative z-10">
-    <div class="max-w-4xl mx-auto px-4 fade-in-up">
+<section class="scale-section bg-[#0f1419] border-y border-[#1e2730] relative z-10">
+    <div class="text-center mb-10 px-4">
+        <span class="eyebrow">The Gap in the Middle</span>
+        <h2 class="text-4xl md:text-5xl font-bold text-white" style="font-family:'Cormorant Garamond',serif; text-wrap:balance;">An industry split into two extremes.</h2>
+    </div>
 
-        <div class="text-center mb-12">
-            <span class="text-gold text-xs tracking-widest uppercase font-bold">Our Story</span>
-            <h2 class="text-4xl md:text-5xl font-bold text-white mt-3" style="font-family:'Cormorant Garamond',serif;">Born from a Broken Industry.</h2>
+    <div class="scale-endpoints">
+        <span>Regulated, expensive</span>
+        <span>Cheap, dangerous</span>
+    </div>
+    <div class="scale-bar">
+        <div class="scale-segment regulated">
+            <span class="scale-caption">Solicitors &amp; IAA-registered advisers</span>
         </div>
-
-        <div class="text-[#adb8c4] text-base md:text-lg leading-relaxed font-medium space-y-6">
-            <p>
-                The visa industry has long been split into two extremes. On one side, immigration lawyers charging £1,500 to £3,000 for advice that travellers don't quite need. On the other, an underworld of unregulated fixers — operators who promise the world, deliver fabricated documents, and leave clients exposed to serious misrepresentation findings recorded against them in VIS.
-            </p>
-
-            <div class="pull-quote">
-                <p class="text-xl md:text-2xl text-white italic font-medium leading-relaxed" style="font-family:'Cormorant Garamond',serif;">
-                    The middle ground — where most genuine applicants actually live — was abandoned. So we built it.
-                </p>
+        <div class="scale-segment scale-gap is-armed" id="scale-gap">
+            <div class="scale-gap-fill"></div>
+            <div class="scale-gap-label">
+                <span class="label-before" aria-hidden="true">The gap</span>
+                <span class="label-after">Global Visa &amp; Journeys</span>
             </div>
-
-            <p>
-                Global Visa &amp; Journeys was registered in England &amp; Wales (Companies House No. 16959031) with one founding principle: that the visa application process deserves the same forensic rigour as a top London law firm, delivered with the warmth and accessibility of a trusted advisor. No fabricated documents. No false guarantees. No corners cut.
-            </p>
-
-            <p>
-                We saw families lose £2,000 in flight bookings to a single refusal letter. We saw students miss the start of term because a fixer had submitted a recycled cover letter copied from a Reddit thread. We saw professionals from Lagos, Banjul, Freetown and Accra carry the financial burden of repeat applications because nobody had told them the real reason their first attempt failed.
-            </p>
-
-            <p class="text-white font-semibold">
-                That ends with us. We sit in what the industry calls the <span class="text-gold">Goldilocks Zone</span> — the precision of legal advice without the price tag, and the logistics of a travel agent without the lack of expertise.
-            </p>
         </div>
+        <div class="scale-segment fixers">
+            <span class="scale-caption">Unregulated fixers</span>
+        </div>
+    </div>
 
+    <div class="scale-copy">
+        <p>On one side sit immigration solicitors and IAA-registered advisers. They are the right people for an appeal, a human rights case, settlement, or anything where the law itself is in dispute, and they charge accordingly. But a teacher in Banjul applying for a ten-day trip to Spain has no legal dispute. She has a documents problem: a bank statement that raises a question nobody told her to answer.</p>
+
+        <!-- ASK HASS: verify this sentence against official VIS guidance before it goes live. It is already phrased as what is recorded, not a ban of a stated length, per your instruction. -->
+        <p>On the other side sit the unregulated fixers. They promise what nobody can promise, and some deliver it by inventing the evidence. The client often does not know. When a consulate spots it, the refusal is not a simple no — the reason is recorded in a system other member states can see.</p>
+
+        <p>Between the two is the person who is genuinely eligible and simply presenting badly. Nobody was serving them. <strong>That is the gap GVJ was built for.</strong></p>
     </div>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════ -->
-<!-- 3. MISSION                                                 -->
+<!-- 3. THE CORRIDOR — sticky scrollytelling, roughly 2 screens.-->
+<!-- .corridor-static is the complete no-JS / reduced-motion     -->
+<!-- fallback. .corridor-scrolly only appears once               -->
+<!-- html.gvj-motion is set (see the inline script after <body>).-->
 <!-- ══════════════════════════════════════════════════════════ -->
-<section class="py-24 bg-[#080c10] relative z-10">
-    <div class="max-w-5xl mx-auto px-4 fade-in-up">
-
-        <div class="grid md:grid-cols-5 gap-12 items-center">
-
-            <div class="md:col-span-2">
-                <span class="text-gold text-xs tracking-widest uppercase font-bold">Our Mission</span>
-                <h2 class="text-4xl md:text-5xl font-bold text-white mt-3 leading-tight" style="font-family:'Cormorant Garamond',serif;">
-                    To make the bureaucracy <em class="text-gold">invisible.</em>
-                </h2>
-            </div>
-
-            <div class="md:col-span-3">
-                <div class="mission-block">
-                    <p class="text-[#eef2f7] text-lg leading-relaxed font-medium mb-5">
-                        We exist to handle the strict legal logic, document forensics, and embassy compliance — so our clients can focus on the journey ahead.
-                    </p>
-                    <p class="text-[#adb8c4] text-base leading-relaxed font-medium">
-                        Every application we touch must be capable of withstanding the most sceptical visa officer. Every narrative must be defensible. Every financial trail must be explainable. We disrupt the predatory visa industry by proving that ethical, transparent consulting is not only possible — it's the only model that works.
-                    </p>
-                </div>
-            </div>
-
-        </div>
+<section class="corridor-section bg-[#080c10] relative z-10">
+    <div class="corridor-intro">
+        <span class="eyebrow">How It Works</span>
+        <h2 class="text-4xl md:text-5xl font-bold text-white" style="font-family:'Cormorant Garamond',serif; text-wrap:balance;">The Corridor.</h2>
+        <p>Every case we handle moves along the same route: from a document in Banjul, Lagos or Accra, to a decision made in Europe.</p>
     </div>
-</section>
 
-<!-- ══════════════════════════════════════════════════════════ -->
-<!-- 4. WHAT MAKES US DIFFERENT — The Goldilocks Zone           -->
-<!-- ══════════════════════════════════════════════════════════ -->
-<section class="py-24 bg-[#0f1419] border-y border-[#1e2730] relative z-10">
-    <div class="max-w-7xl mx-auto px-4">
-
-        <div class="text-center mb-16 fade-in-up">
-            <span class="text-gold text-xs tracking-widest uppercase font-bold">What Makes Us Different</span>
-            <h2 class="text-4xl md:text-5xl font-bold text-white mt-3" style="font-family:'Cormorant Garamond',serif;">The Goldilocks Zone.</h2>
-            <p class="text-[#7a8899] mt-4 max-w-2xl mx-auto text-base font-medium">
-                There are four kinds of operators in the visa industry. Three of them have clear weaknesses. The fourth is us.
-            </p>
-        </div>
-
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 fade-in-up">
-
-            <!-- General Travel Agents -->
-            <div class="diff-card">
-                <div class="w-12 h-12 rounded-lg bg-[#1e2730] flex items-center justify-center mb-5">
-                    <i class="fa-solid fa-suitcase-rolling text-[#7a8899] text-xl"></i>
+    <!-- Static, always-complete version -->
+    <div class="corridor-static">
+        <ol>
+            <li>
+                <h3>Documents</h3>
+                <p>We forensically review every document before it's gathered — bank statements, employer letters, proof of ties — so nothing a visa officer could doubt reaches the file.</p>
+            </li>
+            <li>
+                <h3>Submission</h3>
+                <p>We prepare the file and book the appointment. From there, the counter has two sides.</p>
+                <div class="corridor-split-grid">
+                    <div class="side"><span>Applicant's side</span><p>You attend in person, present your documents, and go through biometrics.</p></div>
+                    <div class="side"><span>Consulate's side</span><p>A visa officer checks the same file against a checklist most applicants never see — consistency, sufficiency, intent to return.</p></div>
                 </div>
-                <h3 class="text-xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">General Travel Agents</h3>
-                <p class="text-[#7a8899] text-sm leading-relaxed font-medium">
-                    Focus on flights and holidays. Submit generic itineraries that get flagged as fake. Refuse complex cases.
-                </p>
-                <p class="weakness"><i class="fa-solid fa-xmark mr-1"></i> No visa expertise</p>
-            </div>
+            </li>
+            <li>
+                <h3>Decision</h3>
+                <p>We track the case through to the embassy's decision and explain exactly what it means, whichever way it goes.</p>
+            </li>
+            <li>
+                <h3>Travel</h3>
+                <p>Once the visa is issued, the journey itself is logistics — flights, insurance, and the practical detail of getting there.</p>
+            </li>
+        </ol>
+    </div>
 
-            <!-- Immigration Lawyers -->
-            <div class="diff-card">
-                <div class="w-12 h-12 rounded-lg bg-[#1e2730] flex items-center justify-center mb-5">
-                    <i class="fa-solid fa-scale-balanced text-[#7a8899] text-xl"></i>
+    <!-- Enhanced version — sticky line, moving marker, IntersectionObserver -->
+    <div class="corridor-scrolly">
+        <div class="corridor-scroll">
+            <div class="corridor-sticky">
+                <div class="corridor-track">
+                    <div class="corridor-line"><div class="corridor-line-fill"></div></div>
+                    <div class="corridor-marker"></div>
                 </div>
-                <h3 class="text-xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">Immigration Lawyers</h3>
-                <p class="text-[#7a8899] text-sm leading-relaxed font-medium">
-                    Built for appeals, asylum, deportation. Charge £1,500 to £3,000+ for advice. Don't manage logistics or flights.
-                </p>
-                <p class="weakness"><i class="fa-solid fa-xmark mr-1"></i> Out of reach for travellers</p>
-            </div>
-
-            <!-- Fixers -->
-            <div class="diff-card">
-                <div class="w-12 h-12 rounded-lg bg-[#1e2730] flex items-center justify-center mb-5">
-                    <i class="fa-solid fa-user-secret text-[#7a8899] text-xl"></i>
+                <div class="corridor-endpoints">
+                    <span>Banjul · Lagos · Accra</span>
+                    <span>Europe</span>
                 </div>
-                <h3 class="text-xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">Visa Fixers &amp; Touts</h3>
-                <p class="text-[#7a8899] text-sm leading-relaxed font-medium">
-                    Unregulated, often fraudulent. Use forged documents that expose clients to a VIS-recorded refusal for misrepresentation. No insurance, no accountability.
-                </p>
-                <p class="weakness"><i class="fa-solid fa-xmark mr-1"></i> High client risk</p>
-            </div>
-
-            <!-- GV&J -->
-            <div class="diff-card featured">
-                <div class="w-12 h-12 rounded-lg bg-gold/15 border border-gold/40 flex items-center justify-center mb-5">
-                    <i class="fa-solid fa-shield-halved text-gold text-xl"></i>
+                <div class="corridor-stages">
+                    <div class="corridor-stage is-active" data-stage="0">
+                        <h3>Documents</h3>
+                        <p>We forensically review every document before it's gathered — bank statements, employer letters, proof of ties — so nothing a visa officer could doubt reaches the file.</p>
+                    </div>
+                    <div class="corridor-stage" data-stage="1">
+                        <h3>Submission</h3>
+                        <p>We prepare the file and book the appointment. From there, the counter has two sides.</p>
+                        <div class="corridor-split-grid">
+                            <div class="side"><span>Applicant's side</span><p>You attend in person, present your documents, and go through biometrics.</p></div>
+                            <div class="side"><span>Consulate's side</span><p>A checklist most applicants never see — consistency, sufficiency, intent to return.</p></div>
+                        </div>
+                    </div>
+                    <div class="corridor-stage" data-stage="2">
+                        <h3>Decision</h3>
+                        <p>We track the case through to the embassy's decision and explain exactly what it means, whichever way it goes.</p>
+                    </div>
+                    <div class="corridor-stage" data-stage="3">
+                        <h3>Travel</h3>
+                        <p>Once the visa is issued, the journey itself is logistics — flights, insurance, and the practical detail of getting there.</p>
+                    </div>
                 </div>
-                <h3 class="text-xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">Global Visa &amp; Journeys</h3>
-                <p class="text-[#adb8c4] text-sm leading-relaxed font-medium">
-                    Forensic document precision. Full logistics management. Insured, compliant, transparent. Mid-tier price, top-tier outcome.
-                </p>
-                <p class="text-gold text-[11px] font-bold uppercase tracking-widest mt-3.5"><i class="fa-solid fa-check mr-1"></i> The Goldilocks Zone</p>
             </div>
-
+            <!-- Invisible scroll triggers, spaced through the tall track above -->
+            <div class="corridor-trigger" data-stage="0" aria-hidden="true" style="position:absolute; top:5%; height:1px; width:1px;"></div>
+            <div class="corridor-trigger" data-stage="1" aria-hidden="true" style="position:absolute; top:35%; height:1px; width:1px;"></div>
+            <div class="corridor-trigger" data-stage="2" aria-hidden="true" style="position:absolute; top:65%; height:1px; width:1px;"></div>
+            <div class="corridor-trigger" data-stage="3" aria-hidden="true" style="position:absolute; top:95%; height:1px; width:1px;"></div>
         </div>
     </div>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════ -->
-<!-- 5. VALUES                                                  -->
+<!-- 4. WHO WE ARE — first person, no portrait, signed by name. -->
 <!-- ══════════════════════════════════════════════════════════ -->
-<section class="py-24 bg-[#080c10] relative z-10">
-    <div class="max-w-6xl mx-auto px-4">
+<section class="who-we-are bg-[#0f1419] border-y border-[#1e2730] relative z-10">
+    <div class="who-we-are-inner">
+        <span class="eyebrow">Who We Are</span>
+        <h2 class="text-4xl md:text-5xl font-bold text-white mb-8" style="font-family:'Cormorant Garamond',serif; text-wrap:balance;">Both sides of the counter.</h2>
 
-        <div class="text-center mb-16 fade-in-up">
-            <span class="text-gold text-xs tracking-widest uppercase font-bold">Our Values</span>
-            <h2 class="text-4xl md:text-5xl font-bold text-white mt-3" style="font-family:'Cormorant Garamond',serif;">Four Principles. No Exceptions.</h2>
-        </div>
+        <p>I didn't start this firm by reading about the visa industry. I started it by living on both ends of the corridor.</p>
+        <p>I've sat at a kitchen table in Banjul, helping gather a bank statement that was about to raise the wrong question — long before I had a name for it. And I've sat on the UK side, where that same file lands, and understood exactly what a visa officer is trained to check and doubt.</p>
+        <p>Most firms in this industry know one end. A solicitor knows the law. A fixer knows what sells. I don't think either has stood on both sides of that counter at once — and that is the gap Global Visa &amp; Journeys was built to close.</p>
 
-        <div class="grid md:grid-cols-2 gap-6 fade-in-up">
-
-            <!-- Value 01 -->
-            <div class="value-card">
-                <div class="flex items-start justify-between mb-5">
-                    <div class="w-12 h-12 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center">
-                        <i class="fa-solid fa-eye text-gold text-lg"></i>
-                    </div>
-                    <span class="value-number">01</span>
-                </div>
-                <h3 class="text-2xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">Radical Transparency</h3>
-                <p class="text-[#adb8c4] text-sm leading-relaxed font-medium">
-                    We never guarantee a visa. Anyone who does is misleading you. Instead, we educate clients on exactly why guarantees are impossible — and deliver the strongest possible application package and narrative strategy.
-                </p>
+        <div class="founder-sign">
+            <svg width="46" height="46" viewBox="0 0 46 46" fill="none" aria-hidden="true" focusable="false">
+                <path d="M34 14c-2-4-8-5-12-3s-5 7-1 9 11 1 13 5-3 9-9 8-8-4-8-4" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            </svg>
+            <div class="founder-sign-text">
+                <strong>Sinera, Founder</strong>
+                <span>Global Visa &amp; Journeys Ltd · Company No. 16959031</span>
             </div>
-
-            <!-- Value 02 -->
-            <div class="value-card">
-                <div class="flex items-start justify-between mb-5">
-                    <div class="w-12 h-12 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center">
-                        <i class="fa-solid fa-shield-halved text-gold text-lg"></i>
-                    </div>
-                    <span class="value-number">02</span>
-                </div>
-                <h3 class="text-2xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">Compliance First</h3>
-                <p class="text-[#adb8c4] text-sm leading-relaxed font-medium">
-                    No corners cut. No documents fabricated. No data manipulated. Clients who do not yet meet requirements are told upfront — and offered a 3 to 6 month Profile Rehabilitation plan, rather than paying for a likely refusal.
-                </p>
-            </div>
-
-            <!-- Value 03 -->
-            <div class="value-card">
-                <div class="flex items-start justify-between mb-5">
-                    <div class="w-12 h-12 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center">
-                        <i class="fa-solid fa-user-shield text-gold text-lg"></i>
-                    </div>
-                    <span class="value-number">03</span>
-                </div>
-                <h3 class="text-2xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">Single-Point Accountability</h3>
-                <p class="text-[#adb8c4] text-sm leading-relaxed font-medium">
-                    Clients work directly with a dedicated expert consultant — never a call centre, never a chatbot. The consultant takes personal responsibility for the integrity of every file from start to finish.
-                </p>
-            </div>
-
-            <!-- Value 04 -->
-            <div class="value-card">
-                <div class="flex items-start justify-between mb-5">
-                    <div class="w-12 h-12 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center">
-                        <i class="fa-solid fa-lock text-gold text-lg"></i>
-                    </div>
-                    <span class="value-number">04</span>
-                </div>
-                <h3 class="text-2xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">Data Privacy &amp; Security</h3>
-                <p class="text-[#adb8c4] text-sm leading-relaxed font-medium">
-                    Your visa file is among the most sensitive paperwork you'll ever produce. We operate under strict UK GDPR compliance. Every document is held on encrypted servers, used only for your application, and never shared.
-                </p>
-            </div>
-
         </div>
     </div>
 </section>
 
 <!-- ══════════════════════════════════════════════════════════ -->
-<!-- 6. WHO WE SERVE                                            -->
+<!-- 5. FACTS AND CONTACT                                        -->
 <!-- ══════════════════════════════════════════════════════════ -->
-<section class="py-24 bg-[#0f1419] border-y border-[#1e2730] relative z-10">
-    <div class="max-w-6xl mx-auto px-4">
+<section class="facts-section bg-[#080c10] relative z-10">
+    <div class="facts-inner">
+        <span class="eyebrow">Facts</span>
+        <h2 class="text-4xl md:text-5xl font-bold text-white mb-8" style="font-family:'Cormorant Garamond',serif; text-wrap:balance;">What we are. Plainly.</h2>
 
-        <div class="text-center mb-16 fade-in-up">
-            <span class="text-gold text-xs tracking-widest uppercase font-bold">Who We Serve</span>
-            <h2 class="text-4xl md:text-5xl font-bold text-white mt-3" style="font-family:'Cormorant Garamond',serif;">Two Markets. One Standard.</h2>
-            <p class="text-[#7a8899] mt-4 max-w-2xl mx-auto text-base font-medium">
-                We serve middle-to-high income individuals who have the funds — but lack the expertise — to present their case convincingly to immigration authorities.
-            </p>
+        <p class="facts-line">Global Visa &amp; Journeys prepares Schengen and EU visa applications for UK residents, and for clients in the Gambia, Nigeria, Sierra Leone and Ghana. <strong class="text-white">We do not provide UK visa or UK immigration advice, representation, or services.</strong></p>
+
+        <p class="facts-company">Global Visa &amp; Journeys Ltd is registered in England &amp; Wales, <strong>Company No. 16959031</strong>.</p>
+
+        <div class="credential-row">
+            <span class="credential-chip">Professional Indemnity Insured</span>
+            <span class="credential-chip">UK GDPR Compliant</span>
+            <span class="credential-chip">Companies House Registered</span>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-8 fade-in-up">
+        <div class="gold-divider"></div>
 
-            <!-- UK Residents -->
-            <div class="audience-card">
-                <div class="audience-card-header" style="background-image:url('https://images.unsplash.com/photo-1486299267070-83823f5448dd?q=80&w=800&auto=format&fit=crop');">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"></div>
-                    <div class="absolute top-4 left-4 inline-flex items-center gap-2 bg-[#080c10]/85 backdrop-blur-sm border border-[#1e2730] rounded-full px-3 py-1">
-                        <span class="text-lg">🇬🇧</span>
-                        <span class="text-white text-xs font-bold tracking-wide uppercase">Market One</span>
-                    </div>
-                    <h3 class="absolute bottom-4 left-6 text-3xl font-black text-white drop-shadow-lg" style="font-family:'Cormorant Garamond',serif;">UK Residents</h3>
-                </div>
-                <div class="p-7">
-                    <p class="text-[#adb8c4] text-sm leading-relaxed font-medium mb-5">
-                        UK passport and BRP holders applying for Schengen tourist visas — Spain, Greece, France, Netherlands, Italy, Germany, and beyond. Our typical UK client is a professional, family unit, or frequent traveller who values their time and refuses to take chances with their European travel plans.
-                    </p>
-                    <ul class="space-y-2 text-sm text-[#7a8899] font-medium">
-                        <li><i class="fa-solid fa-check text-green-400 mr-2"></i>Schengen tourist visas</li>
-                        <li><i class="fa-solid fa-check text-green-400 mr-2"></i>Family travel logistics</li>
-                        <li><i class="fa-solid fa-check text-green-400 mr-2"></i>Quick-turnaround visa cases</li>
-                    </ul>
-                </div>
+        <div class="contact-block">
+            <div class="contact-row">
+                <span class="label">WhatsApp</span>
+                <a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'about_facts'})" target="_blank" rel="noopener noreferrer">+44 7511 219482</a>
             </div>
-
-            <!-- African Residents -->
-            <div class="audience-card">
-                <div class="audience-card-header" style="background-image:url('https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?q=80&w=800&auto=format&fit=crop');">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"></div>
-                    <div class="absolute top-4 left-4 inline-flex items-center gap-2 bg-[#080c10]/85 backdrop-blur-sm border border-[#1e2730] rounded-full px-3 py-1">
-                        <span class="text-lg">🌍</span>
-                        <span class="text-white text-xs font-bold tracking-wide uppercase">Market Two</span>
-                    </div>
-                    <h3 class="absolute bottom-4 left-6 text-3xl font-black text-white drop-shadow-lg" style="font-family:'Cormorant Garamond',serif;">African Residents</h3>
-                </div>
-                <div class="p-7">
-                    <p class="text-[#adb8c4] text-sm leading-relaxed font-medium mb-5">
-                        Applicants from Nigeria, The Gambia, Senegal, Togo, Ghana, and beyond — facing punitive macro-policies, suspicion-driven refusal patterns, and a "fixer" industry that has historically exploited them. We solve the Source of Funds, Family Ties, and Intent to Return problems other agents ignore.
-                    </p>
-                    <ul class="space-y-2 text-sm text-[#7a8899] font-medium">
-                        <li><i class="fa-solid fa-check text-green-400 mr-2"></i>EU Study &amp; Work visas</li>
-                        <li><i class="fa-solid fa-check text-green-400 mr-2"></i>Schengen tourism &amp; family</li>
-                        <li><i class="fa-solid fa-check text-green-400 mr-2"></i>Refusal recovery &amp; rebuilding</li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<!-- ══════════════════════════════════════════════════════════ -->
-<!-- 7. BY THE NUMBERS                                          -->
-<!-- ══════════════════════════════════════════════════════════ -->
-<section class="py-24 bg-[#080c10] relative z-10">
-    <div class="max-w-6xl mx-auto px-4">
-
-        <div class="text-center fade-in-up">
-            <div class="inline-block bg-[#0f1419] border border-[#1e2730] rounded-2xl px-8 py-6 max-w-2xl">
-                <p class="text-[#adb8c4] text-sm leading-relaxed font-medium">
-                    <i class="fa-solid fa-quote-left text-gold opacity-40 mr-2"></i>
-                    Every approval is earned, not promised. Every refusal is studied so the next case is stronger. We measure success in withstood scrutiny — not in marketing claims.
-                    <i class="fa-solid fa-quote-right text-gold opacity-40 ml-2"></i>
-                </p>
+            <div class="contact-row">
+                <span class="label">Email</span>
+                <a href="mailto:office@globalvisajourneys.com">office@globalvisajourneys.com</a>
             </div>
         </div>
 
-    </div>
-</section>
-
-<!-- ══════════════════════════════════════════════════════════ -->
-<!-- 8. LEGAL TRANSPARENCY                                      -->
-<!-- ══════════════════════════════════════════════════════════ -->
-<section class="py-24 bg-[#0f1419] border-y border-[#1e2730] relative z-10">
-    <div class="max-w-5xl mx-auto px-4 fade-in-up">
-
-        <div class="text-center mb-16">
-            <span class="text-gold text-xs tracking-widest uppercase font-bold">Legal Transparency</span>
-            <h2 class="text-4xl md:text-5xl font-bold text-white mt-3" style="font-family:'Cormorant Garamond',serif;">What We Are. What We Aren't.</h2>
-            <p class="text-[#7a8899] mt-4 max-w-2xl mx-auto text-base font-medium">
-                Honest disclosure builds trust. Here's exactly where we sit, legally and professionally.
-            </p>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-6 mb-8">
-
-            <!-- What we are -->
-            <div class="bg-[#080c10] border border-green-800/40 border-l-2 border-l-green-400 rounded-2xl p-7">
-                <div class="flex items-center gap-3 mb-5">
-                    <div class="w-10 h-10 rounded-full bg-green-900/30 border border-green-700/40 flex items-center justify-center">
-                        <i class="fa-solid fa-check text-green-400"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white" style="font-family:'Cormorant Garamond',serif;">What We Are</h3>
-                </div>
-                <ul class="space-y-3 text-sm text-[#adb8c4] font-medium">
-                    <li class="flex items-start gap-2">
-                        <i class="fa-solid fa-check text-green-400 mt-1 text-xs flex-shrink-0"></i>
-                        <span>A registered London consultancy: <strong class="text-white">Companies House No. 16959031</strong>, England &amp; Wales.</span>
-                    </li>
-                    <li class="flex items-start gap-2">
-                        <i class="fa-solid fa-check text-green-400 mt-1 text-xs flex-shrink-0"></i>
-                        <!-- Removed: "(£500k limit)" — figure never confirmed/certificate-checked. Confirmed by Hass (11 Oct 2026): keep generic, no limit stated.
-                        <span>Covered by full <strong class="text-white">Professional Indemnity Insurance</strong> (£500k limit).</span>
-                        -->
-                        <span>Covered by <strong class="text-white">Professional Indemnity Insurance</strong>.</span>
-                    </li>
-                    <li class="flex items-start gap-2">
-                        <i class="fa-solid fa-check text-green-400 mt-1 text-xs flex-shrink-0"></i>
-                        <span><strong class="text-white">UK GDPR compliant.</strong> Encrypted document storage. Strict client confidentiality.</span>
-                    </li>
-                    <li class="flex items-start gap-2">
-                        <i class="fa-solid fa-check text-green-400 mt-1 text-xs flex-shrink-0"></i>
-                        <span>Specialist in Schengen and EU visa strategy, document audit, and case construction.</span>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- What we aren't -->
-            <div class="bg-[#080c10] border border-red-900/40 border-l-2 border-l-red-500 rounded-2xl p-7">
-                <div class="flex items-center gap-3 mb-5">
-                    <div class="w-10 h-10 rounded-full bg-red-900/30 border border-red-800/40 flex items-center justify-center">
-                        <i class="fa-solid fa-xmark text-red-400"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white" style="font-family:'Cormorant Garamond',serif;">What We Aren't</h3>
-                </div>
-                <ul class="space-y-3 text-sm text-[#adb8c4] font-medium">
-                    <li class="flex items-start gap-2">
-                        <i class="fa-solid fa-xmark text-red-400 mt-1 text-xs flex-shrink-0"></i>
-                        <span>We are <strong class="text-white">not a law firm</strong> and do not provide legal representation.</span>
-                    </li>
-                    <li class="flex items-start gap-2">
-                        <i class="fa-solid fa-xmark text-red-400 mt-1 text-xs flex-shrink-0"></i>
-                        <span>We are <strong class="text-white">not registered with the Immigration Advice Authority (IAA)</strong> — this is required only for UK immigration advice. We deal exclusively in Schengen and EU visas, which fall outside IAA scope.</span>
-                    </li>
-                    <li class="flex items-start gap-2">
-                        <i class="fa-solid fa-xmark text-red-400 mt-1 text-xs flex-shrink-0"></i>
-                        <span>We are <strong class="text-white">not a Tour Operator</strong> and not ATOL-registered. We do not sell flight-inclusive packages.</span>
-                    </li>
-                    <li class="flex items-start gap-2">
-                        <i class="fa-solid fa-xmark text-red-400 mt-1 text-xs flex-shrink-0"></i>
-                        <span>We <strong class="text-white">do not guarantee visa approval.</strong> Anyone who does is misleading you.</span>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-
-        <!-- The Engagement Letter callout -->
-        <div class="legal-callout">
-            <div class="flex items-start gap-4">
-                <div class="w-12 h-12 rounded-lg bg-red-900/30 border border-red-800/40 flex items-center justify-center flex-shrink-0">
-                    <i class="fa-solid fa-file-signature text-red-400 text-lg"></i>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold text-white mb-3" style="font-family:'Cormorant Garamond',serif;">The Engagement Letter</h3>
-                    <p class="text-[#adb8c4] text-sm leading-relaxed font-medium mb-4">
-                        Every client signs a binding Engagement Letter before any work begins. It sets out our scope, our limits, the strict no-guarantee clause, and the anti-fraud policy that terminates the contract immediately if forged documents are discovered. Read both legal documents in full any time you wish.
-                    </p>
-                    <div class="flex flex-wrap gap-3">
-                        <a href="index.html#scopeModal" class="inline-flex items-center gap-2 bg-[#0f1419] border border-[#1e2730] hover:border-gold transition px-4 py-2 rounded-lg text-xs font-bold text-[#adb8c4] hover:text-white">
-                            <i class="fa-solid fa-shield-halved text-gold"></i> Engagement Letter
-                        </a>
-                        <a href="index.html#termsModal" class="inline-flex items-center gap-2 bg-[#0f1419] border border-[#1e2730] hover:border-gold transition px-4 py-2 rounded-lg text-xs font-bold text-[#adb8c4] hover:text-white">
-                            <i class="fa-solid fa-scale-balanced text-gold"></i> Terms &amp; Conditions
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<!-- ══════════════════════════════════════════════════════════ -->
-<!-- 9. CTA — back to QuickScan as primary                      -->
-<!-- ══════════════════════════════════════════════════════════ -->
-<section class="py-24 bg-[#080c10] relative z-10 overflow-hidden">
-
-    <!-- Background accent -->
-    <div class="absolute inset-0 opacity-40 pointer-events-none">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full" style="background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, rgba(8,12,16,0) 70%);"></div>
-    </div>
-
-    <div class="max-w-4xl mx-auto px-4 text-center relative fade-in-up">
-
-        <span class="text-gold text-xs tracking-widest uppercase font-bold">Ready When You Are</span>
-        <h2 class="text-4xl md:text-6xl font-bold text-white mt-4 mb-6 leading-[1.1]" style="font-family:'Cormorant Garamond',serif;">
-            Let's Stop Refusals<br>
-            <em class="text-gold">Before They Happen.</em>
-        </h2>
-        <p class="text-lg text-[#adb8c4] max-w-2xl mx-auto font-medium leading-relaxed mb-10">
-            Every consultation starts with a forensic look at your case. The QuickScan Audit gives you a Fatal Flaws report in 48 hours — for less than the cost of a single refused embassy fee.
-        </p>
-
-        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <!-- Primary CTA: QuickScan -->
-            <label class="gvj-terms-label"><input type="checkbox" onchange="gvjTogglePay('pay-1',this.checked)"><span>I confirm I have read and accept GVJ's <a href="engagement-letter.html" target="_blank" rel="noopener noreferrer">Client Engagement Letter and Terms &amp; Conditions</a>.</span></label>
-            <a href="https://book.stripe.com/28E4gygLremKd0Ogx50sU00" id="pay-1" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto btn-gold px-8 py-4 rounded-full text-sm shadow-[0_0_30px_rgba(201,168,76,0.3)] gvj-pay-gated" aria-disabled="true">
-                Start QuickScan Audit — £39.99
-            </a>
-            <a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'contact_cta'})" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto bg-[#25D366] text-white px-8 py-4 rounded-full font-bold text-sm hover:bg-[#128C7E] transition shadow-lg flex items-center justify-center gap-2">
-                <i class="fa-brands fa-whatsapp text-xl"></i> WhatsApp HQ Now
-            </a>
-        </div>
-
-        <div class="mt-10 flex flex-wrap justify-center gap-x-8 gap-y-2 text-xs text-[#7a8899] font-semibold">
-            <span><i class="fa-solid fa-shield-halved text-gold mr-1.5"></i> PI Insured</span>
-            <span><i class="fa-solid fa-building-columns text-gold mr-1.5"></i> Companies House Registered</span>
-            <span><i class="fa-solid fa-lock text-gold mr-1.5"></i> GDPR Compliant</span>
-        </div>
-
+        <!-- ASK HASS: supply confirmed figures (countries served, consulates worked with) before any coverage numbers are published here. Never invented, never a success rate. -->
+        <p class="stats-placeholder">Coverage figures — countries served, consulates worked with — will appear here once confirmed. We do not publish a success rate.</p>
     </div>
 </section>
 
@@ -933,11 +746,34 @@
         else nav.classList.remove('nav-scrolled');
     });
 
-    // ── SCROLL ANIMATIONS ──
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+    // ── SECTION 2: THE SCALE — the hole fills once scrolled into view.
+    // Only runs when html.gvj-motion is set (see the script right after
+    // <body>); the default CSS state is already the complete, filled one.
+    if (document.documentElement.classList.contains('gvj-motion')) {
+        const gap = document.getElementById('scale-gap');
+        if (gap) {
+            const gapObserver = new IntersectionObserver((entries) => {
+                entries.forEach(e => { if (e.isIntersecting) gap.classList.add('in-view'); });
+            }, { threshold: 0.6 });
+            gapObserver.observe(gap);
+        }
+
+        // ── SECTION 3: THE CORRIDOR — sticky marker driven by scroll stage.
+        const sticky = document.querySelector('.corridor-sticky');
+        const stages = document.querySelectorAll('.corridor-stage');
+        const triggers = document.querySelectorAll('.corridor-trigger');
+        if (sticky && triggers.length) {
+            const corridorObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    const stage = entry.target.getAttribute('data-stage');
+                    sticky.style.setProperty('--stage', stage);
+                    stages.forEach(el => el.classList.toggle('is-active', el.getAttribute('data-stage') === stage));
+                });
+            }, { rootMargin: '-50% 0px -50% 0px', threshold: 0 });
+            triggers.forEach(t => corridorObserver.observe(t));
+        }
+    }
 
     window.subscribeNewsletter = async () => {
         const email = document.getElementById('newsletter-email').value.trim();
@@ -1028,11 +864,5 @@
 })();
 </script>
 
-<script>
-function gvjTogglePay(id, on) {
-    var el = document.getElementById(id);
-    if (el) el.setAttribute('aria-disabled', on ? 'false' : 'true');
-}
-</script>
 </body>
 </html>
