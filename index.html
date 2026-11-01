@@ -323,7 +323,7 @@
             line-height: 1.7;
             font-weight: 450;
         }
-        .faq-answer.open { max-height: 300px; padding-bottom: 20px; }
+        .faq-answer.open { max-height: 420px; padding-bottom: 20px; } /* raised from 300px so the longer flight-reservation FAQ answer isn't clipped */
         .faq-icon { transition: transform 0.3s; color: var(--brand-gold); font-size: 0.85rem; }
         .faq-icon.rotated { transform: rotate(180deg); }
 
@@ -655,7 +655,7 @@
 <!-- ══════════════════════════════════════════════════════════ -->
 <div id="refusal-banner">
     <p>
-        Visa refused? Start with our Refusal Diagnosis, from £99 —
+        Visa refused? From £423 across three stages — start with the £99 Refusal Diagnosis —
         <a href="refusal.html" class="banner-link">Find out more →</a>
     </p>
     <button type="button" class="banner-dismiss" onclick="document.getElementById('refusal-banner').style.display='none';" aria-label="Dismiss">&#x2715;</button>
@@ -1051,11 +1051,11 @@
                     <div class="p-7 flex flex-col flex-grow">
                         <div class="flex items-center justify-between mb-4">
                             <span class="text-[#7a8899] text-xs uppercase tracking-widest font-bold">Previous Refusal · Strategy</span>
-                            <!-- Price scoped to the Diagnosis stage only, not the full recovery service -->
-                            <span class="font-black text-2xl text-white" style="font-family:'Cormorant Garamond',serif;">Diagnosis from £99</span>
+                            <!-- From £423 across three stages (£99 diagnosis + £149 rebuild + £175 reapplication); £99 is the entry point, not the route price -->
+                            <span class="font-black text-2xl text-white" style="font-family:'Cormorant Garamond',serif;">From £423</span>
                         </div>
                         <p class="text-[#adb8c4] mb-4 text-sm flex-grow leading-relaxed font-medium">
-                            Been refused before? We specialise in rebuilding cases after a refusal — finding the root cause, fixing every issue, and building a thorough new application from scratch.
+                            Been refused before? We specialise in rebuilding cases after a refusal — finding the root cause, fixing every issue, and building a thorough new application from scratch. Start with the £99 Refusal Diagnosis.
                         </p>
                         <ul class="space-y-2 mb-6 text-sm text-[#adb8c4] font-medium">
                             <li><i class="fa-solid fa-check text-green-400 mr-2"></i>Refusal Letter Analysis</li>
@@ -1341,11 +1341,11 @@
 
             <div class="faq-item">
                 <button class="faq-question" onclick="toggleFAQ(this)">
-                    <span>What is a flight reservation for a visa application, and is it legal?</span>
+                    <span>What is a flight reservation for a visa, and is it legal?</span>
                     <i class="fa-solid fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer">
-                    A flight reservation (sometimes called a "dummy ticket") is a real booking reference for a flight that is held — not paid in full. Schengen embassies widely accept it as proof of travel plans. It lets you show a confirmed itinerary without the risk of buying a non-refundable ticket before your visa is approved. This is a standard, accepted practice used around the world.
+                    A flight reservation is a genuine booking held with the airline, with a real booking reference that you or the embassy can check. It is not a purchased ticket, and it is not a fabricated document. Embassies ask for proof of your intended travel, not proof that you have already paid for a flight you may lose if the visa is refused.<br><br>We do not supply fake or edited booking confirmations. Anything we issue can be verified against the airline's own system.<br><br>If you would rather travel on a ticket you have already bought, we book real flights too.
                 </div>
             </div>
 
