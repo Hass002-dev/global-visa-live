@@ -1,0 +1,277 @@
+/* Shared stylesheet for every /schengen-visa-uk/<country>/ page.
+   One file, not duplicated per page, because all five country pages
+   (Greece, Germany, Spain, Belgium, France) reuse this unchanged —
+   duplicating it five times is exactly what the "short files, one job
+   each" brief asked to avoid. This is a deliberate exception to the
+   rest of the site's per-page inline <style> convention (see CLAUDE.md). */
+
+:root {
+    --bg-primary: #080c10;
+    --bg-card: #131920;
+    --brand-gold: #c9a84c;
+    --brand-gold-light: #e8c97a;
+    --brand-gold-dim: #8a6f2e;
+    --text-primary: #eef2f7;
+    --text-secondary: #7a8899;
+    --border-surface: #1e2730;
+    --whatsapp: #25d366;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    margin: 0;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+h1, h2, h3 { font-family: 'Cormorant Garamond', serif; color: #fff; }
+
+a { color: var(--brand-gold); }
+.text-gold { color: var(--brand-gold); }
+
+/* Nav */
+.schengen-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-surface);
+}
+.schengen-nav__brand { font-family: 'Cormorant Garamond', serif; font-weight: 700; text-decoration: none; color: #fff; }
+.schengen-nav__link { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; }
+
+/* UK-residents notice: must be seen before anyone fills anything in */
+.schengen-uk-only-notice {
+    margin: 0;
+    padding: 10px 20px;
+    background: rgba(201, 168, 76, 0.08);
+    border-bottom: 1px solid var(--border-surface);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.schengen-hero { padding: 32px 20px 8px; }
+.schengen-hero h1 { font-size: 1.8rem; line-height: 1.25; margin: 0 0 18px; }
+/* Narrower than the full-width bottom CTAs — this one sits under a
+   headline, not in a dedicated button row. */
+.schengen-top-cta { display: inline-block; max-width: 280px; }
+
+.schengen-main { max-width: 760px; margin: 0 auto; padding: 0 20px 60px; }
+
+/* Scroll-reveal: matches the fade-in-up pattern used on work.html and
+   refusal.html, so sections ease into view as the visitor scrolls
+   instead of the page dumping everything on them at once. */
+.schengen-section {
+    margin-top: 36px;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.schengen-section.schengen-visible { opacity: 1; transform: translateY(0); }
+
+/* Eyebrow label above each heading — same small-caps gold tag used
+   above every section heading sitewide (e.g. work.html's "Transparent
+   Pricing" above "Three Steps. Three Products.") */
+.schengen-eyebrow {
+    display: block;
+    color: var(--brand-gold);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+
+.schengen-section h2 { font-size: 1.4rem; margin-bottom: 12px; }
+
+/* Centre-specific scheduling quirk (e.g. Germany's Edinburgh only taking
+   submissions Mon/Wed/Thu) — a callout above the table, not a table
+   cell, so it can't be skimmed past. */
+.schengen-centre-notice {
+    background: rgba(201, 168, 76, 0.1);
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+    font-size: 0.88rem;
+}
+.schengen-centre-notice strong { color: var(--brand-gold); }
+.schengen-centre-notice ul { margin: 6px 0 0; padding-left: 20px; }
+
+/* Centres table — scrolls horizontally on narrow phones rather than
+   squashing addresses unreadably */
+.schengen-table-wrap { overflow-x: auto; }
+.schengen-centres-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.schengen-centres-table th, .schengen-centres-table td {
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid var(--border-surface);
+    vertical-align: top;
+}
+.schengen-centres-table th { color: var(--text-secondary); font-weight: 600; white-space: nowrap; }
+/* "Appointment only" is the one header worth wrapping: letting "only"
+   drop to its own line keeps this column narrow, so Address and Hours
+   (the columns that actually need the room) don't get squeezed. */
+.schengen-centres-table th.schengen-col-narrow { white-space: normal; max-width: 68px; }
+
+/* Below 640px, a 5-column table has no room to breathe — "Appointment
+   only" and "Phone" end up squashed against each other with wildly
+   different content lengths in the same row height, which is the
+   "looks ugly" problem. Switch to one card per centre instead: no
+   header row, each cell becomes its own labelled line. */
+@media (max-width: 639px) {
+    .schengen-centres-table thead { display: none; }
+    .schengen-centres-table, .schengen-centres-table tbody, .schengen-centres-table tr, .schengen-centres-table td {
+        display: block;
+        width: 100%;
+    }
+    .schengen-centres-table tr {
+        margin-bottom: 14px;
+        border: 1px solid var(--border-surface);
+        border-radius: 10px;
+        padding: 4px 14px;
+    }
+    .schengen-centres-table td {
+        border-bottom: none;
+        padding: 8px 0;
+    }
+    .schengen-centres-table td + td { border-top: 1px solid var(--border-surface); }
+    .schengen-centres-table td::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        margin-bottom: 3px;
+    }
+    /* City is the card's own title, not just another labelled field. */
+    .schengen-centres-table td[data-label="City"] {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #fff;
+    }
+    .schengen-centres-table td[data-label="City"]::before { content: none; }
+}
+
+/* Costs */
+.schengen-cost-list { display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; margin: 0; }
+.schengen-cost-list dt { color: var(--text-secondary); font-weight: 600; }
+.schengen-cost-list dd { margin: 0; }
+
+/* Checklist tabs */
+.schengen-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.schengen-tab-button {
+    background: var(--bg-card);
+    border: 1px solid var(--border-surface);
+    color: var(--text-secondary);
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+.schengen-tab-button[aria-selected="true"] { color: #080c10; background: var(--brand-gold); border-color: var(--brand-gold); }
+.schengen-checklist { list-style: none; margin: 0; padding: 0; }
+.schengen-checklist li { padding: 8px 0; border-bottom: 1px solid var(--border-surface); font-size: 0.92rem; }
+.schengen-checklist label { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
+.schengen-checklist input { margin-top: 4px; flex-shrink: 0; accent-color: var(--brand-gold); }
+.schengen-checklist-body { display: block; }
+/* Bold subheading above the detail text, so a dense override paragraph
+   (e.g. Greece's bank statement rule) reads as "what this is" then
+   "the rule", instead of one unbroken block of text. */
+.schengen-checklist-heading { display: block; font-weight: 700; color: #fff; margin-bottom: 2px; }
+.schengen-checklist-text { display: block; color: var(--text-secondary); }
+
+/* Warnings */
+.schengen-section--warning { background: rgba(239, 68, 68, 0.06); border: 1px solid rgba(239, 68, 68, 0.25); border-radius: 10px; padding: 16px 20px; }
+.schengen-disclaimer { font-style: italic; color: var(--text-secondary); font-size: 0.85rem; }
+
+/* CTA buttons */
+.schengen-cta-row { display: flex; flex-direction: column; gap: 10px; }
+.schengen-btn {
+    display: block;
+    text-align: center;
+    padding: 13px 18px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+/* Same hover lift as .btn-gold sitewide, so these CTAs feel like part
+   of the same site rather than a bolt-on tool. */
+.schengen-btn:hover { transform: translateY(-2px); }
+.schengen-btn--whatsapp { background: var(--whatsapp); color: #fff; }
+.schengen-btn--whatsapp:hover { box-shadow: 0 8px 22px rgba(37, 211, 102, 0.35); }
+.schengen-btn--outline { background: transparent; border: 1.5px solid var(--brand-gold); color: var(--brand-gold); }
+.schengen-btn--outline:hover { box-shadow: 0 8px 22px rgba(201, 168, 76, 0.3); }
+
+.schengen-sent-confirmation {
+    color: #22c55e;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.schengen-last-checked { font-size: 0.8rem; color: var(--text-secondary); }
+
+.schengen-footer {
+    padding: 24px 20px;
+    border-top: 1px solid var(--border-surface);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-align: center;
+}
+.schengen-footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 16px;
+    margin-bottom: 14px;
+    font-size: 0.82rem;
+}
+.schengen-footer-trust {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 10px;
+    font-size: 0.78rem;
+}
+.schengen-footer-trust i { color: var(--brand-gold); margin-right: 4px; }
+
+/* Hub page only (/schengen-visa-uk/index.html) — a plain card grid,
+   no checklist/CTA machinery since this page is purely a picker. */
+.schengen-hub-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+.schengen-hub-card {
+    display: block;
+    background: var(--bg-card);
+    border: 1px solid var(--border-surface);
+    border-radius: 10px;
+    padding: 18px;
+    text-decoration: none;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.schengen-hub-card:hover { border-color: var(--brand-gold); transform: translateY(-2px); }
+.schengen-hub-card h2 { font-size: 1.3rem; margin: 0 0 4px; }
+.schengen-hub-card p { margin: 0; color: var(--text-secondary); font-size: 0.9rem; }
+.schengen-hub-card .schengen-hub-fee { color: var(--brand-gold); font-weight: 600; margin-top: 6px; }
+
+/* Desktop: a little more breathing room, nothing structural changes */
+@media (min-width: 640px) {
+    .schengen-hero h1 { font-size: 2.3rem; }
+    .schengen-cta-row { flex-direction: row; flex-wrap: wrap; }
+    .schengen-btn { flex: 1 1 auto; }
+    .schengen-hub-grid { grid-template-columns: 1fr 1fr; }
+}
