@@ -6,3 +6,8 @@ node_modules/
 *.pem
 service-account-*.json
 *-credentials.json
+
+# Hass's working/scratch files — never commit or push these
+atlys-tools-study.*
+pw-reset-helper.html
+sherpa-study.*

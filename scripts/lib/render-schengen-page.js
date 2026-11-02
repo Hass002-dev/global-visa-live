@@ -77,6 +77,22 @@ function renderHero(centre) {
 // Visa fee + service fee come from centres.json; the per-day funds figure
 // comes from documents.json — two files joined by ISO code for this one
 // section. Any null is shown as "Not published", never printed as "null".
+// Greece charges Gambian nationals EUR 120, not the EUR 90 shown above
+// for everyone else — this is exactly the kind of fee difference a
+// visitor could miss if it weren't pulled out as its own block.
+// Renders nothing when the array is empty or missing (e.g. Spain's
+// entries aren't about nationality-specific fees at all) rather than
+// an empty heading.
+function renderNationalityNotes(centre) {
+    const notes = centre.nationalityNotes || [];
+    if (notes.length === 0) return '';
+    const items = notes.map((note) => `<li>${escHtml(note)}</li>`).join('\n');
+    return `<div class="schengen-nationality-notes">
+  <p class="schengen-nationality-notes-heading">Different rules for some nationalities</p>
+  <ul>${items}</ul>
+</div>`;
+}
+
 function renderCosts(centre, countryDoc) {
     const feeLine = formatFeeLine(centre);
     const fundsLine = countryDoc.fundsPerDay
@@ -90,6 +106,7 @@ function renderCosts(centre, countryDoc) {
     <dt>Service fee</dt><dd>${escHtml(centre.serviceFeeNote || 'Not published')}</dd>
     <dt>Funds required</dt><dd>${escHtml(fundsLine)}</dd>
   </dl>
+  ${renderNationalityNotes(centre)}
 </section>`;
 }
 
