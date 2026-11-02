@@ -167,6 +167,11 @@ a { color: var(--brand-gold); }
 .schengen-cost-list dt { color: var(--text-secondary); font-weight: 600; }
 .schengen-cost-list dd { margin: 0; }
 
+.schengen-nationality-notes { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border-surface); }
+.schengen-nationality-notes-heading { margin: 0 0 6px; font-weight: 700; font-size: 0.85rem; color: #fff; }
+.schengen-nationality-notes ul { margin: 0; padding-left: 20px; }
+.schengen-nationality-notes li { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 4px; }
+
 /* Checklist tabs */
 .schengen-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
 .schengen-tab-button {
