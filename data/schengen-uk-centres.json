@@ -1,0 +1,380 @@
+[
+  {
+    "country": "Greece",
+    "iso": "GR",
+    "package": { "name": null, "price": null, "description": null },
+    "operator": "Global Visa Center World (GVCW), acting for the Consular Office of the Embassy of Greece in London",
+    "operatorShortName": "GVCW",
+    "bookingUrl": "https://uk-gr.gvcworld.eu/",
+    "officialInfoUrl": "https://www.mfa.gr/uk/en/services/visas/",
+    "appointmentModel": "browsable",
+    "allocationMechanism": null,
+    "representationNote": null,
+    "centres": [
+      {
+        "city": "London",
+        "address": "66 Wilson Street, London EC2A 2BT, United Kingdom",
+        "hours": "Submission 09:00-13:00 Mon-Fri. Passport collection 16:00-17:00 Mon-Fri.",
+        "appointmentOnly": true,
+        "phone": "+44 203 7938 626 (08:30-17:30 Mon-Fri). Email info.ukgr@gvc24assist.eu"
+      },
+      {
+        "city": "Manchester",
+        "address": "50 Devonshire Street North, Manchester M12 6JH, United Kingdom",
+        "hours": "Submission 09:00-14:00 Mon-Fri. Passports returned by courier only. Allow 5 extra days.",
+        "appointmentOnly": true,
+        "phone": "+44 203 7938 626 (08:30-17:30 Mon-Fri). Email info.ukgr@gvcworld.eu"
+      },
+      {
+        "city": "Edinburgh",
+        "address": "1 Rennie's Isle, Leith, Edinburgh EH6 6QT, United Kingdom",
+        "hours": "Submission 09:00-14:00 Mon-Fri. Passports returned by courier only. Allow 5 extra days.",
+        "appointmentOnly": true,
+        "phone": "+44 203 7938 626 (08:30-17:30 Mon-Fri). Email info.ukgr@gvcworld.eu"
+      }
+    ],
+    "documents": [
+      "Fully completed and signed Schengen visa application form",
+      "Two recent colour passport photos, 3.5 x 4 cm, facing forward, white or off-white background, taken within the last 6 months",
+      "Passport valid at least 3 months after the date of return to the UK, with at least two blank visa pages, issued within the previous 10 years",
+      "One photocopy of the passport identification page and one photocopy of all visa pages",
+      "Travel medical insurance with minimum EUR 30,000 cover for medical costs and repatriation, valid in all Schengen countries for the full visa period, in the applicant's name",
+      "Receipt, invoice or payment confirmation showing fully paid round-trip flights to and from Greece",
+      "Copies of any previous Schengen visas, with recent or valid ones highlighted",
+      "Employment letter (a letter, not an employment contract) dated no more than 1 month before the application",
+      "UK permanent or temporary residence permit valid at least 1 month after the intended return date",
+      "For UK residence permit holders: a copy of the UK eVisa and the share code",
+      "All supporting documents dated no more than 1 month before the application; originals plus one photocopy of each",
+      "Biometrics (fingerprints and photograph) captured in person at the centre; children under 12 exempt from fingerprints, and fingerprints may be reused if recorded in the VIS within the previous 59 months",
+      "List is not exhaustive - the Consulate may request additional documents, including accommodation and proof of funds, which GVCW's tourism page does not itemise"
+    ],
+    "processingDays": {
+      "typical": 15,
+      "max": 45,
+      "unit": "calendar days; the visa centre states applications may take 30-45 days"
+    },
+    "feeEur": 90,
+    "feeGbp": 76.5,
+    "serviceFeeNote": "GVCW service fee EUR 30 incl VAT per application. Visa fee EUR 90 / GBP 76.50. Children under 12 free.",
+    "nationalityNotes": [
+      "Gambia: visa fee is EUR 120 / GBP 103.20, not EUR 90. Confirmed.",
+      "Some nationalities require prior consultation with other Schengen states, adding up to 7 days; GVCW says this makes some applications take a minimum of 3 weeks."
+    ],
+    "lastChecked": "2026-11-02",
+    "sources": [
+      "https://www.mfa.gr/uk/en/services/visas/",
+      "https://uk-gr.gvcworld.eu/",
+      "https://uk-gr.gvcworld.eu/visa-info",
+      "https://uk-gr.gvcworld.eu/en/visa-info-tourism",
+      "https://uk-gr.gvcworld.eu/en/choose-your-location",
+      "https://uk-gr.gvcworld.eu/en/news/information-notice-for-individual-applicants",
+      "https://gov.si/en/news/2024-05-20-increase-of-schengen-visa-fees",
+      "https://home-affairs.ec.europa.eu/policies/schengen-borders-and-visa/visa-policy_en"
+    ],
+    "verified": true,
+    "unverifiedFields": [
+      "representationNote",
+      "documents"
+    ]
+  },
+  {
+    "country": "Spain",
+    "iso": "ES",
+    "package": { "name": null, "price": null, "description": null },
+    "operator": "BLS International Services Ltd, acting for the Consulate General of Spain in London (sole appointment channel since 1 October 2023)",
+    "operatorShortName": "BLS International",
+    "bookingUrl": "https://uk.blsspainglobal.com/Global/account/login",
+    "officialInfoUrl": "https://www.exteriores.gob.es/Consulados/londres/en/ServiciosConsulares/Paginas/Consular/Visados-Schengen.aspx",
+    "appointmentModel": "browsable",
+    "allocationMechanism": null,
+    "representationNote": "Unverified. No representation arrangement is stated on any official page. The Consulate General of Spain in London decides applications lodged through BLS; exteriores.gob.es does not mention representing, or being represented by, another Schengen state in the UK. Treat as unverified rather than 'none'.",
+    "centres": [
+      {
+        "city": "London",
+        "address": "Spain Visa Application Centre, 20 St Andrew Street, London EC4A 3AG, United Kingdom",
+        "hours": "Visa submission 08:30-13:30 Mon-Fri; helpline 09:00-17:00 Mon-Fri",
+        "appointmentOnly": true,
+        "phone": "+44 20 3807 0750 (national helpline, 09:00-17:00 Mon-Fri). Email info.lhr@blshelpline.com. No centre-specific number is published."
+      },
+      {
+        "city": "Manchester (the centre is physically in Salford)",
+        "address": "BLS International Services Ltd, Unit 1, 205 Chapel Street, Salford, Manchester M3 5PF, United Kingdom",
+        "hours": "Visa submission 08:30-13:30; helpline 09:00-17:00 Mon-Fri",
+        "appointmentOnly": true,
+        "phone": "+44 20 3807 0750 (national helpline). Email info.man@blshelpline.com. No centre-specific number is published."
+      },
+      {
+        "city": "Edinburgh",
+        "address": "6 Dock Place, Suite 1A, First Floor Office, Edinburgh EH6 6LU, United Kingdom",
+        "hours": "Visa submission 08:30-12:30 Mon-Fri; helpline 09:00-17:00 Mon-Fri",
+        "appointmentOnly": true,
+        "phone": "+44 20 3807 0750 (national helpline). Email info.edi@blshelpline.com. No centre-specific number is published."
+      }
+    ],
+    "documents": [
+      "Completed and signed Schengen visa application form, in English or Spanish (signed by a parent or legal representative for minors)",
+      "One recent colour passport photo, taken within the last month, white or light background, facing forward, no glasses, face uncovered, not previously used in a passport; minimum 26 x 32 mm, maximum 35 x 45 mm",
+      "Valid passport plus photocopy of the biometric data page; valid at least 3 months beyond planned departure from the Schengen area, at least two blank pages, issued no more than 10 years before the return date",
+      "Photocopies of the UK visa, BRP card or UK entry stamp, and of any previous Schengen visas",
+      "Travel medical insurance covering repatriation, urgent medical care and emergency hospital treatment for the entire stay throughout the Schengen area, minimum EUR 30,000 cover; must be submitted at the application centre (BLS cites Regulation (EU) 2019/1155). For multiple-entry visas it must cover the first planned entry.",
+      "Payment of the visa fee at submission",
+      "Documents evidencing the purpose and duration of the trip, sufficient means of subsistence, and the intention to leave the Schengen area before the visa expires (the Consulate does not itemise these; the exact items are unverified)",
+      "Proof of residence in the consular district",
+      "Documents must not be stapled; all documents in English or Spanish, translated into Spanish only where stated or requested",
+      "Only applications containing the form, photo, passport and fee are accepted; the Consulate may request further documents or an interview"
+    ],
+    "processingDays": {
+      "typical": 15,
+      "max": 45,
+      "unit": "calendar days"
+    },
+    "feeEur": null,
+    "feeGbp": 79.0,
+    "serviceFeeNote": "Visa fee GBP 79 general, GBP 39.50 children 6-12, free under 6. Reduced GBP 30.75 for Moldova, North Macedonia, Albania, Armenia, Azerbaijan, Belarus, Bosnia-Herzegovina, Georgia, Montenegro, Serbia, Ukraine. Cape Verde GBP 52.65 (18+) and GBP 26.35 (12-18). BLS service charge GBP 14.85 incl VAT per applicant. Optional: next-day passport return GBP 29.99, SMS/email status GBP 1.95. Cash or card. All fees non-refundable.",
+    "nationalityNotes": [
+      "Free: children under 6, students and accompanying teachers on educational trips, third-country researchers travelling for scientific research, under-25 non-profit representatives at seminars or events, diplomatic/official/service passport holders with a courtesy visa, and family members of EU citizens (ESC code).",
+      "Spain publishes its visa fee in GBP, not EUR."
+    ],
+    "lastChecked": "2026-11-02",
+    "sources": [
+      "https://www.exteriores.gob.es/Consulados/londres/en/ServiciosConsulares/Paginas/Consular/Visados-Schengen.aspx",
+      "https://www.exteriores.gob.es/Consulados/londres/en/ServiciosConsulares",
+      "https://uk.blsspainvisa.com/",
+      "https://uk.blsspainvisa.com/london/index.php",
+      "https://uk.blsspainvisa.com/london/contact.php",
+      "https://uk.blsspainvisa.com/manchester/contact.php",
+      "https://uk.blsspainvisa.com/edinburgh/contact.php",
+      "https://uk.blsspainvisa.com/london/tourist_type_visa.php",
+      "https://uk.blsspainvisa.com/london/additionalservices.php",
+      "https://uk.blsspainvisa.com/london/faq.php",
+      "https://gov.si/en/news/2024-05-20-increase-of-schengen-visa-fees",
+      "https://uk.blsspainglobal.com/"
+    ],
+    "verified": true,
+    "unverifiedFields": [
+      "feeEur",
+      "representationNote",
+      "documents"
+    ]
+  },
+  {
+    "country": "Belgium",
+    "iso": "BE",
+    "package": { "name": null, "price": null, "description": null },
+    "operator": "TLScontact, acting for the Embassy of Belgium in London; entry and residence decisions are taken by the Federal Public Service Interior (Immigration Office, dofi.ibz.be)",
+    "operatorShortName": "TLScontact",
+    "bookingUrl": "https://visaonweb.diplomatie.be/",
+    "officialInfoUrl": "https://unitedkingdom.diplomatie.belgium.be/en/travel-belgium/visa-belgium",
+    "appointmentModel": "browsable",
+    "allocationMechanism": null,
+    "representationNote": "Unverified. No representation statement was found on any Belgian Embassy London or TLScontact Belgium UK page checked.",
+    "centres": [
+      {
+        "city": "London",
+        "address": "18 Ryeland Boulevard (Ram Quarter), Wandsworth, London SW18 1UN, United Kingdom",
+        "hours": "Mon-Fri excluding public holidays. Submission of visa application upon appointment 08:30-14:00. Without appointment, for passport return and instructions, 08:30-16:30.",
+        "appointmentOnly": true,
+        "phone": "+44 20 3892 1483 (call centre Mon-Fri 08:00-17:00; general information and appointment cancellations only - new bookings and status checks go through the TLScontact account). The Belgian Embassy page also publishes TLScontact number 08000668786."
+      },
+      {
+        "city": "Manchester",
+        "address": "1 Portland Street, Manchester M1 3BE, United Kingdom",
+        "hours": "Mon-Fri excluding public holidays. Visa application submission 07:30-16:00, by appointment. Passport return and instructions 13:00-16:00, without appointment.",
+        "appointmentOnly": true,
+        "phone": null
+      },
+      {
+        "city": "Edinburgh",
+        "address": "Argyle House, 3 Lady Lawson Street, Edinburgh EH3 9DR, United Kingdom",
+        "hours": "Mon-Fri excluding public holidays 08:30-13:30, 'subject to change at short notice'. Submission by appointment; passport return and instructions without appointment in the same hours.",
+        "appointmentOnly": true,
+        "phone": null
+      }
+    ],
+    "documents": [
+      "Visa On Web online application form (visaonweb.diplomatie.be), completed online then printed and signed - a form completed by hand will not be accepted",
+      "Supporting documents per the downloadable 'Short Stay' document list for the correct travel purpose (the list itself is download-gated and could not be read, so the full tourist checklist is unverified)",
+      "Language preference: the application is handled in French, Dutch, German or 'no preference'",
+      "Somali and Guinean applicants must submit all supporting documents in every case, with no waivers"
+    ],
+    "processingDays": {
+      "typical": 15,
+      "max": null,
+      "unit": "days"
+    },
+    "feeEur": 90,
+    "feeGbp": 81.0,
+    "serviceFeeNote": "Visa fee EUR 90 per application (the TLScontact fees page records the increase 'from 60 to 90 euros'), fixed in euro but payable only in British Pounds at GBP 81.00, so the GBP figure moves with exchange rates. TLScontact service fee GBP 34.70, paid online when booking; the appointment is cancelled if payment is not received by the deadline. Total GBP 115.70 per applicant as published on 2026-11-01. Appointments themselves are free and the embassy does not work with external agencies.",
+    "nationalityNotes": [
+      "Gambian nationals: a waiting period of 45 days still applies before applications are processed, and the Belgian Embassy records that the application fee for Gambian nationals 'was reduced back to EUR 120'.",
+      "Somali and Guinean nationals: from 10/07/2026 the standard processing period is set at 45 calendar days instead of 15; all supporting documents must be submitted in every case with no waivers; and an application with a departure date within 45 days of submission may be refused on that ground alone.",
+      "No processing figure is published for other nationalities beyond the 15-day standard."
+    ],
+    "lastChecked": "2026-11-02",
+    "sources": [
+      "https://unitedkingdom.diplomatie.belgium.be/en/travel-belgium/visa-belgium",
+      "https://unitedkingdom.diplomatie.belgium.be/en/travel-belgium/visa-belgium/useful-links",
+      "https://unitedkingdom.diplomatie.belgium.be/en/travel-belgium/visa-belgium/important-information",
+      "https://visas-be.tlscontact.com/en-us/country/gb/vac/gbLON2be/application-process",
+      "https://visas-be.tlscontact.com/en-us/country/gb/vac/gbLON2be/address-opening-hours",
+      "https://visas-be.tlscontact.com/en-us/country/gb/vac/gbLON2be/contact",
+      "https://visas-be.tlscontact.com/en-us/country/gb/vac/gbLON2be/application-fees",
+      "https://visas-be.tlscontact.com/en-us/country/gb/vac/gbMNC2be/address-opening-hours",
+      "https://visas-be.tlscontact.com/en-us/country/gb/vac/gbEDI2be/address-opening-hours",
+      "https://visas-be.tlscontact.com/en-us/country/gb/vac/gbLON2be/visa-types",
+      "https://visas-be.tlscontact.com/visa/gb/gbLON2be/home",
+      "https://dofi.ibz.be/en"
+    ],
+    "verified": true,
+    "unverifiedFields": [
+      "representationNote",
+      "documents",
+      "centres[].phone",
+      "processingDays.max"
+    ]
+  },
+  {
+    "country": "Germany",
+    "iso": "DE",
+    "package": { "name": null, "price": null, "description": null },
+    "operator": "TLScontact, acting for the German Embassy London and Consulate General",
+    "operatorShortName": "TLScontact",
+    "bookingUrl": "https://visas-de.tlscontact.com/en-us/country/gb/vac/gbLON2de/application-process",
+    "officialInfoUrl": "https://uk.diplo.de/uk-en/02/visa",
+    "appointmentModel": "allocated",
+    "allocationMechanism": "Short-stay applicants (under 90 days: tourism, medical treatment, family or friends visit, business) cannot book a slot. The applicant registers on TLScontact and enters application details; the application is validated and then placed in a queue; appointments are assigned on a first come, first served basis subject to availability; the applicant is emailed when an appointment is allocated and then has 24 hours to pay the service fee and confirm, and must print the allocation notification for the welcome area. Live at London and Manchester from 1 June 2026 and at Edinburgh from 1 August 2026. The German Embassy calls this a waiting list established to ensure fair and equal access to appointments, and confirms that appointments are allocated automatically. Officially only queue position, slot availability and meeting the 24-hour confirmation window are stated to matter; no official source says registration completeness, contact details or time of registration affects allocation speed. Other visa categories keep the old self-booking system.",
+    "representationNote": "Unverified. No official page found stating any UK representation arrangement. Applications are as a rule accepted only from UK residents, including holders of a UK Biometric Residence Permit or a UK short-term study visa; non-residents are directed to the German Mission in their country of residence, with exceptions at a visa officer's discretion. Residents of England, Northern Ireland and Wales use London or Manchester; residents of Scotland use Edinburgh.",
+    "centres": [
+      {
+        "city": "London",
+        "address": "18 Ryeland Boulevard (Ram Quarter / Ram Street), Wandsworth, London SW18 1UN, United Kingdom",
+        "hours": "Submission by appointment: Prime Time 07:30-08:30, Standard 08:30-16:00 Mon-Fri. Passport return 08:30-16:30 Mon-Fri, no appointment needed.",
+        "appointmentOnly": true,
+        "phone": "+44 20 3892 1481 (Mon-Fri 07:00-16:00)"
+      },
+      {
+        "city": "Manchester",
+        "address": "1 Portland Street, Manchester M1 3BE, United Kingdom",
+        "hours": "Submission Mon-Fri 07:30-16:00 (07:30-08:00 premium appointments only). Collection Mon-Fri 13:00-16:00.",
+        "appointmentOnly": true,
+        "phone": "Serves England, Wales, Northern Ireland, Isle of Man, Isle of Wight, Channel Islands, Gibraltar and the Falkland Islands."
+      },
+      {
+        "city": "Edinburgh",
+        "address": "Argyle House, 3 Lady Lawson Street, Edinburgh EH3 9DR, United Kingdom",
+        "hours": "Submission Monday, Wednesday and Thursday only, 08:30-13:30. Collection Mon-Fri 08:30-13:30.",
+        "appointmentOnly": true,
+        "phone": "Serves Scotland only."
+      }
+    ],
+    "documents": [
+      "VIDEX application form, completed online in English or German, printed in capital letters and signed by the applicant in person in black ink",
+      "Passport, generally issued within the previous 10 years and valid at least three months beyond the intended departure",
+      "Passport photos no older than three months, meeting German biometric standards",
+      "Original documents bearing stamps, presented at the appointment - they cannot be emailed; apostilles are required for some documents",
+      "Category-specific supporting documents per the travel-purpose document list (the full tourist checklist is not published on the pages that could be read - unverified)",
+      "In-person attendance for applicants aged 12 and over; new biometrics if fingerprints are older than 59 months",
+      "Printed appointment-allocation notification"
+    ],
+    "processingDays": {
+      "typical": 15,
+      "max": null,
+      "unit": "working days from receipt by the Embassy or Consulate General, plus a further 2-3 working days for passport return"
+    },
+    "feeEur": 90,
+    "feeGbp": 77.0,
+    "serviceFeeNote": "Consular visa fee EUR 90 (approx GBP 77) for ages 12 and over; EUR 45 (approx GBP 37.90) for children aged 6 up to the day before their 12th birthday; free under 6. TLScontact service fee GBP 17.00 per application, paid online when the appointment slot is arranged.",
+    "nationalityNotes": [
+      "Applications from Gambian and Russian nationals are usually processed within 45 days rather than the standard 15 working days.",
+      "Waiting-list times under the automatic allocation system vary by nationality and season and are not published by the Missions."
+    ],
+    "lastChecked": "2026-11-02",
+    "sources": [
+      "https://uk.diplo.de/uk-en/02/visa",
+      "https://uk.diplo.de/uk-en/02/visa-faq-2442852",
+      "https://uk.diplo.de/uk-en/02/visa/-/2448180",
+      "https://visas-de.tlscontact.com/en-us/country/gb/vac/gbLON2de/application-process",
+      "https://visas-de.tlscontact.com/en-us/country/gb/vac/gbMNC2de/application-process",
+      "https://visas-de.tlscontact.com/en-us/country/gb/vac/gbMNC2de/news/1875",
+      "https://visas-de.tlscontact.com/en-us/country/gb/vac/gbEDI2de/news/1962",
+      "https://visas-de.tlscontact.com/en-us/country/gb/vac/gbLON2de/news"
+    ],
+    "verified": true,
+    "unverifiedFields": [
+      "processingDays.max",
+      "representationNote",
+      "documents"
+    ]
+  },
+  {
+    "country": "France",
+    "iso": "FR",
+    "package": { "name": null, "price": null, "description": null },
+    "operator": "TLScontact, acting for the Consulate General of France in London, which takes all decisions",
+    "operatorShortName": "TLScontact",
+    "bookingUrl": "https://visas-fr.tlscontact.com/",
+    "officialInfoUrl": "https://france-visas.gouv.fr/en/royaume-uni",
+    "appointmentModel": "allocated",
+    "allocationMechanism": "Short-stay applicants are placed in a queue and notified when an appointment becomes available. They then have 24 hours to pay the TLScontact service fee and confirm the appointment. All other visa categories book directly and must pay within 30 minutes.",
+    "representationNote": "Unverified. No representation statement was found on the France-Visas UK pages or the French Embassy UK site. TLScontact acts for the Consulate General of France in London, which takes all decisions; there are no consular areas in the UK, so an applicant may use any of the three centres.",
+    "centres": [
+      {
+        "city": "London",
+        "address": "18 Ryeland Boulevard (Ram Quarter), Wandsworth, London SW18 1UN, United Kingdom",
+        "hours": "Submission by appointment Mon-Fri 07:30-15:30; Sat 09:30-13:30 premium and added-value slots only. Collection Mon-Fri 08:30-16:30.",
+        "appointmentOnly": true,
+        "phone": "+44 20 3892 1485 (Mon-Fri 08:00-17:00). A valid TLScontact application reference number is needed to get past the automated prompt. Single UK call centre - the old northern/southern split no longer applies."
+      },
+      {
+        "city": "Manchester",
+        "address": "1 Portland Street, Manchester M1 3BE, United Kingdom",
+        "hours": "Submission by appointment Mon-Fri 07:30-16:00; Sat 08:30-15:00 premium and added-value slots only. Collection Mon-Fri 13:00-16:00.",
+        "appointmentOnly": true,
+        "phone": "+44 20 3892 1485 (Mon-Fri 08:00-17:00). A valid TLScontact application reference number is needed to get past the automated prompt. Single UK call centre - the old northern/southern split no longer applies."
+      },
+      {
+        "city": "Edinburgh",
+        "address": "Argyle House, 3 Lady Lawson Street, Edinburgh EH3 9DR, United Kingdom",
+        "hours": "Submission by appointment Mon-Fri 08:30-16:00. Collection Mon-Fri 08:30-13:30. Closed weekends.",
+        "appointmentOnly": true,
+        "phone": "+44 20 3892 1485 (Mon-Fri 08:00-17:00). A valid TLScontact application reference number is needed to get past the automated prompt. Single UK call centre - the old northern/southern split no longer applies. Appointments booked through the Edinburgh site are automatically assigned to London or Manchester."
+      }
+    ],
+    "documents": [
+      "Printed appointment confirmation",
+      "Passport",
+      "Supporting documents in the order given in the France-Visas requirements checklist (the checklist is generated by the France-Visas Visa wizard and was not published on the pages checked, so the full tourist list is unverified)",
+      "An accepted payment method (card; American Express not accepted)",
+      "Biometrics in person: photograph and 10 flat fingerprints for applicants over 12; under-12s may be submitted by a parent or guardian and only a photograph is taken",
+      "EEA family members without a qualifying UK residence card: proof of the family link, proof of the EEA national's nationality, and proof of intent to travel with the EU national"
+    ],
+    "processingDays": {
+      "typical": "2-15",
+      "max": null,
+      "unit": "working days once the file reaches the London Consulate; applicants are advised to allow at least 20 working days"
+    },
+    "feeEur": 90,
+    "feeGbp": 75.25,
+    "serviceFeeNote": "Visa fee EUR 90 / GBP 75.25 short stay; EUR 45 / GBP 37.63 child 6-12; EUR 35 negotiated rate. TLScontact service fee EUR 40 short stay, mandatory since 1 September 2023, paid online in GBP. Extras: courier GBP 30 UK / GBP 50 international, Prime Time appointment GBP 60, form-filling GBP 15, premium lounge GBP 100 (GBP 50 child 6-12, free under 6), photo booth GBP 10, photocopying GBP 0.30, Apply Anywhere GBP 250 per applicant. Kennington pop-up centre adds GBP 150; this does not apply at Wandsworth, Manchester or Edinburgh. Amex not accepted.",
+    "nationalityNotes": [
+      "Apply Anywhere (GBP 250 per applicant) sends an agent to a location of the applicant's choosing for submission and biometrics. Cannot be used for travel within one month."
+    ],
+    "lastChecked": "2026-11-02",
+    "sources": [
+      "https://france-visas.gouv.fr/en/royaume-uni",
+      "https://france-visas.gouv.fr/en/royaume-unis",
+      "https://uk.diplomatie.gouv.fr/en/applying-for-a-visa",
+      "https://uk.diplomatie.gouv.fr/en",
+      "https://www.connexionfrance.com/visas-and-residency-cards/who-does-new-visa-appointment-change-in-uk-apply-to/820573",
+      "https://visas-fr.tlscontact.com/en-us/country/gb/vac/gbLON2fr/application-process",
+      "https://visas-fr.tlscontact.com/en-us/country/gb/vac/gbEDI2fr/address-opening-hours",
+      "https://visas-fr.tlscontact.com/en-us/country/gb"
+    ],
+    "verified": true,
+    "unverifiedFields": [
+      "processingDays.max",
+      "representationNote",
+      "documents"
+    ]
+  }
+]

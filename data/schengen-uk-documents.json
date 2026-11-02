@@ -1,0 +1,272 @@
+{
+  "_about": "Document requirements for UK-based short-stay Schengen applications. Three layers: core (every country), purposes (added by trip type), countries (overrides and extras). Render = core, applying any country override, then the purpose list, then country extras.",
+  "lastChecked": "2026-11-02",
+  "core": [
+    {
+      "id": "application_form",
+      "label": "Completed and signed application form"
+    },
+    {
+      "id": "photo",
+      "label": "Recent passport-size colour photo, white or off-white background"
+    },
+    {
+      "id": "passport",
+      "label": "Signed passport, valid at least 3 months beyond departure from the Schengen area, issued within the last 10 years, with at least 2 blank pages"
+    },
+    {
+      "id": "passport_copy",
+      "label": "Photocopy of the passport bio-data page"
+    },
+    {
+      "id": "uk_residence",
+      "label": "Proof of UK immigration status: e-Visa printout plus share code from gov.uk"
+    },
+    {
+      "id": "funds",
+      "label": "UK bank statements for the last 3 months"
+    },
+    {
+      "id": "travel",
+      "label": "Return travel to and from the Schengen area"
+    },
+    {
+      "id": "accommodation",
+      "label": "Proof of where you will stay"
+    },
+    {
+      "id": "insurance",
+      "label": "Travel insurance, minimum EUR 30,000, valid in all Schengen states for the whole stay, covering repatriation"
+    },
+    {
+      "id": "occupation",
+      "label": "Proof of current occupation"
+    }
+  ],
+  "purposes": {
+    "tourist": [
+      {
+        "label": "Full itinerary for the trip, with destinations and dates"
+      },
+      {
+        "label": "Accommodation confirmed for every night"
+      }
+    ],
+    "business": [
+      {
+        "label": "Invitation letter from the company in the destination country, stating the purpose and duration of the trip"
+      },
+      {
+        "label": "Evidence of the business relationship between the companies"
+      }
+    ],
+    "conference": [
+      {
+        "label": "Entry tickets or registration confirmation for the fair, congress or conference"
+      },
+      {
+        "_note": "None of the four countries publishes a separate conference checklist. Greece names fairs and congresses inside its business list; Belgium's list is titled Business / Conference / Official Delegation / Seafarers / Lorry Drivers; Spain treats it as business."
+      }
+    ],
+    "family_friends": [
+      {
+        "label": "Invitation letter from the host, signed and dated, giving the travel dates and the address where you will stay"
+      },
+      {
+        "label": "Copy of the host's passport bio page, or their residence permit if they are not an EU citizen"
+      },
+      {
+        "_note": "Spain publishes no visiting family and friends checklist. A friend or family visit is made on the TOURIST list, using a carta de invitacion issued by the Spanish police or a private invitation statement signed at the Spanish Consulate as the proof of accommodation. Spouses and family members of EU/EEA citizens apply under the separate EU family member route, where the visa is free (BLS may still charge its service fee)."
+      }
+    ]
+  },
+  "countries": {
+    "GR": {
+      "country": "Greece",
+      "operator": "GVCW",
+      "sourceVersion": "GVCW Operations v2.0, 25/06/2022",
+      "fundsPerDay": 40.0,
+      "fundsCurrency": "GBP",
+      "fundsMinimum": null,
+      "overrides": {
+        "photo": "Recent passport-size colour photo, white or off-white background, not older than 6 months from the date of application.",
+        "funds": "UK personal current account statement, last 3 months, showing at least 90 days of transactions, in the name the salary is paid into. Closing balance must be no older than 30 days. Must be in GBP and show at least GBP 40.00 per day of stay. Required even if a company or institution is paying for the trip.",
+        "travel": "FULLY PAID return tickets, not reservations. Must show travel dates and booking reference or e-ticket number, and state no outstanding balance. Only tickets bought from travel agencies based in Europe with the payment receipt, or e-tickets issued by airlines, are accepted.",
+        "accommodation": "Confirmed hotel or holiday home reservation showing the applicant's name, arrival and departure dates, address and contact details. If the applicant's name is not on it, a joint travel cover letter signed by the named person plus a copy of their passport is required.",
+        "uk_residence": "e-Visa and share code. Must be valid at least 30 days beyond intended departure from the Schengen area. A C-type UK visitor visa cannot be accepted.",
+        "insurance": "Travel insurance, minimum EUR 30,000, valid in all Schengen states for the whole stay, covering repatriation. Must show the applicant's full name. If insured through a bank, a bank letter confirmation is required as statements alone are not enough, and it must be no older than 30 days.",
+        "occupation": "Employees: employment letter no older than 90 days, original stamp and signature from HR, addressed to the Mission, stating recruitment date and position, plus 3 months of payslips. Self-employed: last tax return plus a self-employment letter no older than 90 days from an accountant, solicitor, bank manager or Companies House. Students: letter from the school, college or university no older than 30 days, addressed to the Mission."
+      },
+      "extras": [
+        "Copies of any Schengen visas issued in the last 3 years, with the stamps.",
+        "Greece must be the main destination, or the first country of entry where stays are of equal length.",
+        "Sponsorship: only accepted from immediate family members. The sponsor must provide their passport, proof of relationship, a sponsorship letter stating the exact travel dates, 3 months of bank statements meeting the same GBP 40.00 per day test, and proof of their occupation.",
+        "Travelling by car: photocopy of both sides of the driving licence, the car registration and the car insurance. If the applicant is not the driver, a signed and dated cover letter from the driver confirming joint travel.",
+        "Minors under 18: the form must be signed by both parents or legal guardians, in person at the centre or by notarised affidavit. Both parents' passports, a full unabridged birth certificate showing both parents' names, and a form of parental consent certified by the Embassy of Greece and no older than 30 days. Where a parent lives abroad their passport copy must be stamped by the Greek Embassy in that country. Sole custody or a parent's death requires the court documents or death certificate."
+      ],
+      "warnings": [
+        "Greece requires fully paid tickets. A flight reservation is not sufficient.",
+        "Only immediate family may sponsor an applicant."
+      ]
+    },
+    "ES": {
+      "country": "Spain",
+      "operator": "BLS International London",
+      "sourceVersion": "BLS International London checklists, Consulate General of Spain",
+      "fundsPerDay": 107.0,
+      "fundsCurrency": "GBP",
+      "fundsMinimum": 960.0,
+      "purposeFallback": {
+        "family_friends": {
+          "usePurpose": "tourist",
+          "note": "Spain has no separate family and friends checklist. This is the tourist checklist — use the invitation (a carta de invitación from the Spanish police, or a private invitation signed at the Consulate) as your proof of accommodation."
+        }
+      },
+      "overrides": {
+        "photo": "One photograph, recent, passport size, colour, white background.",
+        "funds": "GBP 107 per day of stay per person, with a minimum of GBP 960 per person regardless of how long the trip is. Three months of updated bank statements, or a notarised sponsorship letter.",
+        "travel": "Round-trip ticket booking. Airfare, train, bus or cruise.",
+        "accommodation": "Hotel booking, property lease, a carta de invitacion issued by the Spanish police, or a private invitation statement signed at the Spanish Consulate.",
+        "occupation": "No-objection letter, dated and signed by the employer, school or university. For business trips this must state qualification, salary and start date of employment in the UK. Self-employed applicants provide a copy of the trade licence, an accountant letter and last year's proof of paying taxes.",
+        "insurance": "Overseas insurance policy valid for the Schengen area, minimum EUR 30,000, including repatriation."
+      },
+      "extras": [
+        "Business invitation letters must be from the company in Spain and written in Spanish, stating the duration and purpose of the trip.",
+        "Tourism: legal documents not issued in the UK or an EU member state must be legalised or apostilled, and translated into Spanish by a sworn translator when not already in English or Spanish.",
+        "Business: sworn translation into Spanish and legalisation are required for ALL documents.",
+        "Decision within 15 calendar days from the day after submission, extendable to 45 if an interview or more documents are requested.",
+        "Visas for EU/EEA family members are free, though BLS may still charge its service fee.",
+        "Minors travelling with both parents: copy of the birth or adoption certificate, and copies of the parents' passports and visas where applicable.",
+        "Minors travelling without their parents, or with only one: as above plus notarised authorisation from both parents, or from the parent not travelling, or a court document proving sole custody.",
+        "A friend or family visit uses the tourist checklist. The invitation (carta de invitacion from the Spanish police, or a private invitation statement signed at the Spanish Consulate) replaces a hotel booking as proof of accommodation.",
+        "Spouses and family members of EU/EEA citizens apply under the EU family member route. The visa itself is free."
+      ],
+      "warnings": [
+        "Spain's funds requirement is far higher than Greece's: GBP 107 per day with a GBP 960 floor, against GBP 40 per day and no floor.",
+        "For business applications every document needs sworn Spanish translation and legalisation, which is a real cost to warn clients about."
+      ]
+    },
+    "DE": {
+      "country": "Germany",
+      "operator": "TLScontact",
+      "sourceVersion": "TLScontact UK lists of documents, short-stay tourist, business and family/friends",
+      "fundsPerDay": 40.0,
+      "fundsCurrency": "GBP",
+      "fundsMinimum": null,
+      "overrides": {
+        "application_form": "Printed VIDEX form. All pages including the barcode must be printed, and the form signed in 3 designated places. A separate form for each child.",
+        "photo": "Biometric photo 35 x 45 mm, no older than 3 months, white or off-white background. Digitally altered photos are not accepted.",
+        "uk_residence": "UK residence permit as a biometric card (BRP) or endorsed in the passport, valid at least one month after the end of the trip, plus a photocopy front and back. A C-type visitor visa is not acceptable.",
+        "funds": "UK bank statements showing movements over the last three months and a current balance of at least GBP 40 per day for the whole stay. If the statement is over one week old, add a printout of recent transaction history. Credit cards and their statements are accepted if they show the cardholder's name, address and the monthly limit or spending cap. The balance must also cover tickets and accommodation if not already paid.",
+        "travel": "RESERVED return airline, ferry or train ticket showing the applicant's name and travel dates. A complete application does not guarantee a visa, so a fully refundable ticket is advisable.",
+        "accommodation": "Confirmed hotel bookings for the full stay showing the applicant's name, travel dates and the address, or a tour operator booking confirmation with the list of people on the tour.",
+        "occupation": "Employees: employment letter. Self-employed: recent letter from an accountant, banker or solicitor on headed paper with registration number, confirming self-employment and stating remuneration, plus the self-assessment form. Students: letter from the school, college or university. Unemployed or retired: Universal Credit letter, pension letter or proof of benefits."
+      },
+      "extras": [
+        "All documents must be recent, not older than 1 month, and are needed for every Schengen application.",
+        "Originals and photocopies must both be brought to the appointment.",
+        "Documents not issued in German, English, Spanish or French must be translated into German or English.",
+        "Sponsorship by a spouse, parent or adult child: marriage or birth certificate original and copy, sponsor's passport copy, sponsor's proof of funds, sponsor's proof of occupation, and a signed confirmation of support.",
+        "Alternative to bank statements: a formal obligation letter (Verpflichtungserklarung) obtained by the host at their local Auslanderbehorde in Germany. It does not sponsor the applicant but may cover their expenses.",
+        "Minors: a separate application form per child, signed by both parents or all guardians. Where one cannot sign, evidence is required; sole custody must be evidenced. Both parents' original passports plus copies, the child's original birth certificate and copy, and a UK school certificate if applicable.",
+        "Unaccompanied minors: a declaration or letter of consent signed by both parents authorising the travel and naming the responsible adult is strongly recommended."
+      ],
+      "warnings": [
+        "Germany accepts a reserved ticket. It does not require the ticket to be paid in full, unlike Greece.",
+        "The one-month recency rule collides with Germany's random slot allocation: documents gathered early go stale before the appointment arrives."
+      ]
+    },
+    "BE": {
+      "country": "Belgium",
+      "operator": "TLScontact",
+      "sourceVersion": "TLScontact UK lists of documents, private (family/friends) visit and Business/Conference/Official Delegation/Seafarers/Lorry Drivers",
+      "fundsPerDay": null,
+      "fundsCurrency": "GBP",
+      "fundsMinimum": null,
+      "overrides": {
+        "application_form": "VisaOnWeb form, duly completed and signed, printed with the barcode. It is the only application form accepted.",
+        "photo": "TWO ID photos meeting ICAO standards, attached with a paper clip, in colour, 3.5 x 4.5 cm, plain white background, less than 3 months old.",
+        "passport": "Signed full national passport or official travel document issued less than 10 years ago, valid more than 3 months beyond the validity of the requested visa, with two blank pages side by side marked 'visa', and without damage.",
+        "uk_residence": "Original AND a copy of the UK residence permit, valid for one month after the intended departure from the Schengen zone.",
+        "funds": "Nominative UK bank account statements covering at least the last three months and showing the balance. No per-day minimum is published. Credit cards and their statements are accepted where they show the cardholder's name, address and the monthly limit or spending cap.",
+        "travel": "Proof of a RESERVED return ticket to the United Kingdom, or proof of onward travel if not returning to the UK.",
+        "accommodation": "Proof of accommodation and of sufficient means to cover its cost. This may be given through an official Belgian sponsorship form completed by the host.",
+        "insurance": "Copy of travel health insurance covering repatriation for medical reasons, emergency medical care, emergency hospital care and death, valid for the whole Schengen territory and the whole stay, minimum EUR 30,000. EHIC cards are NOT accepted.",
+        "occupation": "Employees: recent official signed employer letter with name, date of issue, address, contact details, signatory's position and UK registration number, stating the employee's position and salary, plus 3 months of payslips. Self-employed: equivalent letter from an accountant, banker or solicitor stating the nature of the business and the annual salary drawn, plus the self-assessment form. Students: letter from the UK school, college or university stating the type of studies, hours per week and attendance record."
+      },
+      "extras": [
+        "All documents must be in English, French, Dutch or German. Foreign official documents must be legalised or carry an apostille unless a treaty provides an exemption.",
+        "Financial support from a spouse requires a marriage certificate, the spouse's bank statements and a statement of will to support. From a parent: proof of relationship, the parent's bank statements and a statement of will to support.",
+        "Family and friends visits without a sponsorship form additionally need a copy of the host's passport bio page or residence permit, and proof of the family relationship.",
+        "Minors: birth certificate. Travelling alone or with one parent: original passports of both parents or certified copies of the bio pages, proof of consent of parental authority or legal guardian, and a British school certificate. Sole custody requires a birth certificate naming one parent, a death certificate, or a court ruling.",
+        "Business, conference, official delegation, seafarers and lorry drivers are all covered by one checklist."
+      ],
+      "warnings": [
+        "Belgium publishes NO per-day funds figure. Statements must simply show three months and the balance.",
+        "Belgium rejects insurance certificates that refer to conditions in a separate booklet, and policies described only as bronze, silver or gold without the covered amount stated. The embassy explicitly puts the burden on the applicant to prove cover of EUR 30,000.",
+        "Belgium asks applicants to document migration risk directly: family background, socio-economic status, ownership of land or property, family bonds in the country of origin, and regular income. This matters more for West African clients than for UK nationals."
+      ]
+    },
+    "FR": {
+      "country": "France",
+      "operator": "TLScontact",
+      "sourceVersion": "France does not publish a public document checklist. The authoritative list is generated inside the applicant's France-Visas account once the application is registered. This entry uses TLScontact's standard UK requirements as the base, with Germany-specific items removed, plus the France-specific items confirmed from official France-Visas sources.",
+      "fundsPerDay": 65.0,
+      "fundsCurrency": "EUR",
+      "fundsMinimum": null,
+      "overrides": {
+        "application_form": "Completed and signed form generated on the official France-Visas portal, printed with the barcode page, plus the France-Visas registration receipt. Not VIDEX - that is Germany's system.",
+        "photo": "TWO recent passport-sized photographs, 35 x 45 mm, taken within the last 6 months.",
+        "funds": "Approximately EUR 65 per day with a confirmed hotel booking, or EUR 32.50 per day when staying with a host on an attestation d'accueil. Three months of UK current account statements.",
+        "travel": "Confirmed round-trip booking: flight, Eurostar, ferry or Eurotunnel. If driving, car registration, vehicle insurance and shuttle bookings naming all passengers.",
+        "uk_residence": "BRP or printed e-Visa share code, valid at least one month after the intended return to the UK.",
+        "occupation": "Employed: employment letter under 3 months old stating role, start date, salary and approved annual leave, plus 3 months of payslips. Student: enrolment letter with course, attendance and holiday dates. Self-employed: accountant letter or HMRC self-assessment plus business bank statements.",
+        "insurance": "Minimum EUR 30,000, valid in all Schengen states, covering the entire stay, with emergency medical treatment, emergency hospital care and repatriation. The certificate must state the covered amount on its face.",
+        "accommodation": "Confirmed accommodation for every night, showing the applicant's name, dates and the property address. For a family or friends visit this is replaced by the original Attestation d'Accueil."
+      },
+      "extras": [
+        "Documents must be in French or English. The German translation clause in TLScontact's shared UK list does not apply to France.",
+        "Family and friends visits require an original Attestation d'Accueil, bought and stamped by the host at their local Mairie in France and posted to the applicant. A scan, photo or printout is not accepted - this is the one France-specific item both sources agree on and it has no equivalent in the other four countries.",
+        "Host's ID: copy of their French or EU passport or identity card, or their Titre de Sejour if a non-EU resident of France.",
+        "Proof of family relationship where claimed: birth certificate, marriage certificate or Livret de Famille.",
+        "Business: invitation from the host company or event organiser naming the applicant, exact dates, professional purpose and who is paying; plus a dispatch letter from the UK employer; plus the entry pass or trade fair badge where applicable.",
+        "Copies of any Schengen visas issued in the last 3 years."
+      ],
+      "warnings": [
+        "INDICATIVE LIST. France publishes no public checklist, so this must be shown with the disclaimer and never presented as definitive.",
+        "The attestation d'accueil must be the original paper document posted from France. The host attends their Mairie in person and pays for it, so allow weeks rather than days.",
+        "Confirmed from official sources: two photographs, and a UK residence permit valid 1 month beyond return.",
+        "The EUR 65 per day and EUR 32.50 per day tiers come from unofficial sources. Present them as a guide, not a rule."
+      ],
+      "verified": false,
+      "unverifiedFields": [
+        "funds (EUR 65/32.50 tiers corroborated by two unofficial sources, not yet confirmed officially)",
+        "documents (full purpose lists still needed from TLScontact France or France-Visas)",
+        "processingDays",
+        "representationNote"
+      ],
+      "sources": [
+        "https://france-visas.gouv.fr/documents/d/france-visas/iso_iec_fv_visa_photograph_requirements_en",
+        "https://static.tlscontact.com/media/gb/list_of_documents_short_stay_tourist_visa.pdf"
+      ],
+      "status": "indicative",
+      "disclaimer": "France does not publish its document checklist publicly. The list below follows TLScontact's standard UK requirements plus the France-specific items we have confirmed. Your authoritative checklist is generated inside your France-Visas account once your application is registered - always check it before your appointment."
+    }
+  },
+  "notYetGathered": [
+    "France: official TLScontact or France-Visas lists for tourist, business and family/friends. The current FR entry is provisional and must not be published."
+  ],
+  "commonConfusions": [
+    {
+      "issue": "Passport validity vs residence permit validity",
+      "detail": "The passport must be valid at least 3 months beyond departure from the Schengen area. The UK residence permit or e-Visa only needs 1 month beyond return. Guides routinely copy the 3-month figure onto the permit, which sends clients to renew a BRP they did not need to.",
+      "appliesTo": [
+        "GR",
+        "ES",
+        "DE",
+        "BE",
+        "FR"
+      ]
+    }
+  ]
+}
