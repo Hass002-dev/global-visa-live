@@ -102,8 +102,8 @@ function renderCosts(centre, countryDoc) {
   <span class="schengen-eyebrow">Fees</span>
   <h2 id="costs">Costs</h2>
   <dl class="schengen-cost-list">
-    <dt>Visa fee</dt><dd>${escHtml(feeLine)}</dd>
-    <dt>Service fee</dt><dd>${escHtml(centre.serviceFeeNote || 'Not published')}</dd>
+    <dt>Embassy visa fee</dt><dd>${escHtml(feeLine)}</dd>
+    <dt>Visa centre service fee</dt><dd>${escHtml(centre.serviceFeeNote || 'Not published')}</dd>
     <dt>Funds required</dt><dd>${escHtml(fundsLine)}</dd>
   </dl>
   ${renderNationalityNotes(centre)}
@@ -127,6 +127,7 @@ function renderAppointmentSection(centre) {
   <h2 id="appointments">How appointments work</h2>
   <p>${escHtml(explanation)}</p>
   ${mechanism}
+  <p>Not sure when to start gathering documents? Try our <a href="../../visa-timeline/">visa timeline planner</a>.</p>
 </section>`;
 }
 

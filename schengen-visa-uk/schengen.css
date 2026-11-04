@@ -272,6 +272,9 @@ a { color: var(--brand-gold); }
 .schengen-hub-card h2 { font-size: 1.3rem; margin: 0 0 4px; }
 .schengen-hub-card p { margin: 0; color: var(--text-secondary); font-size: 0.9rem; }
 .schengen-hub-card .schengen-hub-fee { color: var(--brand-gold); font-weight: 600; margin-top: 6px; }
+/* Muted, so "Embassy fee" reads as a label, not part of the number — a
+   visitor skimming cards shouldn't mistake this for a GVJ charge. */
+.schengen-hub-fee-label { color: var(--text-secondary); font-weight: 500; }
 
 /* Desktop: a little more breathing room, nothing structural changes */
 @media (min-width: 640px) {

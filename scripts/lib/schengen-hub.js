@@ -28,7 +28,7 @@ function renderCountryCard(centre) {
     return `<a class="schengen-hub-card" href="${escHtml(slug)}/">
   <h2>${flagEmoji(centre.iso)} ${escHtml(centre.country)}</h2>
   <p>${escHtml(appointmentModelSummary(centre))}</p>
-  <p class="schengen-hub-fee">${escHtml(formatFeeLine(centre))}</p>
+  <p class="schengen-hub-fee"><span class="schengen-hub-fee-label">Embassy fee:</span> ${escHtml(formatFeeLine(centre))}</p>
 </a>`;
 }
 

@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <title>Visa Timeline Planner: When Should You Start? | Global Visa &amp; Journeys</title>
+    <meta name="description" content="Enter your travel date, destination and passport. We work backwards from the decision period to tell you the day you should start — and whether you still have time.">
+    <link rel="canonical" href="https://www.globalvisajourneys.com/visa-timeline/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.globalvisajourneys.com/visa-timeline/">
+    <meta property="og:title" content="Visa Timeline Planner: When Should You Start? | Global Visa &amp; Journeys">
+    <meta property="og:description" content="Enter your travel date, destination and passport. We work backwards from the decision period to tell you the day you should start — and whether you still have time.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Visa Timeline Planner: When Should You Start? | Global Visa &amp; Journeys">
+    <meta name="twitter:description" content="Enter your travel date, destination and passport. We work backwards from the decision period to tell you the day you should start — and whether you still have time.">
+
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../output.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0" crossorigin="anonymous" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha384-iw3OoTErCYJJB9mCa8LNS2hbsQ7M3C0EpIsO/H5+EGAkPGc6rk+V8i04oW/K5xq0" crossorigin="anonymous"></noscript>
+
+    <!-- Cookie consent + analytics (GA4 / Tawk.to loaded conditionally) -->
+    <script src="../cookie-consent.js"></script>
+
+    <style>
+        :root {
+            --bg-primary: #080c10;
+            --bg-secondary: #0f1419;
+            --bg-card: #131920;
+            --border-surface: #1e2730;
+            --border-subtle: #252e38;
+            --brand-gold: #c9a84c;
+            --brand-gold-light: #e8c97a;
+            --brand-gold-dim: #8a6f2e;
+            --text-primary: #eef2f7;
+            --text-secondary: #7a8899;
+            --text-muted: #4a5568;
+            --whatsapp: #25d366;
+            --amber: #eab308;
+            --red: #ef4444;
+        }
+
+        * { box-sizing: border-box; }
+        body { font-family: 'DM Sans', sans-serif; background-color: var(--bg-primary); color: var(--text-primary); overflow-x: hidden; font-weight: 450; }
+        h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; }
+        p, li, span, a, label, input, select { font-weight: 450; }
+        .text-gold { color: var(--brand-gold); }
+
+        body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; opacity: 0.4; }
+
+        /* NAV */
+        .nav-scrolled { background: rgba(8,12,16,0.98) !important; box-shadow: 0 2px 20px rgba(0,0,0,0.5); }
+
+        /* BUTTONS */
+        .btn-gold { background: linear-gradient(135deg, var(--brand-gold) 0%, var(--brand-gold-light) 100%); color: #080c10; font-weight: 800; font-family: 'DM Sans', sans-serif; text-transform: uppercase; letter-spacing: 0.08em; transition: all 0.3s ease; display: inline-block; cursor: pointer; border: none; text-decoration: none; }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,168,76,0.35); }
+        .gold-divider { height: 1px; background: linear-gradient(90deg, transparent, var(--brand-gold-dim), transparent); margin: 0 auto; }
+
+        /* WHATSAPP FLOAT */
+        .whatsapp-float { position: fixed; bottom: 28px; right: 24px; z-index: 9997; width: 58px; height: 58px; background: var(--whatsapp); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 28px; text-decoration: none; box-shadow: 0 4px 20px rgba(37,211,102,0.4); transition: transform 0.2s; }
+        .whatsapp-float:hover { transform: scale(1.12); }
+
+        /* ── PAGE HEADER ── */
+        .vtp-header { padding: 140px 20px 40px; text-align: center; border-bottom: 1px solid var(--border-surface); position: relative; z-index: 1; }
+        .vtp-header h1 { font-size: 2.2rem; color: #fff; margin: 10px 0 12px; line-height: 1.2; }
+        .vtp-standfirst { color: var(--text-secondary); font-size: 1rem; max-width: 560px; margin: 0 auto; font-weight: 500; }
+
+        /* ── CONTROLS ── */
+        .vtp-main { max-width: 820px; margin: 0 auto; padding: 48px 20px 80px; position: relative; z-index: 1; }
+        .vtp-controls-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 40px; }
+        .vtp-field { flex: 1 1 220px; min-width: 0; }
+        .vtp-field-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); display: block; margin-bottom: 6px; }
+        .vtp-input {
+            width: 100%; background: var(--bg-card); border: 1px solid var(--border-surface); color: var(--text-primary);
+            padding: 12px 14px; border-radius: 10px; font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 500;
+            transition: border-color 0.2s; outline: none;
+        }
+        .vtp-input:focus { border-color: var(--brand-gold); }
+        .vtp-input.error { border-color: var(--red); }
+        .vtp-input::placeholder { color: var(--text-muted); }
+        input[type="date"].vtp-input::-webkit-calendar-picker-indicator { filter: invert(0.6); cursor: pointer; }
+
+        /* ── PROMPT STATE (shown until all three fields resolve) ── */
+        .vtp-prompt { text-align: center; padding: 50px 20px; color: var(--text-secondary); font-size: 0.95rem; border: 1px dashed var(--border-surface); border-radius: 16px; }
+
+        /* ── VERDICT BAND ── */
+        .vtp-verdict {
+            display: flex; align-items: center; gap: 28px; background: var(--bg-card); border: 1px solid var(--border-surface);
+            border-left: 3px solid var(--brand-gold); border-radius: 14px; padding: 28px 26px; margin-bottom: 44px;
+        }
+        .vtp-verdict.tight { border-left-color: var(--amber); }
+        .vtp-verdict.toolate { border-left-color: var(--red); }
+        .vtp-verdict-number { font-family: 'Cormorant Garamond', serif; font-size: 4.2rem; font-weight: 700; color: #fff; line-height: 1; flex-shrink: 0; }
+        .vtp-verdict.comfortable .vtp-verdict-number { color: var(--brand-gold); }
+        .vtp-verdict.tight .vtp-verdict-number { color: var(--amber); }
+        .vtp-verdict.toolate .vtp-verdict-number { color: var(--red); }
+        .vtp-verdict-number-caption { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); margin-top: 4px; text-align: center; }
+        .vtp-verdict-body h2 { font-size: 1.5rem; color: #fff; margin: 0 0 6px; }
+        .vtp-verdict-body p { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin: 0; }
+        @media (max-width: 540px) { .vtp-verdict { flex-direction: column; text-align: center; gap: 12px; } }
+
+        /* ── LONG-PROCESSING NOTE (e.g. Gambia) — this is the single most
+           important box on the page when it fires, so it gets its own
+           distinct gold-bordered callout, not folded quietly into the
+           verdict sentence where it could be skimmed past. ── */
+        .vtp-long-processing-note {
+            background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.35); border-radius: 12px;
+            padding: 16px 20px; margin-bottom: 44px; font-size: 0.88rem; color: #e8dfc7; line-height: 1.6;
+        }
+        .vtp-long-processing-note i { color: var(--brand-gold); margin-right: 8px; }
+
+        /* ── RAIL ── */
+        .vtp-rail-wrap { margin-bottom: 36px; }
+        .vtp-rail { display: flex; position: relative; padding-top: 10px; }
+        .vtp-rail-track { position: absolute; top: 20px; left: 0; right: 0; height: 2px; background: var(--border-surface); }
+        .vtp-rail-line { position: absolute; top: 20px; left: 0; height: 2px; width: 100%; background: var(--brand-gold); transform: scaleX(0); transform-origin: left; }
+        .vtp-rail.vtp-animate .vtp-rail-line { transition: transform 0.7s ease-out; transform: scaleX(1); }
+        .vtp-stop {
+            flex: 1; position: relative; padding: 0 8px; text-align: center; opacity: 1; transform: translateY(0);
+        }
+        .vtp-rail.vtp-animate .vtp-stop { opacity: 0; transform: translateY(10px); animation: vtpStopIn 0.4s ease-out forwards; }
+        .vtp-rail.vtp-animate .vtp-stop:nth-child(2) { animation-delay: 0.09s; }
+        .vtp-rail.vtp-animate .vtp-stop:nth-child(3) { animation-delay: 0.18s; }
+        .vtp-rail.vtp-animate .vtp-stop:nth-child(4) { animation-delay: 0.27s; }
+        .vtp-rail.vtp-animate .vtp-stop:nth-child(5) { animation-delay: 0.36s; }
+        @keyframes vtpStopIn { to { opacity: 1; transform: translateY(0); } }
+        .vtp-stop-dot { width: 11px; height: 11px; border-radius: 50%; background: var(--brand-gold); border: 2px solid var(--bg-primary); margin: 0 auto 10px; position: relative; z-index: 1; }
+        .vtp-stop.past .vtp-stop-dot { background: var(--red); }
+        .vtp-stop.past .vtp-stop-date { color: var(--red); }
+        .vtp-stop-date { font-size: 0.82rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+        .vtp-stop-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--brand-gold); margin-bottom: 6px; }
+        .vtp-stop-detail { font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5; }
+
+        /* Mobile: flip the rail vertical — line down the left, stops stacked */
+        @media (max-width: 760px) {
+            .vtp-rail { flex-direction: column; padding-top: 0; padding-left: 26px; gap: 22px; }
+            .vtp-rail-track, .vtp-rail-line { top: 0; bottom: 0; left: 9px; right: auto; width: 2px; height: 100%; }
+            .vtp-rail-line { transform: scaleY(0); transform-origin: top; }
+            .vtp-rail.vtp-animate .vtp-rail-line { transform: scaleY(1); }
+            .vtp-stop { text-align: left; padding: 0; }
+            .vtp-rail.vtp-animate .vtp-stop { transform: translateX(10px); }
+            @keyframes vtpStopIn { to { opacity: 1; transform: translateX(0); } }
+            .vtp-stop-dot { position: absolute; left: -26px; top: 2px; margin: 0; }
+        }
+
+        /* prefers-reduced-motion: the animation is an enhancement, never a
+           requirement — everything above is already visible by default
+           (no opacity:0 base state anywhere), so this only has to stop the
+           *reduced-motion* case from ever seeing the draw-in happen. */
+        @media (prefers-reduced-motion: reduce) {
+            .vtp-rail-line, .vtp-stop { transition: none !important; animation: none !important; }
+            .vtp-rail.vtp-animate .vtp-rail-line { transform: scaleX(1); }
+            @media (max-width: 760px) { .vtp-rail.vtp-animate .vtp-rail-line { transform: scaleY(1); } }
+        }
+
+        /* ── COUNTRY NOTE ── */
+        .vtp-country-note { background: var(--bg-card); border: 1px solid var(--border-surface); border-radius: 12px; padding: 18px 20px; margin-bottom: 36px; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; }
+        .vtp-country-note strong { color: #fff; }
+
+        /* ── WHATSAPP CTA ── */
+        .vtp-whatsapp-btn { display: flex; align-items: center; justify-content: center; gap: 10px; background: var(--whatsapp); color: #fff; font-weight: 700; padding: 15px 20px; border-radius: 12px; text-decoration: none; font-size: 0.92rem; transition: transform 0.2s, box-shadow 0.2s; margin-bottom: 30px; }
+        .vtp-whatsapp-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(37,211,102,0.35); }
+
+        /* ── CAVEAT ── */
+        .vtp-caveat { border: 1px solid var(--border-surface); border-radius: 12px; padding: 16px 18px; background: rgba(201,168,76,0.03); }
+        .vtp-caveat p { color: var(--text-secondary); font-size: 0.82rem; line-height: 1.6; margin: 0; }
+        .vtp-caveat i { color: var(--brand-gold); margin-right: 8px; }
+
+        @media (max-width: 420px) {
+            .vtp-header h1 { font-size: 1.7rem; }
+            .vtp-verdict-number { font-size: 3.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav" class="bg-[#080c10]/90 backdrop-blur-md border-b border-[#1e2730] fixed w-full z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-20 items-center">
+            <div class="flex items-center space-x-3">
+                <img src="../Updated Logo.png" alt="GV&J Logo" class="h-11 w-11 object-contain rounded-md" width="44" height="44" loading="eager" onerror="this.style.display='none'">
+                <div class="flex flex-col leading-none">
+                    <span class="text-xl md:text-2xl font-black tracking-tight hidden md:block" style="font-family:'Cormorant Garamond',serif; letter-spacing:0.02em;"><span class="text-gold">GLOBAL VISA</span> <span class="text-white">&amp; JOURNEYS</span></span>
+                    <span class="text-xl font-black tracking-tight md:hidden" style="font-family:'Cormorant Garamond',serif;">GV<span class="text-gold">&amp;</span>J</span>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3 md:space-x-5">
+                <a href="../index.html" class="text-[#7a8899] hover:text-white font-semibold transition text-sm hidden md:block">Home</a>
+                <a href="../about.html" class="text-sm text-[#7a8899] hover:text-white font-semibold transition hidden md:block">About</a>
+                <a href="../blog/index.html" class="text-sm text-[#7a8899] hover:text-white font-semibold transition hidden md:block">Insights</a>
+                <a href="../refusal.html" class="text-sm text-[#7a8899] hover:text-white font-semibold transition hidden md:block">Refusal Recovery</a>
+                <a href="../" class="text-sm text-[#7a8899] hover:text-white font-semibold transition hidden md:block">Where to Apply</a>
+                <a href="../calculator.html" class="text-xs md:text-sm text-[#7a8899] hover:text-white font-semibold transition flex items-center gap-1">
+                    <i class="fa-solid fa-calculator text-gold text-xs"></i> Readiness Check
+                </a>
+                <a href="../portal.html" class="btn-outline-gold px-3 py-2 md:px-4 rounded-lg text-xs md:text-sm flex items-center gap-2" style="border:1.5px solid var(--brand-gold); color:var(--brand-gold);">
+                    <i class="fa-solid fa-lock text-xs"></i>
+                    <span class="hidden md:inline">Client Portal</span><span class="md:hidden">Portal</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- HEADER -->
+<header class="vtp-header">
+    <span class="text-gold text-xs font-bold tracking-widest uppercase">Free Tool</span>
+    <h1>When do you need to start?</h1>
+    <p class="vtp-standfirst">Enter your travel date, destination and passport. We work backwards from the decision period to tell you the day you should start.</p>
+</header>
+
+<!-- MAIN -->
+<main class="vtp-main">
+
+    <div class="vtp-controls-row">
+        <div class="vtp-field">
+            <label class="vtp-field-label" for="vtp-destination">Destination</label>
+            <input type="text" id="vtp-destination" class="vtp-input" list="vtp-destination-list" autocomplete="off" placeholder="Start typing a country">
+            <datalist id="vtp-destination-list"></datalist>
+        </div>
+        <div class="vtp-field">
+            <label class="vtp-field-label" for="vtp-passport">Passport</label>
+            <input type="text" id="vtp-passport" class="vtp-input" list="vtp-passport-list" autocomplete="off" placeholder="Start typing a country">
+            <datalist id="vtp-passport-list"></datalist>
+        </div>
+        <div class="vtp-field">
+            <label class="vtp-field-label" for="vtp-travel-date">First day of travel</label>
+            <input type="date" id="vtp-travel-date" class="vtp-input">
+        </div>
+    </div>
+
+    <div id="vtp-result">
+        <p class="vtp-prompt">Enter a destination, passport and travel date above to see when you should start.</p>
+    </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-[#080c10] text-[#7a8899] border-t border-[#1e2730] relative z-10">
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div>
+                <span class="text-white text-2xl font-black" style="font-family:'Cormorant Garamond',serif;">GLOBAL VISA <span class="text-gold">&amp;</span> JOURNEYS</span>
+                <p class="mt-4 text-sm leading-relaxed font-medium">Specialist travel consultancy. Registered in England &amp; Wales (No. 16959031).</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-5 text-sm tracking-wider uppercase">Services</h4>
+                <ul class="space-y-2 text-sm font-medium">
+                    <li><a href="../calculator.html" class="hover:text-gold transition">Schengen Visa</a></li>
+                    <li><a href="../refusal.html" class="hover:text-gold transition">Refusal Recovery</a></li>
+                    <li><a href="../student.html" class="hover:text-gold transition">Study Abroad</a></li>
+                    <li><a href="../work.html" class="hover:text-gold transition">Work in Europe</a></li>
+                    <li><a href="../real-flights.html" class="hover:text-gold transition">Flight Reservation</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-5 text-sm tracking-wider uppercase">Resources</h4>
+                <ul class="space-y-2 text-sm font-medium">
+                    <li><a href="../blog/index.html" class="hover:text-gold transition">Visa Blog</a></li>
+                    <li><a href="../calculator.html" class="hover:text-gold transition">Visa Calculator</a></li>
+                    <li><a href="../days-calculator.html" class="hover:text-gold transition">Days Calculator</a></li>
+                    <li><a href="./" style="color: var(--brand-gold);">Visa Timeline Planner</a></li>
+                    <li><a href="../" class="hover:text-gold transition">Where to Apply</a></li>
+                    <li><a href="../about.html" class="hover:text-gold transition">About Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-5 text-sm tracking-wider uppercase">Compliance</h4>
+                <ul class="space-y-2 text-sm font-medium">
+                    <li><a href="../fee-list.html" class="hover:text-gold transition">Full Fee List</a></li>
+                    <li><a href="../refund-policy.html" class="hover:text-gold transition">Refund Policy</a></li>
+                    <li><a href="../complaints-policy.html" class="hover:text-gold transition">Complaints Policy</a></li>
+                    <li><a href="../engagement-letter.html" class="hover:text-gold transition">Engagement Letter</a></li>
+                    <li><a href="../privacy-policy.html" class="hover:text-gold transition">Privacy Policy</a></li>
+                    <li><a href="#" class="gvj-cookie-settings hover:text-gold transition">Cookie Settings</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="gold-divider mx-auto max-w-7xl"></div>
+    <div class="py-6 text-center text-xs">
+        <p class="text-[#4a5568] font-medium">&copy; 2026 Global Visa &amp; Journeys Ltd. Registered in England &amp; Wales (No: 16959031).</p>
+    </div>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/447511219482" onclick="gtag('event','whatsapp_click',{'page_location':window.location.href,'page_title':document.title,'button_location':'floating_button'})" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp" title="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+</a>
+
+<!-- MOBILE NAV -->
+<style>
+#mobile-bottom-nav { display: none; }
+@media (max-width: 767px) {
+    #mobile-bottom-nav { display: block; }
+    .whatsapp-float { bottom: 90px !important; }
+    body { padding-bottom: 80px; }
+}
+</style>
+<nav id="mobile-bottom-nav" style="position:fixed; bottom:0; left:0; right:0; z-index:9998; background:#0f1419; border-top:1px solid #1e2730; -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); padding-bottom:env(safe-area-inset-bottom);">
+    <div style="display:flex;">
+        <a href="../index.html" class="mobile-nav-item" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-house" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Home</span>
+        </a>
+        <a href="../calculator.html" class="mobile-nav-item" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-clipboard-list" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Readiness</span>
+        </a>
+        <a href="./" class="mobile-nav-item" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:var(--brand-gold); text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-route" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Timeline</span>
+        </a>
+        <a href="../blog/index.html" class="mobile-nav-item" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-newspaper" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">Insights</span>
+        </a>
+        <a href="../about.html" class="mobile-nav-item" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 4px; gap:3px; color:#7a8899; text-decoration:none; transition:color 0.2s;">
+            <i class="fa-solid fa-circle-info" style="font-size:18px; line-height:1;"></i>
+            <span style="font-size:10px; font-weight:600; font-family:'DM Sans',sans-serif; line-height:1;">About</span>
+        </a>
+    </div>
+</nav>
+
+<script>
+// ── NAV SCROLL ──
+window.addEventListener('scroll', function() {
+    var nav = document.getElementById('main-nav');
+    if (window.scrollY > 50) nav.classList.add('nav-scrolled');
+    else nav.classList.remove('nav-scrolled');
+});
+
+// ── PASSPORT COUNTRY LIST (all countries — reused verbatim from the same
+// list already built and tested for calculator.html's nationality field,
+// so "Gambia" always resolves to the one exact spelling this page's GM
+// check depends on). ──
+var GVJ_COUNTRIES = [
+    { name: 'Afghanistan', iso2: 'AF' }, { name: 'Albania', iso2: 'AL' }, { name: 'Algeria', iso2: 'DZ' },
+    { name: 'Andorra', iso2: 'AD' }, { name: 'Angola', iso2: 'AO' }, { name: 'Antigua and Barbuda', iso2: 'AG' },
+    { name: 'Argentina', iso2: 'AR' }, { name: 'Armenia', iso2: 'AM' }, { name: 'Australia', iso2: 'AU' },
+    { name: 'Austria', iso2: 'AT' }, { name: 'Azerbaijan', iso2: 'AZ' }, { name: 'Bahamas', iso2: 'BS' },
+    { name: 'Bahrain', iso2: 'BH' }, { name: 'Bangladesh', iso2: 'BD' }, { name: 'Barbados', iso2: 'BB' },
+    { name: 'Belarus', iso2: 'BY' }, { name: 'Belgium', iso2: 'BE' }, { name: 'Belize', iso2: 'BZ' },
+    { name: 'Benin', iso2: 'BJ' }, { name: 'Bhutan', iso2: 'BT' }, { name: 'Bolivia', iso2: 'BO' },
+    { name: 'Bosnia and Herzegovina', iso2: 'BA' }, { name: 'Botswana', iso2: 'BW' }, { name: 'Brazil', iso2: 'BR' },
+    { name: 'Brunei', iso2: 'BN' }, { name: 'Bulgaria', iso2: 'BG' }, { name: 'Burkina Faso', iso2: 'BF' },
+    { name: 'Burundi', iso2: 'BI' }, { name: 'Cabo Verde', iso2: 'CV' }, { name: 'Cambodia', iso2: 'KH' },
+    { name: 'Cameroon', iso2: 'CM' }, { name: 'Canada', iso2: 'CA' }, { name: 'Central African Republic', iso2: 'CF' },
+    { name: 'Chad', iso2: 'TD' }, { name: 'Chile', iso2: 'CL' }, { name: 'China', iso2: 'CN' },
+    { name: 'Colombia', iso2: 'CO' }, { name: 'Comoros', iso2: 'KM' }, { name: 'Congo (Republic of the)', iso2: 'CG' },
+    { name: 'Congo (DR)', iso2: 'CD' }, { name: 'Costa Rica', iso2: 'CR' }, { name: 'Croatia', iso2: 'HR' },
+    { name: 'Cuba', iso2: 'CU' }, { name: 'Cyprus', iso2: 'CY' }, { name: 'Czech Republic', iso2: 'CZ' },
+    { name: 'Denmark', iso2: 'DK' }, { name: 'Djibouti', iso2: 'DJ' }, { name: 'Dominica', iso2: 'DM' },
+    { name: 'Dominican Republic', iso2: 'DO' }, { name: 'Ecuador', iso2: 'EC' }, { name: 'Egypt', iso2: 'EG' },
+    { name: 'El Salvador', iso2: 'SV' }, { name: 'Equatorial Guinea', iso2: 'GQ' }, { name: 'Eritrea', iso2: 'ER' },
+    { name: 'Estonia', iso2: 'EE' }, { name: 'Eswatini', iso2: 'SZ' }, { name: 'Ethiopia', iso2: 'ET' },
+    { name: 'Fiji', iso2: 'FJ' }, { name: 'Finland', iso2: 'FI' }, { name: 'France', iso2: 'FR' },
+    { name: 'Gabon', iso2: 'GA' }, { name: 'Gambia', iso2: 'GM' }, { name: 'Georgia', iso2: 'GE' },
+    { name: 'Germany', iso2: 'DE' }, { name: 'Ghana', iso2: 'GH' }, { name: 'Greece', iso2: 'GR' },
+    { name: 'Grenada', iso2: 'GD' }, { name: 'Guatemala', iso2: 'GT' }, { name: 'Guinea', iso2: 'GN' },
+    { name: 'Guinea-Bissau', iso2: 'GW' }, { name: 'Guyana', iso2: 'GY' }, { name: 'Haiti', iso2: 'HT' },
+    { name: 'Honduras', iso2: 'HN' }, { name: 'Hungary', iso2: 'HU' }, { name: 'Iceland', iso2: 'IS' },
+    { name: 'India', iso2: 'IN' }, { name: 'Indonesia', iso2: 'ID' }, { name: 'Iran', iso2: 'IR' },
+    { name: 'Iraq', iso2: 'IQ' }, { name: 'Ireland', iso2: 'IE' }, { name: 'Israel', iso2: 'IL' },
+    { name: 'Italy', iso2: 'IT' }, { name: 'Jamaica', iso2: 'JM' }, { name: 'Japan', iso2: 'JP' },
+    { name: 'Jordan', iso2: 'JO' }, { name: 'Kazakhstan', iso2: 'KZ' }, { name: 'Kenya', iso2: 'KE' },
+    { name: 'Kiribati', iso2: 'KI' }, { name: 'Kosovo', iso2: 'XK' }, { name: 'Kuwait', iso2: 'KW' },
+    { name: 'Kyrgyzstan', iso2: 'KG' }, { name: 'Laos', iso2: 'LA' }, { name: 'Latvia', iso2: 'LV' },
+    { name: 'Lebanon', iso2: 'LB' }, { name: 'Lesotho', iso2: 'LS' }, { name: 'Liberia', iso2: 'LR' },
+    { name: 'Libya', iso2: 'LY' }, { name: 'Liechtenstein', iso2: 'LI' }, { name: 'Lithuania', iso2: 'LT' },
+    { name: 'Luxembourg', iso2: 'LU' }, { name: 'Madagascar', iso2: 'MG' }, { name: 'Malawi', iso2: 'MW' },
+    { name: 'Malaysia', iso2: 'MY' }, { name: 'Maldives', iso2: 'MV' }, { name: 'Mali', iso2: 'ML' },
+    { name: 'Malta', iso2: 'MT' }, { name: 'Marshall Islands', iso2: 'MH' }, { name: 'Mauritania', iso2: 'MR' },
+    { name: 'Mauritius', iso2: 'MU' }, { name: 'Mexico', iso2: 'MX' }, { name: 'Micronesia', iso2: 'FM' },
+    { name: 'Moldova', iso2: 'MD' }, { name: 'Monaco', iso2: 'MC' }, { name: 'Mongolia', iso2: 'MN' },
+    { name: 'Montenegro', iso2: 'ME' }, { name: 'Morocco', iso2: 'MA' }, { name: 'Mozambique', iso2: 'MZ' },
+    { name: 'Myanmar', iso2: 'MM' }, { name: 'Namibia', iso2: 'NA' }, { name: 'Nauru', iso2: 'NR' },
+    { name: 'Nepal', iso2: 'NP' }, { name: 'Netherlands', iso2: 'NL' }, { name: 'New Zealand', iso2: 'NZ' },
+    { name: 'Nicaragua', iso2: 'NI' }, { name: 'Niger', iso2: 'NE' }, { name: 'Nigeria', iso2: 'NG' },
+    { name: 'North Korea', iso2: 'KP' }, { name: 'North Macedonia', iso2: 'MK' }, { name: 'Norway', iso2: 'NO' },
+    { name: 'Oman', iso2: 'OM' }, { name: 'Pakistan', iso2: 'PK' }, { name: 'Palau', iso2: 'PW' },
+    { name: 'Palestine', iso2: 'PS' }, { name: 'Panama', iso2: 'PA' }, { name: 'Papua New Guinea', iso2: 'PG' },
+    { name: 'Paraguay', iso2: 'PY' }, { name: 'Peru', iso2: 'PE' }, { name: 'Philippines', iso2: 'PH' },
+    { name: 'Poland', iso2: 'PL' }, { name: 'Portugal', iso2: 'PT' }, { name: 'Qatar', iso2: 'QA' },
+    { name: 'Romania', iso2: 'RO' }, { name: 'Russia', iso2: 'RU' }, { name: 'Rwanda', iso2: 'RW' },
+    { name: 'Saint Kitts and Nevis', iso2: 'KN' }, { name: 'Saint Lucia', iso2: 'LC' }, { name: 'Saint Vincent and the Grenadines', iso2: 'VC' },
+    { name: 'Samoa', iso2: 'WS' }, { name: 'San Marino', iso2: 'SM' }, { name: 'Sao Tome and Principe', iso2: 'ST' },
+    { name: 'Saudi Arabia', iso2: 'SA' }, { name: 'Senegal', iso2: 'SN' }, { name: 'Serbia', iso2: 'RS' },
+    { name: 'Seychelles', iso2: 'SC' }, { name: 'Sierra Leone', iso2: 'SL' }, { name: 'Singapore', iso2: 'SG' },
+    { name: 'Slovakia', iso2: 'SK' }, { name: 'Slovenia', iso2: 'SI' }, { name: 'Solomon Islands', iso2: 'SB' },
+    { name: 'Somalia', iso2: 'SO' }, { name: 'South Africa', iso2: 'ZA' }, { name: 'South Korea', iso2: 'KR' },
+    { name: 'South Sudan', iso2: 'SS' }, { name: 'Spain', iso2: 'ES' }, { name: 'Sri Lanka', iso2: 'LK' },
+    { name: 'Sudan', iso2: 'SD' }, { name: 'Suriname', iso2: 'SR' }, { name: 'Sweden', iso2: 'SE' },
+    { name: 'Switzerland', iso2: 'CH' }, { name: 'Syria', iso2: 'SY' }, { name: 'Taiwan', iso2: 'TW' },
+    { name: 'Tajikistan', iso2: 'TJ' }, { name: 'Tanzania', iso2: 'TZ' }, { name: 'Thailand', iso2: 'TH' },
+    { name: 'Timor-Leste', iso2: 'TL' }, { name: 'Togo', iso2: 'TG' }, { name: 'Tonga', iso2: 'TO' },
+    { name: 'Trinidad and Tobago', iso2: 'TT' }, { name: 'Tunisia', iso2: 'TN' }, { name: 'Turkey', iso2: 'TR' },
+    { name: 'Turkmenistan', iso2: 'TM' }, { name: 'Tuvalu', iso2: 'TV' }, { name: 'Uganda', iso2: 'UG' },
+    { name: 'Ukraine', iso2: 'UA' }, { name: 'United Arab Emirates', iso2: 'AE' }, { name: 'United Kingdom', iso2: 'GB' },
+    { name: 'United States', iso2: 'US' }, { name: 'Uruguay', iso2: 'UY' }, { name: 'Uzbekistan', iso2: 'UZ' },
+    { name: 'Vanuatu', iso2: 'VU' }, { name: 'Vatican City', iso2: 'VA' }, { name: 'Venezuela', iso2: 'VE' },
+    { name: 'Vietnam', iso2: 'VN' }, { name: 'Yemen', iso2: 'YE' }, { name: 'Zambia', iso2: 'ZM' },
+    { name: 'Zimbabwe', iso2: 'ZW' }
+];
+
+// The 45 and the "GM" live in one place — adding a nationality later (per
+// the brief, "more nationalities go on this rule later") is a single line.
+var GVJ_LONG_PROCESSING_NATIONALITIES = {
+    GM: { days: 45, reason: "is checked with other Schengen states first" }
+};
+
+var DESTINATIONS = [];               // populated from schengen-processing.json
+var DESTINATION_LOOKUP = {};         // lowercase name -> destination object
+var PASSPORT_LOOKUP = {};            // lowercase name -> { name, iso2 }
+GVJ_COUNTRIES.forEach(function (c) { PASSPORT_LOOKUP[c.name.toLowerCase()] = c; });
+
+function parseDateInput(str) {
+    var p = str.split('-').map(Number);
+    return new Date(p[0], p[1] - 1, p[2]);
+}
+function addDays(date, days) {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate() + days);
+}
+function daysBetween(a, b) {
+    return Math.round((b.getTime() - a.getTime()) / 86400000);
+}
+function fmtDate(d) {
+    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+function today() {
+    var t = new Date();
+    t.setHours(0, 0, 0, 0);
+    return t;
+}
+
+function resolveDestination(typed) {
+    return DESTINATION_LOOKUP[(typed || '').trim().toLowerCase()] || null;
+}
+function resolvePassport(typed) {
+    return PASSPORT_LOOKUP[(typed || '').trim().toLowerCase()] || null;
+}
+
+// Snaps a field to its resolved exact spelling, and flags it red if
+// what's typed doesn't match anything on the list — same pattern already
+// used and tested on calculator.html's nationality field.
+function normalizeField(el, resolver) {
+    var resolved = resolver(el.value);
+    if (resolved) { el.value = resolved.name; el.classList.remove('error'); }
+    else if (el.value.trim()) { el.classList.add('error'); }
+    else { el.classList.remove('error'); }
+}
+
+// ── THE BACKWARDS-PLANNING MATH ──
+// travel date − 7 (passport back) − processing days (decision time) − 21
+// (gathering documents) = the day to start. Working forwards from that
+// start day gives the five rail stops, and "You fly" always lands back
+// on the travel date itself — the two are the same calculation run both
+// directions, which is the built-in sanity check.
+function computeTimeline(destination, passport, travelDateStr) {
+    var travelDate = parseDateInput(travelDateStr);
+    var baseProcessingDays = destination.processingDays;
+    var processingDays = baseProcessingDays;
+    var longProcessing = null;
+    var override = GVJ_LONG_PROCESSING_NATIONALITIES[passport.iso2];
+    if (override) {
+        processingDays = override.days;
+        longProcessing = { passportName: passport.name, days: override.days, baseDays: baseProcessingDays, reason: override.reason };
+    }
+
+    var flyDate = travelDate;
+    var decisionDate = addDays(flyDate, -7);
+    var submitDate = addDays(decisionDate, -processingDays);
+    var startDate = addDays(submitDate, -21);
+
+    return {
+        destination: destination, processingDays: processingDays, longProcessing: longProcessing,
+        startDate: startDate, submitDate: submitDate, decisionDate: decisionDate, flyDate: flyDate
+    };
+}
+
+function buildWhatsAppLink(destination, travelDateStr, passport) {
+    var text = "Hi, I'm planning a trip to " + destination.name + " on " + fmtDate(parseDateInput(travelDateStr)) +
+        " and need help with the timing. My passport is " + passport.name + ".";
+    return 'https://wa.me/447511219482?text=' + encodeURIComponent(text);
+}
+
+// ── RENDERING ──
+function renderResult(timeline) {
+    var t = today();
+    var slack = daysBetween(t, timeline.startDate);
+    var status = slack > 14 ? 'comfortable' : (slack >= 0 ? 'tight' : 'toolate');
+
+    var longProcessingHtml = '';
+    if (timeline.longProcessing) {
+        var lp = timeline.longProcessing;
+        longProcessingHtml =
+            '<div class="vtp-long-processing-note"><i class="fa-solid fa-circle-info"></i>' +
+            'A ' + lp.passportName + ' passport ' + lp.reason + ', so ' + timeline.destination.name +
+            ' takes about ' + lp.days + ' days rather than the usual ' + lp.baseDays + '.</div>';
+    }
+
+    var verdictHeadline, verdictSentence, numberValue, numberCaption;
+    if (status === 'comfortable') {
+        verdictHeadline = 'Comfortable';
+        verdictSentence = 'You have about ' + slack + ' days of breathing room. Start around ' + fmtDate(timeline.startDate) + ' and you are in good shape.';
+        numberValue = slack; numberCaption = 'Days Spare';
+    } else if (status === 'tight') {
+        verdictHeadline = 'Tight — nothing spare';
+        verdictSentence = 'There is ' + slack + ' day' + (slack === 1 ? '' : 's') + ' of breathing room. Start by ' + fmtDate(timeline.startDate) + ' to keep this on schedule.';
+        numberValue = slack; numberCaption = 'Days Spare';
+    } else {
+        verdictHeadline = 'Too late for these dates';
+        verdictSentence = 'Based on these dates, you would have needed to start around ' + fmtDate(timeline.startDate) + '. Treat this travel date as very high risk, or move it back.';
+        numberValue = Math.abs(slack); numberCaption = 'Days Too Late';
+    }
+
+    var stops = [
+        { label: 'Begin Documents', date: timeline.startDate, detail: 'Start gathering bank statements, insurance and your travel plan.' },
+        { label: 'Book Appointment', date: timeline.startDate, detail: 'Book your slot as early as you can — waits vary by centre and season.' },
+        { label: 'Submit In Person', date: timeline.submitDate, detail: 'Attend your appointment with your completed file.' },
+        { label: 'Decision Expected', date: timeline.decisionDate, detail: timeline.destination.name + "'s typical decision period is about " + timeline.processingDays + ' days after submission.' },
+        { label: 'You Fly', date: timeline.flyDate, detail: 'Collect your passport at least a week before you travel.' }
+    ];
+    var stopsHtml = stops.map(function (s) {
+        var isPast = s.date.getTime() < t.getTime();
+        return '<div class="vtp-stop' + (isPast ? ' past' : '') + '">' +
+            '<div class="vtp-stop-dot"></div>' +
+            '<div class="vtp-stop-date">' + fmtDate(s.date) + '</div>' +
+            '<div class="vtp-stop-label">' + s.label + '</div>' +
+            '<div class="vtp-stop-detail">' + s.detail + '</div>' +
+            '</div>';
+    }).join('');
+
+    var countryNoteHtml = timeline.destination.note
+        ? '<div class="vtp-country-note"><strong>' + timeline.destination.name + ':</strong> ' + timeline.destination.note + '</div>'
+        : '';
+
+    var waLink = buildWhatsAppLink(timeline.destination, document.getElementById('vtp-travel-date').value, resolvePassport(document.getElementById('vtp-passport').value));
+
+    document.getElementById('vtp-result').innerHTML =
+        '<div class="vtp-verdict ' + status + '">' +
+            '<div><div class="vtp-verdict-number">' + numberValue + '</div><div class="vtp-verdict-number-caption">' + numberCaption + '</div></div>' +
+            '<div class="vtp-verdict-body"><h2>' + verdictHeadline + '</h2><p>' + verdictSentence + '</p></div>' +
+        '</div>' +
+        longProcessingHtml +
+        '<div class="vtp-rail-wrap"><div class="vtp-rail" id="vtp-rail">' +
+            '<div class="vtp-rail-track"></div><div class="vtp-rail-line"></div>' +
+            stopsHtml +
+        '</div></div>' +
+        countryNoteHtml +
+        '<a href="' + waLink + '" target="_blank" rel="noopener noreferrer" class="vtp-whatsapp-btn" onclick="gtag(\'event\',\'whatsapp_click\',{\'page_location\':window.location.href,\'page_title\':document.title,\'button_location\':\'visa_timeline_cta\'})">' +
+            '<i class="fa-brands fa-whatsapp"></i> Talk to Us About This Timeline' +
+        '</a>' +
+        '<div class="vtp-caveat"><p><i class="fa-solid fa-circle-info"></i>Processing times are the published decision periods. How long documents take depends on how quickly you can get statements, insurance and tickets together, and appointment waits move with the centre and the season. Treat these dates as a guide for planning.</p></div>';
+
+    // Trigger the rail draw-in: add the class on the next frame so the
+    // browser registers the "before" state first, otherwise the
+    // transition has nothing to animate from.
+    var rail = document.getElementById('vtp-rail');
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (rail && !reduceMotion) {
+        requestAnimationFrame(function () {
+            requestAnimationFrame(function () { rail.classList.add('vtp-animate'); });
+        });
+    }
+}
+
+function renderPrompt(message) {
+    document.getElementById('vtp-result').innerHTML = '<p class="vtp-prompt">' + message + '</p>';
+}
+
+function recalculate() {
+    var destination = resolveDestination(document.getElementById('vtp-destination').value);
+    var passport = resolvePassport(document.getElementById('vtp-passport').value);
+    var travelDateStr = document.getElementById('vtp-travel-date').value;
+
+    if (!destination || !passport || !travelDateStr) {
+        renderPrompt('Enter a destination, passport and travel date above to see when you should start.');
+        return;
+    }
+    if (parseDateInput(travelDateStr).getTime() < today().getTime()) {
+        renderPrompt('That travel date has already passed — enter a date today or later.');
+        return;
+    }
+
+    renderResult(computeTimeline(destination, passport, travelDateStr));
+}
+
+function populateDatalists() {
+    var destNames = DESTINATIONS.map(function (d) { return d.name; }).sort(function (a, b) { return a.localeCompare(b); });
+    document.getElementById('vtp-destination-list').innerHTML = destNames.map(function (n) { return '<option value="' + n + '">'; }).join('');
+
+    var passportNames = GVJ_COUNTRIES.map(function (c) { return c.name; }).sort(function (a, b) { return a.localeCompare(b); });
+    document.getElementById('vtp-passport-list').innerHTML = passportNames.map(function (n) { return '<option value="' + n + '">'; }).join('');
+}
+
+(function init() {
+    var dateInput = document.getElementById('vtp-travel-date');
+    var y = today().getFullYear(), m = String(today().getMonth() + 1).padStart(2, '0'), d = String(today().getDate()).padStart(2, '0');
+    dateInput.min = y + '-' + m + '-' + d;
+
+    var destInput = document.getElementById('vtp-destination');
+    var passInput = document.getElementById('vtp-passport');
+
+    destInput.addEventListener('input', recalculate);
+    destInput.addEventListener('blur', function () { normalizeField(destInput, resolveDestination); recalculate(); });
+    passInput.addEventListener('input', recalculate);
+    passInput.addEventListener('blur', function () { normalizeField(passInput, resolvePassport); recalculate(); });
+    dateInput.addEventListener('input', recalculate);
+    dateInput.addEventListener('change', recalculate);
+
+    fetch('../data/schengen-processing.json')
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+            DESTINATIONS = data.countries;
+            DESTINATIONS.forEach(function (c) { DESTINATION_LOOKUP[c.name.toLowerCase()] = c; });
+            populateDatalists();
+        })
+        .catch(function () {
+            renderPrompt('The country list could not be loaded. Please refresh the page or message us directly on WhatsApp.');
+        });
+})();
+</script>
+
+</body>
+</html>
