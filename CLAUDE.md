@@ -90,6 +90,8 @@ Current blog posts in `blog/`:
 - `ees-90-180-day-rule-schengen-overstay-tracking.html`
 - `ees-biometric-checks-september-2026-schengen-visa-holders.html`
 - `etias-2026-delayed-new-timeline-europe-uk-residents.html`
+- `european-digital-nomad-visas-explained-2026.html`
+- `flight-reservation-visa-applications-guide.html`
 - `ghana-benelux-visa-waiver-talks-luxembourg-2026.html`
 - `italy-schengen-visa-online-application-2026.html`
 - `nigeria-schengen-visa-not-visa-free-2026.html`
@@ -108,6 +110,7 @@ Current blog posts in `blog/`:
 - `schengen-visa-flight-reservation-rules-2026.html`
 - `schengen-visa-gambia-2026-dakar-senegal-consulate.html`
 - `schengen-visa-interview-questions-2026-nigeria-ghana.html`
+- `schengen-visa-peak-season-timing-strategy.html`
 - `schengen-visa-phishing-scam-fake-ees-emails-2026.html`
 - `schengen-visa-uk-non-british-passport-2026.html`
 - `spain-italy-schengen-border-checks-2026.html`
