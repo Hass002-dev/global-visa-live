@@ -305,7 +305,14 @@
         html.gvj-motion .corridor-scrolly { display: block; }
         html.gvj-motion .corridor-static  { display: none; }
 
-        .corridor-scroll { position: relative; height: 320vh; }
+        /* Height matters here: a trigger can only cross the viewport's
+           centre line while .corridor-sticky (100vh) is actually pinned,
+           which only happens for scrollY between 50vh and (height - 50vh)
+           measured from this element's own top. All 4 trigger positions
+           below (24/41/59/76%) are chosen to sit safely inside that window
+           — a prior version placed them outside it, so later stages never
+           fired reliably no matter how far you scrolled. */
+        .corridor-scroll { position: relative; height: 250vh; }
         .corridor-sticky {
             position: sticky; top: 0; height: 100vh;
             display: flex; flex-direction: column; justify-content: center; gap: 2.5rem;
@@ -325,7 +332,7 @@
             transition: left 1.3s cubic-bezier(0.4,0,0.2,1);
         }
         .corridor-endpoints {
-            display: flex; justify-content: space-between; max-width: 760px; margin: 0.75rem auto 0;
+            display: flex; justify-content: space-between; max-width: 760px; width: 100%; margin: 0.75rem auto 0;
             padding: 0 1rem; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted);
         }
         .corridor-stages { max-width: 680px; margin: 0 auto; width: 100%; text-align: center; min-height: 10rem; padding: 0 1rem; }
@@ -598,10 +605,10 @@
                 </div>
             </div>
             <!-- Invisible scroll triggers, spaced through the tall track above -->
-            <div class="corridor-trigger" data-stage="0" aria-hidden="true" style="position:absolute; top:5%; height:1px; width:1px;"></div>
-            <div class="corridor-trigger" data-stage="1" aria-hidden="true" style="position:absolute; top:35%; height:1px; width:1px;"></div>
-            <div class="corridor-trigger" data-stage="2" aria-hidden="true" style="position:absolute; top:65%; height:1px; width:1px;"></div>
-            <div class="corridor-trigger" data-stage="3" aria-hidden="true" style="position:absolute; top:95%; height:1px; width:1px;"></div>
+            <div class="corridor-trigger" data-stage="0" aria-hidden="true" style="position:absolute; top:24%; height:1px; width:1px;"></div>
+            <div class="corridor-trigger" data-stage="1" aria-hidden="true" style="position:absolute; top:41%; height:1px; width:1px;"></div>
+            <div class="corridor-trigger" data-stage="2" aria-hidden="true" style="position:absolute; top:59%; height:1px; width:1px;"></div>
+            <div class="corridor-trigger" data-stage="3" aria-hidden="true" style="position:absolute; top:76%; height:1px; width:1px;"></div>
         </div>
     </div>
 </section>
@@ -790,18 +797,24 @@
         }
 
         // ── SECTION 3: THE CORRIDOR — sticky marker driven by scroll stage.
+        // Recomputes the active stage from every trigger's real position on
+        // each callback, rather than trusting only the entry that fired —
+        // a single large jump (Page Down, a fast trackpad flick) can cross
+        // more than one trigger between checks, and trusting just the fired
+        // entry would skip a stage instead of landing on the right one.
         const sticky = document.querySelector('.corridor-sticky');
         const stages = document.querySelectorAll('.corridor-stage');
         const triggers = document.querySelectorAll('.corridor-trigger');
         if (sticky && triggers.length) {
-            const corridorObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (!entry.isIntersecting) return;
-                    const stage = entry.target.getAttribute('data-stage');
-                    sticky.style.setProperty('--stage', stage);
-                    stages.forEach(el => el.classList.toggle('is-active', el.getAttribute('data-stage') === stage));
+            const corridorObserver = new IntersectionObserver(() => {
+                const centerY = window.innerHeight / 2;
+                let active = 0;
+                triggers.forEach(t => {
+                    if (t.getBoundingClientRect().top <= centerY) active = t.getAttribute('data-stage');
                 });
-            }, { rootMargin: '-50% 0px -50% 0px', threshold: 0 });
+                sticky.style.setProperty('--stage', active);
+                stages.forEach(el => el.classList.toggle('is-active', el.getAttribute('data-stage') === active));
+            }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
             triggers.forEach(t => corridorObserver.observe(t));
         }
     }
