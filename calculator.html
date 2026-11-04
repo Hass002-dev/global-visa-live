@@ -636,19 +636,23 @@
                             <input type="email" id="m_email" class="gvj-input" placeholder="name@example.com" required>
                         </div>
                         <div>
-                            <label class="input-label">WhatsApp Number (with country code) <span style="color:#ef4444">*</span></label>
-                            <input type="tel" id="m_whatsapp" class="gvj-input" placeholder="+234 801 234 5678" required>
+                            <label class="input-label">WhatsApp Number <span style="color:#ef4444">*</span></label>
+                            <div class="flex gap-2">
+                                <select id="m_whatsapp_dial" class="gvj-input" style="flex:0 0 136px;" aria-label="Country dial code"></select>
+                                <input type="tel" id="m_whatsapp" class="gvj-input flex-1" placeholder="7511 219482" required>
+                            </div>
                         </div>
                         <div class="grid grid-cols-2 gap-3">
                             <div>
                                 <label class="input-label">Nationality <span style="color:#ef4444">*</span></label>
-                                <input type="text" id="m_nationality" class="gvj-input" placeholder="e.g. Nigerian" required>
+                                <input type="text" id="m_nationality" class="gvj-input" list="gvj-country-list" autocomplete="off" placeholder="Start typing a country" oninput="recalcLongProcessingNotice()" onblur="normalizeCountryField(this)" required>
                             </div>
                             <div>
                                 <label class="input-label">Country of Residence <span style="color:#ef4444">*</span></label>
-                                <input type="text" id="m_residence" class="gvj-input" placeholder="e.g. Nigeria" required>
+                                <input type="text" id="m_residence" class="gvj-input" list="gvj-country-list" autocomplete="off" placeholder="Start typing a country" onblur="normalizeCountryField(this)" required>
                             </div>
                         </div>
+                        <datalist id="gvj-country-list"></datalist>
                     </div>
                     <button onclick="manualNext(1)" class="w-full btn-gold py-4 rounded-xl text-sm">
                         Continue <i class="fa-solid fa-arrow-right"></i>
@@ -690,7 +694,7 @@
                         <div class="grid grid-cols-2 gap-3">
                             <div>
                                 <label class="input-label">Travel From <span style="color:#ef4444">*</span></label>
-                                <input type="date" id="m_date_from" class="gvj-input" required>
+                                <input type="date" id="m_date_from" class="gvj-input" oninput="recalcLongProcessingNotice()" required>
                             </div>
                             <div>
                                 <label class="input-label">Travel To <span style="color:#ef4444">*</span></label>
@@ -698,7 +702,28 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex gap-3">
+
+                    <!-- Long-processing-time notice. Lives/dies live as the date
+                         or nationality changes — see recalcLongProcessingNotice()
+                         and the GVJ_LONG_PROCESSING_NATIONALITIES config. -->
+                    <div id="gambia-notice" class="hidden mb-5 bg-[#131920] border border-[#c9a84c]/50 rounded-xl p-5">
+                        <p class="text-white text-sm font-bold mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-triangle-exclamation" style="color:var(--brand-gold)"></i>
+                            Your travel date is in <span id="gambia-notice-days">0</span> days.
+                        </p>
+                        <p class="text-[#adb8c4] text-xs leading-relaxed mb-3">
+                            Gambian passports have to be checked with other Schengen countries before a decision, which usually takes around <span id="gambia-notice-threshold">45</span> days. A trip this close is unlikely to be approved in time.
+                        </p>
+                        <p class="text-[#adb8c4] text-xs leading-relaxed mb-4">
+                            You can still send this assessment, and we will tell you honestly what your options are. If the dates can move, that is usually the better route.
+                        </p>
+                        <div class="flex gap-3">
+                            <button type="button" onclick="manualNext(2)" class="flex-1 btn-back py-3 rounded-xl text-xs font-bold">Send it anyway</button>
+                            <a id="gambia-notice-whatsapp" href="https://wa.me/447511219482" target="_blank" rel="noopener noreferrer" class="flex-1 text-center py-3 rounded-xl text-xs font-bold text-white" style="background:#25D366;">Talk to us first</a>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3" id="trip-continue-row">
                         <button onclick="manualPrev(0)" class="w-1/3 btn-back py-4 rounded-xl text-sm"><i class="fa-solid fa-arrow-left"></i> Back</button>
                         <button onclick="manualNext(2)" class="flex-1 btn-gold py-4 rounded-xl text-sm">Continue <i class="fa-solid fa-arrow-right"></i></button>
                     </div>
@@ -1102,11 +1127,324 @@ window.subscribeNewsletter = async () => {
     }
 
     /* ═══════════════════════════════════════════════════════
+       SHARED COUNTRY DATA — single source of truth
+       Used by: nationality field, country-of-residence field, and
+       the WhatsApp dial-code selector. Add a country once here and
+       every picker that uses it updates automatically.
+    ═══════════════════════════════════════════════════════ */
+    const GVJ_COUNTRIES = [
+        { name: 'Afghanistan', iso2: 'AF', dial: '93' },
+        { name: 'Albania', iso2: 'AL', dial: '355' },
+        { name: 'Algeria', iso2: 'DZ', dial: '213' },
+        { name: 'Andorra', iso2: 'AD', dial: '376' },
+        { name: 'Angola', iso2: 'AO', dial: '244' },
+        { name: 'Antigua and Barbuda', iso2: 'AG', dial: '1268' },
+        { name: 'Argentina', iso2: 'AR', dial: '54' },
+        { name: 'Armenia', iso2: 'AM', dial: '374' },
+        { name: 'Australia', iso2: 'AU', dial: '61' },
+        { name: 'Austria', iso2: 'AT', dial: '43' },
+        { name: 'Azerbaijan', iso2: 'AZ', dial: '994' },
+        { name: 'Bahamas', iso2: 'BS', dial: '1242' },
+        { name: 'Bahrain', iso2: 'BH', dial: '973' },
+        { name: 'Bangladesh', iso2: 'BD', dial: '880' },
+        { name: 'Barbados', iso2: 'BB', dial: '1246' },
+        { name: 'Belarus', iso2: 'BY', dial: '375' },
+        { name: 'Belgium', iso2: 'BE', dial: '32' },
+        { name: 'Belize', iso2: 'BZ', dial: '501' },
+        { name: 'Benin', iso2: 'BJ', dial: '229' },
+        { name: 'Bhutan', iso2: 'BT', dial: '975' },
+        { name: 'Bolivia', iso2: 'BO', dial: '591' },
+        { name: 'Bosnia and Herzegovina', iso2: 'BA', dial: '387' },
+        { name: 'Botswana', iso2: 'BW', dial: '267' },
+        { name: 'Brazil', iso2: 'BR', dial: '55' },
+        { name: 'Brunei', iso2: 'BN', dial: '673' },
+        { name: 'Bulgaria', iso2: 'BG', dial: '359' },
+        { name: 'Burkina Faso', iso2: 'BF', dial: '226' },
+        { name: 'Burundi', iso2: 'BI', dial: '257' },
+        { name: 'Cabo Verde', iso2: 'CV', dial: '238' },
+        { name: 'Cambodia', iso2: 'KH', dial: '855' },
+        { name: 'Cameroon', iso2: 'CM', dial: '237' },
+        { name: 'Canada', iso2: 'CA', dial: '1' },
+        { name: 'Central African Republic', iso2: 'CF', dial: '236' },
+        { name: 'Chad', iso2: 'TD', dial: '235' },
+        { name: 'Chile', iso2: 'CL', dial: '56' },
+        { name: 'China', iso2: 'CN', dial: '86' },
+        { name: 'Colombia', iso2: 'CO', dial: '57' },
+        { name: 'Comoros', iso2: 'KM', dial: '269' },
+        { name: 'Congo (Republic of the)', iso2: 'CG', dial: '242' },
+        { name: 'Congo (DR)', iso2: 'CD', dial: '243' },
+        { name: 'Costa Rica', iso2: 'CR', dial: '506' },
+        { name: 'Croatia', iso2: 'HR', dial: '385' },
+        { name: 'Cuba', iso2: 'CU', dial: '53' },
+        { name: 'Cyprus', iso2: 'CY', dial: '357' },
+        { name: 'Czech Republic', iso2: 'CZ', dial: '420' },
+        { name: 'Denmark', iso2: 'DK', dial: '45' },
+        { name: 'Djibouti', iso2: 'DJ', dial: '253' },
+        { name: 'Dominica', iso2: 'DM', dial: '1767' },
+        { name: 'Dominican Republic', iso2: 'DO', dial: '1809' },
+        { name: 'Ecuador', iso2: 'EC', dial: '593' },
+        { name: 'Egypt', iso2: 'EG', dial: '20' },
+        { name: 'El Salvador', iso2: 'SV', dial: '503' },
+        { name: 'Equatorial Guinea', iso2: 'GQ', dial: '240' },
+        { name: 'Eritrea', iso2: 'ER', dial: '291' },
+        { name: 'Estonia', iso2: 'EE', dial: '372' },
+        { name: 'Eswatini', iso2: 'SZ', dial: '268' },
+        { name: 'Ethiopia', iso2: 'ET', dial: '251' },
+        { name: 'Fiji', iso2: 'FJ', dial: '679' },
+        { name: 'Finland', iso2: 'FI', dial: '358' },
+        { name: 'France', iso2: 'FR', dial: '33' },
+        { name: 'Gabon', iso2: 'GA', dial: '241' },
+        { name: 'Gambia', iso2: 'GM', dial: '220' },
+        { name: 'Georgia', iso2: 'GE', dial: '995' },
+        { name: 'Germany', iso2: 'DE', dial: '49' },
+        { name: 'Ghana', iso2: 'GH', dial: '233' },
+        { name: 'Greece', iso2: 'GR', dial: '30' },
+        { name: 'Grenada', iso2: 'GD', dial: '1473' },
+        { name: 'Guatemala', iso2: 'GT', dial: '502' },
+        { name: 'Guinea', iso2: 'GN', dial: '224' },
+        { name: 'Guinea-Bissau', iso2: 'GW', dial: '245' },
+        { name: 'Guyana', iso2: 'GY', dial: '592' },
+        { name: 'Haiti', iso2: 'HT', dial: '509' },
+        { name: 'Honduras', iso2: 'HN', dial: '504' },
+        { name: 'Hungary', iso2: 'HU', dial: '36' },
+        { name: 'Iceland', iso2: 'IS', dial: '354' },
+        { name: 'India', iso2: 'IN', dial: '91' },
+        { name: 'Indonesia', iso2: 'ID', dial: '62' },
+        { name: 'Iran', iso2: 'IR', dial: '98' },
+        { name: 'Iraq', iso2: 'IQ', dial: '964' },
+        { name: 'Ireland', iso2: 'IE', dial: '353' },
+        { name: 'Israel', iso2: 'IL', dial: '972' },
+        { name: 'Italy', iso2: 'IT', dial: '39' },
+        { name: 'Jamaica', iso2: 'JM', dial: '1876' },
+        { name: 'Japan', iso2: 'JP', dial: '81' },
+        { name: 'Jordan', iso2: 'JO', dial: '962' },
+        { name: 'Kazakhstan', iso2: 'KZ', dial: '7' },
+        { name: 'Kenya', iso2: 'KE', dial: '254' },
+        { name: 'Kiribati', iso2: 'KI', dial: '686' },
+        { name: 'Kosovo', iso2: 'XK', dial: '383' },
+        { name: 'Kuwait', iso2: 'KW', dial: '965' },
+        { name: 'Kyrgyzstan', iso2: 'KG', dial: '996' },
+        { name: 'Laos', iso2: 'LA', dial: '856' },
+        { name: 'Latvia', iso2: 'LV', dial: '371' },
+        { name: 'Lebanon', iso2: 'LB', dial: '961' },
+        { name: 'Lesotho', iso2: 'LS', dial: '266' },
+        { name: 'Liberia', iso2: 'LR', dial: '231' },
+        { name: 'Libya', iso2: 'LY', dial: '218' },
+        { name: 'Liechtenstein', iso2: 'LI', dial: '423' },
+        { name: 'Lithuania', iso2: 'LT', dial: '370' },
+        { name: 'Luxembourg', iso2: 'LU', dial: '352' },
+        { name: 'Madagascar', iso2: 'MG', dial: '261' },
+        { name: 'Malawi', iso2: 'MW', dial: '265' },
+        { name: 'Malaysia', iso2: 'MY', dial: '60' },
+        { name: 'Maldives', iso2: 'MV', dial: '960' },
+        { name: 'Mali', iso2: 'ML', dial: '223' },
+        { name: 'Malta', iso2: 'MT', dial: '356' },
+        { name: 'Marshall Islands', iso2: 'MH', dial: '692' },
+        { name: 'Mauritania', iso2: 'MR', dial: '222' },
+        { name: 'Mauritius', iso2: 'MU', dial: '230' },
+        { name: 'Mexico', iso2: 'MX', dial: '52' },
+        { name: 'Micronesia', iso2: 'FM', dial: '691' },
+        { name: 'Moldova', iso2: 'MD', dial: '373' },
+        { name: 'Monaco', iso2: 'MC', dial: '377' },
+        { name: 'Mongolia', iso2: 'MN', dial: '976' },
+        { name: 'Montenegro', iso2: 'ME', dial: '382' },
+        { name: 'Morocco', iso2: 'MA', dial: '212' },
+        { name: 'Mozambique', iso2: 'MZ', dial: '258' },
+        { name: 'Myanmar', iso2: 'MM', dial: '95' },
+        { name: 'Namibia', iso2: 'NA', dial: '264' },
+        { name: 'Nauru', iso2: 'NR', dial: '674' },
+        { name: 'Nepal', iso2: 'NP', dial: '977' },
+        { name: 'Netherlands', iso2: 'NL', dial: '31' },
+        { name: 'New Zealand', iso2: 'NZ', dial: '64' },
+        { name: 'Nicaragua', iso2: 'NI', dial: '505' },
+        { name: 'Niger', iso2: 'NE', dial: '227' },
+        { name: 'Nigeria', iso2: 'NG', dial: '234' },
+        { name: 'North Korea', iso2: 'KP', dial: '850' },
+        { name: 'North Macedonia', iso2: 'MK', dial: '389' },
+        { name: 'Norway', iso2: 'NO', dial: '47' },
+        { name: 'Oman', iso2: 'OM', dial: '968' },
+        { name: 'Pakistan', iso2: 'PK', dial: '92' },
+        { name: 'Palau', iso2: 'PW', dial: '680' },
+        { name: 'Palestine', iso2: 'PS', dial: '970' },
+        { name: 'Panama', iso2: 'PA', dial: '507' },
+        { name: 'Papua New Guinea', iso2: 'PG', dial: '675' },
+        { name: 'Paraguay', iso2: 'PY', dial: '595' },
+        { name: 'Peru', iso2: 'PE', dial: '51' },
+        { name: 'Philippines', iso2: 'PH', dial: '63' },
+        { name: 'Poland', iso2: 'PL', dial: '48' },
+        { name: 'Portugal', iso2: 'PT', dial: '351' },
+        { name: 'Qatar', iso2: 'QA', dial: '974' },
+        { name: 'Romania', iso2: 'RO', dial: '40' },
+        { name: 'Russia', iso2: 'RU', dial: '7' },
+        { name: 'Rwanda', iso2: 'RW', dial: '250' },
+        { name: 'Saint Kitts and Nevis', iso2: 'KN', dial: '1869' },
+        { name: 'Saint Lucia', iso2: 'LC', dial: '1758' },
+        { name: 'Saint Vincent and the Grenadines', iso2: 'VC', dial: '1784' },
+        { name: 'Samoa', iso2: 'WS', dial: '685' },
+        { name: 'San Marino', iso2: 'SM', dial: '378' },
+        { name: 'Sao Tome and Principe', iso2: 'ST', dial: '239' },
+        { name: 'Saudi Arabia', iso2: 'SA', dial: '966' },
+        { name: 'Senegal', iso2: 'SN', dial: '221' },
+        { name: 'Serbia', iso2: 'RS', dial: '381' },
+        { name: 'Seychelles', iso2: 'SC', dial: '248' },
+        { name: 'Sierra Leone', iso2: 'SL', dial: '232' },
+        { name: 'Singapore', iso2: 'SG', dial: '65' },
+        { name: 'Slovakia', iso2: 'SK', dial: '421' },
+        { name: 'Slovenia', iso2: 'SI', dial: '386' },
+        { name: 'Solomon Islands', iso2: 'SB', dial: '677' },
+        { name: 'Somalia', iso2: 'SO', dial: '252' },
+        { name: 'South Africa', iso2: 'ZA', dial: '27' },
+        { name: 'South Korea', iso2: 'KR', dial: '82' },
+        { name: 'South Sudan', iso2: 'SS', dial: '211' },
+        { name: 'Spain', iso2: 'ES', dial: '34' },
+        { name: 'Sri Lanka', iso2: 'LK', dial: '94' },
+        { name: 'Sudan', iso2: 'SD', dial: '249' },
+        { name: 'Suriname', iso2: 'SR', dial: '597' },
+        { name: 'Sweden', iso2: 'SE', dial: '46' },
+        { name: 'Switzerland', iso2: 'CH', dial: '41' },
+        { name: 'Syria', iso2: 'SY', dial: '963' },
+        { name: 'Taiwan', iso2: 'TW', dial: '886' },
+        { name: 'Tajikistan', iso2: 'TJ', dial: '992' },
+        { name: 'Tanzania', iso2: 'TZ', dial: '255' },
+        { name: 'Thailand', iso2: 'TH', dial: '66' },
+        { name: 'Timor-Leste', iso2: 'TL', dial: '670' },
+        { name: 'Togo', iso2: 'TG', dial: '228' },
+        { name: 'Tonga', iso2: 'TO', dial: '676' },
+        { name: 'Trinidad and Tobago', iso2: 'TT', dial: '1868' },
+        { name: 'Tunisia', iso2: 'TN', dial: '216' },
+        { name: 'Turkey', iso2: 'TR', dial: '90' },
+        { name: 'Turkmenistan', iso2: 'TM', dial: '993' },
+        { name: 'Tuvalu', iso2: 'TV', dial: '688' },
+        { name: 'Uganda', iso2: 'UG', dial: '256' },
+        { name: 'Ukraine', iso2: 'UA', dial: '380' },
+        { name: 'United Arab Emirates', iso2: 'AE', dial: '971' },
+        { name: 'United Kingdom', iso2: 'GB', dial: '44' },
+        { name: 'United States', iso2: 'US', dial: '1' },
+        { name: 'Uruguay', iso2: 'UY', dial: '598' },
+        { name: 'Uzbekistan', iso2: 'UZ', dial: '998' },
+        { name: 'Vanuatu', iso2: 'VU', dial: '678' },
+        { name: 'Vatican City', iso2: 'VA', dial: '379' },
+        { name: 'Venezuela', iso2: 'VE', dial: '58' },
+        { name: 'Vietnam', iso2: 'VN', dial: '84' },
+        { name: 'Yemen', iso2: 'YE', dial: '967' },
+        { name: 'Zambia', iso2: 'ZM', dial: '260' },
+        { name: 'Zimbabwe', iso2: 'ZW', dial: '263' }
+    ];
+
+    function flagEmoji(iso2) {
+        return iso2.toUpperCase().replace(/./g, c => String.fromCodePoint(127397 + c.charCodeAt(0)));
+    }
+
+    // Fast case-insensitive lookup: whatever the visitor typed -> the exact
+    // spelling we always store. This is what fixes "Gambian" / "Gambia" /
+    // "Sierraleona" all landing as different values in the sheet.
+    const GVJ_COUNTRY_LOOKUP = {};
+    GVJ_COUNTRIES.forEach(c => { GVJ_COUNTRY_LOOKUP[c.name.toLowerCase()] = c.name; });
+
+    function resolveCountryName(typed) {
+        return GVJ_COUNTRY_LOOKUP[(typed || '').trim().toLowerCase()] || null;
+    }
+
+    function populateCountryDatalist() {
+        const names = GVJ_COUNTRIES.map(c => c.name).sort((a, b) => a.localeCompare(b));
+        document.getElementById('gvj-country-list').innerHTML =
+            names.map(n => `<option value="${n}">`).join('');
+    }
+
+    // Snaps the field to the list's exact spelling once it resolves; flags it
+    // red if what's typed doesn't match any country on the list.
+    function normalizeCountryField(el) {
+        const resolved = resolveCountryName(el.value);
+        if (resolved) { el.value = resolved; el.classList.remove('error'); }
+        else if (el.value.trim()) { el.classList.add('error'); }
+    }
+
+    function populateDialSelect() {
+        const sorted = GVJ_COUNTRIES.slice().sort((a, b) => a.name.localeCompare(b.name));
+        document.getElementById('m_whatsapp_dial').innerHTML =
+            sorted.map(c => `<option value="${c.dial}">${flagEmoji(c.iso2)} +${c.dial}</option>`).join('');
+        document.getElementById('m_whatsapp_dial').value = '44'; // default to the UK
+    }
+
+    // Plausible national-number length per dial code, after the leading zero
+    // (if any) is stripped. Only GVJ's core markets are specified precisely;
+    // everywhere else gets a loose generic range rather than an invented one.
+    const GVJ_PHONE_LENGTH = {
+        '44':  { min: 9,  max: 10 }, // UK
+        '220': { min: 7,  max: 7  }, // Gambia
+        '232': { min: 8,  max: 8  }, // Sierra Leone
+        '233': { min: 9,  max: 9  }, // Ghana
+        '234': { min: 10, max: 10 }  // Nigeria
+    };
+    const GVJ_PHONE_LENGTH_DEFAULT = { min: 6, max: 12 };
+
+    // Builds the single `whatsapp` value we submit: dial code + national
+    // number, digits only, no plus, no leading zero.
+    function buildWhatsappNumber() {
+        const dial     = document.getElementById('m_whatsapp_dial').value;
+        const national = document.getElementById('m_whatsapp').value.replace(/\D/g, '').replace(/^0+/, '');
+        const range    = GVJ_PHONE_LENGTH[dial] || GVJ_PHONE_LENGTH_DEFAULT;
+        const ok       = national.length >= range.min && national.length <= range.max;
+        return { ok: ok, full: dial + national };
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       LONG-PROCESSING-TIME NOTICE (Gambia today, extensible)
+       Add a future nationality by adding one line to this object —
+       the day count, the live recalculation, and the disappearing
+       behaviour all come from this single config.
+    ═══════════════════════════════════════════════════════ */
+    const GVJ_LONG_PROCESSING_NATIONALITIES = {
+        Gambia: 45
+    };
+
+    function daysUntil(dateStr) {
+        const target = new Date(dateStr + 'T00:00:00');
+        const today  = new Date();
+        today.setHours(0, 0, 0, 0);
+        return Math.round((target - today) / 86400000);
+    }
+
+    function recalcLongProcessingNotice() {
+        const notice      = document.getElementById('gambia-notice');
+        const continueRow = document.getElementById('trip-continue-row');
+        const nationality = resolveCountryName(document.getElementById('m_nationality').value);
+        const dateFrom     = document.getElementById('m_date_from').value;
+        const threshold    = nationality ? GVJ_LONG_PROCESSING_NATIONALITIES[nationality] : undefined;
+
+        if (!threshold || !dateFrom) {
+            notice.classList.add('hidden');
+            continueRow.classList.remove('hidden');
+            return;
+        }
+
+        const days = daysUntil(dateFrom);
+        if (days < threshold) {
+            document.getElementById('gambia-notice-days').textContent      = Math.max(0, days);
+            document.getElementById('gambia-notice-threshold').textContent = threshold;
+
+            const destSelect = document.getElementById('m_destination');
+            const destLabel  = destSelect.selectedOptions[0] ? destSelect.selectedOptions[0].textContent : 'your destination';
+            const waMessage  = 'Hi, I am applying for a ' + destLabel + ' visa with a travel date of ' + dateFrom +
+                ' (' + Math.max(0, days) + ' days away). I understand this can take longer to process and want to talk through my options.';
+            document.getElementById('gambia-notice-whatsapp').href = 'https://wa.me/447511219482?text=' + encodeURIComponent(waMessage);
+
+            notice.classList.remove('hidden');
+            continueRow.classList.add('hidden');
+        } else {
+            notice.classList.add('hidden');
+            continueRow.classList.remove('hidden');
+        }
+    }
+
+    /* ═══════════════════════════════════════════════════════
        INIT ON LOAD
     ═══════════════════════════════════════════════════════ */
     window.addEventListener('DOMContentLoaded', () => {
         buildStepUI('auto-step-indicators',   ['Destination', 'Finances', 'Flags', 'Results', 'Report']);
         buildStepUI('manual-step-indicators', ['Personal', 'Trip', 'Finances', 'History', 'Done']);
+        populateCountryDatalist();
+        populateDialSelect();
 
         const urlType = new URLSearchParams(window.location.search).get('type');
         switchTab(urlType === 'manual' ? 'manual' : 'automated');
@@ -1478,8 +1816,11 @@ window.subscribeNewsletter = async () => {
             if (fieldOk && el.type === 'email') {
                 fieldOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim());
             }
-            if (fieldOk && (el.id === 'm_whatsapp' || el.id === 'm_phone')) {
-                fieldOk = el.value.replace(/\D/g, '').length >= 7;
+            if (fieldOk && el.id === 'm_whatsapp') {
+                fieldOk = buildWhatsappNumber().ok;
+            }
+            if (fieldOk && (el.id === 'm_nationality' || el.id === 'm_residence')) {
+                fieldOk = !!resolveCountryName(el.value);
             }
             if (!fieldOk) { el.classList.add('error'); ok = false; }
             else el.classList.remove('error');
@@ -1494,6 +1835,7 @@ window.subscribeNewsletter = async () => {
         manualStep = n;
         panels[manualStep].classList.add('active');
         updateStepUI('manual-step-indicators', manualStep, MANUAL_TOTAL);
+        if (manualStep === 1) recalcLongProcessingNotice();
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -1503,6 +1845,7 @@ window.subscribeNewsletter = async () => {
         manualStep = n;
         panels[manualStep].classList.add('active');
         updateStepUI('manual-step-indicators', manualStep, MANUAL_TOTAL);
+        if (manualStep === 1) recalcLongProcessingNotice();
     }
 
     async function submitManualForm() {
@@ -1521,9 +1864,9 @@ window.subscribeNewsletter = async () => {
         const payload = {
             fullName:          document.getElementById('m_name').value.trim(),
             email:             document.getElementById('m_email').value.trim(),
-            whatsapp:          document.getElementById('m_whatsapp').value.trim(),
-            nationality:       document.getElementById('m_nationality').value.trim(),
-            countryOfResidence:document.getElementById('m_residence').value.trim(),
+            whatsapp:          buildWhatsappNumber().full,
+            nationality:       resolveCountryName(document.getElementById('m_nationality').value) || document.getElementById('m_nationality').value.trim(),
+            countryOfResidence:resolveCountryName(document.getElementById('m_residence').value) || document.getElementById('m_residence').value.trim(),
             destination:       document.getElementById('m_destination').value,
             purposeOfTravel:   document.getElementById('m_purpose').value,
             travelDateFrom:    document.getElementById('m_date_from').value,
