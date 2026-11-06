@@ -84,7 +84,7 @@
         .vtp-input::placeholder { color: var(--text-muted); }
         input[type="date"].vtp-input::-webkit-calendar-picker-indicator { filter: invert(0.6); cursor: pointer; }
 
-        /* ── PROMPT STATE (shown until all three fields resolve) ── */
+        /* ── PROMPT STATE (shown until all four fields resolve) ── */
         .vtp-prompt { text-align: center; padding: 50px 20px; color: var(--text-secondary); font-size: 0.95rem; border: 1px dashed var(--border-surface); border-radius: 16px; }
 
         /* ── VERDICT BAND ── */
@@ -94,10 +94,12 @@
         }
         .vtp-verdict.tight { border-left-color: var(--amber); }
         .vtp-verdict.toolate { border-left-color: var(--red); }
+        .vtp-verdict.unknown { border-left-color: var(--text-muted); }
         .vtp-verdict-number { font-family: 'Cormorant Garamond', serif; font-size: 4.2rem; font-weight: 700; color: #fff; line-height: 1; flex-shrink: 0; }
         .vtp-verdict.comfortable .vtp-verdict-number { color: var(--brand-gold); }
         .vtp-verdict.tight .vtp-verdict-number { color: var(--amber); }
         .vtp-verdict.toolate .vtp-verdict-number { color: var(--red); }
+        .vtp-verdict.unknown .vtp-verdict-number { color: var(--text-secondary); }
         .vtp-verdict-number-caption { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); margin-top: 4px; text-align: center; }
         .vtp-verdict-body h2 { font-size: 1.5rem; color: #fff; margin: 0 0 6px; }
         .vtp-verdict-body p { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin: 0; }
@@ -134,6 +136,12 @@
         .vtp-stop-date { font-size: 0.82rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
         .vtp-stop-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--brand-gold); margin-bottom: 6px; }
         .vtp-stop-detail { font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5; }
+        .vtp-stop-detail a { color: var(--whatsapp); font-weight: 700; }
+        /* A stop we genuinely can't date yet (unknown document window) —
+           muted dot, no date line, so it reads as "missing info" rather
+           than a mis-dated stop. */
+        .vtp-stop.unknown .vtp-stop-dot { background: var(--text-muted); }
+        .vtp-stop.unknown .vtp-stop-label { color: var(--text-secondary); }
 
         /* Mobile: flip the rail vertical — line down the left, stops stacked */
         @media (max-width: 760px) {
@@ -160,6 +168,25 @@
         /* ── COUNTRY NOTE ── */
         .vtp-country-note { background: var(--bg-card); border: 1px solid var(--border-surface); border-radius: 12px; padding: 18px 20px; margin-bottom: 36px; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; }
         .vtp-country-note strong { color: #fff; }
+
+        /* ── EARLIEST LODGING — always shown once a result renders ── */
+        .vtp-earliest-lodging { color: var(--text-secondary); font-size: 0.85rem; margin: 0 0 20px; }
+        .vtp-earliest-lodging i { color: var(--brand-gold); margin-right: 6px; }
+
+        /* ── HARD 15-DAY FLOOR — a different, harder stop than the
+           "too late" verdict: that one is about whether there's enough
+           prep time; this one is about whether lodging is even possible
+           at all, so it gets its own distinct red block. ── */
+        .vtp-blocking-note {
+            background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.35); border-radius: 14px;
+            padding: 24px 22px; margin-bottom: 30px; text-align: center;
+        }
+        .vtp-blocking-note i { color: var(--red); font-size: 1.6rem; display: block; margin-bottom: 10px; }
+        .vtp-blocking-note p { color: #fca5a5; font-size: 0.95rem; font-weight: 600; margin: 0; line-height: 1.6; }
+
+        /* ── FOOTNOTE (e.g. the passport-return buffer caveat) ── */
+        .vtp-footnote { color: var(--text-secondary); font-size: 0.78rem; line-height: 1.6; margin: 0 0 30px; }
+        .vtp-footnote i { color: var(--brand-gold); margin-right: 6px; }
 
         /* ── WHATSAPP CTA ── */
         .vtp-whatsapp-btn { display: flex; align-items: center; justify-content: center; gap: 10px; background: var(--whatsapp); color: #fff; font-weight: 700; padding: 15px 20px; border-radius: 12px; text-decoration: none; font-size: 0.92rem; transition: transform 0.2s, box-shadow 0.2s; margin-bottom: 30px; }
@@ -211,7 +238,7 @@
 <header class="vtp-header">
     <span class="text-gold text-xs font-bold tracking-widest uppercase">Free Tool</span>
     <h1>When do you need to start?</h1>
-    <p class="vtp-standfirst">Enter your travel date, destination and passport. We work backwards from the decision period to tell you the day you should start.</p>
+    <p class="vtp-standfirst">Enter your travel date, destination, passport and where you'll apply from. We work backwards from the decision period to tell you the day you should start.</p>
 </header>
 
 <!-- MAIN -->
@@ -229,13 +256,18 @@
             <datalist id="vtp-passport-list"></datalist>
         </div>
         <div class="vtp-field">
+            <label class="vtp-field-label" for="vtp-applying-from">Applying from</label>
+            <input type="text" id="vtp-applying-from" class="vtp-input" list="vtp-applying-from-list" autocomplete="off" placeholder="Where you'll submit">
+            <datalist id="vtp-applying-from-list"></datalist>
+        </div>
+        <div class="vtp-field">
             <label class="vtp-field-label" for="vtp-travel-date">First day of travel</label>
             <input type="date" id="vtp-travel-date" class="vtp-input">
         </div>
     </div>
 
     <div id="vtp-result">
-        <p class="vtp-prompt">Enter a destination, passport and travel date above to see when you should start.</p>
+        <p class="vtp-prompt">Enter a destination, passport, applying-from country and travel date above to see when you should start.</p>
     </div>
 
 </main>
@@ -367,7 +399,7 @@ var GVJ_COUNTRIES = [
     { name: 'Honduras', iso2: 'HN' }, { name: 'Hungary', iso2: 'HU' }, { name: 'Iceland', iso2: 'IS' },
     { name: 'India', iso2: 'IN' }, { name: 'Indonesia', iso2: 'ID' }, { name: 'Iran', iso2: 'IR' },
     { name: 'Iraq', iso2: 'IQ' }, { name: 'Ireland', iso2: 'IE' }, { name: 'Israel', iso2: 'IL' },
-    { name: 'Italy', iso2: 'IT' }, { name: 'Jamaica', iso2: 'JM' }, { name: 'Japan', iso2: 'JP' },
+    { name: 'Italy', iso2: 'IT' }, { name: 'Ivory Coast', iso2: 'CI' }, { name: 'Jamaica', iso2: 'JM' }, { name: 'Japan', iso2: 'JP' },
     { name: 'Jordan', iso2: 'JO' }, { name: 'Kazakhstan', iso2: 'KZ' }, { name: 'Kenya', iso2: 'KE' },
     { name: 'Kiribati', iso2: 'KI' }, { name: 'Kosovo', iso2: 'XK' }, { name: 'Kuwait', iso2: 'KW' },
     { name: 'Kyrgyzstan', iso2: 'KG' }, { name: 'Laos', iso2: 'LA' }, { name: 'Latvia', iso2: 'LV' },
@@ -414,6 +446,38 @@ var GVJ_LONG_PROCESSING_NATIONALITIES = {
     GM: { days: 45, reason: "is checked with other Schengen states first" }
 };
 
+// How long document-gathering takes depends on where the applicant is
+// submitting from, not on their passport — a Nigerian passport holder
+// living in the UK gathers documents in days; the same passport in
+// Lagos does not. Edit these two numbers freely; nothing below needs
+// to change for a new figure. Applying from anywhere not covered here
+// is deliberately left unknown rather than guessed — see
+// documentWindowFor().
+var DOCUMENT_WINDOW_DAYS = {
+    UK: 14,
+    AFRICA: 30
+};
+
+// Standard list of African UN member states (ISO 3166-1 alpha-2). The
+// project has no continent/region field on its country data yet, so
+// this is the one place that knows which countries count as "Africa"
+// for the document-window lookup.
+var AFRICAN_COUNTRY_CODES = [
+    'DZ', 'AO', 'BJ', 'BW', 'BF', 'BI', 'CV', 'CM', 'CF', 'TD', 'KM', 'CG', 'CD', 'DJ', 'EG',
+    'GQ', 'ER', 'SZ', 'ET', 'GA', 'GM', 'GH', 'GN', 'GW', 'CI', 'KE', 'LS', 'LR', 'LY', 'MG',
+    'MW', 'ML', 'MR', 'MU', 'MA', 'MZ', 'NA', 'NE', 'NG', 'RW', 'ST', 'SN', 'SC', 'SL', 'SO',
+    'ZA', 'SS', 'SD', 'TZ', 'TG', 'TN', 'UG', 'ZM', 'ZW'
+];
+
+// Never guesses and never falls back to a default — { known: false } is
+// the honest answer for anywhere not covered, and callers must handle
+// it rather than silently using some other figure.
+function documentWindowFor(applyingFromCountry) {
+    if (applyingFromCountry.iso2 === 'GB') return { days: DOCUMENT_WINDOW_DAYS.UK, known: true };
+    if (AFRICAN_COUNTRY_CODES.indexOf(applyingFromCountry.iso2) !== -1) return { days: DOCUMENT_WINDOW_DAYS.AFRICA, known: true };
+    return { days: null, known: false };
+}
+
 var DESTINATIONS = [];               // populated from schengen-processing.json
 var DESTINATION_LOOKUP = {};         // lowercase name -> destination object
 var PASSPORT_LOOKUP = {};            // lowercase name -> { name, iso2 }
@@ -425,6 +489,9 @@ function parseDateInput(str) {
 }
 function addDays(date, days) {
     return new Date(date.getFullYear(), date.getMonth(), date.getDate() + days);
+}
+function subtractMonths(date, months) {
+    return new Date(date.getFullYear(), date.getMonth() - months, date.getDate());
 }
 function daysBetween(a, b) {
     return Math.round((b.getTime() - a.getTime()) / 86400000);
@@ -444,6 +511,12 @@ function resolveDestination(typed) {
 function resolvePassport(typed) {
     return PASSPORT_LOOKUP[(typed || '').trim().toLowerCase()] || null;
 }
+// Applying-from uses the same country list as passport — any country can
+// host a visa application centre — but is deliberately a separate field
+// and a separate resolver, because the two answer different questions.
+function resolveApplyingFrom(typed) {
+    return PASSPORT_LOOKUP[(typed || '').trim().toLowerCase()] || null;
+}
 
 // Snaps a field to its resolved exact spelling, and flags it red if
 // what's typed doesn't match anything on the list — same pattern already
@@ -456,12 +529,20 @@ function normalizeField(el, resolver) {
 }
 
 // ── THE BACKWARDS-PLANNING MATH ──
-// travel date − 7 (passport back) − processing days (decision time) − 21
-// (gathering documents) = the day to start. Working forwards from that
-// start day gives the five rail stops, and "You fly" always lands back
-// on the travel date itself — the two are the same calculation run both
-// directions, which is the built-in sanity check.
-function computeTimeline(destination, passport, travelDateStr) {
+// travel date − 7 (passport back) − processing days (decision time) −
+// document window (gathering documents, varies by where you're applying
+// from) = the day to start. Working forwards from that start day gives
+// the rail stops, and "You fly" always lands back on the travel date
+// itself — the two are the same calculation run both directions, which
+// is the built-in sanity check.
+//
+// Two legal bounds sit alongside this, independent of how comfortable
+// the schedule looks: the earliest a Schengen application can be lodged
+// (6 calendar months before travel) and the latest (15 days before
+// travel — enforced separately, before this function is even called,
+// since under that floor there's no timeline worth calculating).
+// Source: European Commission, "Applying for a Schengen visa".
+function computeTimeline(destination, passport, applyingFrom, travelDateStr) {
     var travelDate = parseDateInput(travelDateStr);
     var baseProcessingDays = destination.processingDays;
     var processingDays = baseProcessingDays;
@@ -475,34 +556,167 @@ function computeTimeline(destination, passport, travelDateStr) {
     var flyDate = travelDate;
     var decisionDate = addDays(flyDate, -7);
     var submitDate = addDays(decisionDate, -processingDays);
-    var startDate = addDays(submitDate, -21);
+
+    var earliestLodging = subtractMonths(travelDate, 6);
+
+    var docWindow = documentWindowFor(applyingFrom);
+    var startDate = null;
+    var startClamped = false;
+    if (docWindow.known) {
+        startDate = addDays(submitDate, -docWindow.days);
+        // Trip is far enough out that the naive backward math lands
+        // before applications even open — the real start is whichever
+        // comes later, so show the 6-month date instead and say why.
+        if (startDate.getTime() < earliestLodging.getTime()) {
+            startDate = earliestLodging;
+            startClamped = true;
+        }
+    }
 
     return {
-        destination: destination, processingDays: processingDays, longProcessing: longProcessing,
-        startDate: startDate, submitDate: submitDate, decisionDate: decisionDate, flyDate: flyDate
+        destination: destination, applyingFrom: applyingFrom, processingDays: processingDays, longProcessing: longProcessing,
+        docWindow: docWindow, startDate: startDate, startClamped: startClamped,
+        submitDate: submitDate, decisionDate: decisionDate, flyDate: flyDate, earliestLodging: earliestLodging
     };
 }
 
-function buildWhatsAppLink(destination, travelDateStr, passport) {
+function buildWhatsAppLink(destination, travelDateStr, passport, applyingFrom) {
     var text = "Hi, I'm planning a trip to " + destination.name + " on " + fmtDate(parseDateInput(travelDateStr)) +
-        " and need help with the timing. My passport is " + passport.name + ".";
+        " and need help with the timing. My passport is " + passport.name + ", and I'll be applying from " + applyingFrom.name + ".";
     return 'https://wa.me/447511219482?text=' + encodeURIComponent(text);
 }
 
 // ── RENDERING ──
+
+var WHATSAPP_NUMBER = '447511219482';
+
+function whatsAppHelpLink(text) {
+    return 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(text);
+}
+
+// Always shown once a result renders, in every state including the
+// unknown-document-window one — it's a flat legal bound, not something
+// that depends on anything else being known.
+function renderEarliestLodgingLine(earliestLodging) {
+    return '<p class="vtp-earliest-lodging"><i class="fa-solid fa-calendar-check"></i>The earliest you can lodge this application is ' + fmtDate(earliestLodging) + '.</p>';
+}
+
+function renderFootnote() {
+    return '<p class="vtp-footnote"><i class="fa-solid fa-circle-info"></i>The 7 days for passport return is our own planning buffer. Germany is the only UK centre that publishes a figure (2 to 3 working days). Greece returns passports by courier only outside London, so allow about 5 extra days in Manchester and Edinburgh.</p>';
+}
+
+function renderLongProcessingNote(longProcessing, destinationName, earliestLodging) {
+    if (!longProcessing) return '';
+    var lp = longProcessing;
+    return '<div class="vtp-long-processing-note"><i class="fa-solid fa-circle-info"></i>' +
+        'A ' + lp.passportName + ' passport ' + lp.reason + ', so ' + destinationName +
+        ' takes about ' + lp.days + ' days rather than the usual ' + lp.baseDays + '.' +
+        '<br><br>Don\'t wait for the start date below. ' + lp.days + ' days is the normal case, not the worst one, so lodge as early as the rules allow — from ' + fmtDate(earliestLodging) + '. That gap is what absorbs a missing document or a delayed appointment.' +
+        '</div>';
+}
+
+function renderCountryNote(destination) {
+    return destination.note
+        ? '<div class="vtp-country-note"><strong>' + destination.name + ':</strong> ' + destination.note + '</div>'
+        : '';
+}
+
+function renderStop(s, t) {
+    if (s.unknown) {
+        return '<div class="vtp-stop unknown">' +
+            '<div class="vtp-stop-dot"></div>' +
+            '<div class="vtp-stop-label">' + s.label + '</div>' +
+            '<div class="vtp-stop-detail">' + s.detail + '</div>' +
+            '</div>';
+    }
+    var isPast = s.date.getTime() < t.getTime();
+    return '<div class="vtp-stop' + (isPast ? ' past' : '') + '">' +
+        '<div class="vtp-stop-dot"></div>' +
+        '<div class="vtp-stop-date">' + fmtDate(s.date) + '</div>' +
+        '<div class="vtp-stop-label">' + s.label + '</div>' +
+        '<div class="vtp-stop-detail">' + s.detail + '</div>' +
+        '</div>';
+}
+
+function renderRail(stops, t) {
+    var stopsHtml = stops.map(function (s) { return renderStop(s, t); }).join('');
+    return '<div class="vtp-rail-wrap"><div class="vtp-rail" id="vtp-rail">' +
+        '<div class="vtp-rail-track"></div><div class="vtp-rail-line"></div>' +
+        stopsHtml +
+        '</div></div>';
+}
+
+// Triggers the rail draw-in by adding the animate class on the next
+// frame, so the browser registers the "before" state first — otherwise
+// the transition has nothing to animate from. No-ops under
+// prefers-reduced-motion, where the rail is already fully visible.
+function triggerRailAnimation() {
+    var rail = document.getElementById('vtp-rail');
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (rail && !reduceMotion) {
+        requestAnimationFrame(function () {
+            requestAnimationFrame(function () { rail.classList.add('vtp-animate'); });
+        });
+    }
+}
+
+// The hard 15-day floor is a different thing from the "too late"
+// verdict below: that one is a judgement call about whether there's
+// enough prep time; this one is a flat rule — under it, there is no
+// timeline worth calculating, so it replaces the verdict and rail
+// entirely rather than sitting alongside them.
+function renderTooCloseToLodge(destination, passport, applyingFrom, travelDateStr, earliestLodging) {
+    var waLink = whatsAppHelpLink("Hi, my travel date to " + destination.name + " is very close and I'm not sure a Schengen application can still be lodged in time. My passport is " + passport.name + ", applying from " + applyingFrom.name + ".");
+    document.getElementById('vtp-result').innerHTML =
+        renderEarliestLodgingLine(earliestLodging) +
+        '<div class="vtp-blocking-note"><i class="fa-solid fa-ban"></i><p>A Schengen visa application cannot normally be lodged less than 15 days before travel. This date is too close.</p></div>' +
+        '<a href="' + waLink + '" target="_blank" rel="noopener noreferrer" class="vtp-whatsapp-btn" onclick="gtag(\'event\',\'whatsapp_click\',{\'page_location\':window.location.href,\'page_title\':document.title,\'button_location\':\'visa_timeline_too_close\'})">' +
+            '<i class="fa-brands fa-whatsapp"></i> Talk to Us Urgently' +
+        '</a>';
+}
+
 function renderResult(timeline) {
     var t = today();
+
+    var waLink = buildWhatsAppLink(timeline.destination, document.getElementById('vtp-travel-date').value, resolvePassport(document.getElementById('vtp-passport').value), timeline.applyingFrom);
+    var whatsAppButtonHtml = '<a href="' + waLink + '" target="_blank" rel="noopener noreferrer" class="vtp-whatsapp-btn" onclick="gtag(\'event\',\'whatsapp_click\',{\'page_location\':window.location.href,\'page_title\':document.title,\'button_location\':\'visa_timeline_cta\'})">' +
+        '<i class="fa-brands fa-whatsapp"></i> Talk to Us About This Timeline' +
+    '</a>';
+    var caveatHtml = '<div class="vtp-caveat"><p><i class="fa-solid fa-circle-info"></i>Processing times are the published decision periods. How long documents take depends on how quickly you can get statements, insurance and tickets together, and appointment waits move with the centre and the season. Treat these dates as a guide for planning.</p></div>';
+
+    // No document-gathering estimate for this applying-from country — we
+    // don't guess. The three stops that don't depend on it (submit,
+    // decision, fly) still render; one stop replaces the two that did.
+    if (!timeline.docWindow.known) {
+        var unknownStop = {
+            label: 'Gather Documents', unknown: true,
+            detail: "We don't have a document-gathering estimate for " + timeline.applyingFrom.name + ' yet. <a href="' + whatsAppHelpLink("Hi, I'm applying for a " + timeline.destination.name + " Schengen visa from " + timeline.applyingFrom.name + " and need help working out my document timeline.") + '" target="_blank" rel="noopener noreferrer">Message us on WhatsApp</a> and we\'ll work it out with you.'
+        };
+        var knownStops = [
+            { label: 'Submit In Person', date: timeline.submitDate, detail: 'Attend your appointment with your completed file.' },
+            { label: 'Decision Expected', date: timeline.decisionDate, detail: timeline.destination.name + "'s typical decision period is about " + timeline.processingDays + ' days after submission.' },
+            { label: 'You Fly', date: timeline.flyDate, detail: 'Collect your passport at least a week before you travel.' }
+        ];
+
+        document.getElementById('vtp-result').innerHTML =
+            renderEarliestLodgingLine(timeline.earliestLodging) +
+            '<div class="vtp-verdict unknown">' +
+                '<div><div class="vtp-verdict-number">?</div><div class="vtp-verdict-number-caption">Unknown</div></div>' +
+                '<div class="vtp-verdict-body"><h2>We need a bit more detail</h2><p>We don\'t yet have a document-gathering estimate for applicants applying from ' + timeline.applyingFrom.name + '. The rest of your timeline is below — message us and we\'ll work out the missing part together.</p></div>' +
+            '</div>' +
+            renderLongProcessingNote(timeline.longProcessing, timeline.destination.name, timeline.earliestLodging) +
+            renderRail([unknownStop].concat(knownStops), t) +
+            renderFootnote() +
+            renderCountryNote(timeline.destination) +
+            whatsAppButtonHtml +
+            caveatHtml;
+
+        triggerRailAnimation();
+        return;
+    }
+
     var slack = daysBetween(t, timeline.startDate);
     var status = slack > 14 ? 'comfortable' : (slack >= 0 ? 'tight' : 'toolate');
-
-    var longProcessingHtml = '';
-    if (timeline.longProcessing) {
-        var lp = timeline.longProcessing;
-        longProcessingHtml =
-            '<div class="vtp-long-processing-note"><i class="fa-solid fa-circle-info"></i>' +
-            'A ' + lp.passportName + ' passport ' + lp.reason + ', so ' + timeline.destination.name +
-            ' takes about ' + lp.days + ' days rather than the usual ' + lp.baseDays + '.</div>';
-    }
 
     var verdictHeadline, verdictSentence, numberValue, numberCaption;
     if (status === 'comfortable') {
@@ -518,56 +732,32 @@ function renderResult(timeline) {
         verdictSentence = 'Based on these dates, you would have needed to start around ' + fmtDate(timeline.startDate) + '. Treat this travel date as very high risk, or move it back.';
         numberValue = Math.abs(slack); numberCaption = 'Days Too Late';
     }
+    if (timeline.startClamped) {
+        verdictSentence += ' Your trip is further out than the rules allow applying for, so the start date above is the earliest lodging date, not our usual document-gathering estimate.';
+    }
 
     var stops = [
-        { label: 'Begin Documents', date: timeline.startDate, detail: 'Start gathering bank statements, insurance and your travel plan.' },
+        { label: 'Begin Documents', date: timeline.startDate, detail: 'Start gathering bank statements, insurance and your travel plan — allow about ' + timeline.docWindow.days + ' days from ' + timeline.applyingFrom.name + '.' },
         { label: 'Book Appointment', date: timeline.startDate, detail: 'Book your slot as early as you can — waits vary by centre and season.' },
         { label: 'Submit In Person', date: timeline.submitDate, detail: 'Attend your appointment with your completed file.' },
         { label: 'Decision Expected', date: timeline.decisionDate, detail: timeline.destination.name + "'s typical decision period is about " + timeline.processingDays + ' days after submission.' },
         { label: 'You Fly', date: timeline.flyDate, detail: 'Collect your passport at least a week before you travel.' }
     ];
-    var stopsHtml = stops.map(function (s) {
-        var isPast = s.date.getTime() < t.getTime();
-        return '<div class="vtp-stop' + (isPast ? ' past' : '') + '">' +
-            '<div class="vtp-stop-dot"></div>' +
-            '<div class="vtp-stop-date">' + fmtDate(s.date) + '</div>' +
-            '<div class="vtp-stop-label">' + s.label + '</div>' +
-            '<div class="vtp-stop-detail">' + s.detail + '</div>' +
-            '</div>';
-    }).join('');
-
-    var countryNoteHtml = timeline.destination.note
-        ? '<div class="vtp-country-note"><strong>' + timeline.destination.name + ':</strong> ' + timeline.destination.note + '</div>'
-        : '';
-
-    var waLink = buildWhatsAppLink(timeline.destination, document.getElementById('vtp-travel-date').value, resolvePassport(document.getElementById('vtp-passport').value));
 
     document.getElementById('vtp-result').innerHTML =
+        renderEarliestLodgingLine(timeline.earliestLodging) +
         '<div class="vtp-verdict ' + status + '">' +
             '<div><div class="vtp-verdict-number">' + numberValue + '</div><div class="vtp-verdict-number-caption">' + numberCaption + '</div></div>' +
             '<div class="vtp-verdict-body"><h2>' + verdictHeadline + '</h2><p>' + verdictSentence + '</p></div>' +
         '</div>' +
-        longProcessingHtml +
-        '<div class="vtp-rail-wrap"><div class="vtp-rail" id="vtp-rail">' +
-            '<div class="vtp-rail-track"></div><div class="vtp-rail-line"></div>' +
-            stopsHtml +
-        '</div></div>' +
-        countryNoteHtml +
-        '<a href="' + waLink + '" target="_blank" rel="noopener noreferrer" class="vtp-whatsapp-btn" onclick="gtag(\'event\',\'whatsapp_click\',{\'page_location\':window.location.href,\'page_title\':document.title,\'button_location\':\'visa_timeline_cta\'})">' +
-            '<i class="fa-brands fa-whatsapp"></i> Talk to Us About This Timeline' +
-        '</a>' +
-        '<div class="vtp-caveat"><p><i class="fa-solid fa-circle-info"></i>Processing times are the published decision periods. How long documents take depends on how quickly you can get statements, insurance and tickets together, and appointment waits move with the centre and the season. Treat these dates as a guide for planning.</p></div>';
+        renderLongProcessingNote(timeline.longProcessing, timeline.destination.name, timeline.earliestLodging) +
+        renderRail(stops, t) +
+        renderFootnote() +
+        renderCountryNote(timeline.destination) +
+        whatsAppButtonHtml +
+        caveatHtml;
 
-    // Trigger the rail draw-in: add the class on the next frame so the
-    // browser registers the "before" state first, otherwise the
-    // transition has nothing to animate from.
-    var rail = document.getElementById('vtp-rail');
-    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (rail && !reduceMotion) {
-        requestAnimationFrame(function () {
-            requestAnimationFrame(function () { rail.classList.add('vtp-animate'); });
-        });
-    }
+    triggerRailAnimation();
 }
 
 function renderPrompt(message) {
@@ -577,18 +767,29 @@ function renderPrompt(message) {
 function recalculate() {
     var destination = resolveDestination(document.getElementById('vtp-destination').value);
     var passport = resolvePassport(document.getElementById('vtp-passport').value);
+    var applyingFrom = resolveApplyingFrom(document.getElementById('vtp-applying-from').value);
     var travelDateStr = document.getElementById('vtp-travel-date').value;
 
-    if (!destination || !passport || !travelDateStr) {
-        renderPrompt('Enter a destination, passport and travel date above to see when you should start.');
+    if (!destination || !passport || !applyingFrom || !travelDateStr) {
+        renderPrompt('Enter a destination, passport, applying-from country and travel date above to see when you should start.');
         return;
     }
-    if (parseDateInput(travelDateStr).getTime() < today().getTime()) {
+    var travelDate = parseDateInput(travelDateStr);
+    if (travelDate.getTime() < today().getTime()) {
         renderPrompt('That travel date has already passed — enter a date today or later.');
         return;
     }
 
-    renderResult(computeTimeline(destination, passport, travelDateStr));
+    // The 15-day floor is checked before any other calculation — under
+    // it there is no timeline worth building, so it replaces the normal
+    // result entirely rather than sitting alongside it.
+    var daysToTravel = daysBetween(today(), travelDate);
+    if (daysToTravel < 15) {
+        renderTooCloseToLodge(destination, passport, applyingFrom, travelDateStr, subtractMonths(travelDate, 6));
+        return;
+    }
+
+    renderResult(computeTimeline(destination, passport, applyingFrom, travelDateStr));
 }
 
 function populateDatalists() {
@@ -596,7 +797,11 @@ function populateDatalists() {
     document.getElementById('vtp-destination-list').innerHTML = destNames.map(function (n) { return '<option value="' + n + '">'; }).join('');
 
     var passportNames = GVJ_COUNTRIES.map(function (c) { return c.name; }).sort(function (a, b) { return a.localeCompare(b); });
-    document.getElementById('vtp-passport-list').innerHTML = passportNames.map(function (n) { return '<option value="' + n + '">'; }).join('');
+    var passportOptionsHtml = passportNames.map(function (n) { return '<option value="' + n + '">'; }).join('');
+    document.getElementById('vtp-passport-list').innerHTML = passportOptionsHtml;
+    // Same country list as passport, same options — applying-from just
+    // reads them into its own datalist so the two fields stay independent.
+    document.getElementById('vtp-applying-from-list').innerHTML = passportOptionsHtml;
 }
 
 (function init() {
@@ -606,11 +811,14 @@ function populateDatalists() {
 
     var destInput = document.getElementById('vtp-destination');
     var passInput = document.getElementById('vtp-passport');
+    var applyingFromInput = document.getElementById('vtp-applying-from');
 
     destInput.addEventListener('input', recalculate);
     destInput.addEventListener('blur', function () { normalizeField(destInput, resolveDestination); recalculate(); });
     passInput.addEventListener('input', recalculate);
     passInput.addEventListener('blur', function () { normalizeField(passInput, resolvePassport); recalculate(); });
+    applyingFromInput.addEventListener('input', recalculate);
+    applyingFromInput.addEventListener('blur', function () { normalizeField(applyingFromInput, resolveApplyingFrom); recalculate(); });
     dateInput.addEventListener('input', recalculate);
     dateInput.addEventListener('change', recalculate);
 
