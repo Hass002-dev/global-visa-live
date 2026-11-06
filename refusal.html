@@ -248,19 +248,79 @@
             opacity: 0.4;
         }
 
-        /* ── REASON CARDS ── */
-        .reason-card {
+        /* ── REFUSAL GROUNDS (Annex VI, Regulation (EU) 2019/1155) ──
+           All 17 grounds are always in the DOM and visible by default —
+           that's what a no-JS visitor and a crawler both see. The tiny
+           inline script right after the grid is the ONLY thing that
+           switches on the collapsed-to-7 view, by adding .js-collapsible
+           to the grid. If that script never runs, nothing is hidden. */
+        .refusal-grounds-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .refusal-ground-card {
             background: var(--bg-card);
             border: 1px solid var(--border-surface);
-            border-radius: 12px;
-            padding: 24px;
-            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            border-left: 3px solid var(--brand-gold-dim);
+            border-radius: 10px;
+            padding: 18px 22px;
         }
-        .reason-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(0,0,0,0.4);
-            border-color: var(--brand-gold-dim);
+        .refusal-ground-number {
+            display: inline-block;
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--brand-gold);
+            margin-bottom: 6px;
         }
+        .refusal-ground-official {
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+        .refusal-ground-plain {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin: 8px 0 0;
+        }
+        #refusal-grounds-toggle {
+            display: none;
+        }
+        /* Collapsed view: only the 7 we see most often, in their own order */
+        .refusal-grounds-grid.js-collapsible .refusal-ground-card { display: none; }
+        .refusal-grounds-grid.js-collapsible .refusal-ground-card[data-ground="2"]  { display: block; order: 1; }
+        .refusal-grounds-grid.js-collapsible .refusal-ground-card[data-ground="13"] { display: block; order: 2; }
+        .refusal-grounds-grid.js-collapsible .refusal-ground-card[data-ground="3"]  { display: block; order: 3; }
+        .refusal-grounds-grid.js-collapsible .refusal-ground-card[data-ground="4"]  { display: block; order: 4; }
+        .refusal-grounds-grid.js-collapsible .refusal-ground-card[data-ground="12"] { display: block; order: 5; }
+        .refusal-grounds-grid.js-collapsible .refusal-ground-card[data-ground="10"] { display: block; order: 6; }
+        .refusal-grounds-grid.js-collapsible .refusal-ground-card[data-ground="16"] { display: block; order: 7; }
+        /* Expanded view: all 17, back to numerical order */
+        .refusal-grounds-grid.js-collapsible.show-all .refusal-ground-card { display: block; }
+        .refusal-grounds-grid.js-collapsible.show-all .refusal-ground-card[data-ground="1"]  { order: 1; }
+        .refusal-grounds-grid.js-collapsible.show-all .refusal-ground-card[data-ground="2"]  { order: 2; }
+        .refusal-grounds-grid.js-collapsible.show-all .refusal-ground-card[data-ground="3"]  { order: 3; }
+        .refusal-grounds-grid.js-collapsible.show-all .refusal-ground-card[data-ground="4"]  { order: 4; }
+        .refusal-grounds-grid.js-collapsible.show-all .refusal-ground-card[data-ground="5"]  { order: 5; }
+        .refusal-grounds-grid.js-collapsible.show-all .refusal-ground-card[data-ground="6"]  { order: 6; }
+        .refusal-grounds-grid.js-collapsible.show-all .refusal-ground-card[data-ground="7"]  { order: 7; }
+        .refusal-grounds-grid.js-collapsible.show-all .refusal-ground-card[data-ground="8"]  { order: 8; }
+        .refusal-grounds-grid.js-collapsible.show-all .refusal-ground-card[data-ground="9"]  { order: 9; }
+        .refusal-grounds-grid.js-collapsible.show-all .refusal-ground-card[data-ground="10"] { order: 10; }
+        .refusal-grounds-grid.js-collapsible.show-all .refusal-ground-card[data-ground="11"] { order: 11; }
+        .refusal-grounds-grid.js-collapsible.show-all .refusal-ground-card[data-ground="12"] { order: 12; }
+        .refusal-grounds-grid.js-collapsible.show-all .refusal-ground-card[data-ground="13"] { order: 13; }
+        .refusal-grounds-grid.js-collapsible.show-all .refusal-ground-card[data-ground="14"] { order: 14; }
+        .refusal-grounds-grid.js-collapsible.show-all .refusal-ground-card[data-ground="15"] { order: 15; }
+        .refusal-grounds-grid.js-collapsible.show-all .refusal-ground-card[data-ground="16"] { order: 16; }
+        .refusal-grounds-grid.js-collapsible.show-all .refusal-ground-card[data-ground="17"] { order: 17; }
+        /* The toggle button only appears once the script above has proven JS works */
+        .refusal-grounds-grid.js-collapsible ~ #refusal-grounds-toggle { display: inline-flex; }
 
         /* ── STAT ITEMS ── */
         .stat-number {
@@ -476,92 +536,128 @@
 </section>
 
 <!-- ══════════════════════════════════════════════════════════ -->
-<!-- COMMON REFUSAL REASONS                                     -->
+<!-- REFUSAL GROUNDS — Annex VI, Regulation (EU) 2019/1155      -->
 <!-- ══════════════════════════════════════════════════════════ -->
 <section class="py-20 bg-[#0a0f14] border-y border-[#1e2730] relative z-10">
-    <div class="max-w-6xl mx-auto px-4">
+    <div class="max-w-4xl mx-auto px-4">
 
-        <div class="text-center mb-14 fade-in-up">
-            <span class="text-gold font-bold tracking-widest uppercase text-xs border border-gold/40 px-4 py-1.5 rounded-full">Common Refusal Reasons</span>
-            <h2 class="text-4xl font-bold text-white mt-4" style="font-family:'Cormorant Garamond',serif;">Why Was Your Application Refused?</h2>
-            <p class="text-[#7a8899] mt-4 max-w-xl mx-auto text-sm font-medium">Understanding the real reason behind your refusal is the first step to recovery</p>
+        <div class="text-center mb-12 fade-in-up">
+            <span class="text-gold font-bold tracking-widest uppercase text-xs border border-gold/40 px-4 py-1.5 rounded-full">Schengen Visa Code — Annex VI</span>
+            <h2 class="text-4xl font-bold text-white mt-4" style="font-family:'Cormorant Garamond',serif;">The Seven We See Most Often</h2>
+            <p class="text-[#7a8899] mt-4 max-w-xl mx-auto text-sm font-medium">There are 17 official grounds a Schengen refusal letter can tick. These seven come up most often in the cases GVJ handles — that's our own caseload, not a published statistic.</p>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 fade-in-up">
+        <div id="refusal-grounds-list" class="refusal-grounds-grid fade-in-up">
 
-            <!-- Bank Statements -->
-            <div class="reason-card">
-                <div class="w-12 h-12 rounded-xl bg-[#1a2030] flex items-center justify-center mb-4">
-                    <i class="fa-solid fa-building-columns text-gold text-xl"></i>
-                </div>
-                <div class="inline-flex items-center gap-1.5 bg-red-950/30 border border-red-900/40 rounded-full px-2.5 py-1 mb-3">
-                    <span class="text-red-400 text-[10px] font-bold uppercase tracking-wide">Financial Documents</span>
-                </div>
-                <h3 class="text-base font-bold text-white mb-2" style="font-family:'Cormorant Garamond',serif;">Bank Statement Issues</h3>
-                <p class="text-[#7a8899] text-sm leading-relaxed">Funds parking, income inconsistency, or a balance that drops to zero after the application period. The most common cause of West African refusals — and fully fixable with the right waiting strategy.</p>
+            <div class="refusal-ground-card" data-ground="1">
+                <span class="refusal-ground-number">Ground 1</span>
+                <p class="refusal-ground-official">A false/counterfeit/forged travel document was presented.</p>
+                <p class="refusal-ground-plain">The passport itself was judged to be fake or altered. The most serious ground on the form.</p>
             </div>
 
-            <!-- Weak Ties -->
-            <div class="reason-card">
-                <div class="w-12 h-12 rounded-xl bg-[#1a2030] flex items-center justify-center mb-4">
-                    <i class="fa-solid fa-house text-gold text-xl"></i>
-                </div>
-                <div class="inline-flex items-center gap-1.5 bg-red-950/30 border border-red-900/40 rounded-full px-2.5 py-1 mb-3">
-                    <span class="text-red-400 text-[10px] font-bold uppercase tracking-wide">Ties to Home</span>
-                </div>
-                <h3 class="text-base font-bold text-white mb-2" style="font-family:'Cormorant Garamond',serif;">Weak Ties to Home Country</h3>
-                <p class="text-[#7a8899] text-sm leading-relaxed">The officer was not convinced you would return after your trip. No property, no dependants, no strong employment — nothing tying you to your home country.</p>
+            <div class="refusal-ground-card" data-ground="2">
+                <span class="refusal-ground-number">Ground 2</span>
+                <p class="refusal-ground-official">Justification for the purpose and conditions of the intended stay was not provided.</p>
+                <p class="refusal-ground-plain">You didn't show clearly enough why you're going or what you'll do there. Usually a thin itinerary, a missing invitation, or no cover letter.</p>
             </div>
 
-            <!-- Unclear Purpose -->
-            <div class="reason-card">
-                <div class="w-12 h-12 rounded-xl bg-[#1a2030] flex items-center justify-center mb-4">
-                    <i class="fa-solid fa-circle-question text-gold text-xl"></i>
-                </div>
-                <div class="inline-flex items-center gap-1.5 bg-red-950/30 border border-red-900/40 rounded-full px-2.5 py-1 mb-3">
-                    <span class="text-red-400 text-[10px] font-bold uppercase tracking-wide">Travel Purpose</span>
-                </div>
-                <h3 class="text-base font-bold text-white mb-2" style="font-family:'Cormorant Garamond',serif;">Unclear Purpose of Visit</h3>
-                <p class="text-[#7a8899] text-sm leading-relaxed">Your travel itinerary was too vague or your stated reason for visiting did not match your financial profile or personal circumstances.</p>
+            <div class="refusal-ground-card" data-ground="3">
+                <span class="refusal-ground-number">Ground 3</span>
+                <p class="refusal-ground-official">You have not provided proof of sufficient means of subsistence, for the duration of the intended stay or for the return to the country of origin or residence, or for the transit to a third country into which you are certain to be admitted.</p>
+                <p class="refusal-ground-plain">You didn't show enough money for the trip.</p>
             </div>
 
-            <!-- Document Issues -->
-            <div class="reason-card">
-                <div class="w-12 h-12 rounded-xl bg-[#1a2030] flex items-center justify-center mb-4">
-                    <i class="fa-solid fa-triangle-exclamation text-gold text-xl"></i>
-                </div>
-                <div class="inline-flex items-center gap-1.5 bg-red-950/30 border border-red-900/40 rounded-full px-2.5 py-1 mb-3">
-                    <span class="text-red-400 text-[10px] font-bold uppercase tracking-wide">Documentation</span>
-                </div>
-                <h3 class="text-base font-bold text-white mb-2" style="font-family:'Cormorant Garamond',serif;">Document Issues</h3>
-                <p class="text-[#7a8899] text-sm leading-relaxed">The officer flagged a document as suspicious, incomplete, or inconsistent. This requires careful handling before reapplication.</p>
+            <div class="refusal-ground-card" data-ground="4">
+                <span class="refusal-ground-number">Ground 4</span>
+                <p class="refusal-ground-official">You have not provided proof that you are in a position to lawfully acquire sufficient means of subsistence.</p>
+                <p class="refusal-ground-plain">Different from ground 3. This is about where the money came from, not how much. Large unexplained deposits, or funds in someone else's name with no proper sponsorship evidence.</p>
             </div>
 
-            <!-- No Travel History -->
-            <div class="reason-card">
-                <div class="w-12 h-12 rounded-xl bg-[#1a2030] flex items-center justify-center mb-4">
-                    <i class="fa-solid fa-passport text-gold text-xl"></i>
-                </div>
-                <div class="inline-flex items-center gap-1.5 bg-[#1a2030] border border-[#252e38] rounded-full px-2.5 py-1 mb-3">
-                    <span class="text-[#7a8899] text-[10px] font-bold uppercase tracking-wide">First-Time Traveller</span>
-                </div>
-                <h3 class="text-base font-bold text-white mb-2" style="font-family:'Cormorant Garamond',serif;">No Travel History</h3>
-                <p class="text-[#7a8899] text-sm leading-relaxed">First-time travellers face higher scrutiny. No previous stamps means no track record of returning home. This requires a strategic build before reapplying.</p>
+            <div class="refusal-ground-card" data-ground="5">
+                <span class="refusal-ground-number">Ground 5</span>
+                <p class="refusal-ground-official">You have already stayed for 90 days during the current 180-day period on the territory of the Member States.</p>
+                <p class="refusal-ground-plain">You've used your allowance.</p>
             </div>
 
-            <!-- Agent Errors -->
-            <div class="reason-card">
-                <div class="w-12 h-12 rounded-xl bg-[#1a2030] flex items-center justify-center mb-4">
-                    <i class="fa-solid fa-user-slash text-gold text-xl"></i>
-                </div>
-                <div class="inline-flex items-center gap-1.5 bg-[#1a2030] border border-[#252e38] rounded-full px-2.5 py-1 mb-3">
-                    <span class="text-[#7a8899] text-[10px] font-bold uppercase tracking-wide">Previous Agent</span>
-                </div>
-                <h3 class="text-base font-bold text-white mb-2" style="font-family:'Cormorant Garamond',serif;">Previous Agent Errors</h3>
-                <p class="text-[#7a8899] text-sm leading-relaxed">Many clients come to us after another agent submitted an application that was poorly prepared. A refusal from a previous agent is recoverable — but must be handled differently from a fresh application.</p>
+            <div class="refusal-ground-card" data-ground="6">
+                <span class="refusal-ground-number">Ground 6</span>
+                <p class="refusal-ground-official">An alert has been issued in the Schengen Information System (SIS) for the purpose of refusing entry.</p>
+                <p class="refusal-ground-plain">Another Schengen state has flagged you in the shared system. The form names which one.</p>
+            </div>
+
+            <div class="refusal-ground-card" data-ground="7">
+                <span class="refusal-ground-number">Ground 7</span>
+                <p class="refusal-ground-official">One or more Member States consider you to be a threat to public policy or internal security.</p>
+            </div>
+
+            <div class="refusal-ground-card" data-ground="8">
+                <span class="refusal-ground-number">Ground 8</span>
+                <p class="refusal-ground-official">One or more Member States consider you to be a threat to public health.</p>
+            </div>
+
+            <div class="refusal-ground-card" data-ground="9">
+                <span class="refusal-ground-number">Ground 9</span>
+                <p class="refusal-ground-official">One or more Member States consider you to be a threat to their international relations.</p>
+            </div>
+
+            <div class="refusal-ground-card" data-ground="10">
+                <span class="refusal-ground-number">Ground 10</span>
+                <p class="refusal-ground-official">The information submitted regarding the justification for the purpose and conditions of the intended stay was not reliable.</p>
+                <p class="refusal-ground-plain">They didn't believe what you told them about the trip.</p>
+            </div>
+
+            <div class="refusal-ground-card" data-ground="11">
+                <span class="refusal-ground-number">Ground 11</span>
+                <p class="refusal-ground-official">There are reasonable doubts as to the reliability of the statements made.</p>
+                <p class="refusal-ground-plain">They doubted something specific you said. The form states what.</p>
+            </div>
+
+            <div class="refusal-ground-card" data-ground="12">
+                <span class="refusal-ground-number">Ground 12</span>
+                <p class="refusal-ground-official">There are reasonable doubts as to the reliability, as to the authenticity of the supporting documents submitted or as to the veracity of their contents.</p>
+                <p class="refusal-ground-plain">They doubted a document was genuine or accurate. Different from ground 1, which is about the passport itself.</p>
+            </div>
+
+            <div class="refusal-ground-card" data-ground="13">
+                <span class="refusal-ground-number">Ground 13</span>
+                <p class="refusal-ground-official">There are reasonable doubts as to your intention to leave the territory of the Member States before the expiry of the visa.</p>
+                <p class="refusal-ground-plain">They weren't convinced you would go home.</p>
+            </div>
+
+            <div class="refusal-ground-card" data-ground="14">
+                <span class="refusal-ground-number">Ground 14</span>
+                <p class="refusal-ground-official">Sufficient proof that you have not been in a position to apply for a visa in advance, justifying application for a visa at the border, was not provided.</p>
+            </div>
+
+            <div class="refusal-ground-card" data-ground="15">
+                <span class="refusal-ground-number">Ground 15</span>
+                <p class="refusal-ground-official">Justification for the purpose and conditions of the intended airport transit was not provided.</p>
+            </div>
+
+            <div class="refusal-ground-card" data-ground="16">
+                <span class="refusal-ground-number">Ground 16</span>
+                <p class="refusal-ground-official">You have not provided proof of possession of adequate and valid travel medical insurance.</p>
+            </div>
+
+            <div class="refusal-ground-card" data-ground="17">
+                <span class="refusal-ground-number">Ground 17</span>
+                <p class="refusal-ground-official">Revocation of the visa was requested by the visa holder.</p>
+                <p class="refusal-ground-plain">You asked for it to be cancelled. This is the one ground with no right of appeal.</p>
             </div>
 
         </div>
+        <script>document.getElementById('refusal-grounds-list').classList.add('js-collapsible');</script>
+
+        <p class="text-[#7a8899] text-sm leading-relaxed mt-6 fade-in-up">Your letter may have more than one ground ticked, and the ones here are not the only ones that exist. If yours is not listed above, open the full list.</p>
+
+        <div class="mt-6 fade-in-up">
+            <button id="refusal-grounds-toggle" type="button" aria-expanded="false" aria-controls="refusal-grounds-list" onclick="toggleRefusalGrounds(this)" class="btn-outline-gold px-6 py-3 rounded-full text-xs">
+                Show all 17 grounds
+            </button>
+        </div>
+
+        <p class="text-[#4a5568] text-xs mt-6 fade-in-up">Source: Annex VI of the Schengen Visa Code, as replaced by Regulation (EU) 2019/1155.</p>
+
     </div>
 </section>
 
@@ -749,7 +845,7 @@
                     <i class="fa-solid fa-chevron-down faq-icon"></i>
                 </button>
                 <div class="faq-answer">
-                    Appeals are possible for some refusal reasons but are rarely the most effective route. The success rate of Schengen visa appeals is low. In most cases rebuilding your application and reapplying is faster and more likely to succeed than an appeal. We assess appeal viability as part of the Refusal Diagnosis.
+                    Appeals are possible for some refusal reasons, but your own refusal letter is the authority on this — it names the exact appeal deadline and the body you'd appeal to, and both vary by country. Always go by what your letter says rather than any figure on this page. In many cases rebuilding your application and reapplying is the faster route, and we help you weigh both options as part of the Refusal Diagnosis.
                 </div>
             </div>
 
@@ -1123,6 +1219,13 @@
             }
         });
     });
+
+    function toggleRefusalGrounds(btn) {
+        const list = document.getElementById('refusal-grounds-list');
+        const expanded = list.classList.toggle('show-all');
+        btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        btn.textContent = expanded ? 'Show fewer' : 'Show all 17 grounds';
+    }
 
     function toggleFAQ(btn) {
         const answer = btn.nextElementSibling;
