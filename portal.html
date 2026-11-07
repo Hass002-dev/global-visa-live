@@ -1215,8 +1215,6 @@ async function handleAdditionalFileChange(e, cardId) {
     const file = e.target.files[0];
     if (!file) return;
 
-    console.log('[GVJ Additional] Additional upload started — cardId:', cardId, '| file:', file.name);
-
     const user = auth.currentUser;
     if (!user) { console.error('[GVJ Additional] No authenticated user.'); return; }
     const uid = user.uid;

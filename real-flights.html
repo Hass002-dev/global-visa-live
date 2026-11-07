@@ -27,6 +27,9 @@
     <!-- Cookie consent + analytics (GA4 / Tawk.to loaded conditionally) -->
     <script src="./cookie-consent.js"></script>
 
+    <!-- Cloudflare Turnstile — both forms' abuse check -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
     <style>
         :root {
             --bg-primary: #080c10;
@@ -230,6 +233,10 @@
                         <!-- Honeypot -->
                         <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
 
+                        <!-- Turnstile — replace GVJ_TURNSTILE_SITE_KEY with the real site key -->
+                        <div class="cf-turnstile mb-2" data-sitekey="GVJ_TURNSTILE_SITE_KEY" data-theme="dark"></div>
+                        <p id="vf-turnstile-error" class="hidden text-red-400 text-xs font-medium mb-3">Please complete the verification check above before submitting.</p>
+
                         <button type="submit" id="vf-submit-btn" class="w-full btn-gold py-4 rounded-xl text-sm mt-2 flex items-center justify-center gap-2">
                             Submit Details &amp; Proceed to Payment <i class="fa-solid fa-arrow-right text-xs"></i>
                         </button>
@@ -397,6 +404,10 @@
 
                         <!-- Honeypot: hidden from real users; bots fill it automatically -->
                         <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
+
+                        <!-- Turnstile — replace GVJ_TURNSTILE_SITE_KEY with the real site key -->
+                        <div class="cf-turnstile mb-2" data-sitekey="GVJ_TURNSTILE_SITE_KEY" data-theme="dark"></div>
+                        <p id="rf-turnstile-error" class="hidden text-red-400 text-xs font-medium mb-3">Please complete the verification check above before submitting.</p>
 
                         <button type="submit" id="rf-submit-btn" class="w-full btn-gold py-4 rounded-xl text-sm mt-2">
                             Submit Flight Request
@@ -604,6 +615,15 @@ function gvjTogglePay(id, on) {
         if (!valid) { errorMsg.classList.remove('hidden'); return; }
         errorMsg.classList.add('hidden');
 
+        // Fail closed: no Turnstile token, no submission. The Apps Script
+        // side must verify this token with Cloudflare before writing the row.
+        const turnstileToken = form.querySelector('.cf-turnstile [name="cf-turnstile-response"]')?.value;
+        if (!turnstileToken) {
+            document.getElementById('vf-turnstile-error').classList.remove('hidden');
+            return;
+        }
+        document.getElementById('vf-turnstile-error').classList.add('hidden');
+
         const dep = document.getElementById('vf-departureDate').value;
         const ret = document.getElementById('vf-returnDate').value;
         const payload = {
@@ -615,7 +635,8 @@ function gvjTogglePay(id, on) {
             tripType:       document.getElementById('vf-tripType').value,
             passengers:     parseInt(document.getElementById('vf-passengers').value, 10),
             contactNumber:  document.getElementById('vf-contactNumber').value.trim(),
-            submittedAt:    new Date().toISOString()
+            submittedAt:    new Date().toISOString(),
+            turnstileToken: turnstileToken
         };
 
         submitBtn.textContent = 'Sending…';
@@ -699,6 +720,15 @@ function gvjTogglePay(id, on) {
         if (!valid) { errorMsg.classList.remove('hidden'); return; }
         errorMsg.classList.add('hidden');
 
+        // Fail closed: no Turnstile token, no submission. The Apps Script
+        // side must verify this token with Cloudflare before writing the row.
+        const turnstileToken = form.querySelector('.cf-turnstile [name="cf-turnstile-response"]')?.value;
+        if (!turnstileToken) {
+            document.getElementById('rf-turnstile-error').classList.remove('hidden');
+            return;
+        }
+        document.getElementById('rf-turnstile-error').classList.add('hidden');
+
         const dep = document.getElementById('rf-departureDate').value;
         const ret = document.getElementById('rf-returnDate').value;
         const payload = {
@@ -712,7 +742,8 @@ function gvjTogglePay(id, on) {
             ticketType:      document.getElementById('rf-ticketType').value,
             contactNumber:   document.getElementById('rf-contactNumber').value.trim(),
             checkInRequested:document.getElementById('rf-checkIn').checked,
-            submittedAt:     new Date().toISOString()
+            submittedAt:     new Date().toISOString(),
+            turnstileToken:  turnstileToken
         };
 
         submitBtn.textContent = 'Sending…';

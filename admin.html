@@ -1084,6 +1084,22 @@ window.mdInsert = (before, after) => {
     ta.selectionEnd   = e + before.length;
 };
 
+/* ── SHARED BLOG-HTML ALLOWLIST ──
+   This exact tag/attribute list also lives in workers/blog-intake/index.js
+   (hand-written sanitizer, no DOMPurify available in a Worker) and in
+   scripts/create-post.js / scripts/sync-blog.js (isomorphic-dompurify with
+   this same config). All four are the only places bodyHtml is ever written
+   or re-written — keep them in sync if this list ever changes.
+   No tag not on this list survives. No attribute other than href/src/alt
+   survives, on any tag — href/src are only special on <a>/<img>, so this
+   flat list is safe even though DOMPurify's config isn't per-tag. No
+   inline event handlers (onclick etc.) ever pass ALLOWED_ATTR. ── */
+const GVJ_BLOG_SANITIZE_CONFIG = {
+    ALLOWED_TAGS: ['h1','h2','h3','h4','p','strong','b','em','i','a','ul','ol','li','blockquote','img','code','pre','hr','br'],
+    ALLOWED_ATTR: ['href','src','alt'],
+    ALLOWED_URI_REGEXP: /^(?:https?|mailto):/i,
+};
+
 /* ── PREVIEW ── */
 window.togglePreview = () => {
     const prev = document.getElementById('bf-preview');
@@ -1093,7 +1109,7 @@ window.togglePreview = () => {
         if (typeof DOMPurify === 'undefined') {
             document.getElementById('bf-preview-html').textContent = 'Security library (DOMPurify) failed to load. Refresh the page before previewing.';
         } else {
-            document.getElementById('bf-preview-html').innerHTML = DOMPurify.sanitize(html);
+            document.getElementById('bf-preview-html').innerHTML = DOMPurify.sanitize(html, GVJ_BLOG_SANITIZE_CONFIG);
         }
         prev.classList.remove('hidden');
     } else {
@@ -1144,9 +1160,9 @@ window.savePost = async (statusValue) => {
         return;
     }
     if (typeof marked !== 'undefined') {
-        data.bodyHtml = DOMPurify.sanitize(marked.parse(data.body));
+        data.bodyHtml = DOMPurify.sanitize(marked.parse(data.body), GVJ_BLOG_SANITIZE_CONFIG);
     } else {
-        data.bodyHtml = DOMPurify.sanitize(data.body);
+        data.bodyHtml = DOMPurify.sanitize(data.body, GVJ_BLOG_SANITIZE_CONFIG);
     }
 
     const btn = statusValue === 'draft' ? document.getElementById('bf-save-draft') : document.getElementById('bf-publish');
@@ -1555,6 +1571,17 @@ window.seedSamplePosts = async () => {
     btn.disabled  = true;
     stat.classList.add('hidden');
 
+    // Fail closed: refuse to insert anything if either library didn't load,
+    // rather than silently saving unsanitised (or unconverted) HTML.
+    if (typeof marked === 'undefined' || typeof DOMPurify === 'undefined') {
+        stat.textContent = 'Security library failed to load (marked/DOMPurify). Refresh the page before seeding.';
+        stat.className   = 'mt-4 text-sm font-bold text-red-400';
+        stat.classList.remove('hidden');
+        btn.innerHTML = '<i class="fa-solid fa-seedling"></i> Seed 3 Sample Posts';
+        btn.disabled  = false;
+        return;
+    }
+
     let success = 0, skipped = 0, errors = 0;
     const now = new Date();
 
@@ -1571,13 +1598,7 @@ window.seedSamplePosts = async () => {
                 publishedAt: now.toISOString(),
                 updatedAt:   now.toISOString(),
             };
-            // Convert markdown to HTML
-            if (typeof marked !== 'undefined') {
-                const raw  = marked.parse(data.body);
-                data.bodyHtml = (typeof DOMPurify !== 'undefined') ? DOMPurify.sanitize(raw) : raw;
-            } else {
-                data.bodyHtml = data.body;
-            }
+            data.bodyHtml = DOMPurify.sanitize(marked.parse(data.body), GVJ_BLOG_SANITIZE_CONFIG);
             await addDoc(collection(db, 'blog_posts'), data);
             success++;
         } catch(e) {

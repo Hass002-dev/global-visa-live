@@ -1,6 +1,6 @@
 {
   "storage": {
-    "rules": "N"
+    "rules": "storage.rules"
   },
   "firestore": {
     "rules": "firestore.rules"

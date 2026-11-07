@@ -19,6 +19,7 @@ const https    = require('https');
 const fs       = require('fs');
 const path     = require('path');
 const readline = require('readline');
+const { sanitizeBodyHtml } = require('./lib/sanitize-blog-html');
 
 const PROJECT_ID  = 'global-visa-journeys';
 const API_KEY     = 'AIzaSyCcoyBXRITTblrH0XcaLGMjftUttXYLtj4';
@@ -136,7 +137,7 @@ async function main() {
         heroImage:      input.heroImage,
         excerpt:        input.excerpt,
         body:           input.body,
-        bodyHtml:       input.bodyHtml,
+        bodyHtml:       sanitizeBodyHtml(input.bodyHtml),
         tags:           input.tags           || [],
         ctaType:        input.ctaType        || 'quickscan',
         seoTitle:       input.seoTitle       || input.title,

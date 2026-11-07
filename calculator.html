@@ -27,6 +27,9 @@
     <!-- Cookie consent + analytics (GA4 / Tawk.to loaded conditionally) -->
     <script src="./cookie-consent.js"></script>
 
+    <!-- Cloudflare Turnstile — the assessment form's abuse check -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
     <style>
         /* ── DESIGN TOKENS — exact match to index.html ── */
         :root {
@@ -831,6 +834,11 @@
                             <textarea id="m_notes" class="gvj-input" placeholder="Anything else our team should know..."></textarea>
                         </div>
                     </div>
+                    <!-- Turnstile — proves a real person is submitting this form before
+                         it reaches the Apps Script webhook. Replace GVJ_TURNSTILE_SITE_KEY
+                         with the real site key from the Cloudflare Turnstile dashboard. -->
+                    <div class="cf-turnstile mb-2" data-sitekey="GVJ_TURNSTILE_SITE_KEY" data-theme="dark"></div>
+                    <p id="manual-turnstile-error" class="hidden text-red-400 text-xs font-medium mb-4">Please complete the verification check above before submitting.</p>
                     <div class="flex gap-3">
                         <button onclick="manualPrev(2)" class="w-1/3 btn-back py-4 rounded-xl text-sm"><i class="fa-solid fa-arrow-left"></i> Back</button>
                         <button onclick="submitManualForm()" id="manual-submit-btn" class="flex-1 btn-gold py-4 rounded-xl text-sm">
@@ -1034,6 +1042,7 @@ window.subscribeNewsletter = async () => {
 <!-- ══════════════════════════════════════════════════════════ -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+    import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app-check.js";
     import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
     const firebaseConfig = {
@@ -1046,6 +1055,16 @@ window.subscribeNewsletter = async () => {
     };
 
     const app = initializeApp(firebaseConfig);
+
+    // Firebase App Check — proves a write came from this real page in a
+    // real browser, not a script hitting Firestore directly. Replace
+    // GVJ_RECAPTCHA_V3_SITE_KEY with the real site key from Firebase
+    // Console → App Check (same key in all four pages that write here).
+    initializeAppCheck(app, {
+        provider: new ReCaptchaV3Provider("GVJ_RECAPTCHA_V3_SITE_KEY"),
+        isTokenAutoRefreshEnabled: true
+    });
+
     const db  = getFirestore(app);
 
     window._fbSaveAutomated = async (data) => {
@@ -1854,6 +1873,15 @@ window.subscribeNewsletter = async () => {
             return;
         }
         document.getElementById('manual-error').classList.add('hidden');
+        document.getElementById('manual-turnstile-error').classList.add('hidden');
+
+        // Fail closed: no Turnstile token, no submission. The Apps Script
+        // side must verify this token with Cloudflare before writing the row.
+        const turnstileToken = document.querySelector('.cf-turnstile [name="cf-turnstile-response"]')?.value;
+        if (!turnstileToken) {
+            document.getElementById('manual-turnstile-error').classList.remove('hidden');
+            return;
+        }
 
         const btn = document.getElementById('manual-submit-btn');
         btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
@@ -1882,7 +1910,8 @@ window.subscribeNewsletter = async () => {
             heardAboutUs:      document.getElementById('m_source').value,
             additionalNotes:   document.getElementById('m_notes').value.trim(),
             timestamp:         new Date().toISOString(),
-            source:            'manual_assessment' // per spec
+            source:            'manual_assessment', // per spec
+            turnstileToken:    turnstileToken // Apps Script must verify this before writing the row
         };
 
         if (window._fbSaveAssessment) {

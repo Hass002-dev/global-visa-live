@@ -1,0 +1,29 @@
+rules_version = '2';
+
+// Mirrors the admin + per-client-ownership pattern already used in
+// firestore.rules. Default is deny — nothing is readable or writable
+// unless a rule below explicitly allows it.
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Admin has full access to everything in Storage, same email as the
+    // Firestore admin override.
+    match /{allPaths=**} {
+      allow read, write: if request.auth != null
+        && request.auth.token.email == "office@globalvisajourneys.com";
+    }
+
+    // Client documents — a client may only read/write files under their
+    // own uid. portal.html uploads to clients/{uid}/{categoryId}/{filename}
+    // and clients/{uid}/additional/{...}; this covers both, and anything
+    // else nested under their own uid.
+    match /clients/{userId}/{allUserPaths=**} {
+      allow read, write: if request.auth != null
+        && request.auth.uid == userId;
+    }
+
+    // Everything else is denied by Storage's own default — no match
+    // above this line means no access, so no explicit deny rule is
+    // needed beyond simply not matching a path.
+  }
+}

@@ -32,6 +32,59 @@ const CORS = {
     'Access-Control-Allow-Headers': 'Authorization, Content-Type',
 };
 
+/* ── SHARED BLOG-HTML ALLOWLIST ──
+   This exact tag/attribute list also lives in admin.html
+   (GVJ_BLOG_SANITIZE_CONFIG, used with DOMPurify) and in
+   scripts/create-post.js / scripts/sync-blog.js (isomorphic-dompurify
+   with this same config). All four are the only places bodyHtml is ever
+   written or re-written — keep them in sync if this list ever changes.
+   A Worker has no DOM, so DOMPurify can't run here — this uses
+   Cloudflare's native HTMLRewriter instead to the same effect. ── */
+const ALLOWED_TAGS = new Set(['h1','h2','h3','h4','p','strong','b','em','i','a','ul','ol','li','blockquote','img','code','pre','hr','br']);
+const ALLOWED_ATTR = new Set(['href','src','alt']);
+// Tags dangerous enough to drop along with their content, not just unwrap.
+const STRIP_WITH_CONTENT = new Set(['script','style','iframe','object','embed','form','svg','math','link','meta','base','noscript','template']);
+const SAFE_URI = /^(?:https?|mailto):/i;
+
+class GvjSanitizeHandler {
+    element(el) {
+        const tag = el.tagName.toLowerCase();
+        if (STRIP_WITH_CONTENT.has(tag)) {
+            el.remove();
+            return;
+        }
+        if (!ALLOWED_TAGS.has(tag)) {
+            el.removeAndKeepContent();
+            return;
+        }
+        const names = [];
+        for (const [name] of el.attributes) names.push(name);
+        for (const name of names) {
+            const lower = name.toLowerCase();
+            // Belt and braces: drop any on* handler even if it somehow
+            // ended up in ALLOWED_ATTR, and drop anything not allowlisted.
+            if (lower.startsWith('on') || !ALLOWED_ATTR.has(lower)) {
+                el.removeAttribute(name);
+                continue;
+            }
+            if (lower === 'href' || lower === 'src') {
+                const value = (el.getAttribute(name) || '').trim();
+                if (!SAFE_URI.test(value)) el.removeAttribute(name);
+            }
+        }
+    }
+}
+
+// Runs untrusted HTML through HTMLRewriter's streaming parser and returns
+// the sanitised string. Wrapping in <body> and reading the result back out
+// is the standard way to use HTMLRewriter on a plain string rather than a
+// real request/response pipeline.
+async function sanitizeBodyHtml(html) {
+    const rewriter = new HTMLRewriter().on('*', new GvjSanitizeHandler());
+    const wrapped  = new Response(`<body>${html}</body>`, { headers: { 'Content-Type': 'text/html' } });
+    return (await rewriter.transform(wrapped).text()).trim();
+}
+
 export default {
     async fetch(request, env) {
         // Top-level catch: always return JSON, never let Cloudflare serve its error page
@@ -71,6 +124,11 @@ async function handleRequest(request, env) {
         return json({ error: 'Missing required fields', missing }, 400);
     }
 
+    // Never trust bodyHtml as-is — this is the only one of three writers
+    // to blog_posts that isn't a human using admin.html's own DOMPurify
+    // pass, so it must sanitise itself rather than assume the caller did.
+    const cleanBodyHtml = await sanitizeBodyHtml(input.bodyHtml);
+
     // Sign in to Firebase (with timeout protection)
     let authData;
     try {
@@ -107,7 +165,7 @@ async function handleRequest(request, env) {
         heroImage:      { stringValue:  input.heroImage },
         excerpt:        { stringValue:  input.excerpt },
         body:           { stringValue:  input.body },
-        bodyHtml:       { stringValue:  input.bodyHtml },
+        bodyHtml:       { stringValue:  cleanBodyHtml },
         tags:           { arrayValue:   { values: (input.tags || []).map(t => ({ stringValue: t })) } },
         ctaType:        { stringValue:  input.ctaType        || 'quickscan' },
         seoTitle:       { stringValue:  input.seoTitle       || input.title },

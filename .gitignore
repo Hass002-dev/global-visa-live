@@ -2,10 +2,15 @@
 node_modules/
 .env.local
 .env
+.env.*
 *.key
 *.pem
 service-account-*.json
 *-credentials.json
+
+# Cloudflare Workers local secrets (wrangler dev) — never commit
+.dev.vars
+.dev.vars.*
 
 # Hass's working/scratch files — never commit or push these
 atlys-tools-study.*

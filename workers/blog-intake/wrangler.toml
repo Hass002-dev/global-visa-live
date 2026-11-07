@@ -2,11 +2,16 @@ name = "gvj-blog-intake"
 main = "index.js"
 compatibility_date = "2024-01-01"
 
-# Environment variables are set in Cloudflare Dashboard (not here, to avoid committing secrets).
-# Go to: Workers & Pages → gvj-blog-intake → Settings → Variables and Secrets
-# Add:
+# Secrets are never set here — this file is committed to git. Set every
+# value below with `wrangler secret put <NAME>` (from workers/blog-intake/),
+# or in Cloudflare Dashboard → Workers & Pages → gvj-blog-intake →
+# Settings → Variables and Secrets. A (secret) value must be added as an
+# encrypted secret, never as a plain "Variable" — plain variables are
+# visible to anyone with dashboard read access.
+#
+# Required:
 #   INTAKE_SECRET      (secret)  — a random string you choose; give this to the co-work agent
-#   FIREBASE_API_KEY   (text)    — AIzaSyCcoyBXRITTblrH0XcaLGMjftUttXYLtj4
+#   FIREBASE_API_KEY   (text)    — the Firebase Web API key (public by design, already in the site's client JS)
 #   FIREBASE_EMAIL     (text)    — office@globalvisajourneys.com
-#   FIREBASE_PASSWORD  (secret)  — ***REMOVED***
+#   FIREBASE_PASSWORD  (secret)  — the Firebase account password for FIREBASE_EMAIL
 #   FIREBASE_PROJECT   (text)    — global-visa-journeys

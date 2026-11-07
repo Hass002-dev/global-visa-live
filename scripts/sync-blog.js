@@ -18,6 +18,7 @@
 const https = require('https');
 const fs    = require('fs');
 const path  = require('path');
+const { sanitizeBodyHtml } = require('./lib/sanitize-blog-html');
 
 const PROJECT_ID  = 'global-visa-journeys';
 const API_KEY     = 'AIzaSyCcoyBXRITTblrH0XcaLGMjftUttXYLtj4';
@@ -104,7 +105,11 @@ async function queryPublishedPosts() {
                 author:         fields.author?.stringValue         || 'GV&J Strategy Team',
                 heroImage:      fields.heroImage?.stringValue      || '',
                 excerpt:        fields.excerpt?.stringValue        || '',
-                bodyHtml:       fields.bodyHtml?.stringValue       || '',
+                // Final sanitisation pass — never trust that whatever wrote
+                // this Firestore document (admin.html, the intake Worker,
+                // or create-post.js) actually did its job. This is the
+                // last stop before bodyHtml becomes a public static file.
+                bodyHtml:       sanitizeBodyHtml(fields.bodyHtml?.stringValue || ''),
                 tags:           (fields.tags?.arrayValue?.values   || []).map(v => v.stringValue || ''),
                 ctaType:        fields.ctaType?.stringValue        || 'quickscan',
                 seoTitle:       fields.seoTitle?.stringValue       || '',

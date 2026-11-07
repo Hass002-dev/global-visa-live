@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "dev": "tailwindcss -i ./input.css -o ./output.css --watch",
-  "build": "tailwindcss -i ./input.css -o ./output.css --minify",
-  "build:schengen": "node scripts/build-schengen-pages.js",
-  "test": "echo \"Error: no test specified\" && exit 1"
-},
+    "dev": "tailwindcss -i ./input.css -o ./output.css --watch",
+    "build": "tailwindcss -i ./input.css -o ./output.css --minify",
+    "build:schengen": "node scripts/build-schengen-pages.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Hass002-dev/global-visa-live.git"
@@ -23,5 +23,8 @@
   "homepage": "https://github.com/Hass002-dev/global-visa-live#readme",
   "devDependencies": {
     "tailwindcss": "^3.4.19"
+  },
+  "dependencies": {
+    "isomorphic-dompurify": "^4.7.0"
   }
 }

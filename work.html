@@ -1448,6 +1448,7 @@
 <!-- Firebase — quiz lead capture -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+    import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app-check.js";
     import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
     const firebaseConfig = {
@@ -1460,6 +1461,16 @@
     };
 
     const app = initializeApp(firebaseConfig);
+
+    // Firebase App Check — proves a write came from this real page in a
+    // real browser, not a script hitting Firestore directly. Replace
+    // GVJ_RECAPTCHA_V3_SITE_KEY with the real site key from Firebase
+    // Console → App Check (same key in all four pages that write here).
+    initializeAppCheck(app, {
+        provider: new ReCaptchaV3Provider("GVJ_RECAPTCHA_V3_SITE_KEY"),
+        isTokenAutoRefreshEnabled: true
+    });
+
     const db  = getFirestore(app);
 
     // Shared collection for both student.html and work.html quiz leads

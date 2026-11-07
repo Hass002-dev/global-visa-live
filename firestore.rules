@@ -14,9 +14,12 @@ service cloud.firestore {
         && request.auth.uid == userId;
     }
 
-    // Assessments — anyone can submit, admin can read all
+    // Assessments — anyone can submit, admin can read all.
+    // request.app != null requires a valid Firebase App Check token —
+    // see calculator.html for the client-side registration.
     match /assessments/{docId} {
-      allow create: if request.resource.data.keys().hasAny(['email', 'name', 'destination'])
+      allow create: if request.app != null
+        && request.resource.data.keys().hasAny(['email', 'name', 'destination'])
         && request.resource.data.email is string
         && request.resource.data.email.size() > 5
         && request.resource.data.email.size() < 256
@@ -25,9 +28,11 @@ service cloud.firestore {
         && request.auth.token.email == "office@globalvisajourneys.com";
     }
 
-    // Enquiries — anyone can submit, admin can read all
+    // Enquiries — anyone can submit, admin can read all.
+    // request.app != null requires App Check — see index.html.
     match /enquiries/{docId} {
-      allow create: if request.resource.data.keys().hasAny(['email', 'name', 'message'])
+      allow create: if request.app != null
+        && request.resource.data.keys().hasAny(['email', 'name', 'message'])
         && request.resource.data.email is string
         && request.resource.data.email.size() > 5
         && request.resource.data.email.size() < 256
@@ -36,9 +41,14 @@ service cloud.firestore {
         && request.auth.token.email == "office@globalvisajourneys.com";
     }
 
-    // Newsletter — anyone can subscribe, admin can read all
+    // Newsletter — anyone can subscribe, admin can read all.
+    // No page in this repo writes here directly via the client SDK (the
+    // subscribe forms POST to the gvj-mailchimp Worker instead); the
+    // App Check requirement below only matters if something starts
+    // writing here directly from the browser.
     match /newsletter_subs/{docId} {
-      allow create: if request.resource.data.keys().hasAll(['email'])
+      allow create: if request.app != null
+        && request.resource.data.keys().hasAll(['email'])
         && request.resource.data.email is string
         && request.resource.data.email.size() > 5
         && request.resource.data.email.size() < 256
@@ -47,9 +57,11 @@ service cloud.firestore {
         && request.auth.token.email == "office@globalvisajourneys.com";
     }
 
-    // Quiz leads (student + work quizzes) — anyone can submit, admin can read all
+    // Quiz leads (student + work quizzes) — anyone can submit, admin can read all.
+    // request.app != null requires App Check — see student.html / work.html.
     match /quiz_leads/{docId} {
-      allow create: if request.resource.data.keys().hasAny(['email', 'quizType'])
+      allow create: if request.app != null
+        && request.resource.data.keys().hasAny(['email', 'quizType'])
         && request.resource.data.email is string
         && request.resource.data.email.size() > 5
         && request.resource.data.email.size() < 256
