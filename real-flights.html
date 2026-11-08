@@ -233,8 +233,10 @@
                         <!-- Honeypot -->
                         <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
 
-                        <!-- Turnstile — replace GVJ_TURNSTILE_SITE_KEY with the real site key -->
-                        <div class="cf-turnstile mb-2" data-sitekey="GVJ_TURNSTILE_SITE_KEY" data-theme="dark"></div>
+                        <!-- Turnstile — Managed mode, so some visitors see an interactive
+                             checkbox; sits on its own line above the full-width submit
+                             button so it pushes the button down rather than overlapping it. -->
+                        <div class="cf-turnstile mb-2" data-sitekey="0x4AAAAAAF4K4G1_cQYmZmmd" data-theme="dark"></div>
                         <p id="vf-turnstile-error" class="hidden text-red-400 text-xs font-medium mb-3">Please complete the verification check above before submitting.</p>
 
                         <button type="submit" id="vf-submit-btn" class="w-full btn-gold py-4 rounded-xl text-sm mt-2 flex items-center justify-center gap-2">
@@ -405,8 +407,10 @@
                         <!-- Honeypot: hidden from real users; bots fill it automatically -->
                         <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
 
-                        <!-- Turnstile — replace GVJ_TURNSTILE_SITE_KEY with the real site key -->
-                        <div class="cf-turnstile mb-2" data-sitekey="GVJ_TURNSTILE_SITE_KEY" data-theme="dark"></div>
+                        <!-- Turnstile — Managed mode, so some visitors see an interactive
+                             checkbox; sits on its own line above the full-width submit
+                             button so it pushes the button down rather than overlapping it. -->
+                        <div class="cf-turnstile mb-2" data-sitekey="0x4AAAAAAF4K4G1_cQYmZmmd" data-theme="dark"></div>
                         <p id="rf-turnstile-error" class="hidden text-red-400 text-xs font-medium mb-3">Please complete the verification check above before submitting.</p>
 
                         <button type="submit" id="rf-submit-btn" class="w-full btn-gold py-4 rounded-xl text-sm mt-2">
@@ -643,17 +647,27 @@ function gvjTogglePay(id, on) {
         submitBtn.disabled = true;
 
         try {
-            await fetch(FLIGHT_FORM_WEBHOOK_URL, {
+            // Not mode:'no-cors' — we need to read whether the Apps Script
+            // actually verified the token and wrote the row, not just that
+            // the request left the browser. Every failure mode below
+            // (network error, unreadable response, explicit rejection)
+            // lands in the catch and shows the error panel — never a
+            // silent "success" for a submission that wasn't saved.
+            const res = await fetch(FLIGHT_FORM_WEBHOOK_URL, {
                 method: 'POST',
-                mode: 'no-cors',
                 headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 body: JSON.stringify(payload)
             });
+            const result = await res.json();
+            if (result.success === false) {
+                throw new Error(result.error || 'verification_failed');
+            }
             window.open('https://buy.stripe.com/cNieVc3YFemK6Cq80z0sU05', '_blank');
             formPanel.style.display = 'none';
             payPanel.style.display = 'block';
             gtag('event', 'visa_flight_form_submit', { page_title: document.title });
         } catch (err) {
+            console.error('[GVJ] Submission error:', err);
             formPanel.style.display = 'none';
             errorPanel.style.display = 'block';
         } finally {
@@ -750,16 +764,26 @@ function gvjTogglePay(id, on) {
         submitBtn.disabled = true;
 
         try {
-            await fetch(FLIGHT_FORM_WEBHOOK_URL, {
+            // Not mode:'no-cors' — we need to read whether the Apps Script
+            // actually verified the token and wrote the row, not just that
+            // the request left the browser. Every failure mode below
+            // (network error, unreadable response, explicit rejection)
+            // lands in the catch and shows the error panel — never a
+            // silent "success" for a submission that wasn't saved.
+            const res = await fetch(FLIGHT_FORM_WEBHOOK_URL, {
                 method: 'POST',
-                mode: 'no-cors',
                 headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 body: JSON.stringify(payload)
             });
+            const result = await res.json();
+            if (result.success === false) {
+                throw new Error(result.error || 'verification_failed');
+            }
             formPanel.style.display = 'none';
             successPanel.style.display = 'block';
             gtag('event', 'flight_form_submit', { page_title: document.title });
         } catch (err) {
+            console.error('[GVJ] Submission error:', err);
             formPanel.style.display = 'none';
             errorPanel.style.display = 'block';
         } finally {

@@ -1305,7 +1305,7 @@ function gvjTogglePay(id, on) {
 <!-- Firebase — quiz lead capture -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-    import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app-check.js";
+    import { initializeAppCheck, ReCaptchaEnterpriseProvider } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app-check.js";
     import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
     const firebaseConfig = {
@@ -1320,11 +1320,12 @@ function gvjTogglePay(id, on) {
     const app = initializeApp(firebaseConfig);
 
     // Firebase App Check — proves a write came from this real page in a
-    // real browser, not a script hitting Firestore directly. Replace
-    // GVJ_RECAPTCHA_V3_SITE_KEY with the real site key from Firebase
-    // Console → App Check (same key in all four pages that write here).
+    // real browser, not a script hitting Firestore directly. Registered
+    // with Fraud Defense (reCAPTCHA Enterprise), same key in all four
+    // pages that write here. The Firebase App Check SDK loads and calls
+    // reCAPTCHA itself — no separate enterprise.js script tag needed.
     initializeAppCheck(app, {
-        provider: new ReCaptchaV3Provider("GVJ_RECAPTCHA_V3_SITE_KEY"),
+        provider: new ReCaptchaEnterpriseProvider("6Ld9cxUuAAAAALF5abZc2XIaDLc1jCXmUqt-lE4P"),
         isTokenAutoRefreshEnabled: true
     });
 

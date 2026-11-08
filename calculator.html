@@ -835,9 +835,11 @@
                         </div>
                     </div>
                     <!-- Turnstile — proves a real person is submitting this form before
-                         it reaches the Apps Script webhook. Replace GVJ_TURNSTILE_SITE_KEY
-                         with the real site key from the Cloudflare Turnstile dashboard. -->
-                    <div class="cf-turnstile mb-2" data-sitekey="GVJ_TURNSTILE_SITE_KEY" data-theme="dark"></div>
+                         it reaches the Apps Script webhook. Managed mode, so some
+                         visitors see an interactive checkbox; it sits in its own block
+                         above the button row so it pushes the buttons down on expansion
+                         rather than overlapping them. -->
+                    <div class="cf-turnstile mb-2" data-sitekey="0x4AAAAAAF4K4G1_cQYmZmmd" data-theme="dark"></div>
                     <p id="manual-turnstile-error" class="hidden text-red-400 text-xs font-medium mb-4">Please complete the verification check above before submitting.</p>
                     <div class="flex gap-3">
                         <button onclick="manualPrev(2)" class="w-1/3 btn-back py-4 rounded-xl text-sm"><i class="fa-solid fa-arrow-left"></i> Back</button>
@@ -848,6 +850,10 @@
                     <div id="manual-error" class="hidden mt-4 bg-red-900/20 border border-red-700/40 rounded-xl p-3 text-center">
                         <i class="fa-solid fa-circle-exclamation text-red-400 mr-2"></i>
                         <span class="text-red-400 text-sm font-medium">Please complete all required fields.</span>
+                    </div>
+                    <div id="manual-submit-error" class="hidden mt-4 bg-red-900/20 border border-red-700/40 rounded-xl p-3 text-center">
+                        <i class="fa-solid fa-circle-exclamation text-red-400 mr-2"></i>
+                        <span class="text-red-400 text-sm font-medium">Something went wrong sending your assessment. Please try again, or WhatsApp us on <strong class="text-white">+44 7511 219482</strong> if it keeps happening.</span>
                     </div>
                 </div>
 
@@ -1042,7 +1048,7 @@ window.subscribeNewsletter = async () => {
 <!-- ══════════════════════════════════════════════════════════ -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-    import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app-check.js";
+    import { initializeAppCheck, ReCaptchaEnterpriseProvider } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app-check.js";
     import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
     const firebaseConfig = {
@@ -1057,11 +1063,12 @@ window.subscribeNewsletter = async () => {
     const app = initializeApp(firebaseConfig);
 
     // Firebase App Check — proves a write came from this real page in a
-    // real browser, not a script hitting Firestore directly. Replace
-    // GVJ_RECAPTCHA_V3_SITE_KEY with the real site key from Firebase
-    // Console → App Check (same key in all four pages that write here).
+    // real browser, not a script hitting Firestore directly. Registered
+    // with Fraud Defense (reCAPTCHA Enterprise), same key in all four
+    // pages that write here. The Firebase App Check SDK loads and calls
+    // reCAPTCHA itself — no separate enterprise.js script tag needed.
     initializeAppCheck(app, {
-        provider: new ReCaptchaV3Provider("GVJ_RECAPTCHA_V3_SITE_KEY"),
+        provider: new ReCaptchaEnterpriseProvider("6Ld9cxUuAAAAALF5abZc2XIaDLc1jCXmUqt-lE4P"),
         isTokenAutoRefreshEnabled: true
     });
 
@@ -1874,6 +1881,7 @@ window.subscribeNewsletter = async () => {
         }
         document.getElementById('manual-error').classList.add('hidden');
         document.getElementById('manual-turnstile-error').classList.add('hidden');
+        document.getElementById('manual-submit-error').classList.add('hidden');
 
         // Fail closed: no Turnstile token, no submission. The Apps Script
         // side must verify this token with Cloudflare before writing the row.
@@ -1918,14 +1926,29 @@ window.subscribeNewsletter = async () => {
             await window._fbSaveAssessment(payload);
         }
 
-        fetch('https://script.google.com/macros/s/AKfycbxEvQ-kUJiX637FCWwfoSsj8gh7ChWRVbQfOxqlyGoR3mW5XT2LIf01tfz9HxOKxK__Lg/exec', {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-            body: JSON.stringify(payload)
-        }).catch(function(err) { console.error('[GVJ] Submission error:', err); });
-
-        manualNext(4);
+        // Not mode:'no-cors' — we need to read whether the Apps Script
+        // actually verified the token and wrote the row, not just that the
+        // request left the browser. If this response ever turns out to be
+        // unreadable in practice (Apps Script CORS behaviour can be
+        // inconsistent), every failure mode below still lands in the catch
+        // and shows a clear error — it never hangs silently.
+        try {
+            const res = await fetch('https://script.google.com/macros/s/AKfycbxEvQ-kUJiX637FCWwfoSsj8gh7ChWRVbQfOxqlyGoR3mW5XT2LIf01tfz9HxOKxK__Lg/exec', {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify(payload)
+            });
+            const result = await res.json();
+            if (result.success === false) {
+                throw new Error(result.error || 'verification_failed');
+            }
+            manualNext(4);
+        } catch (err) {
+            console.error('[GVJ] Submission error:', err);
+            document.getElementById('manual-submit-error').classList.remove('hidden');
+            btn.innerHTML = 'Submit Profile <i class="fa-solid fa-paper-plane"></i>';
+            btn.disabled = false;
+        }
     }
 </script>
 
