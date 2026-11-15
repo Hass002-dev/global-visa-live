@@ -269,7 +269,10 @@ a { color: var(--brand-gold); }
     transition: border-color 0.2s ease, transform 0.2s ease;
 }
 .schengen-hub-card:hover { border-color: var(--brand-gold); transform: translateY(-2px); }
-.schengen-hub-card h2 { font-size: 1.3rem; margin: 0 0 4px; }
+/* h3, not h2 — the hub page's country cards sit inside a "by country"
+   section alongside 11 other real H2 sections now, not as the page's
+   only content, so they shouldn't carry H2 weight. */
+.schengen-hub-card h3 { font-size: 1.3rem; margin: 0 0 4px; font-family: 'Cormorant Garamond', serif; color: #fff; }
 .schengen-hub-card p { margin: 0; color: var(--text-secondary); font-size: 0.9rem; }
 .schengen-hub-card .schengen-hub-fee { color: var(--brand-gold); font-weight: 600; margin-top: 6px; }
 /* Muted, so "Embassy fee" reads as a label, not part of the number — a
