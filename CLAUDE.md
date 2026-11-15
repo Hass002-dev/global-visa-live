@@ -64,7 +64,7 @@ Tailwind 3 is compiled from `input.css` → `output.css` via `tailwind.config.js
 | `blog/index.html` | Blog listing (Firebase/Firestore, JS-rendered) | Yes |
 | `portal.html` | Secure client portal (noindex) | No |
 | `admin.html` | Admin dashboard — blog post management, client documents (noindex) | No |
-| `work.html` | Internal work tracking (noindex) | No |
+| `work.html` | European work visa service page for skilled trades (public marketing/quiz page, no noindex tag despite the filename) | Yes |
 | `refusal.html` | Visa refusal assessment page | Yes |
 | `404.html` | Custom 404 page | — |
 | `googleab538d2cdf698372.html` | Google Search Console verification | — |
