@@ -18,7 +18,6 @@
     --brand-gold-dim: #8a6f2e;
     --text-primary: #eef2f7;
     --border-surface: #1e2730;
-    --whatsapp: #25d366;
 
     /* Colour hierarchy. Headings are white (19.6:1 on the page background).
        Body copy sits one clear step below at #b8c2ce (10.9:1), so a heading
@@ -111,6 +110,10 @@ a:hover { color: var(--brand-gold-light); text-decoration-color: var(--brand-gol
     color: var(--text-secondary);
 }
 
+/* The "back to the full guide" link on the country pages sits between the notice and the hero. */
+.schengen-uk-only-notice + p { max-width: 760px; margin: 0 auto; padding: 20px 20px 0; font-size: var(--size-small); }
+.schengen-uk-only-notice + p + .schengen-hero { padding-top: 24px; }
+
 /* Hero shares the content column's width so the headline lines up with
    the text beneath it instead of hugging the left edge of the screen. */
 .schengen-hero { max-width: 760px; margin: 0 auto; padding: 48px 20px 0; }
@@ -142,7 +145,7 @@ a:hover { color: var(--brand-gold-light); text-decoration-color: var(--brand-gol
 
 /* A dim-gold hairline above every section after the first, so it is
    obvious where one section ends and the next begins. */
-.schengen-section:not(:first-of-type):not(.schengen-last-checked)::before {
+.schengen-section:not(:first-of-type):not(.schengen-last-checked):not(.schengen-section--warning):not(.schengen-cta-row)::before {
     content: '';
     display: block;
     height: 1px;
@@ -200,6 +203,10 @@ a:hover { color: var(--brand-gold-light); text-decoration-color: var(--brand-gol
     white-space: nowrap;
     border-bottom-color: var(--rule-gold);
 }
+.schengen-centres-table--dense { font-size: var(--size-small); }
+.schengen-centres-table--dense th, .schengen-centres-table--dense td { padding: 12px 8px; }
+/* Same specificity as the base .schengen-col-narrow rule, which comes later, so this needs the extra class to win. */
+.schengen-centres-table.schengen-centres-table--dense th.schengen-col-narrow { width: 6.5rem; max-width: none; white-space: normal; }
 .schengen-centres-table td[data-label="Country"] { color: #fff; font-weight: 600; white-space: nowrap; }
 /* "Appointment only" is the one header worth wrapping: letting "only"
    drop to its own line keeps this column narrow, so Address and Hours
@@ -254,9 +261,9 @@ a:hover { color: var(--brand-gold-light); text-decoration-color: var(--brand-gol
 .schengen-cost-list dd { margin: 0; }
 
 .schengen-nationality-notes { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border-surface); }
-.schengen-nationality-notes-heading { margin: 0 0 6px; font-weight: 700; font-size: 0.85rem; color: #fff; }
+.schengen-nationality-notes-heading { margin: 0 0 6px; font-weight: 700; font-size: var(--size-small); color: #fff; }
 .schengen-nationality-notes ul { margin: 0; padding-left: 20px; }
-.schengen-nationality-notes li { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 4px; }
+.schengen-nationality-notes li { font-size: var(--size-small); color: var(--text-secondary); margin-bottom: 6px; }
 
 /* Checklist tabs */
 .schengen-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
@@ -264,9 +271,10 @@ a:hover { color: var(--brand-gold-light); text-decoration-color: var(--brand-gol
     background: var(--bg-card);
     border: 1px solid var(--border-surface);
     color: var(--text-secondary);
-    padding: 8px 14px;
+    min-height: 44px;
+    padding: 8px 18px;
     border-radius: 999px;
-    font-size: 0.85rem;
+    font-size: var(--size-small);
     cursor: pointer;
 }
 .schengen-tab-button[aria-selected="true"] { color: #080c10; background: var(--brand-gold); border-color: var(--brand-gold); }
@@ -417,8 +425,6 @@ a:hover { color: var(--brand-gold-light); text-decoration-color: var(--brand-gol
 /* Same hover lift as .btn-gold sitewide, so these CTAs feel like part
    of the same site rather than a bolt-on tool. */
 .schengen-btn:hover { transform: translateY(-2px); }
-.schengen-btn--whatsapp { background: var(--whatsapp); color: #fff; }
-.schengen-btn--whatsapp:hover { box-shadow: 0 8px 22px rgba(37, 211, 102, 0.35); }
 .schengen-btn--outline { background: transparent; border: 1.5px solid var(--brand-gold); color: var(--brand-gold); }
 .schengen-btn--outline:hover { box-shadow: 0 8px 22px rgba(201, 168, 76, 0.3); }
 
