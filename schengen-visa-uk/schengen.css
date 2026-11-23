@@ -1,9 +1,14 @@
-/* Shared stylesheet for every /schengen-visa-uk/<country>/ page.
-   One file, not duplicated per page, because all five country pages
-   (Greece, Germany, Spain, Belgium, France) reuse this unchanged —
-   duplicating it five times is exactly what the "short files, one job
+/* Shared stylesheet for the /schengen-visa-uk/ hub and every
+   /schengen-visa-uk/<country>/ page.
+   One file, not duplicated per page, because the hub and all five country
+   pages (Greece, Germany, Spain, Belgium, France) reuse it unchanged —
+   duplicating it six times is exactly what the "short files, one job
    each" brief asked to avoid. This is a deliberate exception to the
-   rest of the site's per-page inline <style> convention (see CLAUDE.md). */
+   rest of the site's per-page inline <style> convention (see CLAUDE.md).
+
+   The type scale, colour hierarchy and section rhythm live in the first
+   block below and nowhere else. Component rules further down must use
+   those tokens rather than their own rem values. */
 
 :root {
     --bg-primary: #080c10;
@@ -12,9 +17,42 @@
     --brand-gold-light: #e8c97a;
     --brand-gold-dim: #8a6f2e;
     --text-primary: #eef2f7;
-    --text-secondary: #7a8899;
     --border-surface: #1e2730;
     --whatsapp: #25d366;
+
+    /* Colour hierarchy. Headings are white (19.6:1 on the page background).
+       Body copy sits one clear step below at #b8c2ce (10.9:1), so a heading
+       reads as a heading. #7a8899 (5.4:1) is for notes and captions only,
+       never for main content. */
+    --text-body: #b8c2ce;
+    --text-secondary: #7a8899;
+    --rule-gold: rgba(201, 168, 76, 0.45);
+
+    /* Type scale: three text sizes and three heading sizes, nothing else.
+       body  = main content
+       small = source notes, captions, labels, buttons
+       tiny  = footer only */
+    --size-body: 1rem;        /* 16px, 17px from 640px up */
+    --size-small: 0.875rem;   /* 14px, 15px from 640px up */
+    --size-tiny: 0.8125rem;   /* 13px */
+    --size-h1: clamp(2.125rem, 1.55rem + 2.4vw, 2.875rem);   /* 34px on a phone, 46px on desktop */
+    --size-h2: clamp(1.75rem, 1.4rem + 1.2vw, 2rem);         /* 28px to 32px */
+    --size-h3: clamp(1.25rem, 1.15rem + 0.45vw, 1.375rem);   /* 20px to 22px */
+    --lh-heading: 1.15;
+    --lh-body: 1.6;
+
+    /* Vertical rhythm between sections. */
+    --section-gap: 48px;      /* clear space above the separator rule */
+    --section-rule-gap: 24px; /* separator rule to the section's eyebrow */
+}
+
+@media (min-width: 640px) {
+    :root {
+        --size-body: 1.0625rem;
+        --size-small: 0.9375rem;
+        --section-gap: 60px;
+        --section-rule-gap: 28px;
+    }
 }
 
 * { box-sizing: border-box; }
@@ -25,14 +63,31 @@ body {
     margin: 0;
     font-family: 'DM Sans', sans-serif;
     background: var(--bg-primary);
-    color: var(--text-primary);
-    font-size: 16px;
-    line-height: 1.6;
+    color: var(--text-body);
+    font-size: var(--size-body);
+    line-height: var(--lh-body);
 }
 
-h1, h2, h3 { font-family: 'Cormorant Garamond', serif; color: #fff; }
+h1, h2, h3 {
+    font-family: 'Cormorant Garamond', serif;
+    color: #fff;
+    line-height: var(--lh-heading);
+    text-wrap: balance;
+}
+h1 { font-size: var(--size-h1); letter-spacing: -0.01em; }
+h2 { font-size: var(--size-h2); }
+h3 { font-size: var(--size-h3); }
 
-a { color: var(--brand-gold); }
+strong { color: #fff; font-weight: 700; }
+
+a {
+    color: var(--brand-gold);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    text-decoration-color: rgba(201, 168, 76, 0.5);
+    transition: color 0.2s ease;
+}
+a:hover { color: var(--brand-gold-light); text-decoration-color: var(--brand-gold-light); }
 .text-gold { color: var(--brand-gold); }
 
 /* Nav */
@@ -44,7 +99,7 @@ a { color: var(--brand-gold); }
     border-bottom: 1px solid var(--border-surface);
 }
 .schengen-nav__brand { font-family: 'Cormorant Garamond', serif; font-weight: 700; text-decoration: none; color: #fff; }
-.schengen-nav__link { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; }
+.schengen-nav__link { color: var(--text-secondary); text-decoration: none; font-size: var(--size-small); }
 
 /* UK-residents notice: must be seen before anyone fills anything in */
 .schengen-uk-only-notice {
@@ -52,28 +107,48 @@ a { color: var(--brand-gold); }
     padding: 10px 20px;
     background: rgba(201, 168, 76, 0.08);
     border-bottom: 1px solid var(--border-surface);
-    font-size: 0.85rem;
+    font-size: var(--size-small);
     color: var(--text-secondary);
 }
 
-.schengen-hero { padding: 32px 20px 8px; }
-.schengen-hero h1 { font-size: 1.8rem; line-height: 1.25; margin: 0 0 18px; }
+/* Hero shares the content column's width so the headline lines up with
+   the text beneath it instead of hugging the left edge of the screen. */
+.schengen-hero { max-width: 760px; margin: 0 auto; padding: 48px 20px 0; }
+.schengen-hero h1 { margin: 0 0 18px; }
+.schengen-hero h1::after {
+    content: '';
+    display: block;
+    width: 56px;
+    height: 2px;
+    margin-top: 22px;
+    background: var(--brand-gold);
+}
 /* Narrower than the full-width bottom CTAs — this one sits under a
    headline, not in a dedicated button row. */
 .schengen-top-cta { display: inline-block; max-width: 280px; }
 
-.schengen-main { max-width: 760px; margin: 0 auto; padding: 0 20px 60px; }
+.schengen-main { max-width: 760px; margin: 0 auto; padding: 0 20px 72px; }
 
 /* Scroll-reveal: matches the fade-in-up pattern used on work.html and
    refusal.html, so sections ease into view as the visitor scrolls
    instead of the page dumping everything on them at once. */
 .schengen-section {
-    margin-top: 36px;
+    margin-top: var(--section-gap);
     opacity: 0;
     transform: translateY(24px);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 .schengen-section.schengen-visible { opacity: 1; transform: translateY(0); }
+
+/* A dim-gold hairline above every section after the first, so it is
+   obvious where one section ends and the next begins. */
+.schengen-section:not(:first-of-type):not(.schengen-last-checked)::before {
+    content: '';
+    display: block;
+    height: 1px;
+    margin-bottom: var(--section-rule-gap);
+    background: linear-gradient(90deg, var(--rule-gold), rgba(201, 168, 76, 0.05) 88%);
+}
 
 /* Eyebrow label above each heading — same small-caps gold tag used
    above every section heading sitewide (e.g. work.html's "Transparent
@@ -81,14 +156,17 @@ a { color: var(--brand-gold); }
 .schengen-eyebrow {
     display: block;
     color: var(--brand-gold);
-    font-size: 0.72rem;
+    font-size: var(--size-small);
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    margin-bottom: 6px;
+    line-height: 1.3;
+    margin-bottom: 8px;
 }
 
-.schengen-section h2 { font-size: 1.4rem; margin-bottom: 12px; }
+.schengen-section h2 { margin: 0 0 20px; }
+.schengen-section p { margin: 0 0 1.1em; max-width: 40rem; }
+.schengen-section > p:last-child { margin-bottom: 0; }
 
 /* Centre-specific scheduling quirk (e.g. Germany's Edinburgh only taking
    submissions Mon/Wed/Thu) — a callout above the table, not a table
@@ -99,22 +177,30 @@ a { color: var(--brand-gold); }
     border-radius: 10px;
     padding: 14px 18px;
     margin-bottom: 16px;
-    font-size: 0.88rem;
+    font-size: var(--size-small);
 }
 .schengen-centre-notice strong { color: var(--brand-gold); }
 .schengen-centre-notice ul { margin: 6px 0 0; padding-left: 20px; }
 
 /* Centres table — scrolls horizontally on narrow phones rather than
    squashing addresses unreadably */
-.schengen-table-wrap { overflow-x: auto; }
-.schengen-centres-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.schengen-table-wrap { overflow-x: auto; margin: 0 0 1.1em; }
+.schengen-centres-table { width: 100%; border-collapse: collapse; font-size: var(--size-body); }
 .schengen-centres-table th, .schengen-centres-table td {
     text-align: left;
-    padding: 10px;
+    padding: 14px 12px;
     border-bottom: 1px solid var(--border-surface);
     vertical-align: top;
 }
-.schengen-centres-table th { color: var(--text-secondary); font-weight: 600; white-space: nowrap; }
+.schengen-centres-table th {
+    color: var(--brand-gold);
+    font-size: var(--size-small);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    border-bottom-color: var(--rule-gold);
+}
+.schengen-centres-table td[data-label="Country"] { color: #fff; font-weight: 600; white-space: nowrap; }
 /* "Appointment only" is the one header worth wrapping: letting "only"
    drop to its own line keeps this column narrow, so Address and Hours
    (the columns that actually need the room) don't get squeezed. */
@@ -145,9 +231,9 @@ a { color: var(--brand-gold); }
     .schengen-centres-table td::before {
         content: attr(data-label);
         display: block;
-        font-size: 0.72rem;
+        font-size: var(--size-small);
         font-weight: 700;
-        color: var(--text-secondary);
+        color: var(--brand-gold);
         text-transform: uppercase;
         letter-spacing: 0.04em;
         margin-bottom: 3px;
@@ -155,7 +241,7 @@ a { color: var(--brand-gold); }
     /* City is the card's own title, not just another labelled field. */
     .schengen-centres-table td[data-label="City"] {
         font-family: 'Cormorant Garamond', serif;
-        font-size: 1.15rem;
+        font-size: var(--size-h3);
         font-weight: 700;
         color: #fff;
     }
@@ -184,30 +270,145 @@ a { color: var(--brand-gold); }
     cursor: pointer;
 }
 .schengen-tab-button[aria-selected="true"] { color: #080c10; background: var(--brand-gold); border-color: var(--brand-gold); }
-.schengen-checklist { list-style: none; margin: 0; padding: 0; }
-.schengen-checklist li { padding: 8px 0; border-bottom: 1px solid var(--border-surface); font-size: 0.92rem; }
-.schengen-checklist label { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
-.schengen-checklist input { margin-top: 4px; flex-shrink: 0; accent-color: var(--brand-gold); }
+
+/* Checklist: one card per item, so each document or package can be
+   scanned on its own. */
+.schengen-checklist { list-style: none; margin: 0 0 1.1em; padding: 0; display: grid; gap: 12px; }
+.schengen-checklist li {
+    background: var(--bg-card);
+    border: 1px solid var(--border-surface);
+    border-radius: 12px;
+    padding: 16px 18px;
+}
+.schengen-checklist label { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; }
+.schengen-checklist input { margin-top: 5px; flex-shrink: 0; accent-color: var(--brand-gold); }
 .schengen-checklist-body { display: block; }
 /* Bold subheading above the detail text, so a dense override paragraph
    (e.g. Greece's bank statement rule) reads as "what this is" then
    "the rule", instead of one unbroken block of text. */
-.schengen-checklist-heading { display: block; font-weight: 700; color: #fff; margin-bottom: 2px; }
-.schengen-checklist-text { display: block; color: var(--text-secondary); }
+.schengen-checklist-heading { display: block; font-weight: 700; color: #fff; margin-bottom: 4px; }
+/* The rule itself is main content, so it takes the body colour, not the
+   caption grey. */
+.schengen-checklist-text { display: block; color: var(--text-body); }
+
+/* Plain bullet list with gold markers, for a paragraph that is really a
+   list (the fee breakdown, for one). */
+.schengen-points { list-style: none; margin: 0 0 1.1em; padding: 0; max-width: 40rem; }
+.schengen-points li { position: relative; padding: 0 0 0 26px; margin-bottom: 0.85em; }
+.schengen-points li::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 0.68em;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--brand-gold);
+}
+
+/* Numbered reasons. Each item leads with its bold sentence as a title,
+   then the explanation beneath it. */
+.schengen-reasons { list-style: none; counter-reset: reason; margin: 0; padding: 0; max-width: 40rem; }
+.schengen-reasons li {
+    counter-increment: reason;
+    position: relative;
+    padding: 18px 0 18px 52px;
+    border-top: 1px solid var(--border-surface);
+}
+.schengen-reasons li:last-child { border-bottom: 1px solid var(--border-surface); }
+.schengen-reasons li::before {
+    content: counter(reason);
+    position: absolute;
+    left: 0;
+    top: 16px;
+    width: 34px;
+    height: 34px;
+    border: 1.5px solid var(--rule-gold);
+    border-radius: 50%;
+    color: var(--brand-gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: var(--size-h3);
+    font-weight: 700;
+    font-variant-numeric: lining-nums;
+    line-height: 31px;
+    text-align: center;
+}
+.schengen-reasons li strong { display: block; margin-bottom: 4px; }
+
+/* A sentence that must not be skimmed past, set apart from the prose
+   around it. */
+.schengen-callout {
+    background: rgba(201, 168, 76, 0.08);
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 0 0 1.1em;
+    max-width: 40rem;
+}
 
 /* Warnings */
 .schengen-section--warning { background: rgba(239, 68, 68, 0.06); border: 1px solid rgba(239, 68, 68, 0.25); border-radius: 10px; padding: 16px 20px; }
-.schengen-disclaimer { font-style: italic; color: var(--text-secondary); font-size: 0.85rem; }
+.schengen-disclaimer { font-style: italic; color: var(--text-secondary); font-size: var(--size-small); }
+
+/* FAQ accordion: native <details>/<summary>, no JavaScript. The first
+   item is open in the markup. The chevron is drawn with borders so it
+   needs no icon font and rotates when the item opens. */
+.schengen-faq { display: grid; gap: 12px; margin: 0; }
+.schengen-faq details {
+    background: var(--bg-card);
+    border: 1px solid var(--border-surface);
+    border-radius: 12px;
+    transition: border-color 0.2s ease;
+}
+.schengen-faq details[open] { border-color: rgba(201, 168, 76, 0.5); }
+.schengen-faq summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 56px;
+    padding: 14px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    list-style: none;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: var(--size-h3);
+    font-weight: 700;
+    line-height: 1.2;
+    color: #fff;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+.schengen-faq summary::-webkit-details-marker { display: none; }
+.schengen-faq summary::after {
+    content: '';
+    flex: none;
+    width: 10px;
+    height: 10px;
+    margin: -4px 4px 0 0;
+    border-right: 2px solid var(--brand-gold);
+    border-bottom: 2px solid var(--brand-gold);
+    transform: rotate(45deg);
+    transition: transform 0.25s ease;
+}
+.schengen-faq details[open] summary::after { margin-top: 4px; transform: rotate(-135deg); }
+.schengen-faq summary:hover { color: var(--brand-gold-light); background-color: rgba(201, 168, 76, 0.06); }
+.schengen-faq summary:focus-visible { outline: 2px solid var(--brand-gold-light); outline-offset: 2px; }
+.schengen-faq__answer { padding: 0 20px 20px; }
+.schengen-faq__answer p { margin: 0; max-width: 38rem; }
 
 /* CTA buttons */
 .schengen-cta-row { display: flex; flex-direction: column; gap: 10px; }
 .schengen-btn {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 48px;
     text-align: center;
-    padding: 13px 18px;
+    padding: 13px 22px;
     border-radius: 10px;
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: var(--size-small);
     text-decoration: none;
     border: none;
     cursor: pointer;
@@ -221,20 +422,81 @@ a { color: var(--brand-gold); }
 .schengen-btn--outline { background: transparent; border: 1.5px solid var(--brand-gold); color: var(--brand-gold); }
 .schengen-btn--outline:hover { box-shadow: 0 8px 22px rgba(201, 168, 76, 0.3); }
 
+/* .btn-gold, .btn-outline-gold and .gvj-card are the sitewide component
+   classes. Every other page defines them in its own inline <style>; this
+   page family has none, so they are repeated here, identical to the
+   definitions in index.html, fee-list.html and partnership.html. */
+.btn-gold {
+    background: linear-gradient(135deg, var(--brand-gold) 0%, var(--brand-gold-light) 100%);
+    color: #080c10;
+    font-weight: 800;
+    font-family: 'DM Sans', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+.btn-gold::after { content: ''; position: absolute; inset: 0; background: white; opacity: 0; transition: opacity 0.3s; }
+.btn-gold:hover::after { opacity: 0.1; }
+.btn-gold:hover { color: #080c10; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201, 168, 76, 0.35); }
+.btn-outline-gold {
+    border: 1.5px solid var(--brand-gold);
+    color: var(--brand-gold);
+    font-weight: 700;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.3s ease;
+    background: transparent;
+}
+.btn-outline-gold:hover {
+    background: linear-gradient(135deg, var(--brand-gold), var(--brand-gold-light));
+    color: #080c10;
+    transform: translateY(-1px);
+}
+.btn-gold:focus-visible, .btn-outline-gold:focus-visible { outline: 2px solid var(--brand-gold-light); outline-offset: 2px; }
+
+.gvj-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-surface);
+    border-top: 2px solid var(--brand-gold);
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    overflow: hidden;
+}
+.gvj-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    border-color: var(--brand-gold-light);
+}
+
+/* A call-to-action card. It is not itself a link, so it keeps the card's
+   border and shadow response but does not lift on hover. */
+.schengen-cta { margin-top: var(--section-gap); padding: 26px 22px; }
+.schengen-cta:hover { transform: none; }
+.schengen-cta h2, .schengen-cta h3 { margin: 0 0 12px; }
+.schengen-cta p { margin: 0 0 20px; max-width: 38rem; }
+.schengen-cta .schengen-cta-row { margin-top: 4px; }
+@media (min-width: 640px) {
+    /* Buttons keep their natural width here; a lone button should not stretch across the whole card. */
+    .schengen-cta .schengen-btn { flex: 0 0 auto; min-width: 220px; }
+}
+.schengen-cta--closing { margin-top: 56px; padding: 30px 22px; }
+
 .schengen-sent-confirmation {
     color: #22c55e;
-    font-size: 0.85rem;
+    font-size: var(--size-small);
     font-weight: 600;
     margin-top: 10px;
     text-align: center;
 }
 
-.schengen-last-checked { font-size: 0.8rem; color: var(--text-secondary); }
+.schengen-last-checked { font-size: var(--size-small); color: var(--text-secondary); }
+.schengen-last-checked p { max-width: none; margin-bottom: 0; }
 
 .schengen-footer {
     padding: 24px 20px;
     border-top: 1px solid var(--border-surface);
-    font-size: 0.8rem;
+    font-size: var(--size-tiny);
     color: var(--text-secondary);
     text-align: center;
 }
@@ -244,7 +506,7 @@ a { color: var(--brand-gold); }
     justify-content: center;
     gap: 6px 16px;
     margin-bottom: 14px;
-    font-size: 0.82rem;
+    font-size: var(--size-tiny);
 }
 .schengen-footer-trust {
     display: flex;
@@ -252,7 +514,7 @@ a { color: var(--brand-gold); }
     justify-content: center;
     gap: 14px;
     margin-bottom: 10px;
-    font-size: 0.78rem;
+    font-size: var(--size-tiny);
 }
 .schengen-footer-trust i { color: var(--brand-gold); margin-right: 4px; }
 
@@ -272,8 +534,8 @@ a { color: var(--brand-gold); }
 /* h3, not h2 — the hub page's country cards sit inside a "by country"
    section alongside 11 other real H2 sections now, not as the page's
    only content, so they shouldn't carry H2 weight. */
-.schengen-hub-card h3 { font-size: 1.3rem; margin: 0 0 4px; font-family: 'Cormorant Garamond', serif; color: #fff; }
-.schengen-hub-card p { margin: 0; color: var(--text-secondary); font-size: 0.9rem; }
+.schengen-hub-card h3 { font-size: var(--size-h3); margin: 0 0 6px; font-family: 'Cormorant Garamond', serif; color: #fff; }
+.schengen-hub-card p { margin: 0; max-width: none; color: var(--text-body); font-size: var(--size-small); }
 .schengen-hub-card .schengen-hub-fee { color: var(--brand-gold); font-weight: 600; margin-top: 6px; }
 /* Muted, so "Embassy fee" reads as a label, not part of the number — a
    visitor skimming cards shouldn't mistake this for a GVJ charge. */
@@ -281,8 +543,18 @@ a { color: var(--brand-gold); }
 
 /* Desktop: a little more breathing room, nothing structural changes */
 @media (min-width: 640px) {
-    .schengen-hero h1 { font-size: 2.3rem; }
+    .schengen-hero { padding-top: 64px; }
     .schengen-cta-row { flex-direction: row; flex-wrap: wrap; }
     .schengen-btn { flex: 1 1 auto; }
     .schengen-hub-grid { grid-template-columns: 1fr 1fr; }
+    .schengen-cta { padding: 30px 32px; }
+    .schengen-cta--closing { padding: 36px 32px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .schengen-section, .schengen-faq details, .schengen-faq summary,
+    .schengen-faq summary::after, .schengen-btn, .gvj-card, .btn-gold, .btn-outline-gold {
+        transition: none;
+    }
 }
