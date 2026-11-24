@@ -263,7 +263,7 @@ a:hover { color: var(--brand-gold-light); text-decoration-color: var(--brand-gol
 .schengen-nationality-notes { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border-surface); }
 .schengen-nationality-notes-heading { margin: 0 0 6px; font-weight: 700; font-size: var(--size-small); color: #fff; }
 .schengen-nationality-notes ul { margin: 0; padding-left: 20px; }
-.schengen-nationality-notes li { font-size: var(--size-small); color: var(--text-secondary); margin-bottom: 6px; }
+.schengen-nationality-notes li { font-size: var(--size-small); color: var(--text-body); margin-bottom: 6px; }
 
 /* Checklist tabs */
 .schengen-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
