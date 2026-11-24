@@ -10,6 +10,25 @@
 //
 // Run with: node scripts/build-schengen-pages.js
 
+// ── STOPPED ON PURPOSE ─────────────────────────────────────────────────────
+// This generator is out of date. The hub and the five country pages were
+// redesigned by hand (shared schengen-visa-uk/schengen.css, FAQ accordions,
+// new call-to-action blocks, per-country FAQ). Running this script would
+// overwrite them with the old layout and delete that work.
+//
+// To change those pages, edit schengen-visa-uk/**/index.html and
+// schengen-visa-uk/schengen.css directly.
+//
+// To use the generator again, first update scripts/lib/render-schengen-page.js
+// and scripts/lib/schengen-hub.js to the new markup, then delete this block.
+console.error(
+    'build:schengen is switched off.\n' +
+    'It would overwrite the redesigned Schengen pages with the old layout.\n' +
+    'Edit schengen-visa-uk/**/index.html and schengen-visa-uk/schengen.css directly.\n' +
+    'See the note at the top of scripts/build-schengen-pages.js.'
+);
+process.exit(1);
+
 const fs = require('fs');
 const path = require('path');
 const { renderSchengenCountryPage } = require('./lib/render-schengen-page');
