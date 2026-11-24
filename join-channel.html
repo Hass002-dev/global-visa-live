@@ -1,15 +1,8 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17889335104"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'AW-17889335104');
-  </script>
+  <!-- Cookie consent: no Google tag loads until the visitor accepts (see cookie-consent.js) -->
+  <script src="./cookie-consent.js"></script>
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -77,14 +70,35 @@
   </main>
 
   <script>
+    // Google Ads tag: only added once the visitor has chosen "Accept all".
+    // cookie-consent.js loads the Google tag itself on consent; here we just
+    // attach the Ads account to it. Before consent nothing is sent anywhere.
+    var ADS_ID = 'AW-17889335104';
+    var adsAdded = false;
+
+    function addAdsAccount() {
+      if (adsAdded) return;
+      adsAdded = true;
+      gtag('config', ADS_ID);
+    }
+
+    // Returning visitor who already accepted on an earlier visit.
+    document.addEventListener('DOMContentLoaded', function () {
+      var choice = null;
+      try { choice = localStorage.getItem('gvj_cookie_consent'); } catch (e) {}
+      if (choice === 'all') addAdsAccount();
+    });
+
+    // Visitor accepting on this visit (the banner button is created by cookie-consent.js).
+    document.addEventListener('click', function (event) {
+      if (event.target.closest && event.target.closest('#gvj-accept-all')) addAdsAccount();
+    });
+
     // Fire a Google Ads / Analytics event when someone taps Join.
-    // TODO: replace the placeholders below once the Google tag is on the site;
-    // until then this does nothing, and the button still works.
+    // Without consent the call is stored in memory only and never sent.
+    // TODO: add the Ads conversion event here once the conversion label exists.
     document.getElementById('join-btn').addEventListener('click', function () {
-      if (typeof gtag === 'function') {
-        gtag('event', 'channel_join_click');
-        // gtag('event', 'conversion', { send_to: 'AW-XXXXXXXXX/XXXXXXXXXXX' });
-      }
+      gtag('event', 'channel_join_click');
     });
   </script>
 </body>
