@@ -16,3 +16,5 @@ service-account-*.json
 atlys-tools-study.*
 pw-reset-helper.html
 sherpa-study.*
+# Internal working notes — NEVER commit (repo is public).
+_private/
